@@ -43,7 +43,7 @@
 		</repository>
         <repository>
             <id>egovframe_old1</id>
-            <url>http://maven.egovframe.kr:8080/maven/</url>
+            <url>https://maven.egovframe.kr:8080/maven/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -53,7 +53,7 @@
         </repository>
                 <repository>
             <id>egovframe_old2</id>
-            <url>http://www.egovframe.go.kr/maven/</url>
+            <url>https://www.egovframe.go.kr/maven/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
