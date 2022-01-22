@@ -43,7 +43,7 @@
 		</repository>
         <repository>
             <id>egovframe_old1</id>
-            <url>https://maven.egovframe.kr:8080/maven/</url>
+            <url>http://maven.egovframe.kr:8080/maven/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -53,7 +53,7 @@
         </repository>
                 <repository>
             <id>egovframe_old2</id>
-            <url>https://www.egovframe.go.kr/maven/</url>
+            <url>http://www.egovframe.go.kr/maven/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -123,7 +123,7 @@
 			<version>2.5.0</version>
 		</dependency>
 
-        <!-- mysql?��?�� oracle DB ?��?��?�� ?��?�� ?��?�� 추�?
+        <!-- mysql?��?�� oracle DB ?��?��?�� ?��?�� ?��?�� 추�?-->
         <dependency>
             <groupId>com.googlecode.log4jdbc</groupId>
             <artifactId>log4jdbc</artifactId>
@@ -155,7 +155,7 @@
             <scope>system</scope>
             <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ojdbc-14.jar</systemPath>
         </dependency>
-        -->
+        
 	
 	<dependency>
             <groupId>egovframework.rte</groupId>
