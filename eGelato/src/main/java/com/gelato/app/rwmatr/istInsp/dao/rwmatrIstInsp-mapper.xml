@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.rwmatr.istInsp.dao.RwmatrIstInspMapper">
+	
+	<select id="RwmatrIstInspList" resultType="RwmatrIstInspVO">
+		SELECT 	   ROD.ORDER_ID AS ORDER_ID,
+	               RII.RWMATR_ORDER_DETA_ID AS RWMATR_ORDER_DETA_ID, 
+			       R.RWMATR_ID AS RWMATR_ID, 
+			       R.NM AS NM, 
+			       RII.DT AS DT, 
+			       ROD.QY AS QY,
+			       RII.PASS_QY AS PASS_QY, 
+			       RII.INFER_QY AS INFER_QY, 
+			       RII.MNGR AS MNGR,
+			       RII.REMK AS REMK
+		FROM RWMATR_IST_INSP RII JOIN RWMATR R
+		ON RII.RWMATR_ID = R.RWMATR_ID
+        JOIN RWMATR_ORDER_DETA ROD
+        ON ROD.RWMATR_ORDER_DETA_ID = RII.RWMATR_ORDER_DETA_ID
+        <where>
+	    	<if test="startDate != ''">
+	    		<![CDATA[TRUNC(RII.DT) >= to_date(#{startDate})]]>
+	    	</if>
+	    	<if test="endDate != ''">
+	    		AND <![CDATA[TRUNC(RII.DT) <= to_date(#{endDate})]]>
+	    	</if>
+			<if test="rwmName != '' and rwmName != null">
+				AND R.NM LIKE '%'||#{rwmName}||'%'
+			</if>
+			<if test="mngr != '' and mngr != null">
+				AND RII.MNGR LIKE '%'||#{mngr}||'%'
+			</if>
+		</where> 
+        ORDER BY 1 DESC
+	</select>
+	
+	<select id="selectOrderDetail" resultType="RwmatrIstInspVO">
+		SELECT 	ROD.ORDER_ID AS ORDER_ID, 
+				ROD.RWMATR_ORDER_DETA_ID AS RWMATR_ORDER_DETA_ID, 
+				R.NM AS NM, 
+				ROD.RWMATR_ID AS RWMATR_ID, 
+				ROD.QY AS QY, 
+				RII.MNGR AS MNGR
+	    FROM RWMATR_IST_INSP RII RIGHT JOIN RWMATR_ORDER_DETA ROD
+	    	ON RII.RWMATR_ORDER_DETA_ID = ROD.RWMATR_ORDER_DETA_ID
+	    LEFT OUTER JOIN RWMATR R
+	    	ON R.RWMATR_ID = ROD.RWMATR_ID
+	    WHERE MNGR IS NULL
+	    ORDER BY 2 DESC
+	</select>
+	
+	<insert id="insertRwmatrIstInsp" parameterType="RwmatrIstInspVO">
+		INSERT INTO RWMATR_IST_INSP(
+										RWMATR_ID, 
+										DT, 
+										PASS_QY, 
+										INFER_QY, 
+										MNGR, 
+										REMK, 
+										RWMATR_ORDER_DETA_ID
+									) 
+							 VALUES(
+								 		#{rwmatrId},
+								 		#{dt},
+								 		#{passQy},
+								 		#{inferQy},
+								 		#{mngr},
+								 		#{remk},
+								 		#{rwmatrOrderDetaId}
+								 	)
+
+	</insert>
+	
+	<update id="updateRwmatrIstInsp" parameterType="RwmatrIstInspVO">
+		UPDATE RWMATR_IST_INSP SET RWMATR_ID = #{rwmatrId},
+								   DT = #{dt},
+								   PASS_QY = #{passQy},
+								   INFER_QY = #{inferQy},
+								   MNGR = #{mngr},
+								   REMK = #{remk}
+		WHERE RWMATR_ORDER_DETA_ID = #{rwmatrOrderDetaId}
+	</update>
+	
+	<delete id="deleteRwmatrIstInsp" parameterType="RwmatrIstInspVO">
+		DELETE FROM RWMATR_IST_INSP
+		WHERE RWMATR_ORDER_DETA_ID = #{rwmatrOrderDetaId} 
+	</delete>
+	
+</mapper>

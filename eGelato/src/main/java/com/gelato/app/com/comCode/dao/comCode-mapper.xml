@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.com.comCode.dao.ComCodeMapper">
+
+<select id="findComCode" resultType="ComCodeVO">
+
+	SELECT 	CL_CODE,
+			CODE_ID,  
+			CODE_ID_NM, 
+			CODE_ID_DC
+			 
+	FROM COMTCCMMNCODE
+	WHERE USE_AT = 'Y'
+
+	<if test="codeIdNm != null">
+		AND CODE_ID_NM LIKE '%' || #{codeIdNm} || '%'
+	</if>
+	
+</select>
+
+
+<!-- 
+<insert id="insertComCode">
+
+	INSERT INTO COMTCCMMNCODE (
+				CODE_ID,   
+				CODE_ID_NM,  
+				CODE_ID_DC, 
+				USE_AT,      
+				CL_CODE,       
+				FRST_REGIST_PNTTM,         
+				FRST_REGISTER_ID, 
+				LAST_UPDT_PNTTM,         
+				LAST_UPDUSR_ID )
+	VALUES
+	(UPPER(#{codeId}),#{codeIdNm},#{codeIdDc},'Y','GEL',SYSDATE,'Admin',SYSDATE,'Admin')
+
+</insert>
+
+<update id="updateComCode">
+
+	UPDATE COMTCCMMNCODE
+	SET 
+		CODE_ID_NM = #{codeIdNm},
+		CODE_ID_DC = #{codeIdDc}, 
+		USE_AT = #{useAt}
+	WHERE code_id = #{codeId}
+
+</update>
+
+<delete id="deleteComCode">
+
+	DELETE FROM COMTCCMMNCODE
+	WHERE code_id = #{codeId}
+
+</delete> -->
+
+
+</mapper>

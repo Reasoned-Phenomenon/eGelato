@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.prd.prdPlan.dao.PrdPlanMngMapper">
+
+<!-- 생산계획관리 - 주문서 modal  -->
+	<select id="OrderShtList" resultType="PrdPlanMngVO">
+		SELECT  os.order_id as order_id, 
+		        os.order_dt as order_dt, 
+		        ve.vend_name as vend_name,
+		        os.oust_dt as oust_dt,
+		        sum(osd.qy) as qy
+		FROM    order_sht os 
+		JOIN    order_sht_deta osd
+		ON      (os.order_id = osd.order_id)
+		
+		JOIN    vend ve
+		ON      (os.vend_id = ve.vend_id)
+		
+		LEFT OUTER JOIN prod_plan pp
+		ON      os.order_id = pp.order_id
+		
+		WHERE   pp.plan_id IS null
+		OR      pp.fg ='CANCEL'
+		     
+		GROUP BY os.order_id, os.order_dt, ve.vend_name, os.oust_dt
+		
+		MINUS
+		
+		SELECT  os.order_id as order_id, 
+		        os.order_dt as order_dt, 
+		        ve.vend_name as vend_name,
+		        os.oust_dt as oust_dt,
+		        sum(osd.qy) as qy
+		FROM    order_sht os 
+		JOIN    order_sht_deta osd
+		ON      (os.order_id = osd.order_id)
+		    
+		JOIN    vend ve
+		ON      (os.vend_id = ve.vend_id)
+		
+		LEFT OUTER JOIN prod_plan pp
+		ON      os.order_id = pp.order_id
+		
+		WHERE   pp.fg ='FINISH'
+		OR      pp.fg ='PROCEE'
+		     
+		GROUP BY os.order_id, os.order_dt, ve.vend_name, os.oust_dt
+	</select>
+	
+<!-- 생산계획관리 - 생산계획 modal -->
+	<select id="SearchPlanList" resultType="PrdPlanMngVO">
+		select plan_id, name, dt
+		from prod_plan
+		<where>
+			fg != 'CANCEL' and fg != 'FINISH'
+			<if test="startD != null and startD != ''">
+	    		<![CDATA[and trunc(dt) >= to_date(#{startD})]]>
+	    	</if>
+	    	<if test="endD != null and endD != ''">
+	    		<![CDATA[and trunc(dt) <= to_date(#{endD})]]>
+	    	</if>
+		</where>
+		order by dt
+	</select>
+	
+<!-- 생산계획관리 - 제품목록 modal -->
+	<select id="PrdtList" resultType="PrdPlanMngVO">
+		select prdt_id, prdt_nm
+		from prdt
+		order by prdt_id
+	</select>
+	
+<!-- 생산계획관리 - 선택한 주문서 정보 출력 -->
+	<select id="ChooseOrder" resultType="PrdPlanMngVO">
+		<choose>
+			<when test = "orderId != null">
+				select osd.prdt_id as prdt_id, 
+					   p.prdt_nm as prdt_nm, 
+					   os.order_id as order_id, 
+					   osd.qy as qy
+				from order_sht os join order_sht_deta osd
+				    on os.order_id = osd.order_id
+				    join prdt p
+				    on p.prdt_id = osd.prdt_id
+				where os.order_Id = #{orderId}
+			</when>
+			<otherwise>
+				select ppd.plan_deta_id as plan_deta_id, 
+					   ppd.prdt_id as prdt_id, 
+					   p.prdt_nm as prdt_nm, 
+					   pp.order_id as order_id, 
+					   ppd.qy as qy, 
+					   ppd.prod_dcnt as prod_dcnt, 
+					   ppd.priort as priort, 
+					   pp.fg as fg
+				from prod_plan pp join prod_plan_deta ppd
+				    on pp.plan_id = ppd.plan_id
+				    join prdt p
+				    on p.prdt_id = ppd.prdt_id
+				where pp.plan_id = #{planId}
+				order by ppd.priort
+			</otherwise>
+		</choose>
+	</select>
+	
+<!-- 생산계획관리 - 생산계획T insert -->	
+	<insert id="insertPrdPlan" parameterType="PrdPlanMngVO">
+			<selectKey keyProperty="planId" resultType="string" order="BEFORE">
+				<choose>
+					<when test="orderId != null and orderId != ''">
+						SELECT 'PPL-ORD-' || to_char(sysdate, 'yyyyMMdd') || '-' || lpad(nvl2(substr(max(plan_id), 18),(substr(max(plan_id),18)+1),1), 3, '0') 
+						AS PLAN_ID
+						FROM prod_plan 
+						WHERE to_char(dt, 'yyyyMMdd') = to_char(sysdate, 'yyyyMMdd')
+							  AND substr(plan_id,5,3) = 'ORD'
+					</when>
+					<otherwise>
+						select 'PPL-INV-' || to_char(sysdate, 'yyyyMMdd') || '-' || lpad(nvl2(substr(max(plan_id), 18),(substr(max(plan_id),18)+1),1), 3, '0') AS C_PLAN_ID
+						from prod_plan 
+						where to_char(dt, 'yyyyMMdd') = to_char(sysdate, 'yyyyMMdd')
+						and substr(plan_id,5,3) = 'INV'
+					</otherwise>
+				</choose> 
+			</selectKey>
+			insert into prod_plan (plan_id, 
+								   name, 
+								   dt, 
+								   order_id, 
+								   fg)
+			values ( 
+					#{planId},
+					#{name},
+					sysdate,
+					#{orderId},
+					'PROCEE'
+					 )
+	</insert>
+	
+<!-- 생산계획관리 - 생산계획DT insert -->	
+	<insert id="insertPrdPlanDeta" parameterType="PrdPlanMngVO">
+		<selectKey keyProperty="planDetaId" resultType="string" order="BEFORE">
+				select 'PPD-' || to_char(sysdate, 'yyyyMMdd') || '-' || lpad(nvl2(substr(max(plan_deta_id), 14),(substr(max(plan_deta_id),14)+1),1), 3, '0') 
+				AS PLAN_DETA_ID
+				from prod_plan_deta
+				where substr(plan_deta_id, 5,8) = to_char(sysdate, 'yyyyMMdd')
+		</selectKey>
+			insert into prod_plan_deta (plan_deta_id, 
+										plan_id, 
+										prdt_id, 
+										qy, 
+										priort, 
+										prod_dcnt,
+										remk)
+			values ( 
+					#{planDetaId},
+					#{planId},
+					#{prdtId},
+					#{qy},
+					#{priort},
+					#{prodDcnt},
+					#{remk}
+					 )
+	</insert>
+	
+<!-- 생산계획관리 - 계획취소 update -->
+	<update id="updatePrdPlanDeta" parameterType="PrdPlanMngVO">
+		<selectKey keyProperty="planId" resultType="string" order="BEFORE">
+			SELECT PP.PLAN_ID
+			as planId
+			FROM PROD_PLAN PP JOIN PROD_PLAN_DETA PPD
+			    ON PP.PLAN_ID = PPD.PLAN_ID
+			WHERE PPD.PLAN_DETA_Id = #{planDetaId}
+		</selectKey>
+		UPDATE PROD_PLAN SET FG = 'CANCEL'
+		WHERE PLAN_ID = #{planId}
+	</update>
+	
+<!-- 생산계획관리 - 계획 등록 후 update -->
+	<update id="updateOrderSht" parameterType="PrdPlanMngVO">
+		<if test="orderId != null and orderId != ''">
+			update prod_plan set st_fg = 'PROCEE'
+			where order_id = #{orderId}
+		</if>
+	</update>
+	
+<!-- 홀딩값 추가 해주는 프로시저 -->
+    <parameterMap type="PrdPlanMngVO" id="ExcpParam">
+		<parameter property="planId" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+	</parameterMap>
+	
+	<insert id="insertExcp" statementType="CALLABLE" parameterMap="ExcpParam">
+		{ call insert_excp(?) }
+	</insert>
+
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.eqm.dao.EqmMapper">
+
+	<!-- 설비 등록 페이지 - 설비등록 -->
+	<insert id="insertEqm" parameterType="EqmVO">
+		INSERT INTO EQM(
+					EQM_ID, 
+					EQM_NAME, 
+					MODEL_NO, 
+					VEND_ID, 
+					TEMP_MAX, 
+					TEMP_MIN, 
+					CHCK_PERD, 
+					REG_DT, 
+					MNGR, 
+					EQM_IMG, 
+					PURC_DT, 
+					FG, 
+					SPEC, 
+					USE_YN, 
+					UPH
+					)
+		VALUES
+		(#{eqmId},#{eqmName},#{modelNo},#{vendId},#{tempMax},#{tempMin},#{chckPerd},#{regDt},#{mngr},#{eqmImg},#{purcDt},#{fg},#{spec},#{useYn},#{uph})
+	</insert>
+	
+	<!--설비 관리 페이지 - 설비조회  -->
+	<select id="eqmList" resultType="EqmVO">
+		SELECT E.EQM_ID AS EQM_ID, 
+			   E.EQM_NAME AS EQM_NAME, 
+			   P.PRCS_ID AS PRCS_ID, 
+			   P.NM AS NM, 
+			   E.USE_YN AS USE_YN, 
+			   E.FG AS FG,
+			   E.TEMP_MAX AS TEMP_MAX,
+			   E.TEMP_MIN AS TEMP_MIN,
+			   E.CHCK_PERD AS CHCK_PERD,
+			   E.EQM_IMG AS EQM_IMG
+		FROM EQM E, 
+			 PRCS P 
+		WHERE E.EQM_ID = P.EQM_ID 
+		
+		<if test='gubun != "전체" and gubun != null and gubun != ""'>
+			AND E.FG = F_COM_NM_TO_CODE(#{gubun})
+		</if>
+		
+	</select>
+	
+	<!-- 설비 관리 페이지 - 설비 한 건 조회(모달창) 수정 -->
+	<update id="eqmUpdate" parameterType="EqmVO">
+		UPDATE EQM 
+		SET 
+			TEMP_MAX = #{tempMax},
+			TEMP_MIN = #{tempMin},
+			CHCK_PERD = #{chckPerd},
+			EQM_IMG = #{eqmImg},
+			USE_YN = #{useYn}
+		WHERE EQM_ID = #{eqmId}
+	</update>
+	
+	<!-- 점검페이지관리/비가동페이지관리 - 등록 전 조회 -->
+	<select id="eqmNonList" resultType="EqmVO">
+		SELECT E.EQM_ID AS EQM_ID, 
+			   E.EQM_NAME AS EQM_NAME, 
+			   E.CHCK_PERD AS CHCK_PERD,
+			   P.PRCS_ID AS PRCS_ID, 
+			   P.NM AS NM
+		FROM EQM E, PRCS P 
+		WHERE E.EQM_ID = P.EQM_ID 
+		<if test='gubun != "전체" and gubun != null and gubun != ""'>
+			AND E.FG = F_COM_NM_TO_CODE(#{gubun})
+		</if>
+	</select>
+	
+	<!-- 비가동 내역조회 -->
+	<select id="eqmNonSelect" resultType="EqmNonVO">
+       	SELECT A.*,
+       		   E.EQM_NAME 
+     	FROM
+        	(
+        	 SELECT O.*, 
+        	 		R.RESN_NAME
+			 FROM EQM_NON_OPR O, 
+			 	  EQM_NON_OPR_RESN R
+        	 WHERE O.RESN_ID = R.RESN_ID 
+        	 AND O.EQM_ID = #{eqmId}
+        	 ) A,
+        	 EQM E 
+        WHERE A.EQM_ID = E.EQM_ID
+        <if test="fromDate != null and fromDate !=''">
+        	<![CDATA[AND TRUNC(NON_OPR_FR_TM) >= TO_CHAR(#{fromDate})]]>
+        </if>
+        <if test="toDate != null and toDate !=''">
+        	<![CDATA[AND TRUNC(NON_OPR_TO_TM) <= TO_CHAR(#{toDate})]]>
+        </if>
+        <if test="searchId != ''">
+        	AND A.EQM_ID = #{eqmId}
+        </if>
+	</select>
+	
+	<!-- 비가동 등록 -->
+	<insert id="insertNonEqm" parameterType="EqmNonVO">
+		<selectKey keyProperty="eqmNonOprId" resultType="string" order="BEFORE">
+			SELECT 'EQMF-'||
+				    TO_CHAR(SYSDATE,'YYYYMMDD-')||
+				    LPAD(MAX(TO_NUMBER(SUBSTR(EQM_NON_OPR_ID, -3))) +1, 3, 0) 
+			AS EQM_NON_OPR_ID
+			FROM EQM_NON_OPR
+		</selectKey>
+		INSERT INTO EQM_NON_OPR(
+								EQM_NON_OPR_ID, 
+								EQM_ID, 
+								NON_OPR_FR_TM, 
+								REMK, 
+								NON_OPR_TO_TM, 
+								RESN_ID
+								)
+		VALUES(
+				#{eqmNonOprId}
+				#{eqmId}, 
+				#{value}, 
+				#{remk}, 
+				sysdate, 
+				#{resnId}
+				)
+	</insert>
+</mapper>                       

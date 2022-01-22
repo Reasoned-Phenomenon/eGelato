@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.rwmatr.infer.dao.RwmatrInferMapper">
+
+	<select id="RwmatrInferList" resultType="RwmatrInferVO">
+		SELECT ROD.ORDER_ID AS ORDER_ID,
+		       RII.RWMATR_ORDER_DETA_ID AS RWMATR_ORDER_DETA_ID,
+		       RII.RWMATR_ID AS RWMATR_ID,
+		       R.NM AS NM,
+               V.VEND_NAME AS VEND_NAME,
+		       RI.QY AS QY,
+		       RII.DT AS DT,
+		       RI.INFER_ID AS INFER_ID,
+		       IC.DETA AS DETA
+		FROM RWMATR_IST_INSP RII JOIN RWMATR R
+		    ON RII.RWMATR_ID = R.RWMATR_ID
+		JOIN RWMATR_INFER RI
+		    ON RI.RWMATR_ORDER_DETA_ID = RII.RWMATR_ORDER_DETA_ID
+		JOIN INFER_CODE IC
+		    ON RI.INFER_ID = IC.INFER_ID
+		JOIN RWMATR_ORDER_DETA ROD
+		    ON ROD.RWMATR_ORDER_DETA_ID = RII.RWMATR_ORDER_DETA_ID
+        JOIN VEND V
+            ON V.VEND_ID = R.VEND_ID
+	    <where>
+	    	<if test="startDate != ''">
+	    		<![CDATA[TRUNC(RII.DT) >= to_date(#{startDate})]]>
+	    	</if>
+	    	<if test="endDate != ''">
+	    		AND <![CDATA[TRUNC(RII.DT) <= to_date(#{endDate})]]>
+	    	</if>
+			<if test="rwmName != '' and rwmName != null">
+				AND R.NM LIKE '%'||#{rwmName}||'%'
+			</if>
+			<if test="vendName != '' and vendName != null">
+				AND V.VEND_NAME LIKE '%'||#{vendName}||'%'
+			</if>
+		</where> 
+		ORDER BY DT DESC
+	</select>
+	
+	<insert id="">
+		
+	</insert>
+	
+</mapper>

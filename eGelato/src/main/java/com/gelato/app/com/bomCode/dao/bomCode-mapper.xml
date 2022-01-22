@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.com.bomCode.dao.BomCodeMapper">
+
+	<!-- BOM 전체 조회.-->
+	
+	<select id="findBomList" resultType="BomCodeVO">
+		SELECT  a.bom_id, a.prdt_id, a.rwmatr_id, a.qy, a.prcs_id, a.fg, a.remk, a.use_yn,
+                b.nm,
+                c.nm as prcsNm
+		FROM bom a 
+		JOIN rwmatr b
+		ON a.rwmatr_id = b.rwmatr_id
+		JOIN prcs c
+		ON  a.prcs_id = c.prcs_id
+		<where>
+			<if test="prdtId !=null and prdtId !=''">
+				and a.prdt_id = #{prdtId}
+			</if>
+			<if test="nm !=null and nm !=''">
+			 	and b.nm = #{nm}
+			</if>
+		</where>    
+	</select>
+
+	<!-- BOM 등록 -->
+	<insert id="insertBomCode" parameterType="BomCodeVO">
+		INSERT INTO BOM (
+							BOM_ID,
+							PRDT_ID,
+							RWMATR_ID,
+							QY,
+							PRCS_ID,
+							FG,
+							REMK,
+							USE_YN
+			             )
+			     VALUES (
+			     			#{bomId},
+			     			#{prdtId},
+			     			#{rwmatrId},
+			     			#{qy},
+			     			#{prcsId},
+			     			#{fg},
+			     			#{remk},
+			     			#{useYn}			     			
+			     )      
+		
+	</insert>
+
+
+	<!-- bom에서 제품코드 검색 modal --> <!-- 다시 생각해서 수정 -->
+	<select id="rwmatrList" resultType="BomCodeVO">
+		SELECT a.prdt_id as prdt_id , a.qy as qy,
+		       b.nm as nm, b.spec as spec, b.wk_unit as wk_unit, 
+		       c.vend_name as vend_name,
+		       d. prdt_nm as prdt_nm
+        FROM   bom a
+        JOIN   rwmatr b
+        ON     a.rwmatr_id = b.rwmatr_id
+        JOIN vend c 
+        ON b.vend_id = c.vend_id 
+        JOIN prdt d
+        ON a.prdt_id = d.prdt_id
+        JOIN prdt d
+        ON a.prdt_id = d.prdt_id
+		
+	</select>
+
+	<update id="" >
+	
+	</update>
+
+
+
+
+
+</mapper>

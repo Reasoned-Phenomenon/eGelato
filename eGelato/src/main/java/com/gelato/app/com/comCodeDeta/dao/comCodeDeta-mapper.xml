@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.com.comCodeDeta.dao.ComCodeDetaMapper">
+
+<select id="findComCodeDeta" resultType="ComCodeDetaVO">
+	SELECT 
+		CODE_ID,
+		CODE as bcode,
+		CODE,
+		CODE_NM,
+		CODE_DC,
+		USE_AT
+	FROM COMTCCMMNDETAILCODE
+	
+	<where>
+		<if test="codeId !='' || codeId !=null">
+			CODE_ID = #{codeId}
+		</if>
+	</where> 
+	
+</select>
+
+<resultMap type="hashmap" id="ComCodeDetaMap" />
+
+<select id="findComCodeProcedure" parameterType="HashMap" statementType="CALLABLE">
+
+        { CALL p_com_code_list (
+                #{codeId, mode=IN, jdbcType=VARCHAR, javaType=String},
+                #{out_cursor_table, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=ComCodeDetaMap}
+          )}
+
+</select>
+
+<insert id="insertComCodeDeta">
+	INSERT INTO COMTCCMMNDETAILCODE (
+										CODE_ID,
+										CODE,
+										CODE_NM,
+										CODE_DC,
+										USE_AT,
+										FRST_REGIST_PNTTM,
+										FRST_REGISTER_ID,
+										LAST_UPDT_PNTTM,
+										LAST_UPDUSR_ID
+									)
+							VALUES(
+										UPPER(#{codeId}),
+										UPPER(#{code}),
+										#{codeNm},
+										#{codeDc},
+										#{useAt},
+										sysdate,
+										'Admin',
+										sysdate,
+										'Admin'
+									)
+</insert>
+
+<delete id="deleteComCodeDeta">
+
+	DELETE FROM COMTCCMMNDETAILCODE
+	WHERE UPPER(CODE) = UPPER(#{code})
+	AND UPPER(CODE_ID) = UPPER(#{codeId})
+	
+</delete>
+
+<update id="updateComCodeDeta">
+
+	UPDATE COMTCCMMNDETAILCODE
+	SET 
+		CODE_NM = #{codeNm},
+		CODE = UPPER(#{code}),
+		CODE_DC = #{codeDc},
+		USE_AT = #{useAt},
+		LAST_UPDT_PNTTM = sysdate,
+		LAST_UPDUSR_ID = 'Admin'
+	WHERE UPPER(CODE) = UPPER(#{bcode})
+	AND UPPER(CODE_ID) = UPPER(#{codeId})
+		
+</update>
+
+
+</mapper>

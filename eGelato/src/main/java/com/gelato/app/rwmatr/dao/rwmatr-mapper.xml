@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.rwmatr.dao.RwmatrMapper">
+
+	<select id="rwmatrList" resultType="RwmatrVO">
+		SELECT R.RWMATR_ID as RWMATR_ID, 
+			   V.VEND_NAME as VEND_NAME, 
+			   R.NM as NM, 
+			   R.SPEC as SPEC, 
+			   R.WK_UNIT as WK_UNIT, 
+			   R.SAF_STC as SAF_STC
+		FROM RWMATR R JOIN VEND V
+        ON R.VEND_ID = V.VEND_ID
+        <where>
+        	<if test="rwmName != ''">
+				R.NM LIKE '%'||#{rwmName}||'%'
+			</if>
+        </where>
+        ORDER BY 1
+	</select>
+	
+
+</mapper>

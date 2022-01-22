@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.prd.prdPlanFind.dao.PrdPlanMngFindMapper">
+
+<!-- 생산계획관리 - 제품목록 modal -->
+	<select id="PrdtList" resultType="PrdPlanMngFindVO">
+		select prdt_id, prdt_nm
+		from prdt
+		order by prdt_id
+	</select>
+	
+<!-- 계획 조회 -->
+	<select id="planList" resultType="PrdPlanMngFindVO">
+		select pp.plan_id as plan_id,
+		       pp.name as name,
+		       ppd.plan_deta_id as plan_deta_id,
+		       p.prdt_nm as prdt_nm,
+		       p.prdt_id as prdt_id,
+		       ppd.qy as qy,
+		       ppd.priort as priort,
+		       ppd.prod_dcnt as prod_dcnt,
+		       ppd.remk as remk
+		from prod_plan pp join prod_plan_deta ppd
+			 on pp.plan_id = ppd.plan_id
+			 join prdt p
+			 on p.prdt_id = ppd.prdt_id
+		<where>
+                <if test="fg != 'ALL'">
+                	pp.fg = #{fg}
+                </if>
+                
+                <if test="startD != null and startD != ''">
+                	<![CDATA[and trunc(pp.dt) >= to_date(#{startD})]]>
+                </if>
+                
+                <if test="endD != null and endD != ''">
+                	<![CDATA[and trunc(pp.dt) <= to_date(#{endD})]]>
+                </if>
+                
+                 <if test="prdtNm != null and prdtNm != ''">
+                	and p.prdt_nm = #{prdtNm}
+                </if>
+		</where>
+		order by pp.dt
+	</select>
+</mapper>

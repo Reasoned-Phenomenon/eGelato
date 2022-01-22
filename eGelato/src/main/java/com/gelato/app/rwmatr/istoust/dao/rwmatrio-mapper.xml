@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.rwmatr.istoust.dao.RwmatrioMapper">
+
+	<select id="RwmatrIstList" resultType="RwmatrioVO">
+		SELECT     RIO.RWMATR_ORDER_DETA_ID AS RWMATR_ORDER_DETA_ID,
+	               RIO.RWMATR_ID AS RWMATR_ID, 
+				   R.NM AS NM, 
+				   RIO.IST_QY AS IST_QY, 
+				   RIO.IST_OUST_DTTM AS IST_OUST_DTTM, 
+				   RIO.LOT_NO AS LOT_NO, 
+				   RIO.EXPDATE AS EXPDATE,
+	               V.VEND_NAME AS VEND_NAME
+		FROM RWMATR_IST_OUST RIO JOIN RWMATR R
+		ON RIO.RWMATR_ID = R.RWMATR_ID
+        JOIN VEND V
+        ON V.VEND_ID = R.VEND_ID
+        WHERE IST_QY != 0
+        	<if test="startDate != ''">
+	    		AND <![CDATA[TRUNC(RIO.IST_OUST_DTTM) >= to_date(#{startDate})]]>
+	    	</if>
+	    	<if test="endDate != ''">
+	    		AND <![CDATA[TRUNC(RIO.IST_OUST_DTTM) <= to_date(#{endDate})]]>
+	    	</if>
+			<if test="rwmName != '' and rwmName != null">
+				AND R.NM LIKE '%'||#{rwmName}||'%'
+			</if>
+			<if test="vendName != '' and vendName != null">
+				AND V.VEND_NAME LIKE '%'||#{vendName}||'%'
+			</if>
+        ORDER BY IST_OUST_DTTM
+	</select>
+ 	
+ 	<select id="RwmatrPassList" resultType="RwmatrioVO">
+ 		SELECT ROD.ORDER_ID AS ORDER_ID,
+        ROD.RWMATR_ORDER_DETA_ID AS RWMATR_ORDER_DETA_ID,
+                R.RWMATR_ID AS RWMATR_ID,
+		       R.NM AS NM,
+		       V.VEND_NAME AS VEND_NAME,
+		       RII.PASS_QY AS PASS_QY,
+               RII.DT AS DT
+		FROM RWMATR_IST_INSP RII JOIN RWMATR R
+		    ON RII.RWMATR_ID = R.RWMATR_ID 
+		JOIN VEND V
+		    ON R.VEND_ID = V.VEND_ID
+        JOIN RWMATR_ORDER_DETA ROD
+            ON ROD.RWMATR_ORDER_DETA_ID = RII.RWMATR_ORDER_DETA_ID
+		WHERE RII.FG IS NULL
+ 	</select>
+ 	
+ 	<select id="RwmatrOustList" resultType="RwmatrioVO">
+ 		SELECT RIO.RWMATR_ID AS RWMATR_ID, 
+			   R.NM AS NM, 
+			   RIO.OUST_QY AS OUST_QY, 
+			   RIO.IST_OUST_DTTM AS IST_OUST_DTTM, 
+			   RIO.LOT_NO AS LOT_NO, 
+			   RIO.EXPDATE AS EXPDATE,
+               V.VEND_NAME AS VEND_NAME
+		FROM RWMATR_IST_OUST RIO JOIN RWMATR R
+			ON RIO.RWMATR_ID = R.RWMATR_ID
+        JOIN VEND V
+        	ON V.VEND_ID = R.VEND_ID
+        WHERE OUST_QY != 0
+        <if test="startDate != ''">
+    		AND <![CDATA[TRUNC(RIO.IST_OUST_DTTM) >= to_date(#{startDate})]]>
+    	</if>
+    	<if test="endDate != ''">
+    		AND <![CDATA[TRUNC(RIO.IST_OUST_DTTM) <= to_date(#{endDate})]]>
+    	</if>
+		<if test="rwmName != '' and rwmName != null">
+			AND R.NM LIKE '%'||#{rwmName}||'%'
+		</if>
+		<if test="vendName != '' and vendName != null">
+			AND V.VEND_NAME LIKE '%'||#{vendName}||'%'
+		</if>
+        ORDER BY IST_OUST_DTTM
+ 	</select>
+ 	
+ 	<select id="RwmatrStcList" resultType="RwmatrioVO">
+ 		SELECT RS.LOT_NO AS LOT_NO,
+		       RS.RWMATR_ID AS RWMATR_ID,
+		       R.NM AS NM,
+               V.VEND_NAME AS VEND_NAME,
+		       RS.QY AS QY,
+		       R.SAF_STC AS SAF_STC,
+		       RS.EXCP_QY AS EXCP_QY,
+		       RS.EXPDATE AS EXPDATE
+		FROM RWMATR_STC RS JOIN RWMATR R
+			ON RS.RWMATR_ID = R.RWMATR_ID
+        JOIN VEND V
+            ON R.VEND_ID = V.VEND_ID
+        <where>
+			<if test="startDate != ''">
+	   			<![CDATA[TRUNC(RS.EXPDATE) >= to_date(#{startDate})]]>
+	    	</if>
+	    	<if test="endDate != ''">
+	    		AND <![CDATA[TRUNC(RS.EXPDATE) <= to_date(#{endDate})]]>
+	    	</if>
+			<if test="rwmName != '' and rwmName != null">
+				AND R.NM LIKE '%'||#{rwmName}||'%'
+			</if>
+			<if test="vendName != '' and vendName != null">
+				AND V.VEND_NAME LIKE '%'||#{vendName}||'%'
+			</if>
+		</where>
+		ORDER BY EXPDATE
+ 	</select>
+ 	
+ 	<select id="RwmatrStcMList" resultType="RwmatrioVO">
+ 		SELECT RS.LOT_NO AS LOT_NO,
+		       RS.RWMATR_ID AS RWMATR_ID,
+		       R.NM AS NM,
+               V.VEND_NAME AS VEND_NAME,
+		       RS.QY AS QY,
+		       R.SAF_STC AS SAF_STC,
+		       RS.EXCP_QY AS EXCP_QY,
+		       RS.EXPDATE AS EXPDATE
+		FROM RWMATR_STC RS JOIN RWMATR R
+			ON RS.RWMATR_ID = R.RWMATR_ID
+        JOIN VEND V
+            ON R.VEND_ID = V.VEND_ID
+		ORDER BY EXPDATE
+ 	</select>
+</mapper>
