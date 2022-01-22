@@ -70,6 +70,11 @@ var orderDetailListGrid = new Grid({
 		    header: '발주총량',
 		    align: 'right',
 		    name: 'qy',
+		    formatter({value}) { // 추가
+				  let a = `\${value}`
+			  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+			      return b;
+			  },
 		    sortable: true
 		  }
 		]

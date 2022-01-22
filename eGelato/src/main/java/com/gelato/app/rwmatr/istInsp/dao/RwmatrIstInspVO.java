@@ -30,4 +30,6 @@ public class RwmatrIstInspVO {
 	String orderId;
 	String nm;
 	String qy;
+	String inferId;
+	String deta;
 }

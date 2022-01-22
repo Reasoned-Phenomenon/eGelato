@@ -92,6 +92,9 @@ public class PrdPlanMngServiceImpl implements PrdPlanMngService{
 			System.out.println("계획취소");
 			ppmMapper.updatePrdPlanDeta(mvo.getUpdatedRows().get(0));
 			System.out.println("계획취소impl 끝");
+			System.out.println("홀딩값 삭제");
+			ppmMapper.deleteExcp(mvo.getUpdatedRows().get(0));
+			System.out.println("홀딩값 삭제 끝");
 		}
 		
 		return 0;

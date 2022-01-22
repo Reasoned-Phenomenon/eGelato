@@ -66,7 +66,7 @@ prdtListGrid.on("dblclick", (ev) => {
 	    end: [ev.rowKey, prdtListGrid.getColumns().length-1]
 });
 	
-	var prdtParam = prdtListGrid.getRow(ev.rowKey).prdtId;
+	var prdtParam = prdtListGrid.getRow(ev.rowKey).prdtNm;
 	getModal(prdtParam);
 	console.log(prdtParam);
 });

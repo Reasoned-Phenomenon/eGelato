@@ -6,20 +6,22 @@
 <select id="findOrderList" resultType="OrderVO">
 	SELECT 
 	 	 a.order_id, a.vend_id, a.order_dt, a.oust_dt, a.st_fg, a.remk,
-		 b.order_sht_deta_id, b.prdt_id, b.qy, c.vend_name
+		 b.order_sht_deta_id, b.prdt_id, b.qy, c.vend_name, d.prdt_nm
      FROM order_sht a JOIN order_sht_deta b
      ON a.order_id = b.order_id
      JOIN vend c
      ON a.vend_id = c.vend_id	
+     JOIN prdt d
+     ON b.prdt_id = d.prdt_id
      <where>
-     	<if test="orderDt != null and oustDt != null">
-     		<![CDATA[a.order_dt between (#{orderDt}) and (#{oustDt})]]> 
+     	<if test="orderDt !=null and oustDt != null">
+     		<![CDATA[trunc(a.order_dt) between (#{orderDt}) and (#{oustDt})]]> 
      	</if>
-     	<if test="vendId !=null and vendId != ''">
-     		and a.vend_id = #{vendId}
+     	<if test="vendName !=null and vendName != ''">
+     		and c.vend_name = #{vendName}
      	</if>
-     	<if test="prdtId !=null and prdtId != ''">
-     		and b.prdt_id = #{prdtId}
+     	<if test="prdtNm !=null and prdtNm != ''">
+     		and d.prdt_nm = #{prdtNm}
      	</if>
      	<if test="stFg !='전체'">
      		 and a.st_fg = #{stFg}

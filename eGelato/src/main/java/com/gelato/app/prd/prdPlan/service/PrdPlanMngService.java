@@ -32,4 +32,5 @@ public interface PrdPlanMngService {
 	
 	//modify - 홀딩값
 	public int modifyExcp(ModifyVO<PrdPlanMngVO> mvo);
+	
 }

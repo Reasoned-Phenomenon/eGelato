@@ -37,6 +37,7 @@
 	<!-- 모달창 -->
 	<div id="dialogFrm"></div>
 
+
 <script>
 var Grid = tui.Grid;
 let dialog;
@@ -91,8 +92,7 @@ var rwmatrOrderList = new Grid({
 				{
 				  header: '발주코드',
 				  name: 'orderId',
-				  sortable: true,
-				  rowSpan: true
+				  sortable: true
 				},
 				{
 				  header: '자재명',
@@ -114,7 +114,7 @@ var rwmatrOrderList = new Grid({
 					  let a = `\${value}`
 				  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 				      return b;
-				   }, 
+				  }, 
 				  sortable: true
 				},
 				{
@@ -126,7 +126,7 @@ var rwmatrOrderList = new Grid({
 					  let a = `\${value}`
 				  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 				      return b;
-				   }, 
+				  }, 
 				  sortable: true
 				},
 				{
@@ -137,7 +137,7 @@ var rwmatrOrderList = new Grid({
 					  let a = `\${value}`
 				  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 				      return b;
-				   },
+				  },
 				  sortable: true
 				},
 				{

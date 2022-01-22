@@ -13,20 +13,25 @@
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 </head>
 <body>
+	<!-- 공정코드 모달 -->
+	<div id="dialog-form" title="공정코드"></div>
 	<div class="container">
 		<div class="flex row">
 			<div class="col-7">
+			<br>
 				<h2>설비관리</h2>
+				<br>
 				<label>구분</label> <select id="gubun" onchange="selectGubun()">
 					<option value="전체">전체
-					<option value="배합">배합
-					<option value="운송">운송
-					<option value="측정">측정
-					<option value="가공">가공
+					<option value="배합기">배합기
+					<option value="운송기">운송기
+					<option value="측정기">측정기
+					<option value="가공기">가공기
 				</select>
 				<div id="eqmListGrid"></div>
 			</div>
 			<div class="col-5">
+			<br>
 				<h2 class="detailTitle">상세조회</h2>
 				<div>설비 이미지</div>
 				<div id="imageView">
@@ -89,7 +94,7 @@
 			el : document.getElementById('eqmListGrid'),
 			data : {
 				api : {
-					readData : {
+					readData : {  
 						url : '${path}/eqm/eqmList.do',
 						method : 'GET'
 					}
@@ -108,7 +113,7 @@
 				header : '공정코드',
 				name : 'prcsId'
 			}, {
-				header : '공정명',
+				header : '공정명',  
 				name : 'nm'
 			}, {
 				header : '사용여부',
@@ -153,6 +158,8 @@
 			//$("#eqmImg").val(eqmListGrid.getValue(ev["rowKey"],"eqmImg"));
 			eqmListGrid.getValue(ev["rowKey"],"useYn")=='Y'?$("#useYn").prop("checked",true):$("#notUse").prop("checked",true);
 			
+			$("#prcsId").attr("disabled",false);
+			$("#nm").attr("disabled",false);
 			$("#tempMax").attr("disabled",false);
 			$("#tempMin").attr("disabled",false);
 			$("#chckPerd").attr("disabled",false);
@@ -205,6 +212,18 @@
 			})
 		})
 		
+		//공정코드 모달
+		let dialog = $("#dialog-form").dialog({
+			autoOpen :false,
+			modal : true
+		});
+		
+		$("#btnFindPrcs").on("click", function(){
+			dialog.dialog("open");
+			$("#dialog-form").load("${path}/eqm/searchPrcsModal.do", 
+					function(){
+				console.log("공정코드모달 로드됨")})
+		});
 	</script>
 </body>
 </html>

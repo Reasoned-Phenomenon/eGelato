@@ -60,6 +60,14 @@ public class PrdIndicaMngVO {
 	
 	//공정
 	
+	//원자재 입출고
+	String istOustDttm;
+	String istQy;
+	String oustQy;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	Date expdate;
+	
 	//BOM
 	String bomId;
 	String useYn;

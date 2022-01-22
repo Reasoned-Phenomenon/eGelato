@@ -94,7 +94,7 @@ vendListGrid.on("dblclick", (ev) => {
 	
 	
 	
-	var vendParam = vendListGrid.getRow(ev.rowKey).vendId;
+	var vendParam = vendListGrid.getRow(ev.rowKey).vendName;
 	getModalData(vendParam);
 	console.log(vendParam);
 });

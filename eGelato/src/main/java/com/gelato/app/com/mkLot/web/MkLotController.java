@@ -10,7 +10,7 @@ import com.gelato.app.com.mkLot.service.MkLotService;
 
 @Controller
 public class MkLotController {
-
+ 
 	@Autowired MkLotService service;
 	
 	@RequestMapping("/com/mkLot.do")

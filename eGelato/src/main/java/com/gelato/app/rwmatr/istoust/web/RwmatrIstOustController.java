@@ -62,12 +62,6 @@ public class RwmatrIstOustController {
 		return "grid";
 	}
 	
-	//원자재 LOT번호 모달(보류)
-	@RequestMapping("/rwmatr/rwmatrLotNoModal.do")
-	public String rwmatrLotNoModal() {
-		return "rwmatr/rwmatrLotNoModal";
-	}
-	
 	//원자재 현재고 모달
 	@RequestMapping("/rwmatr/rwmatrStcModal.do")
 	public String rwmatrStcModal() {
@@ -103,7 +97,8 @@ public class RwmatrIstOustController {
 	@ResponseBody
 	public boolean modifyIstData (@RequestBody ModifyVO<RwmatrioVO> mvo) {
 		System.out.println(mvo);
-		//rwmatroService.modifyRwmatro(mvo); //수정해야함
+		rwmatrioService.modifyIst(mvo);
+		rwmatrioService.modifyStc(mvo);
 		return true;
 	}
 	
@@ -112,17 +107,9 @@ public class RwmatrIstOustController {
 	@ResponseBody
 	public boolean modifyOustData (@RequestBody ModifyVO<RwmatrioVO> mvo) {
 		System.out.println(mvo);
-		//rwmatroService.modifyRwmatro(mvo); //수정해야함
+		rwmatrioService.modifyOust(mvo);
 		return true;
 	}
 	
-	//원자재 재고관리 CUD
-	@PutMapping("/rwmatr/rwmatrStcModifyData.do")
-	@ResponseBody
-	public boolean modifyStcData (@RequestBody ModifyVO<RwmatrioVO> mvo) {
-		System.out.println(mvo);
-		//rwmatroService.modifyRwmatro(mvo); //수정해야함
-		return true;
-	}
 	
 }

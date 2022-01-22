@@ -33,4 +33,7 @@ public interface PrdPlanMngMapper {
 	
 	//홀딩값 추가 insert
 	int insertExcp(PrdPlanMngVO vo);
+	
+	//계획 취소시 홀딩값 삭제
+	int deleteExcp(PrdPlanMngVO vo);
 }

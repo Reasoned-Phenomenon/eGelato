@@ -13,8 +13,8 @@ public class RwmatrioVO {
 
 	String rwmatrId;
 	String lotNo;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	Date istOustDttm;
 	String istQy;
 	String oustQy;

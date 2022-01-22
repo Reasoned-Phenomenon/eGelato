@@ -12,8 +12,9 @@
 		FROM RWMATR R JOIN VEND V
         ON R.VEND_ID = V.VEND_ID
         <where>
+        	R.FG = 'STEP01'
         	<if test="rwmName != ''">
-				R.NM LIKE '%'||#{rwmName}||'%'
+				AND R.NM LIKE '%'||#{rwmName}||'%'
 			</if>
         </where>
         ORDER BY 1

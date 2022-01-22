@@ -39,8 +39,56 @@
 		ORDER BY DT DESC
 	</select>
 	
-	<insert id="">
-		
+	<!-- <select id="RwmatrFailList" resultType="RwmatrInferVO">
+		SELECT ROD.ORDER_ID AS ORDER_ID,
+        ROD.RWMATR_ORDER_DETA_ID AS RWMATR_ORDER_DETA_ID,
+                R.RWMATR_ID AS RWMATR_ID,
+		       R.NM AS NM,
+		       V.VEND_NAME AS VEND_NAME,
+		       RII.INFER_QY AS INFER_QY,
+               RII.DT AS DT
+		FROM RWMATR_IST_INSP RII JOIN RWMATR R
+		    ON RII.RWMATR_ID = R.RWMATR_ID 
+		JOIN VEND V
+		    ON R.VEND_ID = V.VEND_ID
+        JOIN RWMATR_ORDER_DETA ROD
+            ON ROD.RWMATR_ORDER_DETA_ID = RII.RWMATR_ORDER_DETA_ID
+		WHERE RII.FG = ''
+	</select> -->
+	
+	<select id="RmatrInferCodeList" resultType="RwmatrInferVO">
+		SELECT * FROM INFER_CODE
+		WHERE FG = 'STEP01'
+	</select>
+	
+	<insert id="insertRwmatrInferDeta" parameterType="RwmatrInferVO">
+		INSERT INTO RWMATR_INFER(
+								 QY, 
+								 REMK, 
+								 RWMATR_ORDER_DETA_ID, 
+								 INFER_ID, 
+								 RWMATR_ID)
+						  VALUES(
+						  		 #{qy},
+						  	  	 #{remk},
+						  	  	 #{rwmatrOrderDetaId},
+						  	  	 #{inferId},
+						  	  	 #{rwmatrId}
+						  	  	 )
 	</insert>
+	
+	<update id="updateRwmatrInferDeta" parameterType="RwmatrInferVO">
+		UPDATE RWMATR_INFER SET QY = #{qy},
+								REMK = #{remk},
+								INFER_ID = #{inferId},
+								RWMATR_ID = #{rwmatrId}
+		WHERE RWMATR_ORDER_DETA_ID = #{rwmatrOrderDetaId}
+	</update>
+	
+	<delete id="deleteRwmatrInferDeta">
+		DELETE 
+		FROM RWMATR_INFER 
+		WHERE RWMATR_ORDER_DETA_ID = #{rwmatrOrderDetaId}
+	</delete>
 	
 </mapper>

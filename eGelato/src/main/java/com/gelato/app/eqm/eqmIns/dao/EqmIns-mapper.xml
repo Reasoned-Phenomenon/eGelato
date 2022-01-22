@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.eqm.eqmIns.dao.EqmInsMapper">
+
+	<select id="eqmChck" resultType="EqmInsVO">
+		SELECT E.EQM_ID AS EQM_ID,
+			   E.EQM_NAME AS EQM_NAME,
+			   E.CHCK_PERD AS CHCK_PERD,
+			   C.CHCK_DT AS CHCK_DT,
+			   C.JUDT AS JUDT,
+			   C.CHCK_DETA AS CHCK_DETA
+		FROM EQM E 
+			 LEFT OUTER JOIN CHCK C
+			 ON (E.EQM_ID = C.EQM_ID)
+			   
+	</select>
+
+</mapper>

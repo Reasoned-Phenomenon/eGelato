@@ -12,9 +12,9 @@
 				   RIO.EXPDATE AS EXPDATE,
 	               V.VEND_NAME AS VEND_NAME
 		FROM RWMATR_IST_OUST RIO JOIN RWMATR R
-		ON RIO.RWMATR_ID = R.RWMATR_ID
+			ON RIO.RWMATR_ID = R.RWMATR_ID
         JOIN VEND V
-        ON V.VEND_ID = R.VEND_ID
+        	ON V.VEND_ID = R.VEND_ID
         WHERE IST_QY != 0
         	<if test="startDate != ''">
 	    		AND <![CDATA[TRUNC(RIO.IST_OUST_DTTM) >= to_date(#{startDate})]]>
@@ -28,7 +28,7 @@
 			<if test="vendName != '' and vendName != null">
 				AND V.VEND_NAME LIKE '%'||#{vendName}||'%'
 			</if>
-        ORDER BY IST_OUST_DTTM
+        ORDER BY 1 DESC
 	</select>
  	
  	<select id="RwmatrPassList" resultType="RwmatrioVO">
@@ -45,11 +45,12 @@
 		    ON R.VEND_ID = V.VEND_ID
         JOIN RWMATR_ORDER_DETA ROD
             ON ROD.RWMATR_ORDER_DETA_ID = RII.RWMATR_ORDER_DETA_ID
-		WHERE RII.FG IS NULL
+		WHERE RII.FG = 'N'
  	</select>
  	
  	<select id="RwmatrOustList" resultType="RwmatrioVO">
- 		SELECT RIO.RWMATR_ID AS RWMATR_ID, 
+ 		SELECT RIO.RWMATR_ORDER_DETA_ID AS RWMATR_ORDER_DETA_ID, 
+ 			   RIO.RWMATR_ID AS RWMATR_ID, 
 			   R.NM AS NM, 
 			   RIO.OUST_QY AS OUST_QY, 
 			   RIO.IST_OUST_DTTM AS IST_OUST_DTTM, 
@@ -77,48 +78,164 @@
  	</select>
  	
  	<select id="RwmatrStcList" resultType="RwmatrioVO">
- 		SELECT RS.LOT_NO AS LOT_NO,
-		       RS.RWMATR_ID AS RWMATR_ID,
-		       R.NM AS NM,
-               V.VEND_NAME AS VEND_NAME,
-		       RS.QY AS QY,
-		       R.SAF_STC AS SAF_STC,
-		       RS.EXCP_QY AS EXCP_QY,
-		       RS.EXPDATE AS EXPDATE
-		FROM RWMATR_STC RS JOIN RWMATR R
-			ON RS.RWMATR_ID = R.RWMATR_ID
-        JOIN VEND V
-            ON R.VEND_ID = V.VEND_ID
+ 		SELECT RS.RWMATR_ID AS RWMATR_ID, 
+ 			   R.NM AS NM, 
+ 			   V.VEND_NAME AS VEND_NAME, 
+ 			   SUM(RS.QY) AS QY, 
+ 			   R.SAF_STC AS SAF_STC, 
+ 			   E.Q AS EXCP_QY
+		FROM RWMATR_STC RS JOIN (SELECT RWMATR_ID, SUM(QY) Q 
+		                         FROM EXCP
+		                         GROUP BY RWMATR_ID) E
+		    ON RS.RWMATR_ID = E.RWMATR_ID
+		JOIN RWMATR R
+		    ON R.RWMATR_ID = RS.RWMATR_ID
+		JOIN VEND V
+		    ON R.VEND_ID = V.VEND_ID
+		GROUP BY RS.RWMATR_ID, E.Q, R.SAF_STC, R.NM, V.VEND_NAME
         <where>
-			<if test="startDate != ''">
-	   			<![CDATA[TRUNC(RS.EXPDATE) >= to_date(#{startDate})]]>
-	    	</if>
-	    	<if test="endDate != ''">
-	    		AND <![CDATA[TRUNC(RS.EXPDATE) <= to_date(#{endDate})]]>
-	    	</if>
 			<if test="rwmName != '' and rwmName != null">
-				AND R.NM LIKE '%'||#{rwmName}||'%'
+				R.NM LIKE '%'||#{rwmName}||'%'
 			</if>
 			<if test="vendName != '' and vendName != null">
 				AND V.VEND_NAME LIKE '%'||#{vendName}||'%'
 			</if>
 		</where>
-		ORDER BY EXPDATE
  	</select>
  	
  	<select id="RwmatrStcMList" resultType="RwmatrioVO">
- 		SELECT RS.LOT_NO AS LOT_NO,
-		       RS.RWMATR_ID AS RWMATR_ID,
-		       R.NM AS NM,
-               V.VEND_NAME AS VEND_NAME,
-		       RS.QY AS QY,
-		       R.SAF_STC AS SAF_STC,
-		       RS.EXCP_QY AS EXCP_QY,
-		       RS.EXPDATE AS EXPDATE
+ 		SELECT DISTINCT RS.LOT_NO AS LOT_NO,
+ 			   RIO.RWMATR_ORDER_DETA_ID,
+ 			   RS.RWMATR_ID AS RWMATR_ID, 
+ 			   R.NM AS NM, 
+ 			   V.VEND_NAME AS VEND_NAME,
+ 			   RS.QY AS QY, 
+ 			   RS.EXPDATE AS EXPDATE
 		FROM RWMATR_STC RS JOIN RWMATR R
 			ON RS.RWMATR_ID = R.RWMATR_ID
-        JOIN VEND V
-            ON R.VEND_ID = V.VEND_ID
+		JOIN VEND V
+			ON R.VEND_ID = V.VEND_ID
+		JOIN RWMATR_IST_OUST RIO
+            ON RS.LOT_NO = RIO.LOT_NO
+		<where>
+	       	<if test="rwmName != ''">
+				R.NM LIKE '%'||#{rwmName}||'%'
+			</if>
+        </where>
 		ORDER BY EXPDATE
  	</select>
+ 	
+ 	<!-- 자재입고관리 insert -->
+ 	<insert id="insertRwmatrIst" parameterType="RwmatrioVO">
+ 		<selectKey keyProperty="lotNo" resultType="string" order="BEFORE">
+ 			SELECT #{rwmatrId}||'-'||TO_CHAR(SYSDATE, 'YYMMDD')||(SELECT LPAD(NVL(MAX(SUBSTR(LOT_NO,-3)),0)+1, 3, 0) FROM RWMATR_IST_OUST
+			WHERE SUBSTR(LOT_NO,-9,6) = TO_CHAR(SYSDATE, 'YYMMDD')
+			AND SUBSTR(LOT_NO,0,9) = #{rwmatrId}) AS LOT_NO FROM DUAL
+ 		</selectKey>
+ 		INSERT INTO RWMATR_IST_OUST(
+ 									RWMATR_ID, 
+ 									LOT_NO, 
+ 									IST_OUST_DTTM, 
+ 									IST_QY, 
+ 									OUST_QY, 
+ 									EXPDATE, 
+ 									RWMATR_ORDER_DETA_ID
+ 									) 
+							 VALUES(
+							 		#{rwmatrId},
+							 		#{lotNo},
+							 		sysdate,
+							 		#{istQy},
+							 		'0',
+							 		#{expdate},
+							 		#{rwmatrOrderDetaId}
+							 		)
+ 	</insert>
+ 	
+ 	<!-- 자재입고관리 update -->
+ 	<update id="updateRwmatrIst" parameterType="RwmatrioVO">
+ 		UPDATE RWMATR_IST_OUST SET EXPDATE = #{expdate}
+		WHERE LOT_NO = #{lotNo} 
+		AND RWMATR_ORDER_DETA_ID = #{rwmatrOrderDetaId}
+ 	</update>
+ 	
+ 	<!-- 자재입고관리 delete -->
+ 	<delete id="deleteRwmatrIst" parameterType="RwmatrioVO">
+ 		DELETE FROM RWMATR_IST_OUST
+		WHERE LOT_NO = #{lotNo} 
+		AND RWMATR_ORDER_DETA_ID = #{rwmatrOrderDetaId}
+ 	</delete>
+ 	
+ 	<!-- 자재 현재고 insert -->
+ 	<insert id="insertRwmatrStc" parameterType="RwmatrioVO">
+ 		INSERT INTO RWMATR_STC(
+		                       LOT_NO, 
+		                       RWMATR_ID, 
+		                       QY, 
+		                       EXPDATE
+		                       )
+		                VALUES(
+		                       #{lotNo},
+		                       #{rwmatrId},
+		                       #{qy},
+		                       #{expdate}
+		                       )
+ 	</insert>
+ 	
+ 	<!-- 자재 현재고 update -->
+ 	<update id="updateRwmatrStc" parameterType="RwmatrioVO">
+ 		UPDATE RWMATR_STC SET RWMATR_ID = #{rwmatrId},
+ 							  EXPDATE = #{expdate},
+ 							  QY = QY-#{qy}
+ 		WHERE LOT_NO = #{lotNo}
+ 	</update>
+ 	
+ 	<!-- 자재 현재고 update -->
+ 	<update id="updateRwmatrStcD" parameterType="RwmatrioVO">
+ 		UPDATE RWMATR_STC SET QY = QY + #{qy}
+ 		WHERE LOT_NO = #{lotNo}
+ 	</update>
+ 	
+ 	<!-- 자재 현재고 delete -->
+ 	<delete id="deleteRwmatrStc" parameterType="RwmatrioVO">
+ 		DELETE FROM RWMATR_STC
+		WHERE LOT_NO = #{lotNo}
+ 	</delete>
+ 	
+ 	<!-- 자재출고관리 insert -->
+ 	<insert id="insertRwmatrOust" parameterType="RwmatrioVO">
+ 		INSERT INTO RWMATR_IST_OUST(
+ 									RWMATR_ID, 
+ 									LOT_NO, 
+ 									IST_OUST_DTTM, 
+ 									IST_QY, 
+ 									OUST_QY, 
+ 									EXPDATE, 
+ 									RWMATR_ORDER_DETA_ID
+ 									) 
+							 VALUES(
+							 		#{rwmatrId},
+							 		#{lotNo},
+							 		sysdate,
+							 		'0',
+							 		#{oustQy},
+							 		#{expdate},
+							 		#{rwmatrOrderDetaId}
+							 		)
+ 	</insert>
+ 	
+ 	<!-- 자재출고관리 update -->
+ 	<update id="updateRwmatrOust" parameterType="RwmatrioVO">
+ 		UPDATE RWMATR_IST_OUST SET EXPDATE = #{expdate}
+		WHERE LOT_NO = #{lotNo} 
+		AND RWMATR_ORDER_DETA_ID = #{rwmatrOrderDetaId}
+ 	</update>
+ 	
+ 	<!-- 자재출고관리 delete -->
+ 	<delete id="deleteRwmatrOust" parameterType="RwmatrioVO">
+ 		DELETE FROM RWMATR_IST_OUST
+		WHERE LOT_NO = #{lotNo} 
+		AND RWMATR_ORDER_DETA_ID = #{rwmatrOrderDetaId}
+ 	</delete>
+ 	
 </mapper>

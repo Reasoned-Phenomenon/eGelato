@@ -66,25 +66,35 @@ var rwmatrListGrid = new Grid({
   	columns:[
   		  {
 		    header: '자재코드',
-		    name: 'rwmatrId'
+		    name: 'rwmatrId',
+		    sortable: true
 		  },
 		  {
 		    header: '자재명',
 		    name: 'nm',
+		    sortable: true
 		  },
 		  {
 		    header: '업체명',
 		    name: 'vendName',
+		    sortable: true
 		  },
 		  {
 		    header: '규격',
 		    align: 'right',
-		    name: 'spec'
+		    name: 'spec',
+		    sortable: true
 		  },
 		  {
 		    header: '작업단위',
 		    align: 'right',
-		    name: 'wkUnit'
+		    name: 'wkUnit',
+	    	formatter({value}) { // 추가
+			  let a = `\${value}`
+		  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+		      return b;
+		    },
+		    sortable: true
 		  }
 		]
 });

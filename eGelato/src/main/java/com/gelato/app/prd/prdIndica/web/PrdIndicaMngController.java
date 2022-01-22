@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gelato.app.prd.prdIndica.dao.PrdIndicaMngVO;
 import com.gelato.app.prd.prdIndica.service.PrdIndicaMngService;
@@ -46,4 +47,45 @@ public class PrdIndicaMngController {
 		model.addAttribute("datas", prdIndicaMngService.choosePlan(vo));
 		return "grid";
 	}
+	
+	//상세갱산계획에서 선택한 값으로 line 가져오기 -> ajax 사용
+	@RequestMapping("/prd/choosePlanDetaId.do")
+	@ResponseBody
+	public PrdIndicaMngVO choosePlanDetaId(PrdIndicaMngVO vo) {
+		System.out.println("생산계획 선택값 출력");
+		System.out.println(vo);
+		System.out.println(111);
+		
+		return prdIndicaMngService.choosePlanDetaId(vo);
+	}
+	
+	// 생산지시 선택값 -> 자재로 값 보여주기
+	@RequestMapping("/prd/chooseIndicaQy.do")
+	public String chooseIndicaQy(Model model, PrdIndicaMngVO vo) {
+		System.out.println("생산지시 선택값 출력");
+		System.out.println(vo);
+		model.addAttribute("datas", prdIndicaMngService.chooseIndicaQy(vo));
+		return "grid";
+	}
+	
+	//미지시생산계획 modal
+	@RequestMapping("/prd/RwmatrLotDialog.do")
+	public String rwmatrLotDialog() {
+		System.out.println("자재Lot 이동");
+		return "prd/rwmatrLotModal"; 
+	}
+		
+	// 선택한 자재Lot 출력
+	@RequestMapping("/prd/chooseRwmatrId.do")
+	public String chooseRwmatrId(Model model, PrdIndicaMngVO vo) {
+		System.out.println("자재Lot 출력");
+		System.out.println(vo);
+		model.addAttribute("datas", prdIndicaMngService.chooseRwmatrId(vo));
+		return "grid";
+	}
+	
+	
+	   
+	
+	
 }

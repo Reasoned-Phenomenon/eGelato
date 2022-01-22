@@ -25,10 +25,17 @@ public class BomCodeServiceImpl implements BomCodeService {
 	// modify로 등록 수정 삭제 
 	@Override
 	public int modifyBomCode(ModifyVO<BomCodeVO> mvo) {
-			for(BomCodeVO vo : mvo.getCreatedRows()) {
+			
+		    for(BomCodeVO vo : mvo.getCreatedRows()) {
 				System.out.println("등록");
 				bomcodeMapper.insertBomCode(vo);
 			}
+			
+			for(BomCodeVO vo : mvo.getUpdatedRows()) {
+				System.out.println("수정");
+				bomcodeMapper.updateBomCode(vo);
+			}
+			
 		return 0;
 	}
 
@@ -37,6 +44,19 @@ public class BomCodeServiceImpl implements BomCodeService {
 	public List<BomCodeVO> rwmatrList() {
 		
 		return bomcodeMapper.rwmatrList();
+	}
+	
+	// 모달창으로 원자재 제품코드 조회. 그리드 셀 클릭시 조회.
+	@Override
+	public List<BomCodeVO> rwmatrCodeList() {
+		
+		return bomcodeMapper.rwmatrCodeList();
+	}
+
+	@Override
+	public List<BomCodeVO> prcsCodeList() {
+		
+		return bomcodeMapper.prcsCodeList();
 	}
 
 }

@@ -47,9 +47,15 @@
 
 <div id="bomGrid" style="width: 100%"></div>
 <div id="bomModal" style="width: 100%"></div>
+<div id="rwmatrCodeModal"></div>
+<div id="prcsCodeModal"></div>
 		
 <script>
 let dialog;
+
+let rowkey = '';
+
+let useYn = '';
 
 var Grid = tui.Grid;
 
@@ -82,14 +88,12 @@ var bomGrid = new Grid({
 			{
 			  header: 'BOM코드',
 			  name: 'bomId',
-			  editor:'text',
 			  align: 'center'
 		      
 			},
 			{
 			  header: '제품코드',
 			  name: 'prdtId',
-			  editor:'text',
 			  align: 'center'
 	          
 			},
@@ -118,13 +122,29 @@ var bomGrid = new Grid({
 			  align: 'center'
 		     
 			},
+			{
+			  header: '공정 코드',
+			  name: 'prcsId',
+			  align: 'center',
+			  hidden: true
+			  
+			},
 			
 			{
 			  header: '단계구분',
 			  name: 'fg',
-			  editor:'text',
-			  align: 'center'
+			  editor: {
+				  type : 'select',
+				  options : {
+					  listItems: [
+						  {text : '원자재', value :'STEP01'},
+						  {text : '반제품', value :'STEP02'}
+					  ]
+				  }
+			  },
 			  
+			  align: 'center'
+
 			},
 			{
         	  header: '비고',
@@ -136,16 +156,22 @@ var bomGrid = new Grid({
 			{
               header: '사용여부',
 			  name: 'useYn',
-			  editor:'text',
-			  align: 'center'
+			  align: 'center',
+			  renderer: {
+		            type: GelatoRadio,
+		      }
 			  
 			}
 		]
 });
 	
-	// 추가 버튼 이벤트.
-	AddBtn.addEventListener("click", function(){
-		bomGrid.appendRow();
+	// 추가 버튼 이벤트. 추가 버튼을 누르면 제품코드가 자동적으로 값이 들어가게 함.
+	AddBtn.addEventListener("click", function(ev){
+		 
+		 console.log($('#prdtId').val());
+		 
+		 bomGrid.appendRow({prdtId:$('#prdtId').val()})
+		
 	});
 	
 	// 저장(등록) 버튼 이벤트.
@@ -205,16 +231,99 @@ var bomGrid = new Grid({
 			
 			var qy = document.getElementById("qy").value;
 			var vendName = document.getElementById("vendName").value;
-			var useYn = document.getElementById("useYn").value;
+			//var useYn = document.getElementById("useYn").value;
 			
-			console.log("prdtId");
-			console.log("prdtNm");
-			console.log("qy");
-			console.log("vendName");
-			console.log("useYn");
+			var useYn = $('input:checkbox[id="useYn"]').is(":checked") == true
+
+			if (useYn == true) {
+				useYn = "Y";
+			} else {
+				useYn = "N";
+			} 
+			
+			console.log(prdtId);
+			console.log(prdtNm);
+			console.log(qy);
+			console.log(vendName);
+		
+			
 			
 			bomGrid.readData(1, {'prdtId':prdtId, 'prdtNm':prdtNm, 'qy':qy, 'vendName':vendName, 'useYn':useYn }, true);
 	});
+	
+	 // 그리드 셀 클릭하면 모달창 띄우기.
+	function callRwmartCodeModal () {
+		dialog = $("#rwmatrCodeModal").dialog({
+			modal:true,
+			autoOpen:false,
+			height:400,
+			width:600,
+			modal:true
+		});
+		console.log("ppppp");
+		dialog.dialog( "open" );
+		console.log("dialog open확인");
+		$("#rwmatrCodeModal").load("${path}/com/searchRwmatrCode.do", function(){console.log("자재코드 목록")})
+	} 
+	
+	// 자재코드 셀 클릭시 모달
+	bomGrid.on('click',(ev) => {
+		rowkey = ev.rowKey;
+		console.log(ev)
+		console.log(ev.columnName)
+		console.log(ev.rowKey)
+		if (ev.columnName =='rwmatrId') {
+			console.log('자재코드')
+			callRwmartCodeModal ();
+		}
+	})
+	// 모달창에서 자재코드를 선택하면 자재코드랑 자재 명 새로운 그리드 행에 들어가게 하기.
+	function getRwmatrData(rwmatrData) {
+		console.log("자재코드 모달 행 입력");
+		
+		bomGrid.setValue(rowkey, "rwmatrId", rwmatrData.rwmatrId, true)
+		bomGrid.setValue(rowkey, "nm", rwmatrData.nm, true)
+		
+		dialog.dialog("close");
+	}
+	
+	
+	 // 그리드 사용공정 셀 클릭하면 모달창 띄우기.
+	function callPrcsCodeModal () {
+		dialog = $("#prcsCodeModal").dialog({
+			modal:true,
+			autoOpen:false,
+			height:400,
+			width:600,
+			modal:true
+		});
+		console.log("iii");
+		dialog.dialog( "open" );
+		console.log("dialog open확인");
+		$("#prcsCodeModal").load("${path}/com/searchPrcsCode.do", function(){console.log("공정코드 목록")})
+	} 
+	
+	// 사용공정 셀 클릭시 모달 
+	bomGrid.on('click',(ev) => {
+		rowkey = ev.rowKey;
+		console.log(ev)
+		console.log(ev.columnName)
+		console.log(ev.rowKey)
+		if (ev.columnName == 'prcsNm') {
+			console.log('공정명')
+			callPrcsCodeModal ();
+		}
+	})
+	
+	// 모달창에서 공정코드를 선택하면 자재코드랑 자재 명 새로운 그리드 행에 들어가게 하기.
+	function prcsCodeData(prcsData) {
+		console.log("사용공정 코드 모달 행 입력");
+		
+		bomGrid.setValue(rowkey, "prcsNm", prcsData.prcsNm, true)
+		bomGrid.setValue(rowkey, "prcsId", prcsData.prcsId, true)
+		
+		dialog.dialog("close");
+	}
 	
 
 </script>		

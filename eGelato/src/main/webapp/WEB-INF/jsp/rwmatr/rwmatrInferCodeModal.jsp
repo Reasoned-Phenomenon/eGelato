@@ -1,0 +1,83 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/> 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>원자재 불량코드 목록</title>
+</head>
+<style>
+h1 {
+	text-align: center
+}
+</style>
+<body>
+	<br>
+	<h1>원자재 불량코드 목록</h1>
+	<br>
+	<div id="rwmatrInferCodeListGrid" style="width: 100%"></div>
+	
+<script>
+var Grid = tui.Grid;
+//checkOnlyOne(element);
+//그리드 테마
+Grid.applyTheme('striped', {
+	  cell: {
+	    header: {
+	      background: '#eef'
+	    },
+	    evenRow: {
+	      background: '#fee'
+	    }
+	  }
+	});
+	
+// 그리드 생성
+var rwmatrInferCodeListGrid = new Grid({
+	el: document.getElementById('rwmatrInferCodeListGrid'),
+  	data : {
+	  api: {
+	    readData: { url:'${path}/rwmatr/rwmatrInferCodeList.do', method: 'GET'}
+	  },
+	  contentType: 'application/json'
+	},
+  	rowHeaders:['rowNum'],
+  	selectionUnit: 'row',
+  	columns:[
+ 		  {
+		    header: '불량코드',
+		    name: 'inferId',
+		    sortable: true
+		  },
+		  {
+		    header: '불량명',
+		    name: 'name',
+		    sortable: true
+		  },
+  		  {
+		    header: '불량내용',
+		    name: 'deta',
+		    sortable: true
+		  }
+		]
+});
+
+
+//커스텀 이벤트
+rwmatrInferCodeListGrid.on('dblclick', (ev) => {	
+	
+	//cell 선택시 row 선택됨.
+	rwmatrInferCodeListGrid.setSelectionRange({
+	      start: [ev.rowKey, 0],
+	      end: [ev.rowKey, rwmatrInferCodeListGrid.getColumns().length-1]
+	  });
+	
+	
+	getInferData(rwmatrInferCodeListGrid.getRow(ev.rowKey));
+});
+
+</script>
+</body>
+</html>

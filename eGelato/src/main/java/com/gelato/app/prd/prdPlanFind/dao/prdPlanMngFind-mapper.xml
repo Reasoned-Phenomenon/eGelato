@@ -41,6 +41,6 @@
                 	and p.prdt_nm = #{prdtNm}
                 </if>
 		</where>
-		order by pp.dt
+		order by ppd.plan_deta_id
 	</select>
 </mapper>

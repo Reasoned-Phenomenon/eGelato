@@ -27,11 +27,11 @@
 	      				  		<br>
 	      				  	    <label>진행 구분</label>
 	      				  		<label for="radio-1">
-	      				  			<input type="radio" name="stFgRadio" id="stFg" value="진행">
+	      				  			<input type="radio" name="stFgRadio" id="stFg" value="ACCEPT">
 	      				  			<span>진행</span>
 	      				  		</label>
 	      				  		<label for="radio-2">
-	      				  			<input type="radio" name="stFgRadio" id="stFgR" value="완료">
+	      				  			<input type="radio" name="stFgRadio" id="stFgR" value="OUTSTC">
 	      				  			<span>완료</span>
 	      				  		</label>
 	      				  		<label for="radio-3">
@@ -50,11 +50,11 @@
 	      			<li>
 	      				<div>
 	      					<label>거래처</label>
-	      					<input type="text" id="vendId" name="vendId">
+	      					<input type="text" id="vendName" name="vendName">
 	      					<button type="button" id="BtnVend">찾아보기</button>&ensp;&ensp;&ensp;
 	      					
-	      					<label>제품코드</label>
-	      					<input type="text" id="prdtId" name="prdtId">
+	      					<label>제품명</label>
+	      					<input type="text" id="prdtNm" name="prdtNm">
 	      					<button type="button" id="BtnPrdt">찾아보기</button> &ensp;
 	      					
 	      				<button type="button" class="btn cur-p btn-outline-primary" id="btnRst">새자료</button>
@@ -103,7 +103,8 @@ var ordGrid = new Grid({
 	  api: {
 	    readData: 	{ url: '${path}/biz/findOrderList.do', method: 'GET'},
 	  },
-	  contentType: 'application/json'
+	  contentType: 'application/json',
+	  initialRequest: false
 	},
 	rowHeaders: ['rowNum'],
 	selectionUnit: 'row',
@@ -168,17 +169,20 @@ var ordGrid = new Grid({
  			var orderDt = document.getElementById("orderDt").value;
  			var oustDt = document.getElementById("oustDt").value;
  			
- 			var vendId = document.getElementById("vendId").value;
- 			var prdtId = document.getElementById("prdtId").value;
+ 			var vendName = document.getElementById("vendName").value;
+ 			var prdtNm = document.getElementById("prdtNm").value;
+ 			
  			var stFg = $('input[name="stFgRadio"]:checked').val();
  			
  			console.log(orderDt);
  			console.log(oustDt);
- 			console.log(vendId);
- 			console.log(prdtId);
+ 			console.log(vendName);
+ 			console.log(prdtNm);
  			console.log(stFg);
  			
- 			ordGrid.readData(1, {'orderDt':orderDt, 'oustDt':oustDt, 'vendId':vendId, 'prdtId':prdtId, 'stFg':stFg }, true);
+ 			
+ 			
+ 			ordGrid.readData(1, {'orderDt':orderDt, 'oustDt':oustDt, 'vendName' :vendName, 'prdtNm':prdtNm, 'stFg':stFg }, true);
  			
  		});
 	
@@ -231,13 +235,13 @@ var ordGrid = new Grid({
 	//  거래처 인풋 태그에 값들어가게 함.	
 	 function  getModalData(vendParam) {	
 		console.log(vendParam);
-		$("#vendId").val(vendParam);
+		$("#vendName").val(vendParam);
 		dialog.dialog("close");
 	} 
 	// 제품코드 인풋 태그에 값들어가게 함.
 	function getModal(prdtParam) {
 		console.log(prdtParam);
-		$("#prdtId").val(prdtParam);
+		$("#prdtNm").val(prdtParam);
 		dialog.dialog("close");
 	}
 	

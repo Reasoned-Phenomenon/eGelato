@@ -3,6 +3,7 @@ package com.gelato.app.rwmatr.istoust.service;
 import java.util.List;
 
 import com.gelato.app.rwmatr.istoust.dao.RwmatrioVO;
+import com.gelato.app.vr.ModifyVO;
 
 public interface RwmatrioService {
 
@@ -20,4 +21,13 @@ public interface RwmatrioService {
 	
 	//자재 현재고 전체조회(모달)
 	List<RwmatrioVO> RwmatrStcMList(RwmatrioVO vo);
+	
+	//입고관리 CUD
+	public int modifyIst(ModifyVO<RwmatrioVO> mvo);
+	
+	//입고관리 CUD
+	public int modifyOust(ModifyVO<RwmatrioVO> mvo);
+	
+	//현재고 CUD
+	public int modifyStc(ModifyVO<RwmatrioVO> mvo);
 }

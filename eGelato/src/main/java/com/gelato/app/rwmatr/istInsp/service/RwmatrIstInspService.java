@@ -13,5 +13,6 @@ public interface RwmatrIstInspService {
 	//입고검사할 발주디테일코드 리스트
 	List<RwmatrIstInspVO> selectOrderDetail();
 	
+	
 	public int modifyIstInsp(ModifyVO<RwmatrIstInspVO> mvo);
 }

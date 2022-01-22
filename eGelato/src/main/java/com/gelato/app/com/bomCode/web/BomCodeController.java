@@ -20,6 +20,7 @@ public class BomCodeController {
 	// 제품 BOM 관리 페이지로 이동.
 	@RequestMapping("/com/comBom.do")
 	public String comBom() {
+		System.out.println("BOM 코드 관리 페이지 이동");
 		return "tiles/common/comBom";
 	}
 	
@@ -42,7 +43,7 @@ public class BomCodeController {
 	
 	
 	// 제품 검색 버튼 눌럿을때  모달 창 함수가 컨트롤러에 오고 리턴으로 모달창 띄울 jsp 적어줌.
-	@RequestMapping("com/bomModal.do")
+	@RequestMapping("/com/bomModal.do")
 	public String vendModal(Model model) {
 		System.out.println("모달모달모달");
 		return "/common/bomModal"; // 모달 주소 적어야 한다.
@@ -54,6 +55,38 @@ public class BomCodeController {
 		System.out.println("제품 검색");
 		model.addAttribute("datas", bomcodeService.rwmatrList());
 		return "grid"; 
+	}
+	
+	// 그리드 셀 클릭 시 제품코드 명 모달창으로 조회.
+	@RequestMapping("/com/searchRwmatrCode.do") 
+	public String searchRwmatrCode() {
+		System.out.println("제품코드명 모달");
+		return "/common/searchRwmatrCodeModal";
+	}
+	
+	// 제품코드 조회.
+	@RequestMapping("/com/rwmatrCodeModal.do")
+	public String srcModal(Model model) {
+		System.out.println("제품코드 조회 확인");
+		model.addAttribute("datas", bomcodeService.rwmatrCodeList());
+		return "grid";
+	}
+	
+	
+	// 그리드 공정코드 셀 클릭시 공정코드 Modal 조회. 
+	@RequestMapping("/com/searchPrcsCode.do") 
+	public String searchPrcsCode() {
+		System.out.println("제품코드명 모달");
+		return "/common/searchPrcsCodeModal";
+	}
+	
+	// 공정코드 조회.
+	
+	@RequestMapping("/com/prcsCodeModal.do")
+	public String prcsModal(Model model) {
+		System.out.println("공정코드 조회 확인");
+		model.addAttribute("datas", bomcodeService.prcsCodeList());
+		return "grid";
 	}
 	
 }

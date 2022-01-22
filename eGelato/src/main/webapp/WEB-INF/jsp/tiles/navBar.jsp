@@ -7,7 +7,7 @@
             <div class="sidebar_blog_1">
                <div class="sidebar-header">
                   <div class="logo_section">
-                     <a href="index.html"><img class="logo_icon img-responsive" src="${path}/resources/images/logo/logo_icon.png" alt="#" /></a>
+                     <a href="index.html"><img class="logo_icon img-responsive" src="${path}/resources/images/logo/logo.png" alt="#" /></a>
                   </div>
                </div>
                <div class="sidebar_user_info">
@@ -35,7 +35,7 @@
                         </li>
                         
                         <li>
-                           <a href="#">> <span>자재 코드 관리</span></a>
+                           <a href="${path}/com/rwmatrCode.do">> <span>자재 코드 관리</span></a>
                         </li>
                         
                         <li>
@@ -93,7 +93,7 @@
                         </li>
                         
                         <li>
-                           <a href="${path }/rwmatr/rwmatrInfer.do">> <span>원자재 불량관리</span></a>
+                           <a href="${path }/rwmatr/rwmatrInfer.do">> <span>원자재 불량조회</span></a>
                         </li>
                         
                      </ul>

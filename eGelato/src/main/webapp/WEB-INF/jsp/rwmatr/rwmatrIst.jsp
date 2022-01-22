@@ -111,12 +111,16 @@ var rwmatrIstList = new Grid({
 				  header: '입고량',
 				  align: 'right',
 				  name: 'istQy',
+				  formatter({value}) { // 추가
+					  let a = `\${value}`
+				  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+				      return b;
+				  },
 				  sortable: true
 				},
 				{
 				  header: '입고일',
 				  name: 'istOustDttm',
-				  editor: 'datePicker',
 				  sortable: true
 				},
 				{
@@ -246,6 +250,7 @@ function callrwmatrPassModal(){
 		endDate = document.getElementById("endDate").value;
 		rwmName = document.getElementById("rwmName").value;
 		vendName = document.getElementById("vendName").value;
+		
 		console.log(startDate);
 		console.log(endDate);
 		

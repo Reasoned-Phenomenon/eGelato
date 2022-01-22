@@ -106,6 +106,13 @@ th, td {
 					$("#btnAdd").show();
 					$("#btnDel").show();
 				});
+	
+	//토스트옵션
+	toastr.options = {
+		positionClass : "toast-top-center",
+		progressBar : true,
+		timeOut: 1500 // null 입력시 무제한.
+		}
 		
 	//계획상세 그리드 생성
 		var Grid = tui.Grid;
@@ -372,8 +379,6 @@ th, td {
 			 
 			//입력값 없을 때,제목 입력안했을 때 toast 띄우기.
 			toastr.clear()
-			toastr.options.positionClass = "toast-top-center";
-			toastr.options.progressBar = true;
 			toastr.success( ('생산 계획명을 입력해주세요.'),'Gelato',{timeOut:'1000'});
 			
 		 } else {
@@ -384,14 +389,16 @@ th, td {
 				PlanDetaInsGrid.setValue(i,'name',planName);
 			}
 			console.log(2222);
-			PlanDetaInsGrid.request('modifyData');
-			console.log(22223333);
+			
+			if(confirm("저장하시겠습니까?")) {
+				PlanDetaInsGrid.blur()
+				PlanDetaInsGrid.request('modifyData',{showConfirm:false})
+				
+					toastr.clear()
+					toastr.success( ('계획이 등록되었습니다.'),'Gelato',{timeOut:'1000'} );
+			}
 			
 			// 등록 후 토스트 띄우기
-			toastr.clear()
-			toastr.options.positionClass = "toast-top-center";
-			toastr.options.progressBar = true;
-			toastr.success( ('계획 <' + planName + '>이 등록되었습니다.'),'Gelato',{timeOut:'1000'} );
 			
 			PlanDetaInsGrid.clear();
 		 } 
@@ -405,14 +412,16 @@ th, td {
 		for ( i =0 ; i <= PlanDetaGrid.getRowCount(); i++) {
 			PlanDetaGrid.setValue(i,'fg','cancel');
 		}
-		PlanDetaGrid.request('modifyData');
-		console.log(565656);
 		
-		//취소 완료시 toast
-		toastr.clear()
-		toastr.options.positionClass = "toast-top-center";
-		toastr.options.progressBar = true;
-		toastr.success( ('생산 계획이 취소되었습니다.'),'Gelato',{timeOut:'1000'} );
+		if(confirm("취소하시겠습니까?")) {
+			PlanDetaGrid.blur()
+			PlanDetaGrid.request('modifyData',{showConfirm:false})
+			
+			toastr.clear()
+			toastr.success( ('생산 계획이 취소되었습니다.'),'Gelato',{timeOut:'1000'} );
+		}
+		
+		console.log(565656);
 		
 		PlanDetaGrid.clear();
 	})

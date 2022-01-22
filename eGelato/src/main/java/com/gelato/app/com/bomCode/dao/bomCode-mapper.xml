@@ -20,11 +20,22 @@
 			<if test="nm !=null and nm !=''">
 			 	and b.nm = #{nm}
 			</if>
+		    <if test="useYn !=null and useYn !=''">
+				and a.use_yn = #{useYn}
+			</if>
+			
 		</where>    
 	</select>
 
 	<!-- BOM 등록 -->
 	<insert id="insertBomCode" parameterType="BomCodeVO">
+		<selectKey keyProperty="bomId" resultType="String" order="BEFORE">
+			SELECT 'BOM-'||
+					LPAD(MAX(TO_NUMBER(SUBSTR(BOM_ID, -5))) +1, 5, 0)
+				AS  BOM_ID
+			  FROM	BOM
+		
+		</selectKey>
 		INSERT INTO BOM (
 							BOM_ID,
 							PRDT_ID,
@@ -35,7 +46,7 @@
 							REMK,
 							USE_YN
 			             )
-			     VALUES (
+			     VALUES (	
 			     			#{bomId},
 			     			#{prdtId},
 			     			#{rwmatrId},
@@ -49,7 +60,7 @@
 	</insert>
 
 
-	<!-- bom에서 제품코드 검색 modal --> <!-- 다시 생각해서 수정 -->
+	<!-- bom에서 제품코드 검색 modal --> 
 	<select id="rwmatrList" resultType="BomCodeVO">
 		SELECT a.prdt_id as prdt_id , a.qy as qy,
 		       b.nm as nm, b.spec as spec, b.wk_unit as wk_unit, 
@@ -66,9 +77,31 @@
         ON a.prdt_id = d.prdt_id
 		
 	</select>
-
-	<update id="" >
 	
+	<!-- 그리드 셀에서 클릭시 조회되는 원자재 코드 검색 modal. -->
+	<select id="rwmatrCodeList" resultType="BomCodeVO">
+		SELECT rwmatr_id, nm
+		FROM   rwmatr
+	
+	</select>
+	
+	<!-- 그리드셀에서 클릭시 조회되는 공정코드 검색 modal. -->
+	<select id ="prcsCodeList" resultType="BomCodeVO">
+		SELECT prcs_id, nm as prcsNm
+		FROM prcs
+	
+	</select>
+	
+	<update id="updateBomCode" parameterType="BomCodeVO" >
+	   UPDATE  BOM  
+	     SET   RWMATR_ID = #{rwmatrId},
+	     	   QY = #{qy},
+	     	   PRCS_ID = #{prcsId},
+	     	   FG = #{fg},
+	     	   REMK = #{remk}, 
+	           USE_YN = #{useYn}
+	          
+	   WHERE   BOM_ID = #{bomId}
 	</update>
 
 

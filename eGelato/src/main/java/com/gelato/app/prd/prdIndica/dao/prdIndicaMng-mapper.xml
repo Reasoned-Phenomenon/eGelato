@@ -4,12 +4,11 @@
 
 <!-- 미지시 생산계획 조회 -->
 	<select id="nonIndicaList" resultType="PrdIndicaMngVO">
-		select pp.plan_id as plan_id,
-			   pp.name as name
+		select pp.plan_id, pp.name, pi.indica_id
 		from prod_plan pp left outer join prod_indica pi
 		    on pp.plan_id = pi.plan_id
 		where pi.indica_id is null
-		order by pp.dt
+		      and pp.fg != 'CANCEL'
 	</select>
 	
 <!-- 생산계획조회 그리드 출력 -->
@@ -25,4 +24,44 @@
 	</select>
 	
 <!-- 생산지시 그리드 출력 -->
+	<select id="choosePlanDetaId" resultType="PrdIndicaMngVO">
+		select l.line_id as line_id
+		from prod_plan_deta ppd join line l
+		    on ppd.prdt_id = l.prdt_id
+		where ppd.plan_deta_id = #{planDetaId}
+		group by l.line_id
+	</select>
+	
+<!-- 필요자재 그리드 출력 -->
+	<select id="chooseIndicaQy" resultType="PrdIndicaMngVO">
+		select l.prdt_id as prdt_id, 
+			   b.rwmatr_id as rwmatr_id, 
+			   r.nm as nm, 
+			   (b.qy*#{qy}/10) as qy
+		from  prdt p join line l 
+		    on p.prdt_id = l.prdt_id
+		    join bom b
+		    on p.prdt_id = b.prdt_id
+		    join rwmatr r
+		    on b.rwmatr_id = r.rwmatr_id
+		where l.line_id = #{lineId}
+		group by l.prdt_id, b.rwmatr_id, r.nm, b.qy
+		order by b.rwmatr_id
+	</select>
+
+<!-- 자재 선택 후 lot 정하기 -->
+	<select id="chooseRwmatrId" resultType="PrdIndicaMngVO">
+		select rs.lot_no as lotNo,
+			   rs.qy as qy,
+			   trunc(rs.expdate) as expdate
+		from rwmatr rw join rwmatr_stc rs
+		    on rw.rwmatr_id = rs.rwmatr_id
+		where rw.rwmatr_id = #{rwmatrId}
+		ORDER BY rs.expdate asc
+	</select>
+
+
+
+
+
 </mapper>

@@ -65,6 +65,10 @@ Grid.applyTheme('striped', {
 	    },
 	    evenRow: {
 	      background: '#fee'
+	    },
+	    invalid: {
+	    	background: 'red',
+	    	text: 'white'
 	    }
 	  }
 });
@@ -85,11 +89,6 @@ var rwmatrStcList = new Grid({
 	selectionUnit: 'row',
 	bodyHeight: 600,
 	columns:[
-		{
-		    header: '자재LOT번호',
-		    name: 'lotNo',
-		    sortable: true
-		  },
   		  {
 		    header: '자재코드',
 		    name: 'rwmatrId',
@@ -101,28 +100,46 @@ var rwmatrStcList = new Grid({
 		    sortable: true
 		  },
 		  {
+		    header: '업체명',
+		    name: 'vendName',
+		    sortable: true
+		  },
+		  {
 		    header: '수량',
 		    align: 'right',
 		    name: 'qy',
-		    sortable: true
+		    formatter({value}) { // 추가
+				  let a = `\${value}`
+			  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+			      return b;
+			  },
+		    sortable: true,
+	        validation: {
+	        	validatorFn: (value, row, columnName) => Number(value) > Number(row['safStc'])
+	        }
 		  },
 		  {
 		    header: '안전재고',
 		    align: 'right',
 		    name: 'safStc',
+		    formatter({value}) { // 추가
+				  let a = `\${value}`
+			  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+			      return b;
+			  },
 		    sortable: true
 		  },
 		  {
 		    header: '홀딩수량',
 		    align: 'right',
 		    name: 'excpQy',
+		    formatter({value}) { // 추가
+				  let a = `\${value}`
+			  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+			      return b;
+			  },
 		    sortable: true
 		  },
-		  {
-		    header: '유통기한',
-		    name: 'expdate',
-		    sortable: true
-		  }
 		]
 });
 

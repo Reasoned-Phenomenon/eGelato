@@ -37,6 +37,7 @@
 	<!-- 모달창 -->
 	<div id="dialogFrm"></div>
 
+
 <script>
 var Grid = tui.Grid;
 let dialog;
@@ -84,6 +85,16 @@ var rwmatrOustList = new Grid({
 	selectionUnit: 'row',
 	bodyHeight: 600,
 	columns:[
+			    {
+			      header: '발주디테일코드',
+			      name: 'rwmatrOrderDetaId',
+			      hidden:true
+			    },
+				{
+				  header: '자재LOT번호',
+				  name: 'lotNo',
+				  sortable: true
+				},
 				{
 				  header: '자재코드',
 				  name: 'rwmatrId',
@@ -102,23 +113,22 @@ var rwmatrOustList = new Grid({
 				  header: '출고량',
 				  align: 'right',
 				  name: 'oustQy',
+				  editor: 'text',
+				  formatter({value}) { // 추가
+					  let a = `\${value}`
+				  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+				      return b;
+				  },
 				  sortable: true
 				},
 				{
 				  header: '출고일',
 				  name: 'istOustDttm',
-				  editor: 'datePicker',
-				  sortable: true
-				},
-				{
-				  header: '자재LOT번호',
-				  name: 'lotNo',
 				  sortable: true
 				},
 				{
 				  header: '유통기한',
 				  name: 'expdate',
-			      editor: 'datePicker',
 				  sortable: true
 				}
 		]
@@ -186,7 +196,7 @@ function callrwmatrStcModal(){
 		console.log(ev)
 		console.log(ev.columnName)
 		console.log(ev.rowKey)
-	    if (ev.columnName === 'rwmatrId') {
+	    if (ev.columnName === 'lotNo') {
 			console.log("검수완료리스트")
 			ig = 'g';
 			callrwmatrStcModal();
@@ -199,6 +209,7 @@ function callrwmatrStcModal(){
 	function getRwmatrData(rwmatrData) {
 		console.log("입고정보 기입")
 		if(ig == 'g'){
+			rwmatrOustList.setValue(rk, "rwmatrOrderDetaId", rwmatrData.rwmatrOrderDetaId, true)
 			rwmatrOustList.setValue(rk, "rwmatrId", rwmatrData.rwmatrId, true)
 			rwmatrOustList.setValue(rk, "nm", rwmatrData.nm, true)
 			rwmatrOustList.setValue(rk, "vendName", rwmatrData.vendName, true)

@@ -27,7 +27,7 @@
 <br>
 
 	<!-- 입고검사내역 조회 -->
-	<div id="rwmatrIstInspList" style="width: 80%"></div>
+	<div id="rwmatrIstInspList" style="width: 90%"></div>
 
 	<!-- 모달창 -->
 	<div id="dialogFrm"></div>
@@ -147,6 +147,18 @@ var rwmatrIstInspList = new Grid({
 				  header: '비고',
 				  name: 'remk',
 				  editor: 'text',
+				  hidden:true,
+				  sortable: true
+				},
+				{
+				  header: '불량코드',
+				  name: 'inferId',
+				  sortable: true
+				},
+				{
+				  header: '불량내용',
+				  name: 'deta',
+				  sortable: true
 				}
 		]
 });
@@ -183,7 +195,20 @@ function callRwmatrModal(){
     $("#dialogFrm").load("${path}/rwmatr/searchRwmatrDialog.do", function(){console.log("원자재 목록")})
 }
 	
-	
+//원자재 불량코드 모달
+function callrwmatrInferCodeModal(){
+	dialog = $( "#dialogFrm" ).dialog({
+		  modal:true,
+		  autoOpen:false,
+	      height: 400,
+	      width: 600,
+	      modal: true
+	}); 
+
+    dialog.dialog( "open" );
+    $("#dialogFrm").load("${path}/rwmatr/rwmatrInferCodeModal.do", function(){console.log("원자재 불합격 리스트")})
+}
+
 	//발주코드 클릭시 모달
 	rwmatrIstInspList.on('click', (ev) => {
 		rk = ev.rowKey;
@@ -193,6 +218,9 @@ function callRwmatrModal(){
 	    if (ev.columnName === 'rwmatrOrderDetaId') {
 			console.log("발주디테일리스트")
     		callModal();
+		} else if(ev.columnName === 'inferId') {
+			console.log("불량코드리스트")
+			callrwmatrInferCodeModal();
 		}
 		
 		//불량량 자동계산
@@ -221,6 +249,14 @@ function callRwmatrModal(){
 		rwmatrIstInspList.setValue(rk, "rwmatrId", orderData.rwmatrId, true)
 		rwmatrIstInspList.setValue(rk, "qy", orderData.qy, true)
 		
+		dialog.dialog( "close" );
+	}
+	
+	//불량코드리스트 모달에서 받아온 데이터를 새로운 행에 넣어줌 or 텍스트박스에
+	function getInferData(inferData) {
+		console.log("불량내용 기입")
+		rwmatrIstInspList.setValue(rk, "inferId", inferData.inferId, true)
+		rwmatrIstInspList.setValue(rk, "deta", inferData.deta, true)
 		dialog.dialog( "close" );
 	}
 	

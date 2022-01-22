@@ -67,7 +67,15 @@
 	<select id="PrdtList" resultType="PrdPlanMngVO">
 		select prdt_id, prdt_nm
 		from prdt
-		order by prdt_id
+		
+		    UNION ALL
+		
+		select rwmatr_id as prdt_id,
+		       nm as prdt_nm
+		from rwmatr
+		where fg = 'STEP02'
+		
+		ORDER BY PRDT_ID
 	</select>
 	
 <!-- 생산계획관리 - 선택한 주문서 정보 출력 -->
@@ -192,4 +200,11 @@
 		{ call insert_excp(?) }
 	</insert>
 
+<!-- 계획 취소시 홀딩값 삭제 -->
+	<delete id="deleteExcp" parameterType="PrdPlanMngVO">
+		delete from excp 
+		where plan_id = #{planId}
+	</delete>
+	
+	
 </mapper>

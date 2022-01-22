@@ -12,11 +12,17 @@
 			       RII.PASS_QY AS PASS_QY, 
 			       RII.INFER_QY AS INFER_QY, 
 			       RII.MNGR AS MNGR,
-			       RII.REMK AS REMK
+			       RII.REMK AS REMK,
+                   RI.INFER_ID AS INFER_ID,
+                   IC.DETA AS DETA
 		FROM RWMATR_IST_INSP RII JOIN RWMATR R
-		ON RII.RWMATR_ID = R.RWMATR_ID
+			ON RII.RWMATR_ID = R.RWMATR_ID
         JOIN RWMATR_ORDER_DETA ROD
-        ON ROD.RWMATR_ORDER_DETA_ID = RII.RWMATR_ORDER_DETA_ID
+        	ON ROD.RWMATR_ORDER_DETA_ID = RII.RWMATR_ORDER_DETA_ID
+        JOIN RWMATR_INFER RI
+        	ON RI.RWMATR_ORDER_DETA_ID = RII.RWMATR_ORDER_DETA_ID
+        JOIN INFER_CODE IC
+       		ON IC.INFER_ID = RI.INFER_ID
         <where>
 	    	<if test="startDate != ''">
 	    		<![CDATA[TRUNC(RII.DT) >= to_date(#{startDate})]]>
@@ -45,7 +51,7 @@
 	    	ON RII.RWMATR_ORDER_DETA_ID = ROD.RWMATR_ORDER_DETA_ID
 	    LEFT OUTER JOIN RWMATR R
 	    	ON R.RWMATR_ID = ROD.RWMATR_ID
-	    WHERE MNGR IS NULL
+	    WHERE RII.FG IS NULL
 	    ORDER BY 2 DESC
 	</select>
 	
@@ -78,6 +84,16 @@
 								   INFER_QY = #{inferQy},
 								   MNGR = #{mngr},
 								   REMK = #{remk}
+		WHERE RWMATR_ORDER_DETA_ID = #{rwmatrOrderDetaId}
+	</update>
+	
+	<update id="updateRwmatrIstInspInfer" parameterType="RwmatrIstInspVO">
+		UPDATE RWMATR_IST_INSP SET FG = 'N'
+		WHERE RWMATR_ORDER_DETA_ID = #{rwmatrOrderDetaId}
+	</update>
+	
+	<update id="updateRwmatrIstInspIst" parameterType="RwmatrIstInspVO">
+		UPDATE RWMATR_IST_INSP SET FG = 'Y'
 		WHERE RWMATR_ORDER_DETA_ID = #{rwmatrOrderDetaId}
 	</update>
 	

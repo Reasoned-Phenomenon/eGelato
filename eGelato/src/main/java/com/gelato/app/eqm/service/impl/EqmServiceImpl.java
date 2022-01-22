@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gelato.app.eqm.dao.EqmVO;
+import com.gelato.app.eqm.eqmNon.dao.EqmNonVO;
 import com.gelato.app.eqm.dao.EqmMapper;
-import com.gelato.app.eqm.dao.EqmNonVO;
 import com.gelato.app.eqm.service.EqmService;
 
 @Service	
@@ -39,29 +39,5 @@ public class EqmServiceImpl implements EqmService{
 		return eqmMapper.eqmUpdate(eqmVo);
 	}
 
-	/*
-	 * public EqmVO eqmUpdate(EqmVO eqmVo) { return eqmMapper.eqmUpdate(eqmVo); }
-	 */	
-	//설비삭제
-	@Override
-	public int eqmDelete(EqmVO eqmVo) {
-		return eqmMapper.eqmDelete(eqmVo);
-	}
-
-	//설비비가동 조회
-	@Override
-	public List<EqmVO> eqmNonList(EqmVO eqmVo) {
-		return eqmMapper.eqmNonList(eqmVo);
-	}
-
-	@Override
-	public List<EqmNonVO> eqmNonSelect(EqmNonVO eqmNonVo) {
-		return eqmMapper.eqmNonSelect(eqmNonVo);
-	}
-
-	@Override
-	public int insertNonEqm(EqmNonVO eqmNonVo) {
-		return eqmMapper.insertNonEqm(eqmNonVo);
-	}
 	
 }

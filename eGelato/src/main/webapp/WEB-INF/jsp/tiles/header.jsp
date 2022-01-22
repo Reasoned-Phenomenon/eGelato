@@ -8,7 +8,7 @@
        <div class="full">
           <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
           <div class="logo_section">
-             <a href="${path}"><img class="img-responsive" src="${path}/resources/images/logo/logo.png" alt="#" /></a>
+             <a href="${path}"><img class="img-responsive" src="${path}/resources/images/logo/imsiLogo.png" alt="#" /></a>
           </div>
           <div class="right_topbar">
              <div class="icon_info">

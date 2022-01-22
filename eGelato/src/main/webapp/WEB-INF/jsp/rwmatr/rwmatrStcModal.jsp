@@ -15,12 +15,27 @@ h1 {
 </style>
 <body>
 	<br>
-	<h1>원자재 재고현황</h1>
-	<br>
+	<h1>원자재 재고현황</h1><br>
+	<form action="">
+		자재명 : <input type="text" id="rwmNameM">
+		<button type="button" id="rwmatrSearch" class="btn cur-p btn-outline-primary">조회</button>
+		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
+	</form>
+	
 	<div id="rwmatrStcListGrid" style="width: 100%"></div>
 	
 <script>
 var Grid = tui.Grid;
+
+var rwmNameM;
+
+//자재명검색
+document.getElementById("rwmatrSearch").addEventListener("click", function () {
+	rwmNameM = document.getElementById("rwmNameM").value;
+	
+	rwmatrStcListGrid.readData(1,{'rwmName':rwmNameM}, true);
+});
+
 //checkOnlyOne(element);
 //그리드 테마
 Grid.applyTheme('striped', {
@@ -30,6 +45,10 @@ Grid.applyTheme('striped', {
 	    },
 	    evenRow: {
 	      background: '#fee'
+	    },
+	    invalid: {
+	    	background: 'red',
+	    	text: 'white'
 	    }
 	  }
 	});
@@ -46,6 +65,11 @@ var rwmatrStcListGrid = new Grid({
   	rowHeaders:['rowNum'],
   	selectionUnit: 'row',
   	columns:[
+ 		  {
+		    header: '발주디테일코드',
+		    name: 'rwmatrOrderDetaId',
+		    hidden:true
+		  },
   		  {
 		    header: '자재LOT번호',
 		    name: 'lotNo',
@@ -62,22 +86,23 @@ var rwmatrStcListGrid = new Grid({
 		    sortable: true
 		  },
 		  {
+		    header: '업체명',
+		    name: 'vendName',
+		    sortable: true
+		  },
+		  {
 		    header: '수량',
 		    align: 'right',
 		    name: 'qy',
-		    sortable: true
-		  },
-		  {
-		    header: '안전재고',
-		    align: 'right',
-		    name: 'safStc',
-		    sortable: true
-		  },
-		  {
-		    header: '홀딩수량',
-		    align: 'right',
-		    name: 'excpQy',
-		    sortable: true
+		    formatter({value}) { // 추가
+				  let a = `\${value}`
+			  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+			      return b;
+			  },
+		    sortable: true,
+	        validation: {
+	        	validatorFn: (value, row, columnName) => Number(value) > Number(row['safStc'])
+	        }
 		  },
 		  {
 		    header: '유통기한',

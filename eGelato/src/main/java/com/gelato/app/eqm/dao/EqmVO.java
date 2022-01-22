@@ -19,13 +19,16 @@ public class EqmVO {
 	String spec;	//설비규격
 	String useYn;	//사용여부
 	String uph;		//uph
+	
 	String code;
 	String codeNm;
 	String codeId;
 	
-	
 	String prcsId;
 	String nm;
+	String yn;
+	
+	String eqmNonYn;	//비가동설비 체크
 	
 	String gubun;
 }
