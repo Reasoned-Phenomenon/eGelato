@@ -55,6 +55,7 @@
 	  <ul>
 	    <li><a href="#fragment-1">조회</a></li>
 	    <li><a href="#fragment-2">입력</a></li>
+	    <li><a href="#fragment-3">파일업로드</a></li>
 	  </ul>
 	  
   		<div id="fragment-1" class="col-sm-8">
@@ -62,9 +63,12 @@
   		</div>
   	
 		<div id="fragment-2" class="col-sm-8">
-			<div>입력폼</div>
+				<iframe src="${path}/sym/ccm/cde/RegistCcmCmmnDetailCodeView.do"
+					width="800" height="400"></iframe>
 		</div>
-		
+		<div id="fragment-3" class="col-sm-8">
+			<div>파일업로드 테스트</div>
+		</div>
 	</div>
 	
 </div>

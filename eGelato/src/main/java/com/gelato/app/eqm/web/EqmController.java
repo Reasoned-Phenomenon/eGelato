@@ -1,17 +1,26 @@
 package com.gelato.app.eqm.web;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gelato.app.com.comCode.dao.ComCodeVO;
 import com.gelato.app.com.comCode.service.ComCodeService;
 import com.gelato.app.eqm.dao.EqmVO;
-import com.gelato.app.eqm.eqmNon.dao.EqmNonVO;
 import com.gelato.app.eqm.service.EqmService;
+
+import egovframework.com.cmm.service.EgovFileMngService;
+import egovframework.com.cmm.service.EgovFileMngUtil;
+import egovframework.com.cmm.service.FileVO;
 
 @Controller
 public class EqmController {
@@ -19,6 +28,13 @@ public class EqmController {
 	@Autowired
 	EqmService service;
 	@Autowired ComCodeService cservice;
+	
+	@Resource(name = "EgovFileMngUtil")
+    private EgovFileMngUtil fileUtil;
+	
+	@Resource(name = "EgovFileMngService")
+    private EgovFileMngService fileMngService;
+
 	// 설비등록 - 페이지
 	@GetMapping("/eqm/eqmRegister.do")
 	public String insertForm() {  
@@ -27,8 +43,20 @@ public class EqmController {
 
 	// 설비등록 - 등록
 	@PostMapping("/eqm/insertEqm.do")
-	public String insert(EqmVO eqmVo) {
+	public String insert(MultipartHttpServletRequest multiRequest, EqmVO eqmVo) throws Exception {
+		
+		List<FileVO> result = null;
+	    String atchFileId = "";
+	    
+		final List<MultipartFile> files = multiRequest.getFiles("file_1");
+	    if (!files.isEmpty()) {
+	    	result = fileUtil.parseFileInf(files, "BBS_", 0, "", "");
+	    	atchFileId = fileMngService.insertFileInfs(result);
+	    }
+		
+	    eqmVo.setEqmImg(atchFileId);
 		service.insertEqm(eqmVo);
+		
 		return "tiles/eqm/eqmManagement";
 	}
 

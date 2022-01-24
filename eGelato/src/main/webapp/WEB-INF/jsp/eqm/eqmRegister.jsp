@@ -16,7 +16,7 @@
 	<!-- 설비구분 모달 -->
 	<div id="dialog-form" title="설비구분"></div>
 	<form action="${pageContext.request.contextPath}/eqm/insertEqm.do"
-		method="post" name="frm">
+		method="post" name="frm" enctype="multipart/form-data">
 		<div>
 			<br>
 			<h2 id="title">설비 등록</h2>
@@ -29,7 +29,7 @@
 								<th>설비명*</th>
 								<td><input id="eqmName" name="eqmName" required></td>
 								<th>사용여부</th>
-								<td><input type="radio" id="useYn" name="useYn" value="Y">Y
+								<td><input type="radio" id="useYn" name="useYn" value="Y" checked>Y
 									<input type="radio" id="notUse" name="useYn" value="N">N</td>
 								<th>설비구분</th>
 								<td><input id="fg" name="fg" required>
@@ -73,13 +73,20 @@
 				</div>
 				<div>
 					<h3>설비 이미지 등록</h3>
-					<div class="image-container">
+					 <div class="image-container">
 						<img style="width: 250px;" id="preview-image"
-							src="../resources/images/img/이미지프리뷰.jpg"> <input
-							style="display: block;" type="file" id="eqmImg">
+							src="../resources/images/img/이미지프리뷰.jpg"> 
+							<!-- <input style="display: block;" type="file" id="eqmImg">  -->
 					</div>
 					<!-- <img id="eqmImg" name="eqmImg" src="">
 						<button type="button" class="btn cur-p btn-outline-dark">이미지업로드</button> -->
+						
+					<!-- egov 파일업로드 시작 -->
+					
+					<input name="file_1" id="egovComFileUploader" type="file" title="설비 이미지 업로드" multiple/>
+					<div id="egovComFileList"></div>
+					
+					<!-- egov 파일 업로드 끝 -->
 				</div>
 				<div>
 					<button type="reset" value="내용초기화"
@@ -107,7 +114,7 @@
 	    }
 	}
 	// input file에 change 이벤트 부여
-	const inputImage = document.getElementById("eqmImg")
+	const inputImage = document.getElementById("egovComFileUploader")
 	inputImage.addEventListener("change", e => {
 	    readImage(e.target)
 	})
