@@ -73,6 +73,12 @@ Grid.applyTheme('striped', {
 	  }
 });
 
+toastr.options = {
+		positionClass : "toast-top-center",
+		progressBar : true,
+		timeOut: 1500 // null 입력시 무제한.
+	}
+
 //그리드 생성
 var rwmatrIstList = new Grid({
 	el: document.getElementById('rwmatrIstList'),
@@ -119,7 +125,7 @@ var rwmatrIstList = new Grid({
 				  sortable: true
 				},
 				{
-				  header: '입고일',
+				  header: '입고일시',
 				  name: 'istOustDttm',
 				  sortable: true
 				},
@@ -186,12 +192,18 @@ function callrwmatrPassModal(){
 		console.log(ev.columnName)
 		console.log(ev.rowKey)
 	    if (ev.columnName === 'rwmatrOrderDetaId') {
+	    	if(ev.targetType === 'columnHeader'){
+	    		return;
+	    	}
 			console.log("검수완료리스트")
 			ig = 'g';
 			callrwmatrPassModal();
-		} else if(ev.columnName === 'lotNo'){
-			if(rwmatrIstList.getValue(rk, "istQy") != ''){
-				callLotNoModal();
+		} else if(ev.columnName === 'lotNo' || ev.columnName === 'expdate') {
+			if(rwmatrIstList.getValue(rk, "rwmatrOrderDetaId") == '') {
+				//toastr
+				toastr.clear()
+				toastr.success( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				return;
 			}
 		}
 	});

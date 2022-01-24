@@ -69,6 +69,13 @@ Grid.applyTheme('striped', {
 	  }
 });
 
+//토스트옵션
+toastr.options = {
+		positionClass : "toast-top-center",
+		progressBar : true,
+		timeOut: 1500 // null 입력시 무제한.
+	}
+
 //그리드 생성
 var rwmatrOrderList = new Grid({
 	el: document.getElementById('rwmatrOrderList'),
@@ -92,6 +99,7 @@ var rwmatrOrderList = new Grid({
 				{
 				  header: '발주코드',
 				  name: 'orderId',
+				  //rowSpan: true,
 				  sortable: true
 				},
 				{
@@ -204,10 +212,21 @@ function callVendModal(){
 		console.log(ev.columnName)
 		console.log(ev.rowKey)
 	    if (ev.columnName === 'nm') {
+	    	if(ev.targetType === 'columnHeader'){
+	    		return;
+	    	}
 			console.log("자재리스트")
 			ig = 'g';
     		callRwmatrModal();
-		} 
+		} else if(ev.columnName === 'untprc' || ev.columnName === 'qy') {
+			if(rwmatrOrderList.getValue(rk, "orderId") == '') {
+				//toastr
+				toastr.clear()
+				toastr.success( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				return;
+			}
+		}
+		
 		//총액 자동계산
 		rwmatrOrderList.on('editingFinish', (ev) => {
 			console.log("11111111")

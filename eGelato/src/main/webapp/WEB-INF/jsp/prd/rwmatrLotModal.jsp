@@ -67,11 +67,42 @@
 			    header: '유통기한',
 			    name: 'expdate',
 			    editor: 'datePicker'
+			  },{
+				header : '제품코드',
+				name : 'prdtId',
+				hidden : true
+			  },{
+				header : '생산계획디테일코드',
+				name : 'planDetaId',
+				hidden : true
 			  }
-		  ]
+		  ],
+		  summary: {
+		        height: 40,
+		        position: 'bottom', // or 'top'
+		        columnContent: {
+		        	oustQy: {
+		            template(summary) {
+	              			  return 'Total: ' + summary.sum;
+		            }
+		          }
+		        }
+			}
 	});
 	
-	function chooseRWI(rwi,rwn,rwq) {
+	chooseRwmatrLotGrid.on("editingFinish", (ev3) => {
+		 let sumVal = chooseRwmatrLotGrid.getSummaryValues('oustQy').sum;
+		 console.log(sumVal);
+		 let rwv = document.getElementById("rwneed").value;
+		 
+		 if(sumVal != rwv) {
+			 $("#btnchoose").hide();
+		 } else {
+			 $("#btnchoose").show();
+		 }
+	 });
+	
+	function chooseRWI(rwi,rwn,rwq,rpi,pdi) {
 		/* chooseRwmatrLotGrid.readData(1,{'rwmatrId':rwi}, true); */
 		document.getElementById("rwname").value = rwn;
 		document.getElementById("rwneed").value = rwq;
@@ -97,6 +128,10 @@
 			console.log("시작");
 			for (let i=0 ; i<grc ; i++) {
 				
+				console.log(rpi);
+				chooseRwmatrLotGrid.setValue(i,'prdtId',rpi);
+				chooseRwmatrLotGrid.setValue(i,'planDetaId',pdi);
+				
 				// 행의 현재고값
 				iqy = parseInt(chooseRwmatrLotGrid.getValue(i,'qy'));
 				rwq = parseInt(rwq);
@@ -105,20 +140,25 @@
 				console.log(rwq);
 				console.log(rwq-iqy);
 				
-				if( iqy >= rwq) {
-					chooseRwmatrLotGrid.setValue(i,'oustQy',rwq);
-					console.log("현재고가 더 큼")
-					chooseRwmatrLotGrid.check(i);
-					return;
-				} else {
+				if( iqy < rwq) {
 					console.log("현재고가 더 작음")
 					chooseRwmatrLotGrid.setValue(i,'oustQy',iqy);
 					rwq = rwq-iqy
 					chooseRwmatrLotGrid.check(i);
+				} else {
+					chooseRwmatrLotGrid.setValue(i,'oustQy',rwq);
+					console.log("현재고가 더 큼")
+					chooseRwmatrLotGrid.check(i);
+					
+					let sumVal = chooseRwmatrLotGrid.getSummaryValues('oustQy').sum;
+					console.log(sumVal);
+					console.log(document.getElementById("rwneed").value);
+					
+					return;
 				}
 				
 			}
-				
+			
 		})
 	}
 	
@@ -131,7 +171,7 @@
 				console.log(gcr);
 				
 				for( let i=0 ; i<gcr.length ; i++) {
-					RwmatrLotGrid.appendRow({'nm':rwn})
+					RwmatrLotGrid.appendRow({'nm':rwn, 'prdtId':rpi, 'planDetaId':pdi})
 				}
 
 				moveCR(gcr);
@@ -148,22 +188,6 @@
 				} */
 				
 			});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </script>
 </body>
 </html>

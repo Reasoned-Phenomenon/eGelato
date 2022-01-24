@@ -157,8 +157,17 @@ var bomGrid = new Grid({
               header: '사용여부',
 			  name: 'useYn',
 			  align: 'center',
+			  editor: {
+		            type: GelatoSelectEditor,
+		            options: {
+		            	listItems : [
+		            		{text: '사용', value: 'Y'},
+							{text: '비사용', value: 'N'}
+		            		]
+		            }
+		      },
 			  renderer: {
-		            type: GelatoRadio,
+		            type: GelatoSelect,
 		      }
 			  
 			}

@@ -173,6 +173,7 @@
 			var yn = $("input[name=useYn]:checked").val();
 			var eqmId = $("#eqmId").val();
 			var eqmName = $("#eqmName").val();
+			
 			var params = {
 			eqmId : eqmId,
 			eqmName : eqmName,

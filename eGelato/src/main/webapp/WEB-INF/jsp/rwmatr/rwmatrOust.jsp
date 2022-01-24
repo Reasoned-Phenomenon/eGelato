@@ -70,6 +70,12 @@ Grid.applyTheme('striped', {
 	  }
 });
 
+toastr.options = {
+		positionClass : "toast-top-center",
+		progressBar : true,
+		timeOut: 1500 // null 입력시 무제한.
+	}
+
 //그리드 생성
 var rwmatrOustList = new Grid({
 	el: document.getElementById('rwmatrOustList'),
@@ -122,7 +128,7 @@ var rwmatrOustList = new Grid({
 				  sortable: true
 				},
 				{
-				  header: '출고일',
+				  header: '출고일시',
 				  name: 'istOustDttm',
 				  sortable: true
 				},
@@ -192,6 +198,9 @@ function callrwmatrStcModal(){
 	
 	//자재명 클릭시 현재고리스트 모달
 	rwmatrOustList.on('click', (ev) => {
+		if(ev.targetType === 'columnHeader'){
+    		return;
+    	}
 		rk = ev.rowKey;
 		console.log(ev)
 		console.log(ev.columnName)
@@ -200,8 +209,13 @@ function callrwmatrStcModal(){
 			console.log("검수완료리스트")
 			ig = 'g';
 			callrwmatrStcModal();
-		} else {
-			
+		} else if(ev.columnName === 'oustQy') {
+			if(rwmatrIstList.getValue(rk, "lotNo") == '') {
+				//toastr
+				toastr.clear()
+				toastr.success( ('자재LOT번호를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				return;
+			}
 		}
 	});
 

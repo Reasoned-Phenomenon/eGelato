@@ -366,7 +366,9 @@ th, td {
 	// 행삭제
 	btnDel.addEventListener("click", function() {
 		console.log('삭제')
-		PlanDetaInsGrid.removeCheckedRows(true);
+		if(confirm("삭제하시겠습니까?")){ 
+			PlanDetaInsGrid.removeCheckedRows(false) //true -> 확인 받고 삭제 / false는 바로 삭제
+		}
 	});
 	
 	//계획 등록

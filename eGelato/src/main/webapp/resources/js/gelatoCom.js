@@ -3,7 +3,7 @@ $(function () {
 	$('a[href="'+window.location.pathname+'"]').parent().parent().parent().find('a').trigger("click")
 })
 
-//라디오 렌더러
+//라디오 렌더러 -- Yes Or No
 class GelatoRadio {
   constructor(props) {
 	console.log(props)
@@ -62,9 +62,6 @@ class GelatoRadio {
 class GelatoSelect {
   constructor(props) {
 	
-	console.log(props)
-	//console.log(props.columnInfo.renderer.options)
-	
 	const { grid, rowKey,columnInfo, value } = props;
 	
 	const el = document.createElement('select');
@@ -75,11 +72,13 @@ class GelatoSelect {
 		let opt = document.createElement('option');
 		opt.innerText = data[i].text;
 		opt.value = data[i].value;
+		if (opt.value == value) {
+			opt.selected = true;
+		}
 		el.append(opt);
 	}
 	
 	el.addEventListener('click',function (ev) {
-		console.log(ev)
 		ev.stopPropagation();
 	})
 	
@@ -99,11 +98,10 @@ class GelatoSelect {
 class GelatoSelectEditor {
   constructor(props) {
 	
-	console.log(props)
+	let { grid, rowKey,columnInfo, value } = props;
 	
-	//const { grid, rowKey,columnInfo, value } = props;
-	
-	const el = document.createElement('select');
+	let el = document.createElement('div');
+	let select = document.createElement('select');
 	
 	let data = props.columnInfo.editor.options.listItems;
 	
@@ -111,15 +109,22 @@ class GelatoSelectEditor {
 		let opt = document.createElement('option');
 		opt.innerText = data[i].text;
 		opt.value = data[i].value;
-		el.append(opt);
+		if (opt.value == value) {
+			opt.selected = true;
+		}
+		select.append(opt);
 	}
 	
-	el.addEventListener('click',function (ev) {
-		console.log(ev)
+	el.append(select);
+	
+	select.addEventListener('click',function (ev) {
 		ev.stopPropagation();
 	})
 	
+	el.align = 'center'
+	
     this.el = el;
+	this.select = select;
   }
 
   getElement() {
@@ -127,11 +132,10 @@ class GelatoSelectEditor {
   }
 
   getValue() {
-    return this.el.value;
+    return this.select.value;
   }
+
 }
-
-
 
 //로트번호 부여 함수
 function get_lot(str_id) {

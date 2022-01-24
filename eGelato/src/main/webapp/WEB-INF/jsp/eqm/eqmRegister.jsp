@@ -119,6 +119,7 @@
 	});
 	
 	$("#btnFindFg").on("click",function(){
+		
 		dialog.dialog("open");
 		$("#dialog-form").load("${path}/eqm/searchFgModal.do", 	//load가 익숙치 않으면 ajax를 써도됨
 				function(){

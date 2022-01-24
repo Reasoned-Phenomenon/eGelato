@@ -62,6 +62,13 @@ Grid.applyTheme('striped', {
 	  }
 });
 
+//토스트옵션
+toastr.options = {
+		positionClass : "toast-top-center",
+		progressBar : true,
+		timeOut: 1500 // null 입력시 무제한.
+	}
+
 //그리드 생성
 var rwmatrIstInspList = new Grid({
 	el: document.getElementById('rwmatrIstInspList'),
@@ -211,6 +218,9 @@ function callrwmatrInferCodeModal(){
 
 	//발주코드 클릭시 모달
 	rwmatrIstInspList.on('click', (ev) => {
+		if(ev.targetType === 'columnHeader'){
+    		return;
+    	}
 		rk = ev.rowKey;
 		console.log(ev)
 		console.log(ev.columnName)
@@ -219,8 +229,21 @@ function callrwmatrInferCodeModal(){
 			console.log("발주디테일리스트")
     		callModal();
 		} else if(ev.columnName === 'inferId') {
+			if(rwmatrIstInspList.getValue(rk, "rwmatrOrderDetaId") == '') {
+				//toastr
+				toastr.clear()
+				toastr.success( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				return;
+			}
 			console.log("불량코드리스트")
 			callrwmatrInferCodeModal();
+		} else if(ev.columnName === 'passQy' || ev.columnName === 'inferQy') {
+			if(rwmatrIstInspList.getValue(rk, "rwmatrOrderDetaId") == '') {
+				//toastr
+				toastr.clear()
+				toastr.success( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				return;
+			}
 		}
 		
 		//불량량 자동계산

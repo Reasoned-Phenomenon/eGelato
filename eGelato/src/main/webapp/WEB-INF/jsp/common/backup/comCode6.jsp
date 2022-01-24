@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +9,7 @@
 </head>
 <body>
 <h3>공통 코드 관리</h3>
-
+  
 <table border="1">
 	<thead>
 		<tr>
@@ -27,10 +26,12 @@
 	</tbody>
 </table>
 <button id="btnTest">검색</button>
+<button id="btnAjax">Ajax</button>
+
 <br>
 <input id="testInput" type="time">시간입력
 <button id="btnTime">시간확인</button>
-
+<div id="bcTarget"></div> 
 <br>
  
 <div align="right">
@@ -54,7 +55,6 @@
 	  <ul>
 	    <li><a href="#fragment-1">조회</a></li>
 	    <li><a href="#fragment-2">입력</a></li>
-	    <li><a href="#fragment-3">파일업로드</a></li>
 	  </ul>
 	  
   		<div id="fragment-1" class="col-sm-8">
@@ -62,11 +62,7 @@
   		</div>
   	
 		<div id="fragment-2" class="col-sm-8">
-			<iframe src="${path}/sym/ccm/cde/RegistCcmCmmnDetailCodeView.do"
-					width="800" height="400"></iframe>
-		</div>
-		<div id="fragment-3" class="col-sm-8">
-			<div>파일업로드 테스트</div>
+			<div>입력폼</div>
 		</div>
 		
 	</div>
@@ -81,7 +77,10 @@ let codeParam;
 let dialog;
 //Response의 종류를 구분하기 위한 전역변수
 let flag;
- 
+
+
+//$("#bcTarget").barcode("PID-20220102-001", "code128",{barWidth:2, barHeight:70});  
+
 var Grid = tui.Grid;
 
 //그리드 테마
@@ -108,24 +107,26 @@ toastr.options = {
 		progressBar : true,
 		timeOut: 1500 // null 입력시 무제한.
 		}
-
+		
+let daeche = [];
+let dataSources = {
+		  api: {
+			    readData: 	{ url: '${path}/com/findComCode.do', method: 'GET'},
+			    modifyData : { url: '${path}/com/comCodeModifyData.do', method: 'PUT'} 
+			  },
+			  contentType: 'application/json'
+			};
 //코드ID 그리드(화면 좌측) 생성
-const codeIdGrid = new Grid({
+var codeIdGrid = new Grid({
 	el: document.getElementById('codeIdGrid'),
-  	data : {
-	  api: {
-	    readData: 	{ url: '${path}/com/findComCode.do', method: 'GET'},
-	    modifyData : { url: '${path}/com/comCodeModifyData.do', method: 'PUT'} 
-	  },
-	  contentType: 'application/json'
-	},
+  	data : dataSources,
   	rowHeaders:['rowNum'],
   	selectionUnit: 'row',
   	columns:[
   			{
 			  header: 'CL 코드',
 			  name: 'clCode',
-			  hidden:true
+			  rowSpan : true
 			},
 			{
 			  header: '코드 ID',
@@ -149,7 +150,7 @@ const codeIdGrid = new Grid({
 //그리드 이벤트	
 //클릭 이벤트
 codeIdGrid.on('click', (ev) => {	
-	
+	console.log(ev)
 	//cell 선택시 row 선택됨.
 	codeIdGrid.setSelectionRange({
 	      start: [ev.rowKey, 0],
@@ -166,6 +167,44 @@ codeIdGrid.on('click', (ev) => {
 	//toastr.info('코드ID선택 <button type="button">테스트1</button><br><button type="button">테스트2</button>','Gelato');
 	
 });
+
+	//Ajax 버튼 클릭시
+	btnAjax.addEventListener('click',function () {
+		$.ajax({
+			url:'${path}/com/findComCode.do',
+			dataType:'json',
+			success: function (res) {
+				
+				let ff ;
+				for(let i =0 ; i< res.data.contents.length ; i ++) {
+					
+					if( i == 0) {
+						ff = res.data.contents[i].codeId;
+					}
+					
+					if(ff == res.data.contents[i].codeId) {
+						daeche.push(res.data.contents[i]);
+						console.log("같음")
+					} else {
+						let chuga = {
+								clCode: '',
+								codeId: '',
+								codeIdNm: '소계 테스트',
+								codeIdDc: '',
+						};
+						daeche.push(chuga);
+						daeche.push(res.data.contents[i]);
+						console.log("다름")
+					}
+				}
+				
+				codeIdGrid.resetData(daeche);
+				codeIdGrid.resetOriginData();
+			}
+		})
+	})
+
+
 
 //코드 그리드(화면 우측) 생성	
 const codeGrid = new tui.Grid({
@@ -308,11 +347,6 @@ const codeGrid = new tui.Grid({
 	})
 	
 	$( "#tabs" ).tabs();
-		
-	//등록 페이지 넣어주는 부분
-	/* $('#insertEgov').load("${path}/sym/ccm/cde/RegistCcmCmmnDetailCodeView.do",function () {
-			console.log('로드됨')
-	}) */
 		
 	function getModalData (str) {
 		//목표 태그의 ID값을 입력하면 해당 태그의 value에 모달에서 가져온 값을 넣어줌.

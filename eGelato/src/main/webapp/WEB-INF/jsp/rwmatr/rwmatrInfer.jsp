@@ -234,11 +234,11 @@ function callrwmatrInferCodeModal(){
 	    if (ev.columnName === 'rwmatrOrderDetaId') {
 			console.log("불량리스트")
 			ig = 'g';
-			callrwmatrFailModal();
+			//callrwmatrFailModal();
 		} else if(ev.columnName === 'inferId') {
 			console.log("원자재불량코드리스트")
 			ig = 'g';
-			callrwmatrInferCodeModal();
+			//callrwmatrInferCodeModal();
 		}
 	});
 
