@@ -33,57 +33,56 @@
 			<div class="col-5">
 			<br>
 				<h2 class="detailTitle">상세조회</h2>
+			<form method="post" name="frm" id="frm" enctype="multipart/form-data">
 				<div>설비 이미지</div>
 				<div id="imageView">
-					<img style="width: 200px;" id="preview-image"
-						src="../resources/images/img/이미지프리뷰.jpg"> <input
-						style="display: block;" type="file" id="eqmImg">
+				<!-- 이미지 미리보기 -->
+					<img style="width: 200px;" id="preview-image" src="../resources/images/img/이미지프리뷰.jpg"> 
+						
+					<input name="file_1" id="egovComFileUploader" type="file" title="설비 이미지 업로드" multiple/>
+					<div id="egovComFileList"></div>
+					
 				</div>
-				<div>
-					<button type="button" id="btnImgUpd"
-						class="btn cur-p btn-outline-dark">이미지업로드</button>
-					<button type="button" id="btnImgDel"
-						class="btn cur-p btn-outline-dark">지우기</button>
-				</div>
-				<table>
-					<tbody>
-						<tr>
-							<th>설비코드</th>
-							<td><input id="eqmId" disabled></td>
-							<th>설비명</th>
-							<td><input id="eqmName" disabled></td>
-						</tr>
-						<tr>
-							<th>공정코드</th>
-							<td><input id="prcsId" disabled></td>
-							<th>공정명</th>
-							<td><input id="nm" disabled></td>
-						</tr>
-						<tr>
-							<th>최고온도</th>
-							<td><input id="tempMax" disabled></td>
-							<th>최저온도</th>
-							<td><input id="tempMin" disabled></td>
-						</tr>
-						<tr>
-							<th>점검주기</th>
-							<td><input id="chckPerd" disabled></td>
-							<th>사용여부</th>
-							<td><input type="radio" id="useYn" name="useYn" value="Y">Y
-								<input type="radio" id="notUse" name="useYn" value="N">N</td>
-						</tr>
-						<tr>
-							<td>
-								<button type="button" id="btnUpd"
-									class="btn cur-p btn-outline-dark">수정</button>
-							</td>
-							<!-- 	<td>
-								<button type="button" id="btnDel"
-									class="btn cur-p btn-outline-dark">삭제</button>
-							</td> -->
-						</tr>
-					</tbody>
-				</table>
+					<table>
+						<tbody>
+							<tr>
+								<th>설비코드</th>
+								<td><input id="eqmId" disabled></td>
+								<th>설비명</th>
+								<td><input id="eqmName" disabled></td>
+							</tr>
+							<tr>
+								<th>공정코드</th>
+								<td><input id="prcsId" disabled></td>
+								<th>공정명</th>
+								<td><input id="nm" disabled></td>
+							</tr>
+							<tr>
+								<th>최고온도</th>
+								<td><input id="tempMax" disabled></td>
+								<th>최저온도</th>
+								<td><input id="tempMin" disabled></td>
+							</tr>
+							<tr>
+								<th>점검주기</th>
+								<td><input id="chckPerd" disabled></td>
+								<th>사용여부</th>
+								<td><input type="radio" id="useYn" name="useYn" value="Y">Y
+									<input type="radio" id="notUse" name="useYn" value="N">N</td>
+							</tr>
+							<tr>
+								<td>
+									<button type="button" id="btnUpd"
+										class="btn cur-p btn-outline-dark">수정</button>
+								</td>
+								<!-- 	<td>
+									<button type="button" id="btnDel"
+										class="btn cur-p btn-outline-dark">삭제</button>
+								</td> -->
+							</tr>
+						</tbody>
+					</table>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -144,7 +143,29 @@
 				'gubun' : gubun
 			}, true);
 		}
-	
+		
+		function readImage(input) {
+		    // 인풋 태그에 파일이 있는 경우
+		    if(input.files && input.files[0]) {
+		        // 이미지 파일인지 검사 (생략)
+		        // FileReader 인스턴스 생성
+		        const reader = new FileReader()
+		        // 이미지가 로드가 된 경우
+		        reader.onload = e => {
+		            const previewImage = document.getElementById("preview-image")
+		            previewImage.src = e.target.result
+		        }
+		        // reader가 이미지 읽도록 하기
+		        reader.readAsDataURL(input.files[0])
+				console.log(input.files[0]);
+		    }
+		}
+		// input file에 change 이벤트 부여
+		const inputImage = document.getElementById("egovComFileUploader")
+		inputImage.addEventListener("change", e => {
+		    readImage(e.target)
+		})
+		
 		//더블 클릭시 한 행 선택
 		eqmListGrid.on("dblclick", (ev) => {
 			
@@ -163,6 +184,14 @@
 			$("#tempMax").attr("disabled",false);
 			$("#tempMin").attr("disabled",false);
 			$("#chckPerd").attr("disabled",false);
+			
+			//이미지 미리보기
+			console.log(eqmListGrid.getValue(ev["rowKey"],"eqmImg"))
+			if(eqmListGrid.getValue(ev["rowKey"],"eqmImg")) {
+				$("#preview-image").attr('src','${path}/cmm/fms/getImage.do?atchFileId='+eqmListGrid.getValue(ev["rowKey"],"eqmImg"));
+			} else {
+				$("#preview-image").attr('src','${path}/resources/images/img/이미지프리뷰.jpg');
+			}
 		}) 
 		
 		//수정버튼 클릭
@@ -186,23 +215,26 @@
 			useYn : yn
 			}
 			
+			//form 데이터
+			
+			var form = $('#frm')[0]
+    		var data = new FormData(form);
+			console.log(data)
 			$.ajax({
 				url : "${path}/eqm/eqmUpdate.do",
-				data : params,
-				method :'GET',
+				enctype: 'multipart/form-data',
+				processData: false,    
+		        contentType: false,      
+		        cache: false,
+				data : data,
+				method :'POST',
 				success : function(res){ 
+					
 					eqmListGrid.readData(1,{'gubun':gubun},true);
+					
 					if(yn == 'N'){
 						if(confirm("비가동관리 페이지로 이동하시겠습니까?")){
 							location.href= "${path}/eqm/eqmNonMoving.do?eqmId="+eqmId+"&eqmName="+eqmName;
-							/* $.ajax({
-								url : "${path}/eqm/eqmNonMoving.do",
-								data : params,
-								method : 'GET',
-								success:function(){
-									console.log("성공");
-								}
-							}) */
 						}
 					}else{
 						toastr.options.positionClass = "toast-top-center";

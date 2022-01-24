@@ -76,10 +76,7 @@
 					 <div class="image-container">
 						<img style="width: 250px;" id="preview-image"
 							src="../resources/images/img/이미지프리뷰.jpg"> 
-							<!-- <input style="display: block;" type="file" id="eqmImg">  -->
 					</div>
-					<!-- <img id="eqmImg" name="eqmImg" src="">
-						<button type="button" class="btn cur-p btn-outline-dark">이미지업로드</button> -->
 						
 					<!-- egov 파일업로드 시작 -->
 					
@@ -87,6 +84,7 @@
 					<div id="egovComFileList"></div>
 					
 					<!-- egov 파일 업로드 끝 -->
+					
 				</div>
 				<div>
 					<button type="reset" value="내용초기화"

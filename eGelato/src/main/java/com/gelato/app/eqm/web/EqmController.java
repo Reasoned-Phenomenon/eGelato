@@ -99,9 +99,12 @@ public class EqmController {
 	}
 
 	// 설비관리 - 수정
-	@GetMapping("/eqm/eqmUpdate.do")
-	public String eqmUpdate(EqmVO eqmVo) {
-		int r = service.eqmUpdate(eqmVo);
+	@PostMapping("/eqm/eqmUpdate.do")
+	public String eqmUpdate(MultipartHttpServletRequest multiRequest, EqmVO eqmVo) {
+		System.out.println("도착~~~~~~~~~~~");
+		System.out.println(multiRequest);
+		System.out.println(eqmVo);
+		service.eqmUpdate(eqmVo);
 		return "tiles/eqm/eqmManagement";
 	}
 
