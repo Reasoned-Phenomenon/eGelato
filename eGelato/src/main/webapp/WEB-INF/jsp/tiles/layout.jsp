@@ -27,9 +27,6 @@
 	href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 
-<!-- 바코드 -->
-<%-- <script src="${path}/resources/js/jquery-barcode.js" type="text/javascript" /> --%>
-
 <!-- 데이트 픽커 -->
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css">
@@ -67,6 +64,9 @@
    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
    <![endif]-->
+   
+<!-- 바코드 -->
+<script src="${path}/resources/js/jquery-barcode.js" type="text/javascript" />
 
 <!-- 모달 -->
 <link rel="stylesheet"
@@ -88,7 +88,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
 	integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+	
 <!-- gelato.js -->
 <script src="${path }/resources/js/gelatoCom.js"></script>
 
