@@ -47,25 +47,25 @@
 						<tbody>
 							<tr>
 								<th>설비코드</th>
-								<td><input id="eqmId" disabled></td>
+								<td><input id="eqmId" name="eqmId" readOnly></td>
 								<th>설비명</th>
-								<td><input id="eqmName" disabled></td>
+								<td><input id="eqmName" name="eqmName" readOnly></td>
 							</tr>
 							<tr>
 								<th>공정코드</th>
-								<td><input id="prcsId" disabled></td>
+								<td><input id="prcsId" name="prcsId" readOnly></td>
 								<th>공정명</th>
-								<td><input id="nm" disabled></td>
+								<td><input id="nm" name="nm" readOnly></td>
 							</tr>
 							<tr>
 								<th>최고온도</th>
-								<td><input id="tempMax" disabled></td>
+								<td><input id="tempMax" name="tempMax" readOnly></td>
 								<th>최저온도</th>
-								<td><input id="tempMin" disabled></td>
+								<td><input id="tempMin" name="tempMin" readOnly></td>
 							</tr>
 							<tr>
 								<th>점검주기</th>
-								<td><input id="chckPerd" disabled></td>
+								<td><input id="chckPerd" name="chckPerd" readOnly></td>
 								<th>사용여부</th>
 								<td><input type="radio" id="useYn" name="useYn" value="Y">Y
 									<input type="radio" id="notUse" name="useYn" value="N">N</td>
@@ -75,10 +75,6 @@
 									<button type="button" id="btnUpd"
 										class="btn cur-p btn-outline-dark">수정</button>
 								</td>
-								<!-- 	<td>
-									<button type="button" id="btnDel"
-										class="btn cur-p btn-outline-dark">삭제</button>
-								</td> -->
 							</tr>
 						</tbody>
 					</table>
@@ -179,11 +175,11 @@
 			//$("#eqmImg").val(eqmListGrid.getValue(ev["rowKey"],"eqmImg"));
 			eqmListGrid.getValue(ev["rowKey"],"useYn")=='Y'?$("#useYn").prop("checked",true):$("#notUse").prop("checked",true);
 			
-			$("#prcsId").attr("disabled",false);
-			$("#nm").attr("disabled",false);
-			$("#tempMax").attr("disabled",false);
-			$("#tempMin").attr("disabled",false);
-			$("#chckPerd").attr("disabled",false);
+			$("#prcsId").attr("readOnly",false);
+			$("#nm").attr("readOnly",false);
+			$("#tempMax").attr("readOnly",false);
+			$("#tempMin").attr("readOnly",false);
+			$("#chckPerd").attr("readOnly",false);
 			
 			//이미지 미리보기
 			console.log(eqmListGrid.getValue(ev["rowKey"],"eqmImg"))
@@ -203,7 +199,7 @@
 			var eqmId = $("#eqmId").val();
 			var eqmName = $("#eqmName").val();
 			
-			var params = {
+			/* var params = {
 			eqmId : eqmId,
 			eqmName : eqmName,
 			prcsId : $("#prcsId").val(),
@@ -213,13 +209,24 @@
 			chckPerd : $("#chckPerd").val(),
 			//eqmImg : $("#eqmImg").val(),
 			useYn : yn
-			}
+			} */
 			
 			//form 데이터
 			
-			var form = $('#frm')[0]
+			var form = $('#frm')[0];
+			console.log(form)
+			
     		var data = new FormData(form);
-			console.log(data)
+			data.append('gubun',gubun);
+		
+			for (let key of data.keys()) {
+			  console.log(key);
+			}
+			
+			for (let value of data.values()) {
+			  console.log(value);
+			}	
+	
 			$.ajax({
 				url : "${path}/eqm/eqmUpdate.do",
 				enctype: 'multipart/form-data',

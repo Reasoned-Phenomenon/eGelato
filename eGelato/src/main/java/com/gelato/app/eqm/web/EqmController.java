@@ -101,9 +101,10 @@ public class EqmController {
 	// 설비관리 - 수정
 	@PostMapping("/eqm/eqmUpdate.do")
 	public String eqmUpdate(MultipartHttpServletRequest multiRequest, EqmVO eqmVo) {
-		System.out.println("도착~~~~~~~~~~~");
 		System.out.println(multiRequest);
 		System.out.println(eqmVo);
+		
+		//테이블 수정
 		service.eqmUpdate(eqmVo);
 		return "tiles/eqm/eqmManagement";
 	}
