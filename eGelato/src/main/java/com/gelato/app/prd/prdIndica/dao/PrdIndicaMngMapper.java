@@ -18,4 +18,13 @@ public interface PrdIndicaMngMapper {
 	
 	//자재 선택 -> lot결정하기
 	List<PrdIndicaMngVO> chooseRwmatrId(PrdIndicaMngVO vo);
+	
+	//생산지시 insert
+	int insertPrdIndica(String string);
+	
+	//생산지시디테일 insert
+	int insertPrdIdicaDeta(PrdIndicaMngVO vo);
+	
+	//투입원자재 insert
+	int insertInptRwmatr(PrdIndicaMngVO vo);
 }

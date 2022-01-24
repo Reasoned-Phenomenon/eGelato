@@ -96,9 +96,8 @@ public class RwmatrioServiceImpl implements RwmatrioService {
 			rwmatrioMapper.insertRwmatrOust(vo);
 			//현재고 업데이트
 			RwmatrioVO rwmatrioVO = new RwmatrioVO();
-			rwmatrioVO.setRwmatrId(vo.getRwmatrId());
-			rwmatrioVO.setExpdate(vo.getExpdate());
-			rwmatrioVO.setQy(vo.getExcpQy());
+			rwmatrioVO.setLotNo(vo.getLotNo());
+			rwmatrioVO.setQy(vo.getOustQy());
 			System.out.println("현재고 업데이트!");
 			System.out.println(rwmatrioMapper.updateRwmatrStc(rwmatrioVO));
 		}
@@ -113,9 +112,8 @@ public class RwmatrioServiceImpl implements RwmatrioService {
 			rwmatrioMapper.deleteRwmatrOust(vo);
 			//현재고 업데이트
 			RwmatrioVO rwmatrioVO = new RwmatrioVO();
-			rwmatrioVO.setRwmatrId(vo.getRwmatrId());
-			rwmatrioVO.setExpdate(vo.getExpdate());
-			rwmatrioVO.setQy(vo.getExcpQy());
+			rwmatrioVO.setLotNo(vo.getLotNo());
+			rwmatrioVO.setQy(vo.getOustQy());
 			rwmatrioMapper.updateRwmatrStcD(rwmatrioVO);
 		}
 		return 0;

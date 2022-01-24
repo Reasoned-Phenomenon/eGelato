@@ -27,7 +27,7 @@ public class BomCodeController {
 	// 제품BOM list 출력 조회.
 	@RequestMapping("/com/findBomList.do")
 	public String findBomList(Model model, BomCodeVO vo) {
-		    System.out.println("vvvvv");
+		    System.out.println("제품BOM list 조회.");
 			model.addAttribute("datas", bomcodeService.findBomList(vo));
 			return "grid";
 	}

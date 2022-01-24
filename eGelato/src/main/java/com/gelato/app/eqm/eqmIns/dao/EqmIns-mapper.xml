@@ -2,17 +2,66 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gelato.app.eqm.eqmIns.dao.EqmInsMapper">
 
+<!-- 모달모달 -->
 	<select id="eqmChck" resultType="EqmInsVO">
-		SELECT E.EQM_ID AS EQM_ID,
-			   E.EQM_NAME AS EQM_NAME,
-			   E.CHCK_PERD AS CHCK_PERD,
-			   C.CHCK_DT AS CHCK_DT,
-			   C.JUDT AS JUDT,
-			   C.CHCK_DETA AS CHCK_DETA
+		SELECT  E.EQM_ID AS EQM_ID,
+			    E.EQM_NAME AS EQM_NAME,
+			    E.CHCK_PERD AS CHCK_PERD,
+			    C.CHCK_DT AS CHCK_DT,
+			    f_com_code_to_nm(upper(C.JUDT)) AS JUDT,
+			    C.CHCK_DETA AS CHCK_DETA,
+			    (C.CHCK_DT+E.CHCK_PERD) AS NM_CK_DT,
+			    C.INSPR
 		FROM EQM E 
 			 LEFT OUTER JOIN CHCK C
 			 ON (E.EQM_ID = C.EQM_ID)
-			   
+			 <where>
+			 <if test="fromCkDate != null and fromCkDate !=''">
+			 	<![CDATA[AND TRUNC(C.CHCK_DT) >= TO_DATE(#{fromCkDate})]]>
+			 </if>
+			 <if test="toCkDate != null and toCkDate !=''">
+			 	<![CDATA[AND TRUNC(C.CHCK_DT) <= TO_DATE(#{toCkDate})]]>
+			 </if>
+			 <if test="(fromCkDate != null and fromCkDate !='') or (toCkDate != null and toCkDate !='')">
+			 OR TRUNC(C.CHCK_DT) IS NULL
+			 </if>
+			 </where>
+			 order by C.CHCK_DT asc
 	</select>
-
+	
+	<select id="eqmInsList" resultType="EqmInsVO">
+		SELECT  E.EQM_ID AS EQM_ID,
+			    E.EQM_NAME AS EQM_NAME,
+			    E.CHCK_PERD AS CHCK_PERD,
+			    C.CHCK_DT AS CHCK_DT,
+			    C.JUDT AS JUDT,
+			    C.CHCK_DETA AS CHCK_DETA,
+			    (C.CHCK_DT+E.CHCK_PERD) AS NM_CK_DT,
+			    C.INSPR
+		FROM EQM E 
+			 LEFT OUTER JOIN CHCK C
+			 ON (E.EQM_ID = C.EQM_ID)
+			 <where>
+			 	E.EQM_ID = #{eqmId}
+			 </where>
+	</select>
+	
+	<insert id="insertChck" parameterType="EqmInsVO">
+		INSERT INTO CHCK(
+							EQM_ID, 
+							CHCK_DT, 
+							CHCK_DETA, 
+							JUDT, 
+							INSPR
+						)
+				 VALUES(
+							#{eqmId},
+							#{chckDt},
+							#{chckDeta},
+							#{judt},
+							#{inspr}
+						)
+	
+	</insert>
+	
 </mapper>

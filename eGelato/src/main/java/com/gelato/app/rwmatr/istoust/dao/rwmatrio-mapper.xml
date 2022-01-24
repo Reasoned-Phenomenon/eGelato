@@ -28,7 +28,7 @@
 			<if test="vendName != '' and vendName != null">
 				AND V.VEND_NAME LIKE '%'||#{vendName}||'%'
 			</if>
-        ORDER BY 1 DESC
+        ORDER BY IST_OUST_DTTM DESC
 	</select>
  	
  	<select id="RwmatrPassList" resultType="RwmatrioVO">
@@ -74,7 +74,7 @@
 		<if test="vendName != '' and vendName != null">
 			AND V.VEND_NAME LIKE '%'||#{vendName}||'%'
 		</if>
-        ORDER BY IST_OUST_DTTM
+        ORDER BY IST_OUST_DTTM DESC
  	</select>
  	
  	<select id="RwmatrStcList" resultType="RwmatrioVO">
@@ -184,15 +184,13 @@
  	
  	<!-- 자재 현재고 update -->
  	<update id="updateRwmatrStc" parameterType="RwmatrioVO">
- 		UPDATE RWMATR_STC SET RWMATR_ID = #{rwmatrId},
- 							  EXPDATE = #{expdate},
- 							  QY = QY-#{qy}
+ 		UPDATE RWMATR_STC SET QY = QY-#{qy}
  		WHERE LOT_NO = #{lotNo}
  	</update>
  	
  	<!-- 자재 현재고 update -->
  	<update id="updateRwmatrStcD" parameterType="RwmatrioVO">
- 		UPDATE RWMATR_STC SET QY = QY + #{qy}
+ 		UPDATE RWMATR_STC SET QY = QY+#{qy}
  		WHERE LOT_NO = #{lotNo}
  	</update>
  	

@@ -3,6 +3,8 @@ package com.gelato.app.prd.prdIndica.service;
 import java.util.List;
 
 import com.gelato.app.prd.prdIndica.dao.PrdIndicaMngVO;
+import com.gelato.app.prd.prdPlan.dao.PrdPlanMngVO;
+import com.gelato.app.vr.ModifyVO;
 
 public interface PrdIndicaMngService {
 
@@ -20,4 +22,13 @@ public interface PrdIndicaMngService {
 	
 	//자재 선택 -> lot결정하기
 	List<PrdIndicaMngVO> chooseRwmatrId(PrdIndicaMngVO vo);
+	
+	//modify - 등록
+	int insertPrdIndica(List<PrdIndicaMngVO> vo);
+	
+	//modify - 등록
+	int insertPrdIdicaDeta(List<PrdIndicaMngVO> vo);
+	
+	//투입원자재 insert
+	int insertInptRwmatr(List<PrdIndicaMngVO> vo);
 }
