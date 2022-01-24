@@ -41,7 +41,7 @@
 						
 					<input name="file_1" id="egovComFileUploader" type="file" title="설비 이미지 업로드" multiple/>
 					<div id="egovComFileList"></div>
-					
+					<input id="eqmImg" name="eqmImg" hidden>
 				</div>
 					<table>
 						<tbody>
@@ -172,7 +172,7 @@
 			$("#tempMax").val(eqmListGrid.getValue(ev["rowKey"],"tempMax"));
 			$("#tempMin").val(eqmListGrid.getValue(ev["rowKey"],"tempMin"));
 			$("#chckPerd").val(eqmListGrid.getValue(ev["rowKey"],"chckPerd"));
-			//$("#eqmImg").val(eqmListGrid.getValue(ev["rowKey"],"eqmImg"));
+			$("#eqmImg").val(eqmListGrid.getValue(ev["rowKey"],"eqmImg"));
 			eqmListGrid.getValue(ev["rowKey"],"useYn")=='Y'?$("#useYn").prop("checked",true):$("#notUse").prop("checked",true);
 			
 			$("#prcsId").attr("readOnly",false);
@@ -212,21 +212,12 @@
 			} */
 			
 			//form 데이터
-			
 			var form = $('#frm')[0];
 			console.log(form)
 			
     		var data = new FormData(form);
 			data.append('gubun',gubun);
 		
-			for (let key of data.keys()) {
-			  console.log(key);
-			}
-			
-			for (let value of data.values()) {
-			  console.log(value);
-			}	
-	
 			$.ajax({
 				url : "${path}/eqm/eqmUpdate.do",
 				enctype: 'multipart/form-data',

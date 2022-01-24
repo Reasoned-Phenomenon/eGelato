@@ -100,15 +100,34 @@ public class EqmController {
 
 	// 설비관리 - 수정
 	@PostMapping("/eqm/eqmUpdate.do")
-	public String eqmUpdate(MultipartHttpServletRequest multiRequest, EqmVO eqmVo) {
+	public String eqmUpdate(MultipartHttpServletRequest multiRequest, EqmVO eqmVo) throws Exception {
 		System.out.println(multiRequest);
 		System.out.println(eqmVo);
+		System.out.println("전"+eqmVo.getEqmImg());
+		
+		//egov
+		String atchFileId = eqmVo.getEqmImg();
+		final List<MultipartFile> files = multiRequest.getFiles("file_1");
+	    if (!files.isEmpty()) {
+			if (atchFileId == null || "".equals(atchFileId)) {
+			    List<FileVO> result = fileUtil.parseFileInf(files, "BBS_", 0, atchFileId, "");
+			    atchFileId = fileMngService.insertFileInfs(result);
+			    eqmVo.setEqmImg(atchFileId);
+			} else {
+			    FileVO fvo = new FileVO();
+			    fvo.setAtchFileId(atchFileId);
+			    int cnt = fileMngService.getMaxFileSN(fvo);
+			    List<FileVO> _result = fileUtil.parseFileInf(files, "BBS_", cnt, atchFileId, "");
+			    fileMngService.updateFileInfs(_result);
+			}
+	    }
+	    
+		System.out.println("후"+eqmVo.getEqmImg());
 		
 		//테이블 수정
 		service.eqmUpdate(eqmVo);
 		return "tiles/eqm/eqmManagement";
 	}
-
 	
 }
 
