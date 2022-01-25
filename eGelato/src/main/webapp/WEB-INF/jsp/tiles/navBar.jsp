@@ -169,15 +169,15 @@
                      <ul class="collapse list-unstyled" id="ADMIN">
                      
                      	<li>
-                           <a href="#">> <span>사용자 계정 관리</span></a>
+                           <a href="${path }/mng/egovMberManage.do">> <span>사용자 계정 관리</span></a>
                         </li>
                         
                         <li>
-                           <a href="#">> <span>사용자 롤 관리</span></a>
+                           <a href="${path }/mng/egovRoleList.do">> <span>사용자 롤 관리</span></a>
                         </li>
                         
                         <li>
-                           <a href="#">> <span>사용자 권한 관리</span></a>
+                           <a href="${path }/mng/egovAuthorList.do">> <span>사용자 권한 관리</span></a>
                         </li>
                      </ul>
                   </li>
