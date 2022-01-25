@@ -38,6 +38,15 @@
  ******************************************************** */
 function fn_egov_init(){
 
+	//입력값 있으면 클리어.
+	document.getElementById('codeId').value='';
+	document.getElementById('codeIdNm').value='';
+	document.getElementById('codeIdDc').value='';
+	document.getElementById('useAt').children[0].selected = true;
+	
+	//select 자동 선택
+	document.getElementById('clCode').children[1].selected = true;
+	
 	// 첫 입력란에 포커스
 	document.getElementById("cmmnCodeVO").codeId.focus();
 
@@ -52,6 +61,15 @@ function fn_egov_list_code(){
  * 저장처리화면
  ******************************************************** */
 function fn_egov_regist_code(form){
+	//코드 ID 6글자 제한
+	if(document.getElementById('codeId').value.length > 7) {
+		alert('코드 ID는 6글자 이하로 입력하세요');
+		return;
+	}
+	
+	//코드 ID 명 중복 체크
+	console.log("코드 ID 명 중복 체크")
+	
 	//input item Client-Side validate
 	if (!validateCmmnCodeVO(form)) {	
 		return false;
@@ -79,7 +97,7 @@ function fncShowMessg(){
 <form:form commandName="cmmnCodeVO" action="${pageContext.request.contextPath}/sym/ccm/cca/RegistCcmCmmnCode.do" method="post" onSubmit="fn_egov_regist_code(document.forms[0]); return false;"> 
 <div class="wTableFrm">
 	<!-- 타이틀 -->
-	<h2>${pageTitle} <spring:message code="title.create" /></h2>
+	<h2>코드 ID <spring:message code="title.create" /></h2>
 	
 	<!-- 등록폼 -->
 	<table class="wTable" summary="<spring:message code="common.summary.list" arguments="${pageTitle}" />">
@@ -155,7 +173,7 @@ function fncShowMessg(){
 	<!-- 하단 버튼 -->
 	<div class="btn">
 		<input type="submit" class="s_submit" value="<spring:message code="button.create" />" title="<spring:message code="button.create" /> <spring:message code="input.button" />" />
-		<span class="btn_s"><a href="<c:url value='/sym/ccm/cca/SelectCcmCmmnCodeList.do' />" title="<spring:message code="button.list" />  <spring:message code="input.button" />"><spring:message code="button.list" /></a></span>
+		<%-- <span class="btn_s"><a href="<c:url value='/sym/ccm/cca/SelectCcmCmmnCodeList.do' />" title="<spring:message code="button.list" />  <spring:message code="input.button" />"><spring:message code="button.list" /></a></span> --%>
 	</div><div style="clear:both;"></div>
 	
 </div>

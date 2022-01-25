@@ -44,15 +44,26 @@
 	
 	  <ul>
 	    <li><a href="#fragment-1">조회</a></li>
-	    <li><a href="#fragment-2">입력</a></li>
+	    <li><a href="#fragment-2">코드 ID</a></li>
+	    <li><a href="#fragment-3">코드</a></li>
 	  </ul>
 	  
   		<div id="fragment-1" class="col-sm-8">
   			<div id="codeGrid"></div>
   		</div>
-  	
-		<div id="fragment-2" class="col-sm-8">
-				<iframe src="${path}/sym/ccm/cde/RegistCcmCmmnDetailCodeView.do" width="800" height="400" ></iframe>
+  		
+  		<div id="fragment-2" class="col-sm-8">
+  				<iframe src="${path}/sym/ccm/cca/RegistCcmCmmnCodeView.do" 
+				width="800" 
+				height="400" 
+				frameborder="0"></iframe>
+  		</div>
+  		
+		<div id="fragment-3" class="col-sm-8">
+				<iframe src="${path}/sym/ccm/cde/RegistCcmCmmnDetailCodeView.do" 
+				width="800" 
+				height="400" 
+				frameborder="0"></iframe>
 		</div>
 		
 	</div>
@@ -195,17 +206,8 @@ const codeGrid = new tui.Grid({
 		  header: 'USE_AT',
 		  name: 'useAt',
 		  align: 'center',
-		  editor: {
-	            type: GelatoSelectEditor,
-	            options: {
-	            	listItems : [
-	            		{text: '사용', value: 'Y'},
-						{text: '비사용', value: 'N'},
-	            		]
-	            }
-	      },
-	      renderer: {
-	            type: GelatoSelect
+		  renderer: {
+	            type: GelatoRadio
 	      } 
 		}
      ]
@@ -235,6 +237,12 @@ const codeGrid = new tui.Grid({
 
 	//추가버튼 -> 입력칸추가
 	btnAdd.addEventListener("click",function(){
+		//코드아이디 선택하지 않으면 행 추가 안 되게.
+		if( typeof codeParam == 'undefined') {
+			toastr.clear();
+			toastr.info('코드ID를 선택하세요','Gelato');
+			return;
+		}
 		//현재 선택된 row의 codeId값을 가진 row를 생성-> hidden
 		codeGrid.appendRow({codeId:codeParam},{focus:true})
 	})

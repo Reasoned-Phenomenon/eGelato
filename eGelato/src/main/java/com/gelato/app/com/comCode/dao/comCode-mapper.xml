@@ -11,49 +11,13 @@
 			 
 	FROM COMTCCMMNCODE
 	WHERE USE_AT = 'Y'
+	
+	ORDER BY 2
 
 	<if test="codeIdNm != null">
 		AND CODE_ID_NM LIKE '%' || #{codeIdNm} || '%'
 	</if>
 	
 </select>
-
-
-<!-- 
-<insert id="insertComCode">
-
-	INSERT INTO COMTCCMMNCODE (
-				CODE_ID,   
-				CODE_ID_NM,  
-				CODE_ID_DC, 
-				USE_AT,      
-				CL_CODE,       
-				FRST_REGIST_PNTTM,         
-				FRST_REGISTER_ID, 
-				LAST_UPDT_PNTTM,         
-				LAST_UPDUSR_ID )
-	VALUES
-	(UPPER(#{codeId}),#{codeIdNm},#{codeIdDc},'Y','GEL',SYSDATE,'Admin',SYSDATE,'Admin')
-
-</insert>
-
-<update id="updateComCode">
-
-	UPDATE COMTCCMMNCODE
-	SET 
-		CODE_ID_NM = #{codeIdNm},
-		CODE_ID_DC = #{codeIdDc}, 
-		USE_AT = #{useAt}
-	WHERE code_id = #{codeId}
-
-</update>
-
-<delete id="deleteComCode">
-
-	DELETE FROM COMTCCMMNCODE
-	WHERE code_id = #{codeId}
-
-</delete> -->
-
 
 </mapper>

@@ -38,6 +38,12 @@
  ******************************************************** */
 function fn_egov_init(){
 	
+	//입력값 있으면 클리어.
+	document.getElementById('code').value='';
+	document.getElementById('codeNm').value='';
+	document.getElementById('codeDc').value='';
+	document.getElementById('useAt').children[0].selected = true;
+	
 	// 첫 입력란에 포커스
 	var vo = document.getElementById("cmmnDetailCodeVO").clCode.focus();
 
@@ -91,7 +97,7 @@ function fncShowMessg(){
 <form:form commandName="cmmnDetailCodeVO" method="post" onSubmit="fn_egov_regist_code(document.forms[0]); return false;"> 
 <div class="wTableFrm">
 	<!-- 타이틀 -->
-	<h2>${pageTitle} <spring:message code="title.create" /></h2>
+	<h2>코드<spring:message code="title.create" /></h2>
 	
 	<!-- 등록폼 -->
 	<table class="wTable" summary="<spring:message code="common.summary.list" arguments="${pageTitle}" />">
@@ -108,7 +114,7 @@ function fncShowMessg(){
 		<!-- 코드ID -->
 		<c:set var="title"><spring:message code="comSymCcmCde.cmmnDetailCodeVO.codeId"/> </c:set>
 		<tr>
-			<th><label for="codeId">${title} <span class="pilsu">*</span></label></th>
+			<th><label for="codeId">코드 ID 이름 <span class="pilsu">*</span></label></th>
 			<td class="left">
 			    <form:select path="clCode" title="${title} ${inputSelect}" onChange="fn_egov_get_CodeId(cmmnDetailCodeVO);">
 			    			<form:option value="" label="${inputSelect}"/>
@@ -127,7 +133,7 @@ function fncShowMessg(){
 		<!-- 상세코드 -->
 		<c:set var="title"><spring:message code="comSymCcmCde.cmmnDetailCodeVO.code"/> </c:set>
 		<tr>
-			<th><label for="code">${title} <span class="pilsu">*</span></label></th>
+			<th><label for="code">코드 <span class="pilsu">*</span></label></th>
 			<td class="left">
 			    <form:input path="code" title="${title} ${inputTxt}" size="70" maxlength="70" />
    				<div><form:errors path="code" cssClass="error" /></div>     
@@ -137,7 +143,7 @@ function fncShowMessg(){
 		<!-- 상세코드명 -->
 		<c:set var="title"><spring:message code="comSymCcmCde.cmmnDetailCodeVO.codeNm"/> </c:set>
 		<tr>
-			<th><label for="codeNm">${title} <span class="pilsu">*</span></label></th>
+			<th><label for="codeNm">코드 이름 <span class="pilsu">*</span></label></th>
 			<td class="left">
 			    <form:input path="codeNm" title="${title} ${inputTxt}" size="70" maxlength="70" />
    				<div><form:errors path="codeNm" cssClass="error" /></div>     
@@ -147,7 +153,7 @@ function fncShowMessg(){
 		<!-- 상세코드설명 -->
 		<c:set var="title"><spring:message code="comSymCcmCde.cmmnDetailCodeVO.codeDc"/> </c:set>
 		<tr>
-			<th><label for="codeDc">${title } <span class="pilsu">*</span></label></th>
+			<th><label for="codeDc">코드 설명 <span class="pilsu">*</span></label></th>
 			<td class="nopd">
 				<form:textarea path="codeDc" title="${title} ${inputTxt}" cols="300" rows="20" />   
 				<div><form:errors path="codeDc" cssClass="error" /></div>  

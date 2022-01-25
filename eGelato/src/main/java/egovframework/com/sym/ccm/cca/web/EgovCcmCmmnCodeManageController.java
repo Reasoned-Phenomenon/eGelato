@@ -185,7 +185,7 @@ public class EgovCcmCmmnCodeManageController {
 		cmmnCodeVO.setFrstRegisterId((user == null || user.getUniqId() == null) ? "" : user.getUniqId());
 			cmmnCodeManageService.insertCmmnCode(cmmnCodeVO);
 	
-		return "forward:/sym/ccm/cca/SelectCcmCmmnCodeList.do";
+		return "forward:/sym/ccm/cca/RegistCcmCmmnCodeView.do";
     }
         
     /**
