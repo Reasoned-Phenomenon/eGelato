@@ -18,11 +18,11 @@ public class EgovEnvCryptoUserTest {
 		"gelatogelato",   //데이터베이스 접속 패드워드 설정
 		"jdbc:oracle:thin:@egelato.cmni3vohqacs.ap-northeast-2.rds.amazonaws.com:1521:ORCL",            //데이터베이스 접속 주소 설정
 		"oracle.jdbc.driver.OracleDriver"  //데이터베이스 드라이버
-              };
+        };
  
  
 		LOGGER.info("------------------------------------------------------");		
-		ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"classpath:/context-crypto-test.xml"});
+		ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"classpath:/context-crypto.xml"});
 		EgovEnvCryptoService cryptoService = context.getBean(EgovEnvCryptoServiceImpl.class);
 		LOGGER.info("------------------------------------------------------");
  

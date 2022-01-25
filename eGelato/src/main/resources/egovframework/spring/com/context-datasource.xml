@@ -34,8 +34,8 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${Globals.oracle.DriverClassName}"/>
 		<property name="url" value="${Globals.oracle.Url}" />
-		<property name="username" value="${Globals.oracle.UserName}"/>
-		<property name="password" value="${Globals.oracle.Password}"/>
+		<property name="username" value="#{egovEnvCryptoService.getUsername()}"/>
+		<property name="password" value="#{egovEnvCryptoService.getPassword()}"/>
 	</bean>
 	</beans>
 
