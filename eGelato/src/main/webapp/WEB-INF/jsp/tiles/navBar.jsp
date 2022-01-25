@@ -167,10 +167,18 @@
                   <li class="active">
                      <a href="#ADMIN" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-lock green_color"></i> <span>관리자</span></a>
                      <ul class="collapse list-unstyled" id="ADMIN">
+                     
+                     	<li>
+                           <a href="#">> <span>사용자 계정 관리</span></a>
+                        </li>
+                        
+                        <li>
+                           <a href="#">> <span>사용자 롤 관리</span></a>
+                        </li>
+                        
                         <li>
                            <a href="#">> <span>사용자 권한 관리</span></a>
                         </li>
-                        
                      </ul>
                   </li>
                   
