@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.gelato.app.prd.prdIndicaFind.dao.PrdIndicaMngFindMapper">
+	
+<!-- 생산지시조회 -->
+	<select id="indicaList" resultType="PrdIndicaMngFindVO">
+		select pid.indica_deta_id as indica_deta_id, 
+			   l.prdt_id as prdt_id, 
+			   p.prdt_nm as prdt_nm, 
+			   pid.qy as qy, 
+			   pid.line_id as line_id, 
+			   pid.ord as ord, 
+			   pid.remk as remk
+		from prod_indica_deta pid join line l
+		    on pid.line_id = l.line_id
+		    join prdt p
+		    on l.prdt_id = p.prdt_id
+		where trunc(pid.indica_dt) = #{indicaD}
+		group by pid.indica_deta_id, l.prdt_id, p.prdt_nm, pid.qy, pid.line_id, pid.ord, pid.remk
+		order by pid.ord
+	</select>
+</mapper>

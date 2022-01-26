@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gelato.app.biz.dao.OrderVO;
@@ -25,7 +26,7 @@ public class OrderController {
 	@RequestMapping("/biz/findOrderList.do")
 	public String findOrderList(Model model, OrderVO vo) {
 		System.out.println(vo);
-		System.out.println("999999");
+		System.out.println("주문서 list 조회.");
 		model.addAttribute("datas", ordService.findOrderList(vo));
 		return "grid";
 	}

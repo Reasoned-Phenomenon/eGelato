@@ -92,6 +92,21 @@ public class RwmatrIstOustController {
 		return "grid";
 	}
 	
+	//원자재LOT 재고조회
+	@RequestMapping("/rwmatr/RwmatrLotList.do")
+	public String RwmatrLotList(RwmatrioVO vo, Model model) {
+		System.out.println("LOT재고 조회");
+		model.addAttribute("datas", rwmatrioService.RwmatrLotList(vo));
+		System.out.println(rwmatrioService.RwmatrLotList(vo));
+		return "grid";
+	}
+	
+	//원자재Lot 재고조회 페이지로 이동
+	@RequestMapping("/rwmatr/rwmatrLot.do")
+	public String rwmatrLotList() {
+		return "tiles/rwmatr/rwmatrLotList";
+	}
+	
 	//원자재 입고관리 CUD
 	@PutMapping("/rwmatr/rwmatrIstModifyData.do")
 	@ResponseBody

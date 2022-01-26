@@ -21,6 +21,7 @@
 		입고일 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
 		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
+		<button type="button" class="btn cur-p btn-outline-primary" id="btnReset">전체검색</button>
 	</form>
 </div>
 <div style="float: right;">
@@ -49,6 +50,7 @@ let ig;
 
 //모달에서 선택한 rowKey값 세팅
 let rk = '';
+
 
 //날짜검색 조건
 var startDate;
@@ -198,13 +200,20 @@ function callrwmatrPassModal(){
 			console.log("검수완료리스트")
 			ig = 'g';
 			callrwmatrPassModal();
-		} else if(ev.columnName === 'lotNo' || ev.columnName === 'expdate') {
+		} else if(ev.columnName === 'expdate' || ev.columnName === 'lotNo' || ev.columnName === 'istOustDttm') {
 			if(rwmatrIstList.getValue(rk, "rwmatrOrderDetaId") == '') {
 				//toastr
 				toastr.clear()
 				toastr.success( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
 				return;
 			}
+		}
+		
+		if(ev.columnName === 'lotNo' || ev.columnName === 'istOustDttm') {
+			//toastr
+			toastr.clear()
+			toastr.success( ('저장시 자동으로 기입되는 값입니다.'),'Gelato',{timeOut:'1000'} );
+			return;
 		}
 	});
 
@@ -272,6 +281,26 @@ function callrwmatrPassModal(){
 									'vendName': vendName}, true);
 	});
 	
+	//검색초기화
+	btnReset.addEventListener("click", function(){
+		selectList = [];
+		console.log("검색초기화");
+		document.getElementById("startDate").value = '';
+		document.getElementById("endDate").value = '';
+		document.getElementById("rwmName").value = '';
+		document.getElementById("vendName").value = '';
+		
+		startDate = document.getElementById("startDate").value;
+		endDate = document.getElementById("endDate").value;
+		rwmName = document.getElementById("rwmName").value;
+		vendName = document.getElementById("vendName").value;
+		
+		rwmatrIstList.readData(1,{'startDate':startDate,
+									'endDate':endDate, 
+									'rwmName':rwmName,
+									'vendName': vendName}, true);
+	});
+	
 	//추가
 	btnAdd.addEventListener("click", function(){
 		rwmatrIstList.prependRow();
@@ -287,6 +316,7 @@ function callrwmatrPassModal(){
 	
 	//저장
 	btnSave.addEventListener("click", function(){
+		selectList = [];
 		rwmatrIstList.blur();
 		rwmatrIstList.request('modifyData');
 		flag = 'O'

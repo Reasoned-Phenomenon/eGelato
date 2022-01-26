@@ -7,11 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>설비 점검 페이지(점검등록/점검내역조회)</title>
+<style>
+.tui-grid-btn-filter {
+display : none
+}
+</style>
 </head>
 <body>
-<!-- 설비검색 모달 -->
+	<!-- 설비검색 모달 -->
 	<div id="dialog-form" title="설비검색"></div>
-	
+	<!-- 해당일자 점검내역 모달 -->
+	<div id="chckDialog-form" title="일 점검자료 관리"></div>
+
 	<h2>설비 정기점검 관리</h2>
 	<div class="container">
 		<br> <br>
@@ -35,9 +42,6 @@
 						<label>점검일자</label><input type="date" id="chckDate">
 					</div>
 					<div>
-						<label>특이사항</label> <input type="text" id="remk">
-					</div>
-					<div>
 						<label>설비구분</label> <select id="gubun" onchange="selectGubun()">
 							<option value="전체">전체
 							<option value="배합기">배합기
@@ -58,7 +62,8 @@
 									<label>점검일자</label> <input id="fromCkDate" name="fromCkDate"
 										type="date"><label>~</label><input id="toCkDate"
 										name="toCkDate" type="date">
-									<button class="btn btn-print float-right" id="eqmChck" type="button">설비조회</button>
+									<button class="btn btn-print float-right" id="eqmChck"
+										type="button">설비조회</button>
 								</div>
 							<li>
 						</ul>
@@ -71,24 +76,33 @@
 		</div>
 	</div>
 	<script>
+		//인풋태그(우측) 일주일 단위로 설정하기
 		var d = new Date();
 		var nd = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7);
-		document.getElementById('fromCkDate').value = nd.toISOString().slice(0, 10);
-		document.getElementById('toCkDate').value = d.toISOString().slice(0, 10);
-	
+		document.getElementById('fromCkDate').value = nd.toISOString().slice(0,
+				10);
+		document.getElementById('toCkDate').value = d.toISOString()
+				.slice(0, 10);
+
 		var Grid = tui.Grid;
 
 		const eqmInsGrid = new Grid({
 			el : document.getElementById('eqmInsGrid'),
 			data : {
 				api : {
-					readData : {url : '${path}/eqm/eqmInspectionList.do', method : 'GET'},
-					modifyData :{ url: '${path}/eqm/chckModifyData.do', method:'PUT'}
+					readData : {
+						url : '${path}/eqm/eqmInspectionList.do',
+						method : 'GET'
+					},
+					modifyData : {
+						url : '${path}/eqm/chckModifyData.do',
+						method : 'PUT'
+					}
 				},
 				contentType : 'application/json',
 				initialRequest : false
 			},
-			rowHeaders : [ 'rowNum' ],
+			rowHeaders : [ 'checkbox', 'rowNum' ],
 			selectionUnit : 'row',
 			bodyHeight : 500,
 			columns : [ {
@@ -97,6 +111,14 @@
 			}, {
 				header : '설비명',
 				name : 'eqmName'
+			}, {
+				header : '설비구분',
+				name : 'fg',
+				filter : {
+                    type: 'text',
+                    showApplyBtn: true,
+                    showClearBtn: true
+                  }
 			}, {
 				header : '점검주기',
 				name : 'chckPerd'
@@ -109,72 +131,108 @@
 			}, {
 				header : '판정',
 				name : 'judt',
-				align: 'center',
-			    editor: {
-				type: GelatoSelectEditor,
-	      		options: {
-			        listItems: [
-	        			{text : '합격', value :'합격'},
-	        			{text : '수리', value :'수리필요'},
-	        			{text : '교체', value :'교체필요'},
-	        			{text : '정밀점검', value :'정밀점검필요'}
-	        			]		
-			      }
-			    },
-			    renderer: {
-		            type: GelatoSelect
-		      		} 
+				align : 'center',
+				editor : {
+					type : GelatoSelectEditor,
+					options : {
+						listItems : [ {
+							text : '합격',
+							value : 'Test01'
+						}, {
+							text : '수리',
+							value : 'Test02'
+						}, {
+							text : '교체',
+							value : 'Test03'
+						}, {
+							text : '정밀점검',
+							value : 'Test04'
+						} ]
+					}
+				},
+				renderer : {
+					type : GelatoSelect
+				}
 			}, {
 				header : '점검내역',
 				name : 'chckDeta',
-				align: 'center',   
-			    /* editor: {
-				type: GelatoSelectEditor,
-	      		options: {
-			        listItems: [
-	        			{text : '합격', value :'합격'},
-	        			{text : '수리', value :'수리필요'},
-	        			{text : '교체', value :'교체필요'},
-	        			{text : '정밀점검', value :'정밀점검필요'}
-	        			]		
-			      }
-			    },
-			    renderer: {
-		            type: GelatoSelect
-		      		}  */
+				align : 'center',
+				editor : 'text'
 			}, {
 				header : '검수인',
 				name : 'inspr'
 			} ]
 		});
 
+		var abc = '';
 		//드롭다운 선택시 바로 조회
 		function selectGubun() {
-			let gubun = $('#gubun option:selected').val();
-			eqmListGrid.readData(1, {'gubun' : gubun}, true);
-		}
+			var gubun = $('#gubun option:selected').val();
+			//eqmInsGrid.readData(1, {'gubun' : gubun, 'chckDt' : abc}, true);
+			if (gubun == '전체') {
+				eqmInsGrid.unfilter('fg');
+			} else {
+				eqmInsGrid.filter('fg',[{code : 'eq', value : gubun}]);
+			}
+		} 
 
 		//점검일자 input태그에 현재날짜 띄우기
-		document.getElementById('chckDate').value = new Date().toISOString().substring(0, 10);
-		
-		//(점검일자별)설비조회 검색 모달
+		document.getElementById('chckDate').value = new Date().toISOString()
+				.substring(0, 10);
+
+		//(점검일자별)설비조회 검색 모달(우측)
 		let dialog = $("#dialog-form").dialog({
-			autoOpen :false,
+			autoOpen : false,
 			modal : true,
 			width : "700px"
 		});
-		
-		$("#eqmChck").on("click", function(){
-		
+
+		//(점검일자별) 설비점검내역 조회 모달
+		let ckDialog = $("#chckDialog-form").dialog({
+			autoOpen : false,
+			modal : true,
+			width : "700px"
+		})
+
+		//모달창 
+		$("#eqmChck").on("click", function() {
+
 			dialog.dialog("open");
-			$("#dialog-form").load("${path}/eqm/eqmCkModal.do",function(){
-				console.log("설비검색 모달 로드됨")})
+			$("#dialog-form").load("${path}/eqm/eqmCkModal.do", function() {
+				console.log("설비검색 모달 로드됨")
+			})
 		});
-		
-		$("#resetBtn").on("click", function(){
+
+		//저장버튼
+		$("#saveBtn").on("click", function() {
+			eqmInsGrid.request('modifyData');
+		})
+
+		//삭제버튼
+		$("#removeBtn").on("click", function() {
+			eqmInsGrid.request('modifyData', {
+				'checkedOnly' : true,
+				'modifiedOnly' : false,
+				'showConfirm' : false
+			});
+			eqmInsGrid.removeCheckedRows(true)
+		})
+
+		//초기화버튼
+		$("#resetBtn").on("click", function() {
 			eqmInsGrid.clear();
 		})
-		
+
+		//조회버튼
+		$("#searchBtn").on(
+				"click",
+				function() {
+					ckDialog.dialog("open");
+					$("#chckDialog-form").load("${path}/eqm/eqmDayCkModal.do",
+							function() {
+								console.log("일 관리점검 모달 로드됨");
+							})
+				})
 	</script>
 </body>
 </html>

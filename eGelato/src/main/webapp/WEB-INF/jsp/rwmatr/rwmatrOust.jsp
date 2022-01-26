@@ -21,6 +21,7 @@
 		출고일 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
 		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
+		<button type="button" class="btn cur-p btn-outline-primary" id="btnReset">전체검색</button>
 	</form>
 </div>
 <div style="float: right;">
@@ -51,7 +52,7 @@ let ig;
 //모달에서 선택한 rowKey값 세팅
 let rk = '';
 
-//날짜검색 조건
+//검색 조건
 var startDate;
 var endDate;
 var rwmName;
@@ -115,6 +116,11 @@ var rwmatrOustList = new Grid({
 				  name: 'vendName',
 				  sortable: true
 				},
+				{
+			      header: '수량',
+			      name: 'qy',
+			      hidden:true
+			    },
 				{
 				  header: '출고량',
 				  align: 'right',
@@ -210,7 +216,7 @@ function callrwmatrStcModal(){
 			ig = 'g';
 			callrwmatrStcModal();
 		} else if(ev.columnName === 'oustQy') {
-			if(rwmatrIstList.getValue(rk, "lotNo") == '') {
+			if(rwmatrOustList.getValue(rk, "lotNo") == '') {
 				//toastr
 				toastr.clear()
 				toastr.success( ('자재LOT번호를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
@@ -218,7 +224,22 @@ function callrwmatrStcModal(){
 			}
 		}
 	});
+	
+	//불량량 자동계산
+	rwmatrOustList.on('editingFinish', (ev) => {
+		rk = ev.rowKey;
+		let totalq = parseInt(rwmatrOustList.getValue(rk, "qy"));
+		let oustq = parseInt(rwmatrOustList.getValue(rk, "oustQy"))
+		if(rwmatrOustList.getValue(rk, "oustQy") != '') {
+			if(totalq < oustq){
+				rwmatrOustList.setValue(rk, "oustQy", '', true);
+				toastr.clear()
+				toastr.success( ('해당 자재의 출고가능항 수량은 ' + totalq + ' 입니다.'),'Gelato',{timeOut:'1800'} );
+			} 
+		} 
+	});
 
+	
 	//검수합격리스트 모달에서 받아온 데이터를 새로운 행에 넣어줌 or 텍스트박스에
 	function getRwmatrData(rwmatrData) {
 		console.log("입고정보 기입")
@@ -229,6 +250,7 @@ function callrwmatrStcModal(){
 			rwmatrOustList.setValue(rk, "vendName", rwmatrData.vendName, true)
 			rwmatrOustList.setValue(rk, "lotNo", rwmatrData.lotNo, true)
 			rwmatrOustList.setValue(rk, "expdate", rwmatrData.expdate, true)
+			rwmatrOustList.setValue(rk, "qy", rwmatrData.qy, true)
 		} else if(ig == 'i'){
 			document.getElementById("rwmName").value = rwmatrData.nm;
 		}
@@ -273,6 +295,25 @@ function callrwmatrStcModal(){
 		vendName = document.getElementById("vendName").value;
 		console.log(startDate);
 		console.log(endDate);
+		
+		rwmatrOustList.readData(1,{'startDate':startDate,
+									'endDate':endDate, 
+									'rwmName':rwmName,
+									'vendName': vendName}, true);
+	});
+	
+	//검색초기화
+	btnReset.addEventListener("click", function(){
+		console.log("검색초기화");
+		document.getElementById("startDate").value = '';
+		document.getElementById("endDate").value = '';
+		document.getElementById("rwmName").value = '';
+		document.getElementById("vendName").value = '';
+		
+		startDate = document.getElementById("startDate").value;
+		endDate = document.getElementById("endDate").value;
+		rwmName = document.getElementById("rwmName").value;
+		vendName = document.getElementById("vendName").value;
 		
 		rwmatrOustList.readData(1,{'startDate':startDate,
 									'endDate':endDate, 

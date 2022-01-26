@@ -16,6 +16,7 @@
 		검사일자 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
 		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
+		<button type="button" class="btn cur-p btn-outline-primary" id="btnReset">전체검색</button>
 	</form>
 </div>
 <div style="float: right;">
@@ -41,6 +42,7 @@ let flag;
 
 //모달에서 선택한 rowKey값 세팅
 let rk = '';
+
 
 //검색 조건
 var startDate;
@@ -246,20 +248,39 @@ function callrwmatrInferCodeModal(){
 			}
 		}
 		
-		//불량량 자동계산
-		rwmatrIstInspList.on('editingFinish', (ev) => {
-			console.log("11111111")
-			console.log(ev);
-			console.log("11111111")
-			rk = ev.rowKey;
-			if(rwmatrIstInspList.getValue(rk, "passQy") != '') {
-				console.log("sdfjklsdfjsdfljsdlf")
-				let totalq = parseInt(rwmatrIstInspList.getValue(rk, "qy"));
-				let passq = parseInt(rwmatrIstInspList.getValue(rk, "passQy"));
-				let inferq = totalq - passq;
+	});
+	//불량량 자동계산
+	rwmatrIstInspList.on('editingFinish', (ev) => {
+		console.log("11111111")
+		console.log(ev);
+		console.log("11111111")
+		rk = ev.rowKey;
+		let totalq = parseInt(rwmatrIstInspList.getValue(rk, "qy"));
+		let passq = parseInt(rwmatrIstInspList.getValue(rk, "passQy"));
+		let inferq = totalq - passq;
+		
+		// 숫자 정규식 유효성검사
+		var pattern_num = /[0-9]/;
+		if(rwmatrIstInspList.getValue(rk, "passQy") != ''){
+			if((pattern_num.test(rwmatrIstInspList.getValue(rk, "passQy"))) == false) {
+				rwmatrIstInspList.setValue(rk, "passQy", "", true);
+				toastr.clear()
+				toastr.success( ("숫자만 입력이 가능합니다."),'Gelato',{timeOut:'1000'} );
+				return;
+			}
+		}
+		
+		if( (pattern_num.test(rwmatrIstInspList.getValue(rk, "passQy"))) ) {
+			console.log("불량량 자동계산")
+			if(passq <= totalq){
 				rwmatrIstInspList.setValue(rk, "inferQy", inferq, true);
-			} 
-		});
+			} else {
+				rwmatrIstInspList.setValue(rk, "passQy", '', true);
+				//toastr
+				toastr.clear()
+				toastr.success( ('합격량은 발주총량보다 높을수 없습니다.'),'Gelato',{timeOut:'1500'} );
+			}
+		} 
 	});
 
 	
@@ -318,6 +339,26 @@ function callrwmatrInferCodeModal(){
 									  'mngr':mngr}, true);
 	});
 	
+	//검색초기화
+	btnReset.addEventListener("click", function(){
+		selectList = [];
+		console.log("검색초기화");
+		document.getElementById("startDate").value = '';
+		document.getElementById("endDate").value = '';
+		document.getElementById("rwmName").value = '';
+		document.getElementById("mngr").value = '';
+		
+		startDate = document.getElementById("startDate").value;
+		endDate = document.getElementById("endDate").value;
+		rwmName = document.getElementById("rwmName").value;
+		mngr = document.getElementById("mngr").value;
+		
+		rwmatrIstInspList.readData(1,{'startDate':startDate,
+									'endDate':endDate, 
+									'rwmName':rwmName,
+									'mngr': mngr}, true);
+	});
+	
 	//추가
 	btnAdd.addEventListener("click", function(){
 		rwmatrIstInspList.prependRow();
@@ -332,6 +373,7 @@ function callrwmatrInferCodeModal(){
 	
 	//저장
 	btnSave.addEventListener("click", function(){
+		selectList = [];
 		rwmatrIstInspList.blur();
 		rwmatrIstInspList.request('modifyData');
 		rwmatrIstInspList.clearModifiedData();

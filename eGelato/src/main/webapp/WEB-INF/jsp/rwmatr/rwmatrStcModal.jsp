@@ -121,7 +121,6 @@ rwmatrStcListGrid.on('dblclick', (ev) => {
 	      end: [ev.rowKey, rwmatrStcListGrid.getColumns().length-1]
 	  });
 	
-	
 	getRwmatrData(rwmatrStcListGrid.getRow(ev.rowKey));
 });
 

@@ -54,7 +54,8 @@
 				name : 'nmCkDt'
 			}, {
 				header : '점검주기',
-				name : 'chckPerd'
+				name : 'chckPerd',
+				align : 'center'
 			}, {
 				header : '판정',
 				name : 'judt',
@@ -66,6 +67,10 @@
 			}, {
 				header : '검수인',
 				name : 'inspr',
+				hidden : true
+			}, {
+				header : '설비구분',
+				name : 'fg',
 				hidden : true
 			}  ]
 		});
@@ -85,11 +90,16 @@
 				eqmInsGrid.setValue(eqmInsGrid.getRowCount()-1, 'judt', vo.judt);
 				eqmInsGrid.setValue(eqmInsGrid.getRowCount()-1, 'chckDeta', vo.chckDeta);
 				eqmInsGrid.setValue(eqmInsGrid.getRowCount()-1, 'inspr', vo.inspr);
+				eqmInsGrid.setValue(eqmInsGrid.getRowCount()-1, 'fg', vo.fg);
 			}
 			
 			dialog.dialog("close");
 		})
 
+		//모달창 취소버튼
+		$("#btnCn").on("click", function(){
+			dialog.dialog("close");
+		})
 		
 	</script>
 </body>

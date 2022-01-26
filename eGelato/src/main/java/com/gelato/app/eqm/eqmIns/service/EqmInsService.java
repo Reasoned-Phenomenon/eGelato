@@ -9,6 +9,7 @@ public interface EqmInsService {
 	
 	List<EqmInsVO> eqmChck(EqmInsVO eqmInsVo);
 	List<EqmInsVO> eqmInsList(EqmInsVO eqmInsVo);
+	List<EqmInsVO> eqmDayChck(EqmInsVO eqmInsVo);
 	
 	public int modifyChck(ModifyVO<EqmInsVO> eqmInsVo);
 }

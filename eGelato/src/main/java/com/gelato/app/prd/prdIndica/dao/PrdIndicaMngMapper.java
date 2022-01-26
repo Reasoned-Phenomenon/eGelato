@@ -27,4 +27,14 @@ public interface PrdIndicaMngMapper {
 	
 	//투입원자재 insert
 	int insertInptRwmatr(PrdIndicaMngVO vo);
+	
+	//홀딩값 update
+	int updateExcp(PrdIndicaMngVO vo);
+	
+	//원자재 현재고 update
+	int updateRwmatrStc (PrdIndicaMngVO vo);
+	
+	//원자재 입출고 insert
+	int insertRwmatrIstOust(PrdIndicaMngVO vo);
+	
 }

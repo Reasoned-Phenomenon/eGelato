@@ -19,6 +19,9 @@ public interface RwmatrioMapper {
 	//자재 현재고 전체조회(모달)
 	List<RwmatrioVO> RwmatrStcMList(RwmatrioVO vo);
 	
+	//자재 Lot별 재고조회
+	List<RwmatrioVO> RwmatrLotList(RwmatrioVO vo);
+	
 	//자재입고관리 추가
 	int insertRwmatrIst(RwmatrioVO vo);
 	

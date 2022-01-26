@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.prd.prdPrcs.dao.PrdPrcsMngMapper">
+	
+	<!-- 생산관리 - modal -->
+	<select id="chooseIndica" resultType="PrdPrcsMngVO">
+		select pid.indica_deta_id as indicaDetaId, 
+			   p.prdt_nm as prdtNm, 
+			   pid.qy as qy
+		from prod_indica_deta pid join prod_indica pi
+		    on pid.indica_id = pi.indica_id
+		    join prod_plan_deta ppd
+		    on pi.plan_deta_id = ppd.plan_deta_id
+		    join prdt p
+		    on ppd.prdt_id = p.prdt_id
+		where pi.fg = 'PROCEE'
+		      and trunc(pid.indica_dt) = #{indicaDt}
+		order by pid.indica_deta_Id
+	</select>
+
+	<!-- 생산관리 - 그리드1 -->
+	<select id="selectIndica" resultType="PrdPrcsMngVO">
+		select pid.indica_deta_id as indica_deta_id, 
+			   p.prdt_nm as prdt_nm, 
+			   ppd.prdt_id as prdt_id, 
+			   pid.qy as qy, 
+			   pid.line_id as line_id, 
+			   pid.ord as ord
+		from prod_indica_deta pid 
+		    join prod_indica pi
+		    on pid.indica_id = pi.indica_id
+		    join prod_plan_deta ppd
+		    on pi.plan_deta_id = ppd.plan_deta_id
+		    join prdt p
+		    on ppd.prdt_id = p.prdt_id
+		where pid.indica_deta_id = #{indicaDetaId}
+	</select>
+	
+	<!-- 그리드2 -->
+	<select id="prcsList" resultType="PrdPrcsMngVO">
+		select l.prcs_id as prcs_id, 
+		       p.nm as nm, 
+		       p.eqm_id as eqm_id, 
+		       e.eqm_name as eqm_name
+		from line l join prcs p
+		    on l.prcs_id = p.prcs_id
+		    join eqm e
+		    on p.eqm_id = e.eqm_id
+		    join prdt pr
+		    on l.prdt_id = pr.prdt_id
+		where pr.prdt_nm = #{prdtNm}
+	</select>
+</mapper>

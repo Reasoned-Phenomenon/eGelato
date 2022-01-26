@@ -39,7 +39,7 @@
                         </li>
                         
                         <li>
-                           <a href="#">> <span>완제품 코드 관리</span></a>
+                           <a href="${path}/com/prdtCode.do">> <span>완제품 코드 관리</span></a>
                         </li>
                         
                         <li>
@@ -47,7 +47,7 @@
                         </li>
                         
                         <li>
-                           <a href="#">> <span>거래처 코드 관리</span></a>
+                           <a href="${path}/com/vendCode.do">> <span>거래처 코드 관리</span></a>
                         </li>
                       
                      </ul>
@@ -89,7 +89,11 @@
                         </li>
                         
                         <li>
-                           <a href="${path }/rwmatr/rwmatrStc.do">> <span>원자재 재고관리</span></a>
+                           <a href="${path }/rwmatr/rwmatrLot.do">> <span>원자재LOT 재고조회</span></a>
+                        </li>
+                        
+                        <li>
+                           <a href="${path }/rwmatr/rwmatrStc.do">> <span>원자재 재고조회</span></a>
                         </li>
                         
                         <li>
@@ -116,13 +120,13 @@
                         </li>
                         
                         <li>
-                           <a href="#">> <span>생산 지시 조회</span></a>
+                           <a href="${path }/prd/prdIndicaMngFind.do">> <span>생산 지시 조회</span></a>
                         </li>
                         <li>
-                           <a href="#">> <span>생산 관리</span></a>
+                           <a href="${path }/prd/prdPrcsMng.do">> <span>생산 관리</span></a>
                         </li>
                         <li>
-                           <a href="#">> <span>공정 실적</span></a>
+                           <a href="${path }/prd/prdPrcsNow.do">> <span>공정 실적</span></a>
                         </li>
                         <li>
                            <a href="#">> <span>공정 관리</span></a>
@@ -157,7 +161,7 @@
                         </li>
                         
                         <li>
-                           <a href="#">> <span>실시간 설비 상태</span></a>
+                           <a href="${path }/eqm/eqmState.do">> <span>실시간 설비 상태</span></a>
                         </li>
                         
                      </ul>

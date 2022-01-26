@@ -21,6 +21,7 @@
 		검사일자 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
 		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
+		<button type="button" class="btn cur-p btn-outline-primary" id="btnReset">전체검색</button>
 	</form>
 </div>
 <!-- <div style="float: right;">
@@ -32,7 +33,7 @@
  <hr>
 <br>
 
-	<!-- 입고내역 조회 -->
+	<!-- 불량내역 조회 -->
 	<div id="rwmatrInferList" style="width: 80%"></div>
 
 	<!-- 모달창 -->
@@ -81,8 +82,8 @@ var rwmatrInferList = new Grid({
 	  contentType: 'application/json',
 	  initialRequest: false
 	},
-	rowHeaders: ['checkbox'],
-	selectionUnit: 'row',
+	rowHeaders:['rowNum'],
+  	selectionUnit: 'row',
 	bodyHeight: 600,
 	columns:[
 		{
@@ -310,6 +311,25 @@ function callrwmatrInferCodeModal(){
 									'endDate':endDate, 
 									'rwmName':rwmName,
 									'vendName': vendName}, true);
+	});
+	
+	//검색초기화
+	btnReset.addEventListener("click", function(){
+		console.log("검색초기화");
+		document.getElementById("startDate").value = '';
+		document.getElementById("endDate").value = '';
+		document.getElementById("rwmName").value = '';
+		document.getElementById("vendName").value = '';
+		
+		startDate = document.getElementById("startDate").value;
+		endDate = document.getElementById("endDate").value;
+		rwmName = document.getElementById("rwmName").value;
+		vendName = document.getElementById("vendName").value;
+		
+		rwmatrInferList.readData(1,{'startDate':startDate,
+								  'endDate':endDate, 
+								  'rwmName':rwmName,
+								  'vendName': vendName}, true);
 	});
 	
 	//추가

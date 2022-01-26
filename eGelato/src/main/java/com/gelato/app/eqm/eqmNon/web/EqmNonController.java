@@ -52,6 +52,7 @@ public class EqmNonController {
 	@PostMapping("/eqm/eqmNonInsert.do")
 	public String eqmNonInsert(Model model, EqmNonVO eqmNonVo) {
 		 service.insertNonEqm(eqmNonVo);
+		 service.updateEqmNon(eqmNonVo);
 		return "tiles/eqm/eqmNonMoving";
 	}
 

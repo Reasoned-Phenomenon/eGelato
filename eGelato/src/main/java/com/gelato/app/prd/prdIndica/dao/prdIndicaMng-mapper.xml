@@ -25,7 +25,11 @@
 	
 <!-- 생산지시 그리드 출력 -->
 	<select id="choosePlanDetaId" resultType="PrdIndicaMngVO">
-		select l.line_id as line_id
+		select l.line_id as line_id,
+			   (select 'PID-' || to_char(sysdate, 'yyyyMMdd') || '-' || lpad(nvl2(substr(max(indica_deta_id),14),(substr(max(indica_deta_id),14)+1), 1), 3, '0')
+                    as indica_deta_id
+                    from prod_indica_deta
+                    where substr(indica_deta_id,5,8) = to_char(sysdate, 'yyyyMMdd')) as indica_deta_id
 		from prod_plan_deta ppd join line l
 		    on ppd.prdt_id = l.prdt_id
 		where ppd.plan_deta_id = #{planDetaId}
@@ -75,12 +79,6 @@
 
 <!-- 계획지시디테일 insert -->
 	<insert id="insertPrdIdicaDeta" parameterType="PrdIndicaMngVO">
-		<selectKey keyProperty="indicaDetaId" resultType="string" order="BEFORE">
-			select 'PID-' || to_char(sysdate, 'yyyyMMdd') || '-' || lpad(nvl2(substr(max(indica_deta_id),14),(substr(max(indica_deta_id),14)+1), 1), 3, '0')
-            as indica_deta_id
-            from prod_indica_deta
-            where substr(indica_deta_id,5,8) = to_char(sysdate, 'yyyyMMdd')
-		</selectKey>
 		insert into prod_indica_deta (indica_deta_id, 
 									  indica_id, 
 									  qy, 
@@ -100,8 +98,89 @@
 		        )
 	</insert>
 
-<!-- 투입원자재 insert -->
-	<insert id="insertInptRwmatr" parameterType="PrdIndicaMngVO">
-	
+<!-- 투입원자재 insert 프로시저-->
+	<parameterMap type="PrdIndicaMngVO" id="inptRwParam">
+		<parameter property="prdtId" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+		<parameter property="ord" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+		<parameter property="oustQy" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+		<parameter property="lotNo" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+		<parameter property="indicaDetaId" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+	</parameterMap>
+	<insert id="insertInptRwmatr"  statementType="CALLABLE" parameterMap="inptRwParam">
+		{ call insert_rwmatr(?,?,?,?,?) }
 	</insert>
+	
+<!-- 홀딩값 update -->
+	<update id="updateExcp" parameterType="PrdIndicaMngVO">
+		<selectKey keyProperty="qy" resultType="string" order="BEFORE">
+			select e.qy
+			as qy
+            from excp e join prod_plan_deta ppd
+                on e.plan_id = ppd.plan_id
+                join rwmatr r
+                on e.rwmatr_id = r.rwmatr_id
+            where ppd.plan_deta_id = #{planDetaId}
+                  and r.nm = #{nm}
+		</selectKey>
+		
+		update excp 
+		set qy = to_number(#{qy}) - to_number(#{oustQy})*10
+		where plan_id in (select e.plan_id
+							as plan_id
+		                    from excp e join prod_plan_deta ppd
+		                        on e.plan_id = ppd.plan_id
+		                    where ppd.plan_deta_id = #{planDetaId})
+		      and rwmatr_id in (select e.rwmatr_id
+		                        from excp e join prod_plan_deta ppd
+		                            on e.plan_id = ppd.plan_id
+		                            join rwmatr r
+		                            on e.rwmatr_id = r.rwmatr_id
+		                        where ppd.plan_deta_id = #{planDetaId}
+		                              and r.nm = #{nm})
+	</update>
+	
+<!-- 원자재 현재고 update -->
+	<update id="updateRwmatrStc" parameterType="PrdIndicaMngVO">
+		update rwmatr_stc
+		set qy = (to_number(qy) - to_number(#{oustQy}))
+		where lot_no = #{lotNo}
+	</update>
+
+<!-- 원자재 입출고 insert -->	
+	<insert id="insertRwmatrIstOust" parameterType="PrdIndicaMngVO">
+	<selectKey keyProperty="rwmatrOrderDetaId" resultType="string" order="BEFORE">
+		select rwmatr_order_deta_id
+		as rwmatrOrderDetaId
+		from rwmatr_ist_oust
+		where lot_no = #{lotNo}
+		group by rwmatr_order_deta_id
+	</selectKey>
+		insert into rwmatr_ist_oust (rwmatr_id, 
+									 lot_no, 
+									 ist_oust_dttm, 
+									 ist_qy, 
+									 oust_qy, 
+									 expdate, 
+									 rwmatr_order_deta_id)
+		values ((select rwmatr_id
+		            from rwmatr
+		            where nm = #{nm}),
+		        #{lotNo},
+		        sysdate,
+		        '0',
+		        #{oustQy},
+		        to_char(#{expdate}, 'yyyyMMdd'),
+		        #{rwmatrOrderDetaId}
+		        )
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

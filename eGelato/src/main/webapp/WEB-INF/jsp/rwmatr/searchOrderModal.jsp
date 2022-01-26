@@ -21,7 +21,8 @@ h1 {
 	
 <script>
 var Grid = tui.Grid;
-//checkOnlyOne(element);
+
+
 //그리드 테마
 Grid.applyTheme('striped', {
 	  cell: {
@@ -33,6 +34,13 @@ Grid.applyTheme('striped', {
 	    }
 	  }
 	});
+	
+//토스트옵션
+toastr.options = {
+		positionClass : "toast-top-center",
+		progressBar : true,
+		timeOut: 1500 // null 입력시 무제한.
+	}
 	
 // 그리드 생성
 var orderDetailListGrid = new Grid({
@@ -89,6 +97,22 @@ orderDetailListGrid.on('dblclick', (ev) => {
 	      start: [ev.rowKey, 0],
 	      end: [ev.rowKey, orderDetailListGrid.getColumns().length-1]
 	  });
+	
+	//검사할 자재주문 중복선택 방지
+	let rowLength = rwmatrIstInspList.findRows({
+		rwmatrOrderDetaId: orderDetailListGrid.getRow(ev.rowKey).rwmatrOrderDetaId
+	}).length;
+	
+	if(rowLength > 0) {
+		console.log("중복체크")
+		//toastr
+		toastr.clear()
+		toastr.success( ('이미 선택한 주문입니다.'),'Gelato',{timeOut:'1800'} );
+		return;
+		
+	} /* else {
+		selectList.push(orderDetailListGrid.getRow(ev.rowKey).rwmatrOrderDetaId);
+	} */
 	
 	
 	getOrderData(orderDetailListGrid.getRow(ev.rowKey));

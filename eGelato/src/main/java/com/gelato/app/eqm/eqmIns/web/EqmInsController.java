@@ -16,41 +16,58 @@ import com.gelato.app.vr.ModifyVO;
 @Controller
 public class EqmInsController {
 
-	@Autowired 
+	@Autowired
 	EqmInsService service;
-	
+
 	// 설비점검관리 - 페이지
 	@GetMapping("/eqm/eqmInspection.do")
 	public String eqmIns() {
-		return"tiles/eqm/eqmInspection";
+		return "tiles/eqm/eqmInspection";
 	}
-	
-	//설비점검관리 - 설비검색 모달
+
+	// 설비점검관리 - 설비검색 모달
 	@RequestMapping("/eqm/eqmCkModal.do")
 	public String getEqmCkModal() {
 		return "/eqm/eqmCkModal";
 	}
-		
-	//설비점검관리 - 설비검색 모달(페이지)
+
+	// 설비점검관리 - 설비검색 모달(페이지)
 	@GetMapping("/eqm/eqmCkDate.do")
 	public String eqmCkDate(Model model, EqmInsVO eqmInsVo) {
 		model.addAttribute("datas", service.eqmChck(eqmInsVo));
 		return "grid";
 	}
-	
-	//설비점검관리 - 점검 할 설비 내역 그리드(하단)
+
+	// 설비점검관리 - 점검 할 설비 내역 그리드(하단)
 	@GetMapping("/eqm/eqmInspectionList.do")
 	public String eqmInspectionList(Model model, EqmInsVO eqmInsVo) {
 		model.addAttribute("datas", service.eqmInsList(eqmInsVo));
 		return "grid";
 	}
-	
-	//설비점검관리 - 설비 점검 내역 그리드에서 등록
+
+	// 설비점검관리 - 설비 점검 내역 그리드에서 등록
 	@PutMapping("/eqm/chckModifyData.do")
 	@ResponseBody
-	public boolean modifyData (@RequestBody ModifyVO<EqmInsVO> eqmInsVo) {
+	public boolean modifyData(@RequestBody ModifyVO<EqmInsVO> eqmInsVo) {
 		System.out.println(eqmInsVo);
 		service.modifyChck(eqmInsVo);
 		return true;
 	}
+
+	// 설비점검관리 - 해당일자 점검내역 조회 모달
+
+	@RequestMapping("/eqm/eqmDayCkModal.do")
+	public String getDayCkModal() {
+		return "eqm/eqmDayCkModal";
+	}
+
+	// 설비점검관리 - 해당일자 점검내역 조회 모달(페이지)
+	@GetMapping("/eqm/eqmDayCkGrid.do")
+	public String eqmDayCk(Model model, EqmInsVO eqmnInsVo) {
+		System.out.println(service.eqmDayChck(eqmnInsVo));
+		System.out.println(eqmnInsVo);
+		model.addAttribute("datas", service.eqmDayChck(eqmnInsVo));
+		return "grid";
+	}
+
 }

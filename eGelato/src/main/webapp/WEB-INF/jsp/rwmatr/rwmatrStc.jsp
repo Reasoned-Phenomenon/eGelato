@@ -18,9 +18,9 @@
 <div style="margin: 20px;">
 	<form action="">
 		자재명 : <input type="text" id="rwmName">업체명 : <input type="text" id="vendName"><br>
-		발주신청일 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
 		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
+		<button type="button" class="btn cur-p btn-outline-primary" id="btnReset">전체검색</button>
 	</form>
 </div>
 <!-- <div style="float: right;">
@@ -30,7 +30,6 @@
 </div> -->
 <hr>
 <br>
-
 
 	<!-- 입고내역 조회 -->
 	<div id="rwmatrStcList" style="width: 80%"></div>
@@ -51,9 +50,7 @@ let ig;
 //모달에서 선택한 rowKey값 세팅
 let rk = '';
 
-//날짜검색 조건
-var startDate;
-var endDate;
+//검색 조건
 var rwmName;
 var vendName;
 
@@ -74,7 +71,6 @@ Grid.applyTheme('striped', {
 	  }
 });
 
-
 //그리드 생성
 var rwmatrStcList = new Grid({
 	el: document.getElementById('rwmatrStcList'),
@@ -86,8 +82,8 @@ var rwmatrStcList = new Grid({
 	  contentType: 'application/json',
 	  initialRequest: false
 	},
-	rowHeaders: ['checkbox'],
-	selectionUnit: 'row',
+	rowHeaders:['rowNum'],
+  	selectionUnit: 'row',
 	bodyHeight: 600,
 	columns:[
   		  {
@@ -260,17 +256,24 @@ function callrwmatrStcModal(){
 
 	//조회
 	btnFind.addEventListener("click", function(){
-		startDate = document.getElementById("startDate").value;
-		endDate = document.getElementById("endDate").value;
 		rwmName = document.getElementById("rwmName").value;
 		vendName = document.getElementById("vendName").value;
-		console.log(startDate);
-		console.log(endDate);
 		
-		rwmatrStcList.readData(1,{'startDate':startDate,
-									'endDate':endDate, 
-									'rwmName':rwmName,
-									'vendName': vendName}, true);
+		rwmatrStcList.readData(1,{'rwmName':rwmName,
+								  'vendName': vendName}, true);
+	});
+	
+	//검색초기화
+	btnReset.addEventListener("click", function(){
+		console.log("검색초기화");
+		document.getElementById("rwmName").value = '';
+		document.getElementById("vendName").value = '';
+		
+		rwmName = document.getElementById("rwmName").value;
+		vendName = document.getElementById("vendName").value;
+		
+		rwmatrStcList.readData(1,{'rwmName':rwmName,
+								  'vendName': vendName}, true);
 	});
 	
 	//추가

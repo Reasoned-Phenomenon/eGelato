@@ -11,7 +11,7 @@
 		       V.VEND_ID AS VEND_ID, 
 		       V.VEND_NAME AS VEND_NAME, 
 		       RO.ORDER_DT AS ORDER_DT, 
-		       RO.DUDT AS DUDT,
+		       RD.DUDT AS DUDT,
                RD.QY*RD.UNTPRC AS TOTALPRICE
 		FROM RWMATR_ORDER_DETA RD JOIN RWMATR_ORDER RO
 		    ON(RD.ORDER_ID = RO.ORDER_ID)
@@ -54,12 +54,10 @@
 		</selectKey>
 		INSERT INTO RWMATR_ORDER (
 									ORDER_ID,
-									ORDER_DT, 
-									DUDT) 
+									ORDER_DT) 
 						   VALUES(
 						   			#{orderId},
-						   			sysdate,
-						   			#{dudt}
+						   			sysdate
 						   		 )
 	</insert>
 	
@@ -73,13 +71,15 @@
 										ORDER_ID, 
 										RWMATR_ID,
 										UNTPRC, 
-										QY) 
+										QY,
+										DUDT) 
 								VALUES (
 										#{rwmatrOrderDetaId},
 										#{orderId},
 										#{rwmatrId},
 										#{untprc},
-										#{qy}
+										#{qy},
+										#{dudt}
 										)
 	</insert>
 	

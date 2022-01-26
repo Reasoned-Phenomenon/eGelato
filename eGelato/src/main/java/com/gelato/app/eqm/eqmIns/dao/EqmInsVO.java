@@ -27,9 +27,14 @@ public class EqmInsVO {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	Date nmCkDt;		//차기점검일 : 점검일 + 점검주기
 	String gubun;
+	String fg;
 	
 
 	String fromCkDate;	
 	String toCkDate;
 
+	String total;
+	
+	String fromDayCkDate;
+	String toDayCkDate;
 }

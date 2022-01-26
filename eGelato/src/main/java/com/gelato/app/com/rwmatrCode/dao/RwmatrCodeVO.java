@@ -11,11 +11,12 @@ public class RwmatrCodeVO {
 	String spec;	  // 규격.
 	String wkUnit;	  // 작업 단위.
 	String safStc;    // 안전 재고.
-	
+	String fg;        // 구분 (원자재인지 반제품인지 완제품인지).
 	
 	// join에 필요한 거.
 	String useYn;     //사용 여부.
 	String vendName;  // 업체 명.
-	
- 	
+	String bizno;     // 사업자 등록번호.
+	String telno;     // 전화번호.
+ 	 
 }

@@ -94,6 +94,13 @@
 				)
 	</insert>
 	
+	<!-- 비가동 등록 후 설비 사용여부 'N'으로 업데이트 -->
+	<update id="updateEqmNon" parameterType="EqmNonVO">
+		UPDATE  EQM
+		SET 	USE_YN = 'N'
+		WHERE   EQM_ID = #{eqmId}
+	</update>
+	
 	<!-- 비가동사유코드 모달 -->
 	<select id="EqmNonResnSearch" resultType="EqmNonVO" parameterType="EqmNonVO">
 		SELECT * 

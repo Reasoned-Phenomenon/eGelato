@@ -42,6 +42,11 @@ public class RwmatrioServiceImpl implements RwmatrioService {
 	public List<RwmatrioVO> RwmatrStcMList(RwmatrioVO vo) {
 		return rwmatrioMapper.RwmatrStcMList(vo);
 	}
+	
+	@Override
+	public List<RwmatrioVO> RwmatrLotList(RwmatrioVO vo) {
+		return rwmatrioMapper.RwmatrLotList(vo);
+	}
 
 	@Override
 	public int modifyIst(ModifyVO<RwmatrioVO> mvo) {
@@ -118,4 +123,5 @@ public class RwmatrioServiceImpl implements RwmatrioService {
 		}
 		return 0;
 	}
+
 }

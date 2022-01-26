@@ -67,6 +67,7 @@ public class PrdIndicaMngVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	Date expdate;
+	String rwmatrOrderDetaId;
 	
 	//BOM
 	String bomId;

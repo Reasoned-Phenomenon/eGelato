@@ -22,5 +22,5 @@ public interface BomCodeMapper { //이 맵퍼 이름이 -mapper.xml 맵퍼 네�
 	int insertBomCode(BomCodeVO vo);
 	
 	// 수정.
-	int updateBomCode(BomCodeVO vo);
+	int updateBomCode(BomCodeVO vo); 
 }

@@ -6,7 +6,8 @@
 	<select id="eqmChck" resultType="EqmInsVO">
 		SELECT  E.EQM_ID AS EQM_ID,
 			    E.EQM_NAME AS EQM_NAME,
-			    E.CHCK_PERD AS CHCK_PERD,
+			    E.CHCK_PERD ||'일' AS CHCK_PERD,
+			    F_COM_CODE_TO_NM(E.FG) AS FG,
 			    C.CHCK_DT AS CHCK_DT,
 			    f_com_code_to_nm(upper(C.JUDT)) AS JUDT,
 			    C.CHCK_DETA AS CHCK_DETA,
@@ -16,15 +17,17 @@
 			 LEFT OUTER JOIN CHCK C
 			 ON (E.EQM_ID = C.EQM_ID)
 			 <where>
-			 <if test="fromCkDate != null and fromCkDate !=''">
-			 	<![CDATA[AND TRUNC(C.CHCK_DT) >= TO_DATE(#{fromCkDate})]]>
-			 </if>
-			 <if test="toCkDate != null and toCkDate !=''">
-			 	<![CDATA[AND TRUNC(C.CHCK_DT) <= TO_DATE(#{toCkDate})]]>
-			 </if>
-			 <if test="(fromCkDate != null and fromCkDate !='') or (toCkDate != null and toCkDate !='')">
-			 OR TRUNC(C.CHCK_DT) IS NULL
-			 </if>
+				 <if test="fromCkDate != null and fromCkDate !=''">
+				 	<![CDATA[AND TRUNC(C.CHCK_DT) >= TO_DATE(#{fromCkDate})]]>
+				 </if>
+				 
+				 <if test="toCkDate != null and toCkDate !=''">
+				 	<![CDATA[AND TRUNC(C.CHCK_DT) <= TO_DATE(#{toCkDate})]]>
+				 </if>
+				 
+				 <if test="(fromCkDate != null and fromCkDate !='') or (toCkDate != null and toCkDate !='')">
+				 	OR TRUNC(C.CHCK_DT) IS NULL
+				 </if>
 			 </where>
 			 order by C.CHCK_DT asc
 	</select>
@@ -32,20 +35,33 @@
 	<select id="eqmInsList" resultType="EqmInsVO">
 		SELECT  E.EQM_ID AS EQM_ID,
 			    E.EQM_NAME AS EQM_NAME,
-			    E.CHCK_PERD AS CHCK_PERD,
+			    E.CHCK_PERD ||'일' AS CHCK_PERD,
+			    F_COM_CODE_TO_NM(E.FG) AS FG,
 			    C.CHCK_DT AS CHCK_DT,
 			    C.JUDT AS JUDT,
 			    C.CHCK_DETA AS CHCK_DETA,
-			    (C.CHCK_DT+E.CHCK_PERD) AS NM_CK_DT,
+			    (C.CHCK_DT + E.CHCK_PERD) AS NM_CK_DT,
 			    C.INSPR
 		FROM EQM E 
 			 LEFT OUTER JOIN CHCK C
 			 ON (E.EQM_ID = C.EQM_ID)
 			 <where>
-			 	E.EQM_ID = #{eqmId}
+			 	<if test="eqmId != null and eqmId != ''">
+			 		E.EQM_ID = #{eqmId}
+			 	</if>
+			 	
+			 	<if test="chckDt != null">
+			 		TO_CHAR(CHCK_DT, 'YYYY-MM-DD') = #{chckDt} 
+			 	</if>
+			 	
+			 	<if test='gubun != "전체"'>
+					AND E.FG = F_COM_NM_TO_CODE(#{gubun})
+				</if>
+			 	
 			 </where>
 	</select>
 	
+	<!-- 점검내역 등록 -->
 	<insert id="insertChck" parameterType="EqmInsVO">
 		INSERT INTO CHCK(
 							EQM_ID, 
@@ -56,12 +72,28 @@
 						)
 				 VALUES(
 							#{eqmId},
-							#{chckDt},
+							sysdate,
 							#{chckDeta},
 							#{judt},
 							#{inspr}
 						)
 	
 	</insert>
+	
+	<!-- 점검내역 삭제 -->
+	<delete id="deleteChck" parameterType="EqmInsVO">
+		DELETE FROM CHCK 
+		WHERE EQM_ID = #{eqmId}
+	</delete>
+	
+	<!-- 해당일자 점검내역(건수) 조회 -->
+	<select id="eqmDayChck" resultType="EqmInsVO">
+		SELECT TO_DATE(TO_CHAR(CHCK_DT,'YYYY-MM-DD')) AS CHCK_DT,
+			   COUNT(EQM_ID) AS TOTAL
+		FROM CHCK 
+		WHERE CHCK_DT = CHCK_DT
+		<![CDATA[AND #{fromDayCkDate} <= TO_CHAR(CHCK_DT,'YYYY-MM-DD') AND #{toDayCkDate} >= TO_CHAR(CHCK_DT,'YYYY-MM-DD') GROUP BY TO_DATE(TO_CHAR(CHCK_DT,'YYYY-MM-DD'))]]>
+	</select>
+	
 	
 </mapper>

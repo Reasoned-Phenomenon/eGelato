@@ -75,6 +75,10 @@
 				header : '생산계획디테일코드',
 				name : 'planDetaId',
 				hidden : true
+			  },{
+					header : '일자별 우선순위',
+					name : 'ord',
+					hidden : true
 			  }
 		  ],
 		  summary: {
@@ -102,7 +106,7 @@
 		 }
 	 });
 	
-	function chooseRWI(rwi,rwn,rwq,rpi,pdi) {
+	function chooseRWI(rwi,rwn,rwq,rpi,pdi,pio) {
 		/* chooseRwmatrLotGrid.readData(1,{'rwmatrId':rwi}, true); */
 		document.getElementById("rwname").value = rwn;
 		document.getElementById("rwneed").value = rwq;
@@ -131,6 +135,7 @@
 				console.log(rpi);
 				chooseRwmatrLotGrid.setValue(i,'prdtId',rpi);
 				chooseRwmatrLotGrid.setValue(i,'planDetaId',pdi);
+				chooseRwmatrLotGrid.setValue(i,'ord',pio);
 				
 				// 행의 현재고값
 				iqy = parseInt(chooseRwmatrLotGrid.getValue(i,'qy'));

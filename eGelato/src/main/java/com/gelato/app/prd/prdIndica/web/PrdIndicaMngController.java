@@ -114,9 +114,19 @@ public class PrdIndicaMngController {
 	@RequestMapping(value = "/prd/modifyInptRwmatr.do", method = RequestMethod.POST)
 	@ResponseBody
 	public int modifyInptRwmatr(@RequestBody List<PrdIndicaMngVO> vo) {
-		System.out.println("투입원자재 insert");
 		System.out.println(vo);
-		return prdIndicaMngService.insertInptRwmatr(vo);
+		
+		System.out.println("투입원자재 insert");
+		prdIndicaMngService.insertInptRwmatr(vo);
+		
+		System.out.println("홀딩값 update");
+		prdIndicaMngService.updateExcp(vo);
+		
+		System.out.println("원자재 현재고 update");
+		prdIndicaMngService.updateRwmatrStc(vo);
+		
+		System.out.println("원자재 입출고 insert");
+		return prdIndicaMngService.insertRwmatrIstOust(vo);
 	}
 	  
 }

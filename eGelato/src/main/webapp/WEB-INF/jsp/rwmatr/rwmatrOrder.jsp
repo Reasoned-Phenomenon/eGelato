@@ -21,6 +21,7 @@
 		발주신청일 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
 		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
+		<button type="button" class="btn cur-p btn-outline-primary" id="btnReset">전체검색</button>
 	</form>
 </div>
 <div style="float: right;">
@@ -219,30 +220,74 @@ function callVendModal(){
 			ig = 'g';
     		callRwmatrModal();
 		} else if(ev.columnName === 'untprc' || ev.columnName === 'qy') {
-			if(rwmatrOrderList.getValue(rk, "orderId") == '') {
+			if(rwmatrOrderList.getValue(rk, "nm") == '' || rwmatrOrderList.getValue(rk, "rwmatrId") == '' ) {
 				//toastr
 				toastr.clear()
-				toastr.success( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				toastr.success( ('자재를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				return;
+			}
+		} else if(ev.columnName === 'orderId' || ev.columnName === 'orderDt') {
+			//toastr
+			toastr.clear()
+			toastr.success( ('저장시 자동으로 기입되는 값입니다.'),'Gelato',{timeOut:'1000'} );
+			return;
+		} 
+		
+	});
+	
+	
+	//구현중..
+	rwmatrOrderList.on('editingStart', (ev) => {
+		/* if(ev.columnName === 'orderId' || 
+		   ev.columnName === 'nm' || 
+		   ev.columnName === 'rwmatrId' || 
+		   ev.columnName === 'utnprc' || 
+		   ev.columnName === 'qy' || 
+		   ev.columnName === 'orderDt' ||
+		   ev.columnName === 'dudt') { */
+		   var getRw = rwmatrOrderList.getRow(ev.rowKey);
+		   if(getRw != '') {
+				//toastr
+				toastr.clear()
+				toastr.success( ('변경불가'),'Gelato',{timeOut:'1000'} );
+				ev.stop();
+		   }
+		
+	});
+	
+	
+	rwmatrOrderList.on('editingFinish', (ev) => {
+		console.log(ev);
+		rk = ev.rowKey;
+		let untprc = parseInt(rwmatrOrderList.getValue(rk, "untprc"));
+		let qy = parseInt(rwmatrOrderList.getValue(rk, "qy"));
+		let totalPrice = untprc * qy;
+		
+		// 숫자 정규식 유효성검사
+		var pattern_num = /[0-9]/;
+		if(rwmatrOrderList.getValue(rk, "untprc") != ''){
+			if((pattern_num.test(rwmatrOrderList.getValue(rk, "untprc"))) == false) {
+				rwmatrOrderList.setValue(rk, "untprc", "", true);
+				toastr.clear()
+				toastr.success( ("숫자만 입력이 가능합니다."),'Gelato',{timeOut:'1000'} );
 				return;
 			}
 		}
 		
-		//총액 자동계산
-		rwmatrOrderList.on('editingFinish', (ev) => {
-			console.log("11111111")
-			console.log(ev);
-			console.log("11111111")
-			rk = ev.rowKey;
-			let untprc = parseInt(rwmatrOrderList.getValue(rk, "untprc"));
-			let qy = parseInt(rwmatrOrderList.getValue(rk, "qy"));
-			let totalPrice = untprc * qy;
-			if(rwmatrOrderList.getValue(rk, "untprc") != '' && rwmatrOrderList.getValue(rk, "qy") != '') {
-				rwmatrOrderList.setValue(rk, 
-										"totalPrice", 
-										totalPrice, 
-										true);
+		if(rwmatrOrderList.getValue(rk, "qy") != ''){
+			if((pattern_num.test(rwmatrOrderList.getValue(rk, "qy"))) == false) {
+				rwmatrOrderList.setValue(rk, "qy", "", true);
+				toastr.clear()
+				toastr.success( ("숫자만 입력이 가능합니다."),'Gelato',{timeOut:'1000'} );
+				return;			
 			} 
-		});
+		}
+		
+		//총액 자동계산
+		if( (pattern_num.test(rwmatrOrderList.getValue(rk, "untprc"))) && (pattern_num.test(rwmatrOrderList.getValue(rk, "qy"))) ) {
+			rwmatrOrderList.setValue(rk, "totalPrice", totalPrice, true);
+		} 
+		
 	});
 
 	//자재리스트 모달에서 받아온 데이터를 새로운 행에 넣어줌 or 텍스트박스에
@@ -299,6 +344,25 @@ function callVendModal(){
 		vendName = document.getElementById("vendName").value;
 		console.log(startDate);
 		console.log(endDate);
+		
+		rwmatrOrderList.readData(1,{'startDate':startDate,
+									'endDate':endDate, 
+									'rwmName':rwmName,
+									'vendName': vendName}, true);
+	});
+	
+	//검색초기화
+	btnReset.addEventListener("click", function(){
+		console.log("검색초기화");
+		document.getElementById("startDate").value = '';
+		document.getElementById("endDate").value = '';
+		document.getElementById("rwmName").value = '';
+		document.getElementById("vendName").value = '';
+		
+		startDate = document.getElementById("startDate").value;
+		endDate = document.getElementById("endDate").value;
+		rwmName = document.getElementById("rwmName").value;
+		vendName = document.getElementById("vendName").value;
 		
 		rwmatrOrderList.readData(1,{'startDate':startDate,
 									'endDate':endDate, 

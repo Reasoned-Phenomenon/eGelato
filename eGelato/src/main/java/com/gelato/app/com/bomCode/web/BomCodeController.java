@@ -32,7 +32,7 @@ public class BomCodeController {
 			return "grid";
 	}
 	
-	// Modify 등록.
+	// Modify 등록. 수정
 	@PutMapping("/com/bomCodeModifyData.do")
 	@ResponseBody
 	public boolean modifyData (@RequestBody ModifyVO<BomCodeVO> mvo) {
