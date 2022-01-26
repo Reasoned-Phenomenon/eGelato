@@ -13,13 +13,13 @@
 <table border="1">
 	<thead>
 		<tr>
-			<th colspan="3">코드</th>
+			<th colspan="3">그룹 코드</th>
 		</tr>
 	</thead>
 		 
 	<tbody>
 		<tr>
-			<td>코드 ID 이름 검색</td>
+			<td>그룹 코드 이름 검색</td>
 			<td><input type="text" id="inputName" name="inputName"></td>
 			<td><button id="btnSearch">검색</button></td>
 		</tr>
@@ -28,11 +28,6 @@
 
 <br>
 <br>
- 
-<div align="right">
-	<button type="button" class="btn cur-p btn-outline-primary" id="btnAdd">CODE 추가</button>
-	<button type="button" class="btn cur-p btn-outline-primary" id="btnSave">저장</button>
-</div>
 
 <hr>
 <br>
@@ -43,12 +38,16 @@
 	<div id="tabs" class="col-sm-8">
 	
 	  <ul>
-	    <li><a href="#fragment-1">조회</a></li>
-	    <li><a href="#fragment-2">코드 ID</a></li>
-	    <li><a href="#fragment-3">코드</a></li>
+	    <li><a href="#fragment-1">코드 조회</a></li>
+	    <li><a href="#fragment-2">그룹 코드</a></li>
+	    <!-- <li><a href="#fragment-3">코드</a></li> -->
 	  </ul>
 	  
   		<div id="fragment-1" class="col-sm-8">
+  			<div align="right">
+	  			<button type="button" class="btn cur-p btn-outline-primary" id="btnAdd">코드 추가</button>
+	  			<button type="button" class="btn cur-p btn-outline-primary" id="btnSave">저장</button>
+  			</div>
   			<div id="codeGrid"></div>
   		</div>
   		
@@ -59,12 +58,12 @@
 				frameborder="0"></iframe>
   		</div>
   		
-		<div id="fragment-3" class="col-sm-8">
+		<%-- <div id="fragment-3" class="col-sm-8">
 				<iframe src="${path}/sym/ccm/cde/RegistCcmCmmnDetailCodeView.do" 
 				width="800" 
 				height="400" 
 				frameborder="0"></iframe>
-		</div>
+		</div> --%>
 		
 	</div>
 	
@@ -121,17 +120,17 @@ var codeIdGrid = new Grid({
 			  hidden:true
 			},
 			{
-			  header: '코드 ID',
+			  header: '그룹 코드',
 			  name: 'codeId',
 			  sortingType: 'desc',
 	          sortable: true
 			},
 			{
-			  header: '코드 ID 이름',
+			  header: '그룹 코드 이름',
 			  name: 'codeIdNm'
 			},
 			{
-			  header: '코드 ID 상세',
+			  header: '그룹 코드 상세',
 			  name: 'codeIdDc',
 			  hidden:true
 			},
@@ -156,7 +155,7 @@ codeIdGrid.on('click', (ev) => {
 	
 	//토스트
 	toastr.clear()
-	toastr.info('코드ID선택','Gelato');
+	toastr.info('그룹 코드 선택','Gelato');
 	
 });
 
@@ -175,7 +174,7 @@ const codeGrid = new tui.Grid({
   	selectionUnit: 'row',
     columns: [
     	{
-		  header: '코드ID',
+		  header: '그룹 코드',
 		  name: 'codeId',
 		  hidden:true
 		},
@@ -185,7 +184,7 @@ const codeGrid = new tui.Grid({
 		  hidden:true
 		},
 		{
-		  header: 'CODE',
+		  header: '코드',
 		  name: 'code',
 		  editor:'text',
           validation: {
@@ -193,17 +192,17 @@ const codeGrid = new tui.Grid({
            }
 		},
 		{
-		  header: 'CODE_NM',
+		  header: '코드 이름',
 		  name: 'codeNm',
 		  editor:'text'
 		},
 		{
-		  header: 'CODE_DC',
+		  header: '코드 상세',
 		  name: 'codeDc',
 		  editor:'text'
 		},
 		{
-		  header: 'USE_AT',
+		  header: '사용 여부',
 		  name: 'useAt',
 		  align: 'center',
 		  renderer: {
@@ -250,6 +249,7 @@ const codeGrid = new tui.Grid({
 	//조회버튼(검색) 
 	btnSearch.addEventListener("click", function() {
 		let targetName = document.getElementById("inputName").value;
+		console.log(targetName)
 		codeIdGrid.readData(1, {codeIdNm:targetName}, true);
 	});
 	

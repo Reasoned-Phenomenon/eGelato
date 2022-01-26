@@ -12,12 +12,11 @@
 	FROM COMTCCMMNCODE
 	WHERE USE_AT = 'Y'
 	
-	ORDER BY 2
-
 	<if test="codeIdNm != null">
 		AND CODE_ID_NM LIKE '%' || #{codeIdNm} || '%'
 	</if>
 	
+	ORDER BY 2
 </select>
 
 </mapper>

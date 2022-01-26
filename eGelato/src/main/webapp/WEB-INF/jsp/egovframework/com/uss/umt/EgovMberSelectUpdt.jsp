@@ -94,7 +94,7 @@ function fnUpdate(form){
 <input type="hidden" name="selectedId" id="selectedId" value=""/>  
 
 <div class="wTableFrm">
-	<h2>${pageTitle} <spring:message code="title.update" /></h2>
+	<h2>계정 관리 수정 <spring:message code="title.update" /></h2>
 			
 	<!-- 수정폼 -->
 	<table class="wTable" summary="<spring:message code="common.summary.list" arguments="${pageTitle}" />">
@@ -109,7 +109,7 @@ function fnUpdate(form){
 		<!-- 일반회원아이디 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.id"/></c:set>
 		<tr>
-			<th><label for="mberId">${title}</label> <span class="pilsu">*</span></th>
+			<th><label for="mberId">아이디</label> <span class="pilsu">*</span></th>
 			<td class="left">
 				<form:input path="mberId" id="mberId" title="${title} ${inputTxt}" size="20" readonly="true" maxlength="20" />
                 <form:errors path="mberId" cssClass="error" />
@@ -119,7 +119,7 @@ function fnUpdate(form){
 		<!-- 일반회원이름 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.name"/></c:set>
 		<tr>
-			<th><label for="mberNm">${title}</label> <span class="pilsu">*</span></th>
+			<th><label for="mberNm">이름</label> <span class="pilsu">*</span></th>
 			<td class="left">
 				<form:input path="mberNm" title="${title} ${inputTxt}" size="50" maxlength="60" />
 				<div><form:errors path="mberNm" cssClass="error" /></div> 
@@ -127,19 +127,18 @@ function fnUpdate(form){
 		</tr>
 		<!-- 비밀번호힌트 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.passHit"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="passwordHint">${title}</label> <span class="pilsu">*</span></th>
 			<td class="left">
 				<form:select path="passwordHint" id="passwordHint" title="${title} ${inputSelect}">
-					<form:option value="" label="--선택하세요--"/>
-					<form:options items="${passwordHint_result}" itemValue="code" itemLabel="codeNm"/>
+					<form:option value="default" label="--선택하세요--" selected="true"/>
 				</form:select>
 				<div><form:errors path="passwordHint" cssClass="error"/></div>
 			</td>
 		</tr>
 		<!-- 비밀번호정답 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.passOk"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="passwordCnsr">${title}</label> <span class="pilsu">*</span></th>
 			<td class="left">
 				<form:input path="passwordCnsr" id="passwordCnsr" title="${title} ${inputTxt}" size="50" maxlength="100" />
@@ -148,7 +147,7 @@ function fnUpdate(form){
 		</tr>
 		<!-- 성별구분코드 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.saxTypeCode"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="sexdstnCode">${title}</label></th>
 			<td class="left">
 				<form:select path="sexdstnCode" id="sexdstnCode" title="${title} ${inputSelect}">
@@ -172,7 +171,7 @@ function fnUpdate(form){
 		</tr>
 		<!-- 팩스번호 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.fax"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="mberFxnum">${title}</label></th>
 			<td class="left">
                     <form:input path="mberFxnum" id="mberFxnum" title="${title} ${inputTxt}" size="20"  maxlength="15" />
@@ -181,7 +180,7 @@ function fnUpdate(form){
 		</tr>
 		<!-- 헨드폰번호 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.phone"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="moblphonNo">${title}</label> <span class="pilsu">*</span></th>
 			<td class="left">
                     <form:input path="moblphonNo" id="moblphonNo" title="${title} ${inputTxt}" size="20" maxlength="15" />
@@ -199,7 +198,7 @@ function fnUpdate(form){
 		</tr>
 		<!-- 우번번호 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.post"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="zip">${title}</label> <span class="pilsu">*</span></th>
 			<td class="left">
                     <form:input path="zip" id="zip" title="${title} ${inputTxt}" readonly="true" size="70" maxlength="6" style="width:60px;"/>
@@ -210,7 +209,7 @@ function fnUpdate(form){
 		</tr>
 		<!-- 주소 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.addr"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="adres">${title}</label> <span class="pilsu">*</span></th>
 			<td class="left">
                     <form:input path="adres" id="adres" title="${title} ${inputTxt}" readonly="true" size="70" maxlength="100" />
@@ -219,7 +218,7 @@ function fnUpdate(form){
 		</tr>
 		<!-- 상세주소 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.addrDetail"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="detailAdres">${title}</label> </th>
 			<td class="left">
                     <form:input path="detailAdres" id="detailAdres" title="${title} ${inputTxt}"  size="70" maxlength="100" />
@@ -229,7 +228,7 @@ function fnUpdate(form){
 		<!-- 그룹아이디 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.groupId"/></c:set>
 		<c:set var="inputSelect"><spring:message code="input.select"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="groupId">${title}</label></th>
 			<td class="left">
                     <form:select path="groupId" id="groupId" title="${title} ${inputSelect}">
@@ -241,12 +240,11 @@ function fnUpdate(form){
 		</tr>
 		<!-- 일반회원상태코드 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.status"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="mberSttus">${title}</label> <span class="pilsu">*</span></th>
 			<td class="left">
                     <form:select path="mberSttus" id="mberSttus" title="${title} ${inputSelect}">
-                        <form:option value="" label="${inputSelect}"/>
-                        <form:options items="${mberSttus_result}" itemValue="code" itemLabel="codeNm"/>
+                        <form:option value="P" label="${inputSelect}"/>
                     </form:select>
                     <div><form:errors path="mberSttus" cssClass="error"/></div>
 			</td>
@@ -267,7 +265,6 @@ function fnUpdate(form){
 	<!-- 하단 버튼 -->
 	<div class="btn">
 		<input type="submit" class="s_submit" value="<spring:message code="button.save" />" title="<spring:message code="button.save" /> <spring:message code="input.button" />" />
-		<button class="btn_s2" onClick="fnDeleteMber('<c:out value='${mberManageVO.userTy}'/>:<c:out value='${mberManageVO.uniqId}'/>'); return false;" title="<spring:message code="button.delete" /> <spring:message code="input.button" />"><spring:message code="button.delete" /></button>
 		<span class="btn_s"><a href="<c:url value='/uss/umt/EgovMberManage.do' />"  title="<spring:message code="button.list" /> <spring:message code="input.button" />"><spring:message code="button.list" /></a></span>
 		<button class="btn_s2" onClick="fnPasswordMove(); return false;" title="<spring:message code="comUssUmt.userManageModifyBtn.passwordChange" /> <spring:message code="input.button" />"><spring:message code="comUssUmt.userManageModifyBtn.passwordChange" /></button>
 		<button class="btn_s2" onClick="fnLockIncorrect(); return false;" title="<spring:message code="comUssUmt.common.lockAtBtn" /> <spring:message code="input.button" />"><spring:message code="comUssUmt.common.lockAtBtn" /></button>

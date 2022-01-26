@@ -97,7 +97,7 @@ function fncShowMessg(){
 <form:form commandName="cmmnCodeVO" action="${pageContext.request.contextPath}/sym/ccm/cca/RegistCcmCmmnCode.do" method="post" onSubmit="fn_egov_regist_code(document.forms[0]); return false;"> 
 <div class="wTableFrm">
 	<!-- 타이틀 -->
-	<h2>코드 ID <spring:message code="title.create" /></h2>
+	<h2>그룹 코드 <spring:message code="title.create" /></h2>
 	
 	<!-- 등록폼 -->
 	<table class="wTable" summary="<spring:message code="common.summary.list" arguments="${pageTitle}" />">
@@ -127,7 +127,7 @@ function fncShowMessg(){
 		<!-- 코드ID -->
 		<c:set var="title"><spring:message code="comSymCcmCca.cmmnCodeVO.codeId"/> </c:set>
 		<tr>
-			<th><label for="codeId">${title} <span class="pilsu">*</span></label></th>
+			<th><label for="codeId">그룹 코드 <span class="pilsu">*</span></label></th>
 			<td class="left">
 			    <form:input path="codeId" title="${title} ${inputTxt}" size="70" maxlength="70" />
    				<div><form:errors path="codeId" cssClass="error" /></div>     
@@ -137,7 +137,7 @@ function fncShowMessg(){
 		<!-- 코드ID명 -->
 		<c:set var="title"><spring:message code="comSymCcmCca.cmmnCodeVO.codeIdNm"/> </c:set>
 		<tr>
-			<th><label for="codeIdNm">${title} <span class="pilsu">*</span></label></th>
+			<th><label for="codeIdNm">그룹 코드 이름 <span class="pilsu">*</span></label></th>
 			<td class="left">
 			    <form:input path="codeIdNm" title="${title} ${inputTxt}" size="70" maxlength="70" />
    				<div><form:errors path="codeIdNm" cssClass="error" /></div>     
@@ -147,7 +147,7 @@ function fncShowMessg(){
 		<!-- 코드ID설명 -->
 		<c:set var="title"><spring:message code="comSymCcmCca.cmmnCodeVO.codeIdDc"/> </c:set>
 		<tr>
-			<th><label for="codeIdDc">${title } <span class="pilsu">*</span></label></th>
+			<th><label for="codeIdDc">그룹 코드 상세 <span class="pilsu">*</span></label></th>
 			<td class="nopd">
 				<form:textarea path="codeIdDc" title="${title} ${inputTxt}" cols="300" rows="20" />   
 				<div><form:errors path="codeIdDc" cssClass="error" /></div>  

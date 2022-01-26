@@ -201,7 +201,7 @@ function fnInsert(form){
 		<!-- 일반회원아이디 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.id"/></c:set>
 		<tr>
-			<th><label for="mberId">${title}</label> <span class="pilsu">*</span></th>
+			<th><label for="mberId">아이디</label> <span class="pilsu">*</span></th>
 			<td class="left">
 				<form:input path="mberId" id="mberId" title="${title} ${inputTxt}" size="20" readonly="true" maxlength="20" style="width:80%;" />
 				<button id="btnMbrId" class="btn_s2" onClick="return false;" title="<spring:message code="button.delete" /> <spring:message code="input.button" />"><spring:message code="comUssUmt.userManageRegistBtn.idSearch" /></button>
@@ -211,7 +211,7 @@ function fnInsert(form){
 		<!-- 일반회원이름 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.name"/></c:set>
 		<tr>
-			<th><label for="mberNm">${title}</label> <span class="pilsu">*</span></th>
+			<th><label for="mberNm">이름</label> <span class="pilsu">*</span></th>
 			<td class="left">
 				<form:input path="mberNm" title="${title} ${inputTxt}" size="50" maxlength="50" />
 				<div><form:errors path="mberNm" cssClass="error" /></div> 
@@ -241,32 +241,29 @@ function fnInsert(form){
 			<input name="password2" id="password2" title="${title} ${inputTxt}" type="password" size="50" maxlength="20" />
 			</td>
 		</tr>
-		
 		<!-- 비밀번호힌트 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.passHit"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="passwordHint">${title}</label> <span class="pilsu">*</span></th>
 			<td class="left">
 				<form:select path="passwordHint" id="passwordHint" title="${title} ${inputSelect}">
-					<form:option value="" label="--선택하세요--"/>
-					<form:options items="${passwordHint_result}" itemValue="code" itemLabel="codeNm"/>
+					<form:option value="default" label="--선택하세요--" selected="true"/>
 				</form:select>
 				<div><form:errors path="passwordHint" cssClass="error"/></div>
 			</td>
 		</tr>
 		<!-- 비밀번호정답 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.passOk"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="passwordCnsr">${title}</label> <span class="pilsu">*</span></th>
 			<td class="left">
-				<form:input path="passwordCnsr" id="passwordCnsr" title="${title} ${inputTxt}" cssClass="txaIpUmt" size="50" maxlength="100" />
+				<form:input path="passwordCnsr" id="passwordCnsr" title="${title} ${inputTxt}" cssClass="txaIpUmt" size="50" maxlength="100" value="default"/>
 				<div><form:errors path="passwordCnsr" cssClass="error"/></div>
 			</td>
 		</tr>
-		
 		<!-- 성별구분코드 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.saxTypeCode"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="sexdstnCode">${title}</label></th>
 			<td class="left">
 				<form:select path="sexdstnCode" id="sexdstnCode" title="${title} ${inputSelect}">
@@ -290,7 +287,7 @@ function fnInsert(form){
 		</tr>
 		<!-- 팩스번호 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.fax"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="mberFxnum">${title}</label></th>
 			<td class="left">
                     <form:input path="mberFxnum" id="mberFxnum" title="${title} ${inputTxt}" cssClass="txaIpUmt" size="20"  maxlength="15" />
@@ -299,10 +296,10 @@ function fnInsert(form){
 		</tr>
 		<!-- 헨드폰번호 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.phone"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="moblphonNo">${title}</label> <span class="pilsu">*</span></th>
 			<td class="left">
-                    <form:input path="moblphonNo" id="moblphonNo" title="${title} ${inputTxt}" cssClass="txaIpUmt" size="20" maxlength="15" />
+                    <form:input path="moblphonNo" id="moblphonNo" title="${title} ${inputTxt}" cssClass="txaIpUmt" size="20" maxlength="15" value="11111111111"/>
                     <div><form:errors path="moblphonNo" cssClass="error" /></div>
 			</td>
 		</tr>
@@ -317,10 +314,10 @@ function fnInsert(form){
 		</tr>
 		<!-- 우번번호 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.post"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="zip">${title}</label> <span class="pilsu">*</span></th>
 			<td class="left">
-                    <form:input path="zip" title="${title} ${inputTxt}" type="text" size="20" value="" maxlength="6" style="width:60px;" />
+                    <form:input path="zip" title="${title} ${inputTxt}" type="text" size="20" value="111111" maxlength="6" style="width:60px;"/>
                     <!-- form:hidden path="zip" id="zip" --> 
                     <!-- <button class="btn_s2" onClick="fn_egov_ZipSearch(document.mberManageVO, document.mberManageVO.zip, document.mberManageVO.zip_view, document.mberManageVO.adres);return false;" title="<spring:message code="button.delete" /> <spring:message code="input.button" />">우번번호검색</button>  -->
                     <div><form:errors path="zip" cssClass="error" /></div>
@@ -328,26 +325,26 @@ function fnInsert(form){
 		</tr>
 		<!-- 주소 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.addr"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="adres">${title}</label> <span class="pilsu">*</span></th>
 			<td class="left">
-                    <form:input path="adres" id="adres" title="${title} ${inputTxt}" cssClass="txaIpUmt" size="70" maxlength="100" />
+                    <form:input path="adres" id="adres" title="${title} ${inputTxt}" cssClass="txaIpUmt" size="70" maxlength="100" value="Gelato"/>
                     <div><form:errors path="adres" cssClass="error" /></div>
 			</td>
 		</tr>
 		<!-- 상세주소 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.addrDetail"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="detailAdres">${title}</label></th>
 			<td class="left">
-                    <form:input path="detailAdres" id="detailAdres" title="${title} ${inputTxt}" cssClass="txaIpUmt" size="70" maxlength="100" />
+                    <form:input path="detailAdres" id="detailAdres" title="${title} ${inputTxt}" cssClass="txaIpUmt" size="70" maxlength="100" value="Gelato"/>
                     <div><form:errors path="detailAdres" cssClass="error" /></div>
 			</td>
 		</tr>
 		<!-- 그룹아이디 -->
 		<c:set var="inputSelect"><spring:message code="input.select"/></c:set>
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.groupId"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="groupId">${title}</label></th>
 			<td class="left">
                     <form:select path="groupId" id="groupId" title="${title} ${inputSelect}">
@@ -359,12 +356,11 @@ function fnInsert(form){
 		</tr>
 		<!-- 일반회원상태코드 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.status"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="mberSttus">${title}</label> <span class="pilsu">*</span></th>
 			<td class="left">
                     <form:select path="mberSttus" id="mberSttus" title="${title} ${inputSelect}">
-                        <form:option value="" label="${inputSelect}"/>
-                        <form:options items="${mberSttus_result}" itemValue="code" itemLabel="codeNm"/>
+                        <form:option value="P" label="${inputSelect}" selected="true"/>
                     </form:select>
                     <div><form:errors path="mberSttus" cssClass="error"/></div>
 			</td>
