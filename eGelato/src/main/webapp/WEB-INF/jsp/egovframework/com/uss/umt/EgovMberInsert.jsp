@@ -241,6 +241,7 @@ function fnInsert(form){
 			<input name="password2" id="password2" title="${title} ${inputTxt}" type="password" size="50" maxlength="20" />
 			</td>
 		</tr>
+		
 		<!-- 비밀번호힌트 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.passHit"/></c:set>
 		<tr>
@@ -262,6 +263,7 @@ function fnInsert(form){
 				<div><form:errors path="passwordCnsr" cssClass="error"/></div>
 			</td>
 		</tr>
+		
 		<!-- 성별구분코드 -->
 		<c:set var="title"><spring:message code="comUssUmt.userManageRegist.saxTypeCode"/></c:set>
 		<tr>
