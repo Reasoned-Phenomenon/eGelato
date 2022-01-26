@@ -118,7 +118,7 @@ function fnSearch(){
 
 <form name="listForm" action="<c:url value='/uss/umt/EgovMberManage.do'/>" method="post"> 
 <div class="board">
-	<h1>${pageTitle} <spring:message code="title.list" /></h1>
+	<h1>계정 관리 <spring:message code="title.list" /></h1>
 	
 	<!-- 검색영역 -->
 	<div class="search_box" title="<spring:message code="common.searchCondition.msg" />">

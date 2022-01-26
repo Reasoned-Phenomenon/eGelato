@@ -186,7 +186,7 @@ function fnInsert(form){
 
 <div class="wTableFrm">
 	<!-- 타이틀 -->
-	<h2>${pageTitle} <spring:message code="title.create" /></h2>
+	<h2>계정 관리 <spring:message code="title.create" /></h2>
 
 	<!-- 등록폼 -->
 	<table class="wTable" summary="<spring:message code="common.summary.list" arguments="${pageTitle}" />">
