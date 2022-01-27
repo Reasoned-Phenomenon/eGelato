@@ -1,6 +1,5 @@
 package egovframework.com.uat.uia.web;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovComponentChecker;
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
@@ -101,7 +99,7 @@ public class EgovLoginController {
 		if(auth_error != null && auth_error.equals("1")){
 			return "egovframework/com/cmm/error/accessDenied";
 		}
-
+		
 		/*
 		GPKIHttpServletResponse gpkiresponse = null;
 		GPKIHttpServletRequest gpkirequest = null;
@@ -335,12 +333,6 @@ public class EgovLoginController {
 	 */
 	@RequestMapping(value = "/uat/uia/egovIdPasswordSearch.do")
 	public String idPasswordSearchView(ModelMap model) throws Exception {
-
-		// 1. 비밀번호 힌트 공통코드 조회
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-		vo.setCodeId("COM022");
-		List<?> code = cmmUseService.selectCmmCodeDetail(vo);
-		model.addAttribute("pwhtCdList", code);
 
 		return "egovframework/com/uat/uia/EgovIdPasswordSearch";
 	}
