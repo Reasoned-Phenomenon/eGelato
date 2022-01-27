@@ -24,7 +24,6 @@ import egovframework.com.cmm.annotation.IncludedInfo;
 import egovframework.com.cmm.config.EgovLoginConfig;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.com.cmm.service.EgovProperties;
-import egovframework.com.cmm.service.Globals;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.com.uat.uia.service.EgovLoginService;
 import egovframework.com.utl.fcc.service.EgovStringUtil;
@@ -285,16 +284,7 @@ public class EgovLoginController {
 		*/
 
 		// 3. 메인 페이지 이동
-		String main_page = Globals.MAIN_PAGE;
-
-		LOGGER.debug("Globals.MAIN_PAGE > " + Globals.MAIN_PAGE);
-		LOGGER.debug("main_page > {}", main_page);
-
-		if (main_page.startsWith("/")) {
-			return "forward:" + main_page;
-		} else {
-			return main_page;
-		}
+		return "redirect:/home.do";
 
 		/*
 		if (main_page != null && !main_page.equals("")) {
@@ -333,7 +323,8 @@ public class EgovLoginController {
 		request.getSession().setAttribute("accessUser", null);
 
 		//return "redirect:/egovDevIndex.jsp";
-		return "redirect:/EgovContent.do";
+		
+		return "redirect:/home.do";
 	}
 
 	/**

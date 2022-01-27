@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/>    
 <!-- topbar -->
  <div class="topbar">
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -24,7 +22,7 @@
                          <a class="dropdown-item" href="#">My Profile</a>
                          <a class="dropdown-item" href="#">Settings</a>
                          <a class="dropdown-item" href="#">Help</a>
-                         <a class="dropdown-item" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                         <a class="dropdown-item" href="${path }/uat/uia/actionLogout.do"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
                       </div>
                    </li>
                 </ul>

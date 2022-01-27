@@ -23,4 +23,10 @@ public class MngController {
 		
 		return "tiles/mng/egovAuthorList";
 	}
+	
+	@RequestMapping("/mng/egovAuthorGroupList.do")
+	public String egovAuthorGroupList () {
+		
+		return "tiles/mng/egovAuthorGroupList";
+	}
 }

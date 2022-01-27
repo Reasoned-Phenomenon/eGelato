@@ -181,8 +181,17 @@
                         </li>
                         
                         <li>
+                           <a href="${path }/mng/egovRoleHierarchyInsert.do">> <span>롤 상하관계 관리</span></a>
+                        </li>
+                        
+                        <li>
                            <a href="${path }/mng/egovAuthorList.do">> <span>사용자 권한 관리</span></a>
                         </li>
+                        
+                        <li>
+                           <a href="${path }/mng/egovAuthorGroupList.do">> <span> 권한 부여 관리</span></a>
+                        </li>
+                        
                      </ul>
                   </li>
                   

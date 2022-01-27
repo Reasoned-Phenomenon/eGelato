@@ -13,5 +13,5 @@
 	<definition name="tiles/*/*" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/{1}/{2}.jsp" /> 
 	</definition>
-	
+
 </tiles-definitions>
