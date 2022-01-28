@@ -138,24 +138,4 @@ class GelatoSelectEditor {
 
 }
 
-//로트번호 부여 함수
-function get_lot(str_id) {
-	
-	let seq,dt;
-	
-	$.ajax({
-		url:"mkLot.do?itemId="+str_id,
-		async:false,
-		error: function (result) {
-			console.log('에러발생',result)
-		}
-	}).done(function (result) {
-		console.log(result)
-		seq = result.seq;
-		dt = result.dt;
-	})
-	
-	return [seq,dt];
-}
-
 console.log("gelatoCom.js실행")
