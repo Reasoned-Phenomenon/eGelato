@@ -8,15 +8,34 @@
 <meta charset="UTF-8">
 <title>제품코드 조회 modal</title>
 </head>
+<style>
+h1 {
+	text-align: center
+}
+</style>
 <body>
 	
 	<br>
-	<h3>제품 검색</h3>
+	<h1>제품 검색</h1><br>
+    <form action="">
+		제품명 : <input type="text" id="prdtNameM">
+		<button type="button" id="prdtSearch" class="btn cur-p btn-outline-primary">조회</button>
+		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
+	</form>
+	
 	<div id="prdtListGrid" style="width: 100%"></div>
 	
-	
-	<script>
+<script>
 var Grid = tui.Grid;
+
+// 검색 조건
+var prdtNameM;
+
+document.getElementById("prdtSearch").addEventListener("click", function () {
+	prdtNameM = document.getElementById("prdtNameM").value;
+	
+	prdtListGrid.readData(1,{'prdtNm':prdtNameM}, true);
+});
 
 //그리드 테마
 Grid.applyTheme('striped', {
@@ -60,6 +79,7 @@ var prdtListGrid = new Grid({
 			  }
 		]
 });
+
 // 모달창에서 더블클릭하면 제품코드 인풋태그에 넣어주기.
 prdtListGrid.on("dblclick", (ev) => {
 	prdtListGrid.setSelectionRange({

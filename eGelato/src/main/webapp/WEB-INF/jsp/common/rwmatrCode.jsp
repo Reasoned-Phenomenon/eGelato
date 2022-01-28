@@ -47,9 +47,9 @@
                   <tr>
                      <th>제품 구분</th>
                      <td><select id="fg" name="fg">
-                     <option value="" align="center" selected>--제품구분--</option>
-                     <option value="STEP01" align="center">원자재</option>
-                     <option value="STEP02" align="center">반제품</option>
+                     <option value=""  selected>--제품구분--</option>
+                     <option value="STEP01">원자재</option>
+                     <option value="STEP02">반제품</option>
                      </select>
                       <th>안전 재고</th>
                      <td><input type="text" id="safStc" name="safStc" style="width:100%; border: 0;"></td>
@@ -212,6 +212,7 @@ var rwmatrGrid = new Grid({
 						rwmatrGrid.readData(1,{},true)
 						console.log(res);
 						alert("등록 되었습니다.");
+						rwmatrGrid.refreshLayout();
 					},
 					error : function() {
 						alert("등록 실패했습니다.");
@@ -238,6 +239,7 @@ var rwmatrGrid = new Grid({
 						rwmatrGrid.readData(1,{},true)
 						console.log(res);
 						alert("수정 되었습니다.");
+						rwmatrGrid.refreshLayout();
 					},
 					error : function() {
 						alert("수정 실패했습니다.");

@@ -10,9 +10,9 @@ public interface OrderService {
 	//주문서 조회.
 	List<OrderVO> findOrderList(OrderVO vo);
 	
-	// 거래처 조회
-	List<OrderVO> vendList();
+	// 거래처 조회.
+	List<OrderVO> vendList(OrderVO vo);
 	
 	// 제품코드 조회.
-	List<OrderVO> prdtList();
+	List<OrderVO> prdtList(OrderVO vo);
 }

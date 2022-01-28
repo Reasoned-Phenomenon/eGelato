@@ -23,18 +23,18 @@ public class OrderServiceImpl implements  OrderService{
 		return orderMapper.findOrderList(vo);
 	}
 	
-	// 모달창으로 거래처 조회.
+	// 거래처 modal 조회.
 	@Override
-	public List<OrderVO> vendList() {
+	public List<OrderVO> vendList(OrderVO vo) {
 		
-		return orderMapper.vendList();
+		return orderMapper.vendList(vo);
 	}
 	
-	// 모달창으로 제품코드 조회.
+	// 제품 modal 조회.
 	@Override
-	public List<OrderVO> prdtList() {
+	public List<OrderVO> prdtList(OrderVO vo) {
 		
-		return orderMapper.prdtList();
+		return orderMapper.prdtList(vo) ;
 	}
 
 }
