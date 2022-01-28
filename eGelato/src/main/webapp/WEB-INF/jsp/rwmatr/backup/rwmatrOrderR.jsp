@@ -16,29 +16,19 @@
 <body>
 <h3>원자재 발주조회</h3>
 <div style="margin: 20px;">
-	<form>
-		발주신청일 : <input type="date" id="startDate"> ~ <input type="date" id="endDate">
-		<button type="button" class="btn cur-p btn-outline-primary" id="btnFindM">조회</button>
+	<form action="">
+		자재명 : <input type="text" id="rwmName">업체명 : <input type="text" id="vendName"><br>
+		발주신청일 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
+		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-	</form>
-	<form>
-		자재명 : <input type="text" id="rwmName">업체명 : <input type="text" id="vendName">
-		<button type="button" class="btn cur-p btn-outline-primary" id="btnFindS">조회</button>
-		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
+		<!-- <button type="button" class="btn cur-p btn-outline-primary" id="btnReset">전체검색</button> -->
 	</form>
 </div>
 <hr>
 <br>
 
-	<div class="row">
-		<div class="col-sm-4">
-			<!-- 발주목록 조회 -->
-			<div id="rwmatrOrderMasterList"></div>
-		</div>
-		<div class="col-sm-8">
-			<div id="rwmatrOrderList"></div>
-		</div>
-	</div>
+	<!-- 발주목록 조회 -->
+	<div id="rwmatrOrderList" style="width: 80%"></div>
 
 	<!-- 모달창 -->
 	<div id="rwmatrDialogFrm" title="원자재 목록"></div>
@@ -47,23 +37,17 @@
 
 <script>
 var Grid = tui.Grid;
-
 //modify구분하기위한 변수
 let flag;
-
 //모달 구분하기위한 변수
 let ig;
-
 //모달에서 선택한 rowKey값 세팅
 let rk = '';
-
-//검색 조건
-var orderId;
+//날짜검색 조건
 var startDate;
 var endDate;
 var rwmName;
 var vendName;
-
 //그리드 테마
 Grid.applyTheme('striped', {
 	  cell: {
@@ -75,47 +59,22 @@ Grid.applyTheme('striped', {
 	    }
 	  }
 });
-
 //토스트옵션
 toastr.options = {
 		positionClass : "toast-top-center",
 		progressBar : true,
 		timeOut: 1500 // null 입력시 무제한.
 	}
-
-var rwmatrOrderMasterList = new Grid({
-	el: document.getElementById('rwmatrOrderMasterList'),
-	data : {
-	  api: {
-	    readData: 	{ url: '${path}/rwmatr/rwmatrOrderMasterList.do', method: 'GET'},
-	  },
-	  contentType: 'application/json'
-	},
-	rowHeaders:['rowNum'],
-	selectionUnit: 'row',
-	bodyHeight: 400,
-	columns:[
-				{
-				  header: '발주코드',
-				  name: 'orderId',
-				  sortable: true
-				},
-				{
-				  header: '발주신청일',
-				  name: 'orderDt',
-				  sortable: true
-				}
-			]
-});
-
+	
 //발주디테일 그리드
 var rwmatrOrderList = new Grid({
 	el: document.getElementById('rwmatrOrderList'),
 	data : {
 	  api: {
-	    readData: 	{ url: '${path}/rwmatr/rwmatrOrderSubList.do', method: 'GET'},
+	    readData: 	{ url: '${path}/rwmatr/rwmatrOrderList.do', method: 'GET'},
 	  },
-	  contentType: 'application/json'
+	  contentType: 'application/json'/* ,
+	  initialRequest: false */
 	},
 	rowHeaders:['rowNum'],
 	selectionUnit: 'row',
@@ -208,8 +167,7 @@ var rwmatrOrderList = new Grid({
 				{
 				  header: '발주신청일',
 				  name: 'orderDt',
-				  sortable: true,
-				  hidden:true
+				  sortable: true
 				},
 				{
 				  header: '납기요청일',
@@ -221,20 +179,6 @@ var rwmatrOrderList = new Grid({
 			      }
 				}
 		]
-});
-
-rwmatrOrderMasterList.on('click', (ev) => {	
-	console.log(ev)
-	//cell 선택시 row 선택됨.
-	rwmatrOrderMasterList.setSelectionRange({
-	      start: [ev.rowKey, 0],
-	      end: [ev.rowKey, rwmatrOrderMasterList.getColumns().length-1]
-	  });
-	
-	//클릭한 row의 orderId에 해당하는 code를 읽어옴
-	orderId = rwmatrOrderMasterList.getRow(ev.rowKey).orderId;
-	rwmatrOrderList.readData(1, {'orderId':orderId}, true);
-	
 });
 
 //자재모달
@@ -303,25 +247,17 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 		//rwmatrOrderList.resetOriginData();
 	});
 
-	//발주 조회
-	btnFindM.addEventListener("click", function(){
+	//조회
+	btnFind.addEventListener("click", function(){
 		startDate = document.getElementById("startDate").value;
 		endDate = document.getElementById("endDate").value;
-		console.log(startDate);
-		console.log(endDate);
-		
-		rwmatrOrderMasterList.readData(1,{'startDate':startDate,
-										  'endDate':endDate}, true);
-	});
-	
-	//발주디테일 조회
-	btnFindS.addEventListener("click", function(){
 		rwmName = document.getElementById("rwmName").value;
 		vendName = document.getElementById("vendName").value;
 		console.log(startDate);
 		console.log(endDate);
 		
-		rwmatrOrderList.readData(1,{'orderId':orderId,
+		rwmatrOrderList.readData(1,{'startDate':startDate,
+									'endDate':endDate, 
 									'rwmName':rwmName,
 									'vendName': vendName}, true);
 	});
