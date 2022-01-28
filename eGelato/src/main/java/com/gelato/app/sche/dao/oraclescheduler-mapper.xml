@@ -2,6 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gelato.app.sche.dao.OracleSchedulerMapper">
 
+<select id="mkProgram">
+
+	BEGIN
+		DBMS_SCHEDULER.CREATE_PROGRAM(
+		program_name => #{programName},
+		program_action => #{procedureName},
+		program_type => 'STORED_PROCEDURE',
+		NUMBER_OF_ARGUMENTS => #{argNum},
+		enabled => false);
+		
+		DBMS_SCHEDULER.DEFINE_PROGRAM_ARGUMENT (
+		       PROGRAM_NAME => #{programName}
+		      ,ARGUMENT_POSITION => 1
+		      ,ARGUMENT_NAME => 'i_id'
+		      ,ARGUMENT_TYPE => 'VARCHAR2'
+		);
+	END;
+
+</select>
+
+
 <select id="proc">
 
 	BEGIN
@@ -14,5 +35,7 @@
 	END;
 
 </select>
+
+
 
 </mapper>
