@@ -29,4 +29,10 @@ public class MngController {
 		
 		return "tiles/mng/egovAuthorGroupList";
 	}
+	
+	@RequestMapping("/mng/egovMenuCreatManageSelect.do")
+	public String egovMenuCreatManageSelect () {
+		
+		return "tiles/mng/egovMenuCreatManageSelect";
+	}
 }
