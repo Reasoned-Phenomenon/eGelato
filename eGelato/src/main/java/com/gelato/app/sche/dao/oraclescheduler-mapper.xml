@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gelato.app.sche.dao.OracleschedulerMapper">
+<mapper namespace="com.gelato.app.sche.dao.OracleSchedulerMapper">
 
 <select id="proc">
 
-	{ call test_now(#{val}) }
+	BEGIN
+	    DBMS_SCHEDULER.SET_JOB_ARGUMENT_VALUE( 
+	             job_name => '"GELATO"."JOB_INSERT"', 
+	             argument_position => 1, 
+	             argument_value => #{val});
+	             
+	    DBMS_SCHEDULER.ENABLE('JOB_insert'); 
+	END;
 
 </select>
 
