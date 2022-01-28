@@ -56,7 +56,8 @@
 			   RIO.IST_OUST_DTTM AS IST_OUST_DTTM, 
 			   RIO.LOT_NO AS LOT_NO, 
 			   RIO.EXPDATE AS EXPDATE,
-               V.VEND_NAME AS VEND_NAME
+               V.VEND_NAME AS VEND_NAME,
+               RIO.REMK AS REMK
 		FROM RWMATR_IST_OUST RIO JOIN RWMATR R
 			ON RIO.RWMATR_ID = R.RWMATR_ID
         JOIN VEND V
@@ -239,6 +240,7 @@
  									OUST_QY, 
  									EXPDATE, 
  									RWMATR_ORDER_DETA_ID
+ 									REMK
  									) 
 							 VALUES(
 							 		#{rwmatrId},
@@ -248,6 +250,7 @@
 							 		#{oustQy},
 							 		#{expdate},
 							 		#{rwmatrOrderDetaId}
+							 		#{remk}
 							 		)
  	</insert>
  	

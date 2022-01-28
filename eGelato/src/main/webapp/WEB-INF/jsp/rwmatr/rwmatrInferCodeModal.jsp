@@ -45,6 +45,7 @@ var rwmatrInferCodeListGrid = new Grid({
 	},
   	rowHeaders:['rowNum'],
   	selectionUnit: 'row',
+  	bodyHeight: 330,
   	columns:[
  		  {
 		    header: '불량코드',
