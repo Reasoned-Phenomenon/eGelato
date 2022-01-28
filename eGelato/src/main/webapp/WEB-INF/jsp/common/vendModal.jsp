@@ -11,7 +11,7 @@
 <body>
 	
 	<br>
-	<h3>업체 검색</h3>
+	<h3>거래처 검색</h3>
 	<br>
 	<div id="vendGrid" style="width: 100%"></div>
 	
@@ -42,6 +42,7 @@ var vendGrid = new Grid({
 	},
   	rowHeaders:[ 'rowNum'],
   	selectionUnit: 'row',
+  	bodyHeight: 400,
   	columns:[
   		  {
 		    header: '업체 코드',

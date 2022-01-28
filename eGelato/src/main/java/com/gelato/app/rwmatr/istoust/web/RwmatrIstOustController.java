@@ -107,6 +107,12 @@ public class RwmatrIstOustController {
 		return "tiles/rwmatr/rwmatrLotList";
 	}
 	
+	//원자재 입/출고조회 페이지로 이동
+	@RequestMapping("/rwmatr/rwmatrIstOustR.do")
+	public String rwmatrIstOustR() {
+		return "tiles/rwmatr/rwmatrIstOustR";
+	}
+	
 	//원자재 입고관리 CUD
 	@PutMapping("/rwmatr/rwmatrIstModifyData.do")
 	@ResponseBody

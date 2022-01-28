@@ -1,4 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gelato.app.com.vendCode.dao.VendCodeMapper">
+
+<!-- vend 전체 조회. -->
+
+<select id="vendCodeList" resultType="VendCodeVO">
+	SELECT   VEND_ID,
+	         VEND_NAME,
+	         BIZNO, 
+             TELNO,
+             REMK,
+             FG
+	  FROM  VEND
+	   <where>
+	  	<if test="vendId !=null and vendId != ''">
+	  			AND VEND_ID = #{vendId}
+	  	</if>
+	  </where>  
+</select>
+
+<insert id="insertVendCode" parameterType="VendCodeVO">
+	<selectKey keyProperty="vendId" resultType="String" order="BEFORE">
+		SELECT 'VDR-'||
+				LPAD(MAX(TO_NUMBER(SUBSTR(VEND_ID, -5))) +1, 5, 0)
+		    AS  VEND_ID
+		  FROM  VEND
+	</selectKey>
+	  INSERT INTO VEND (
+	  					VEND_ID,
+	  					VEND_NAME,
+	  					BIZNO,
+	  					TELNO,
+	  					REMK,
+	  					FG
+	                   )
+	           VALUES (
+	           			#{vendId},
+	           			#{vendName},
+	           			#{bizno},
+	           			#{telno},
+	           			#{remk},
+	           			#{fg}
+	           )        
+ 
+</insert>
+
+
+<update id="updateVendCode" parameterType="VendCodeVO">
+ 	UPDATE VEND
+ 	
+ 	   SET VEND_NAME = #{vendName},
+ 	   	   BIZNO = #{bizno},
+ 	   	   TELNO = #{telno},
+ 	   	   REMK = #{remk},
+ 	   	   FG = #{fg}
+ 	   	   
+ 	   WHERE VEND_ID = #{vendId}	   
+</update>
+
+
 </mapper>

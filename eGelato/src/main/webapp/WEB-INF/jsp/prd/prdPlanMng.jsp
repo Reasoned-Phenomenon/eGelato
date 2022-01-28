@@ -1,26 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>생산 계획 관리</title>
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
-
-<script
-	src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
-<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 </head>
 <style>
 th, td {
@@ -34,7 +18,7 @@ th, td {
 		<h2 id="title">생산계획관리</h2>
 		<br>
 	</div>
-	
+	<br>
 	<div id="tabs">
 		<ul>
 			<li><a href="#ManageTab">관리</a></li>
@@ -75,7 +59,7 @@ th, td {
 	<div id="OrderShtDialog" title="주문서 목록"></div>
 
 	<!-- 계획조회 모달창 -->
-	<div id="SearchPlanDialog" title="계획조회 결과"></div>
+	<div id="SearchPlanDialog" title="계획조회"></div>
 	
 	<!-- 제품 목록 모달창 -->
 	<div id="PrdtDialog" title="제품 목록"></div>
@@ -160,12 +144,15 @@ th, td {
 			}, {
 				header : '계획량',
 				name : 'qy',
+				align: 'right',
 			}, {
 				header : '생산일수',
 				name : 'prodDcnt',
+				align: 'right',
 			}, {
 				header : '작업우선순위',
 				name : 'priort',
+				align: 'right',
 			}, {
 				header : '작업상태',
 				name : 'fg',
@@ -204,14 +191,17 @@ th, td {
 				header : '계획량',
 				name : 'qy',
 				editor : 'text',
+				align: 'right',
 			}, {
 				header : '생산일수',
 				name : 'prodDcnt',
 				editor : 'text',
+				align: 'right',
 			}, {
 				header : '작업우선순위',
 				name : 'priort',
 				editor : 'text',
+				align: 'right',
 			}, {
 				header : '비고',
 				name : 'remk',

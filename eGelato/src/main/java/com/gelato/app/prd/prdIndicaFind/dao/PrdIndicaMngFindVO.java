@@ -14,4 +14,5 @@ public class PrdIndicaMngFindVO {
 	String remk;
 	
 	String indicaD;
+	String fg;
 }

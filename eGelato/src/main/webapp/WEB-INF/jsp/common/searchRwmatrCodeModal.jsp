@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>자재 코드 검색 Modal</title>
 </head>
 <body>
     <br>
@@ -41,6 +41,7 @@
 		},
 	  	rowHeaders:[ 'rowNum'],
 	  	selectionUnit: 'row',
+	  	bodyHeight: 400,
 	  	columns:[
 	  		  {
 			    header: '자재 코드',

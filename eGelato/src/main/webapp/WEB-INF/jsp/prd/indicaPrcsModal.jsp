@@ -8,7 +8,7 @@
 </head>
 <body>
 	<br>
-	<h1>미생산 지시 조회</h1>
+	<h1>생산 지시 목록</h1>
 	<br>
 	<div>
 	<input type="date" id="indicaD">
@@ -20,8 +20,8 @@
 
 <script>
 //생산계획일자 현재날짜 기본 설정
-	document.getElementById('indicaD').value = new Date().toISOString()
-			.substring(0, 10);
+	/* document.getElementById('indicaD').value = new Date().toISOString()
+			.substring(0, 10); */
 		
 //그리드 생성
 var Grid = tui.Grid;
@@ -63,7 +63,7 @@ var Grid = tui.Grid;
 			  },
 			  {
 			    header: '생산량',
-			    name: 'qy'
+			    name: 'qy',
 			  }
 			],
 			 rowHeaders: ['rowNum'],
@@ -79,7 +79,7 @@ var Grid = tui.Grid;
 			indicaD = document.getElementById("indicaD").value;
 			console.log(indicaD);
 			
-			chooseIndicaGrid.readData(1,{'indicaDt':indicaD}, true);
+			chooseIndicaGrid.readData(1,{'indicaD':indicaD}, true);
 		});
 
 	//그리드 이벤트

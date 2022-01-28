@@ -3,10 +3,14 @@ package com.gelato.app.com.prdtCode.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gelato.app.com.prdtCode.dao.PrdtCodeVO;
 import com.gelato.app.com.prdtCode.service.PrdtCodeService;
+import com.gelato.app.vr.ModifyVO;
 
 @Controller
 public class PrdtCodeController {
@@ -27,5 +31,14 @@ public class PrdtCodeController {
 			model.addAttribute("datas", prdtcodeService.PrditCodeList(vo));
 			return "grid";
 	}
+	
+	// Modify 등록. 수정
+		@PutMapping("/com/prdtCodeModifyData.do")
+		@ResponseBody
+		public boolean modifyData (@RequestBody ModifyVO<PrdtCodeVO> mvo) {
+			System.out.println(mvo);
+			prdtcodeService.modifyPrdtCode(mvo);
+			return true;
+		}
 	
 }

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>거래처 목록</title>
+<title>업체 목록</title>
 </head>
 <style>
 h1 {
@@ -15,7 +15,7 @@ h1 {
 </style>
 <body>
 	<br>
-	<h1>거래처</h1>
+	<h1>업체 목록</h1>
 	<br>
 	
 	<form action="">
@@ -60,6 +60,7 @@ var vendListGrid = new Grid({
 	  contentType: 'application/json'
 	},
   	rowHeaders:['rowNum'],
+  	bodyHeight: 300,
   	selectionUnit: 'row',
   	columns:[
   		  {

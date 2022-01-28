@@ -14,7 +14,7 @@
 			<h3>BOM 코드 관리</h3>
 		</div>
 		
-		<form id="" name="" method="">
+		<form>
 
 			<div>
 			<br>
@@ -35,7 +35,7 @@
 	      			<input type="checkBox" id="useYn" name="useYn" checked> &ensp;		
 			    <br>
 	      	 </div>
-				<div>
+				<div style="float: right;">
 					<button type="button" class="btn cur-p btn-outline-primary" id="FindBtn">조회</button>
 					<button type="button" class="btn cur-p btn-outline-primary" id="AddBtn">추가</button>
 					<button type="button" class="btn cur-p btn-outline-primary" id="SaveBtn">저장</button>
@@ -46,9 +46,9 @@
 		
 
 <div id="bomGrid" style="width: 100%"></div>
-<div id="bomModal" style="width: 100%"></div>
-<div id="rwmatrCodeModal"></div>
-<div id="prcsCodeModal"></div>
+<div id="bomModal" title="제품 코드 목록"></div>
+<div id="rwmatrCodeModal" title="자재 코드 목록"></div>
+<div id="prcsCodeModal"  title="공정 코드 목록"></div>
 		
 <script>
 let dialog;
@@ -56,6 +56,9 @@ let dialog;
 let rowkey = '';
 
 let useYn = '';
+
+//modify구분하기위한 변수
+let flag;
 
 var Grid = tui.Grid;
 
@@ -84,6 +87,7 @@ var bomGrid = new Grid({
 	},
 	rowHeaders: ['rowNum'],
 	selectionUnit: 'row',
+	bodyHeight: 600,
 	columns:[
 			{
 			  header: 'BOM코드',
@@ -183,13 +187,34 @@ var bomGrid = new Grid({
 		
 	});
 	
-	// 저장(등록) 버튼 이벤트.
+	// 저장(등록) 버튼 이벤트. (alert 창 포함.)
 	SaveBtn.addEventListener("click", function(){	
-		bomGrid.blur();
 		bomGrid.request('modifyData');
+		console.log("이거뭐양?" + bomGrid.getRow(0))
+		
+		if (bomGrid.getRow(0) != null) {
+			bomGrid.blur();
+		 if (confirm("저장하시겠습니까?")) {
+			 bomGrid.request('modifyData',{
+				showConfirm : false
+			});
+		  }
+		} else {
+			alert("선택된 데이터가 없습니다.");
+		}
+		
+		flag = 'O'
 	});
 	
-	
+	//컨트롤러 응답
+	bomGrid.on('response', function (ev) {
+		console.log(ev)
+		if(flag == 'O') {
+			bomGrid.readData(1);
+			flag = 'X';
+		}
+		
+	});
 	
 	// 모달창 생성 함수.
 	$(function () {
@@ -197,25 +222,20 @@ var bomGrid = new Grid({
 			autoOpen: false,
 			height: 500,
 			width: 700,
-			modal: true,
-			buttons: {
-			// 선택하는 버튼 넣어두기!. 옵션? 어떤거 잇는 지 찾아보기.
-			Cancel: function() {
+			modal: true
 			
-			}
-			}
 		})
 	});
 	
 	// 제품 검색 버튼 이벤트.
 	serachBtn.addEventListener("click", function() {
-		console.log("00000");
-		console.log("모달클릭")
+		
+		console.log("제품검색 Modal")
 		dialog.dialog( "open" );
 		
 		 // 컨트롤러에 보내주고 따로 모달은 jsp 만들 필요가 없으니깐  
 		 $('#bomModal').load("${path}/com/bomModal.do",function () {
-			 console.log('로드됨')
+			 console.log('제품검색')
 		})
 		
 	})

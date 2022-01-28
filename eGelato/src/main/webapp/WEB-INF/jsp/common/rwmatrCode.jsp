@@ -22,36 +22,37 @@
          <div class="col-8">
             <br>
             	<br>
-            <table border="1">
+            <table border="1" style="width:100%; height:55%">
                <tbody>
                   <tr> 
                      <th>자재코드*</th>
-                     <td><input type="text" id="rwmatrId" name="rwmatrId" readonly></td>
+                     <td><input type="text" id="rwmatrId" name="rwmatrId"  style="width:100%; border: 0;" readonly></td>
                      <th>자재명*</th>
-                     <td><input type="text" id="nm" name="nm"></td>
+                     <td><input type="text" id="nm" name="nm" style="width:100%; border: 0;"></td>
                   </tr>
                   <tr>
                      <th>규격</th>
-                     <td><input type="text" id="spec" name="spec"></td>
+                     <td><input type="text" id="spec" name="spec" style="width:100%; border: 0;"></td>
                      <th>작업 단위</th>
-                     <td><input type="text" id="wkUnit" name="wkUnit"></td>
+                     <td><input type="text" id="wkUnit" name="wkUnit" style="width:100%; border: 0;"></td>
                     
                   </tr>
                   <tr>
                      <th>입고 업체</th>
-                     <td><input type="text" id="vendId" name="vendId">
+                     <td><input type="text" id="vendId" name="vendId" style="width:85%; border: 0;">
                         <button type="button" id="serachVendIdBtn">검색</button></td>
                      <th>업체명</th>
-                     <td><input type="text" id="vendName" name="vendName" readonly></td>
+                     <td><input type="text" id="vendName" name="vendName" style="width:100%; border: 0;" readonly></td>
                   </tr>
                   <tr>
                      <th>제품 구분</th>
                      <td><select id="fg" name="fg">
-                     <option value="STEP01">원자재</option>
-                     <option value="STEP02">반제품</option>
+                     <option value="" align="center" selected>--제품구분--</option>
+                     <option value="STEP01" align="center">원자재</option>
+                     <option value="STEP02" align="center">반제품</option>
                      </select>
                       <th>안전 재고</th>
-                     <td><input type="text" id="safStc" name="safStc"></td>
+                     <td><input type="text" id="safStc" name="safStc" style="width:100%; border: 0;"></td>
                   </tr>
                   <tr>
                      <th>사용유무</th>
@@ -59,15 +60,17 @@
                   </tr>
                </tbody>
             </table>
+            	<div>
             		<button id="reset" value="초기화"
 						class="btn cur-p btn-outline-dark">초기화</button>
 					<button id="AddBtn" class="btn cur-p btn-outline-dark">저장</button>
-					<button id="UpdateBtn" class="btn cur-p btn-outline-dark">수정</button>
+					<!-- <input type="hidden" name="" value=""> -->
 					
+				</div>	
          </div>
       </div>
    </div>
-<div id="vendModal"></div>
+<div id="vendModal" title="거래처 코드 목록"></div>
 
 
 <script>
@@ -96,11 +99,12 @@ var rwmatrGrid = new Grid({
 	    readData: 	{ url: '${path}/com/findRwmatrList.do', method: 'GET'},
 	     
 	  },
-	  contentType: 'application/json',
-	 
+	  contentType: 'application/json'
+	  
 	},
 	rowHeaders: ['rowNum'],
 	selectionUnit: 'row',
+	bodyHeight : 500,
 	columns:[
 			{
 			  header: '자재 코드',
@@ -189,63 +193,62 @@ var rwmatrGrid = new Grid({
 			var fg = $("#fg").val();
 			var useYn =$("#useYn").val();
 
-			$.ajax({
-				url:"${path}/com/insertrwmatrCode.do",
-				method :"post",
-				data: {
-					rwmatrId : rwmatrId ,
-					nm : nm,
-					spec : spec,
-					wkUnit : wkUnit,
-					safStc : safStc,
-					vendId : vendId,
-					vendName : vendName,
-					fg : fg,
-					useYn : useYn
-				},
-				success : function(res) {
-					rwmatrGrid.readData(1,{},true)
-					console.log(res);
-				}
-					
-			})
+			if (rwmatrId =='') {
+				$.ajax({
+					url:"${path}/com/insertrwmatrCode.do",
+					method :"post",
+					data: {
+						rwmatrId : rwmatrId ,
+						nm : nm,
+						spec : spec,
+						wkUnit : wkUnit,
+						safStc : safStc,
+						vendId : vendId,
+						vendName : vendName,
+						fg : fg,
+						useYn : useYn
+					},
+					success : function(res) {
+						rwmatrGrid.readData(1,{},true)
+						console.log(res);
+						alert("등록 되었습니다.");
+					},
+					error : function() {
+						alert("등록 실패했습니다.");
+					}	
+				})
+				
+			} else if (rwmatrId !='') {
+				
+				$.ajax({
+					url:"${path}/com/updaterwmatrCode.do",
+					method :"post",
+					data: {
+						rwmatrId : rwmatrId ,
+						nm : nm,
+						spec : spec,
+						wkUnit : wkUnit,
+						safStc : safStc,
+						vendId : vendId,
+						vendName : vendName,
+						fg : fg,
+						useYn : useYn
+					},
+					success : function(res) {
+						rwmatrGrid.readData(1,{},true)
+						console.log(res);
+						alert("수정 되었습니다.");
+					},
+					error : function() {
+						alert("수정 실패했습니다.");
+					}
+						
+				})
+				
+			}
+			
 		});
 		
-		
-		// 수정 버튼 이벤트.
-		$("#UpdateBtn").on("click", function(){
-			
-			var rwmatrId = $("#rwmatrId").val();
-			var nm = $("#nm").val();
-			var spec = $("#spec").val();
-			var wkUnit = $("#wkUnit").val();
-			var safStc = $("#safStc").val();
-			var vendId = $("#vendId").val();
-			var vendName = $("#vendName").val();
-			var fg = $("#fg").val();
-			var useYn =$("#useYn").val();
-			
-			$.ajax({
-				url:"${path}/com/updaterwmatrCode.do",
-				method :"post",
-				data: {
-					rwmatrId : rwmatrId ,
-					nm : nm,
-					spec : spec,
-					wkUnit : wkUnit,
-					safStc : safStc,
-					vendId : vendId,
-					vendName : vendName,
-					fg : fg,
-					useYn : useYn
-				},
-				success : function(res) {
-					rwmatrGrid.readData(1,{},true)
-					console.log(res);
-				}
-					
-			})
-		});
 		
 		// 초기화 버튼 이벤트.
 		$("#reset").on("click",function(){
@@ -257,6 +260,7 @@ var rwmatrGrid = new Grid({
 			$("#vendName").val("");
 			$("#fg").val("");
 			$("#useYn").val("");
+			$("#safStc").val("");
 			
 		});
 		
@@ -266,13 +270,8 @@ var rwmatrGrid = new Grid({
 				autoOpen: false,
 				height: 500,
 				width: 700,
-				modal: true,
-				buttons: {
-				// 선택하는 버튼 넣어두기!. 옵션? 어떤거 잇는 지 찾아보기.
-				Cancel: function() {
+				modal: true
 				
-				}
-				}
 			})
 		});
 		

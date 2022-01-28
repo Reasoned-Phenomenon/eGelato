@@ -28,6 +28,9 @@
 					<option value="측정기">측정기
 					<option value="가공기">가공기
 				</select>
+				<label>사용여부</label>
+				<input type="radio" id="useYn" name="useYn" value="Y">Y
+				<input type="radio" id="useYn" name="useYn" value="N">N
 				<div id="eqmListGrid"></div>
 			</div>
 			<div class="col-5">
@@ -161,6 +164,22 @@
 		inputImage.addEventListener("change", e => {
 		    readImage(e.target)
 		})
+
+		//설비 사용여부 Y/N 라디오 버튼 
+		$("input[name='useYn']:radio").change(function () {
+	        //라디오 버튼 값을 가져온다.
+	        var useYn = this.value;
+	        console.log(useYn);
+		});
+		
+		//라디오 버튼(Y/N) 클릭시 바로 조회
+		$("input[name='useYn']:radio").change(function () {
+	        //라디오 버튼 값을 가져온다.
+	        console.log(this);
+	        var useYn = this.value;   
+	        console.log($("#gubun").val());
+	        eqmListGrid.readData(1,{'useYn' : useYn, 'gubun':$("#gubun").val()}, true);
+		});
 		
 		//더블 클릭시 한 행 선택
 		eqmListGrid.on("dblclick", (ev) => {

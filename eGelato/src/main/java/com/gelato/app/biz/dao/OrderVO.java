@@ -42,4 +42,10 @@ public class OrderVO {
 	String prdtNm;         //제품명.
 	String spec;           //규격.
 	
+	// jsp에서 쓸 날짜 변수.
+	String startDt; // 주문일자 쓸거.
+	String endDt;   // 주문일자 쓸거.
+	
+	String startedDt; // 납기일자 쓸거.
+	String endedDt;   // 납기일자 쓸거.
 }

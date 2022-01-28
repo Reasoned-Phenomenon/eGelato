@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +17,7 @@ th, td {
         <h2>생산계획조회</h2>
         <br>
     </div>
+    <br>
     <div>
         <table>
             <tbody>
@@ -54,7 +53,7 @@ th, td {
     <div id="PlanSearchGrid"></div>
     
     <!-- 제품 모달창 -->
-    <div id="PrdtDialog"></div>
+    <div id="PrdtDialog" title="제품 목록"></div>
     
     
     <script>
@@ -115,12 +114,15 @@ th, td {
 		}, {
 			header : '계획량',
 			name : 'qy',
+			align: 'right',
 		}, {
 			header : '작업우선순위',
 			name : 'priort',
+			align: 'right',
 		}, {
 			header : '생산일수',
 			name : 'prodDcnt',
+			align: 'right',
 		},{
 			header : '비고',
 			name : 'remk',

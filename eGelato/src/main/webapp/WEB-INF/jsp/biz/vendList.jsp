@@ -41,6 +41,7 @@ var vendListGrid = new Grid({
 	},
   	rowHeaders:[ 'rowNum'],
   	selectionUnit: 'row',
+  	bodyHeight: 400,
   	columns:[
   		  {
 		    header: '업체 코드',

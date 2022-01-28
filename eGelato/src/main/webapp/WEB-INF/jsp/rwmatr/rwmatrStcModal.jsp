@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>원자재 재고현황</title>
+<title>현재고 목록</title>
 </head>
 <style>
 h1 {
@@ -15,7 +15,7 @@ h1 {
 </style>
 <body>
 	<br>
-	<h1>원자재 재고현황</h1><br>
+	<h1>현재고 목록</h1><br>
 	<form action="">
 		자재명 : <input type="text" id="rwmNameM">
 		<button type="button" id="rwmatrSearch" class="btn cur-p btn-outline-primary">조회</button>
@@ -45,10 +45,6 @@ Grid.applyTheme('striped', {
 	    },
 	    evenRow: {
 	      background: '#fee'
-	    },
-	    invalid: {
-	    	background: 'red',
-	    	text: 'white'
 	    }
 	  }
 	});
@@ -63,6 +59,7 @@ var rwmatrStcListGrid = new Grid({
 	  contentType: 'application/json'
 	},
   	rowHeaders:['rowNum'],
+  	bodyHeight: 405,
   	selectionUnit: 'row',
   	columns:[
  		  {

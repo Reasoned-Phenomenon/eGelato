@@ -45,7 +45,6 @@ public class RwmatroServiceImpl implements RwmatroService {
 		
 		for(RwmatroVO vo : mvo.getUpdatedRows()) {
 			System.out.println("수정");
-			rwmatroMapper.updateRwmatro(vo);
 			rwmatroMapper.updateRwmatroDeta(vo);
 		}
 		

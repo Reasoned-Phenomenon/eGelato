@@ -13,8 +13,12 @@
 		    on pi.plan_deta_id = ppd.plan_deta_id
 		    join prdt p
 		    on ppd.prdt_id = p.prdt_id
-		where pi.fg = 'PROCEE'
-		      and trunc(pid.indica_dt) = #{indicaDt}
+		<where>
+			pi.fg = 'PROCEE'
+			<if test="indicaD != null and indicaD != ''">
+	    		<![CDATA[ and trunc(pid.indica_dt) = to_date(#{indicaD})]]>
+	    	</if>
+		</where> 
 		order by pid.indica_deta_Id
 	</select>
 
@@ -38,7 +42,8 @@
 	
 	<!-- 그리드2 -->
 	<select id="prcsList" resultType="PrdPrcsMngVO">
-		select l.prcs_id as prcs_id, 
+		select pn_id(#{indicaDetaId}) as prcs_now_id,
+			   l.prcs_id as prcs_id, 
 		       p.nm as nm, 
 		       p.eqm_id as eqm_id, 
 		       e.eqm_name as eqm_name

@@ -17,8 +17,9 @@ th, td {
 		<h2>생산관리</h2>
 		<br>
 	</div>
+	<br>
 	<div>
-		<button type="button" class="btn btn-secondary" id="btnSearchPlan">생산지시조회</button>
+		<button type="button" class="btn btn-secondary" id="btnSearchPlan">생산지시목록</button>
 	</div>
 	<hr>
 	<div>
@@ -47,19 +48,14 @@ th, td {
 						<td><input type="text" id="mngr" required></td>
 					</tr>
 					<tr>
-						<th>작업량*</th>
-						<td><input type="text" id="inptQy" required></td>
-					</tr>
-					</tr>
-					<tr>
 						<th>시작시간</th>
 						<td><input type="time" id="startT" readonly></td>
 					</tr>
 					<tr>
-						<th>종료예정시간</th>
+						<th>종료시간</th>
 						<td><input type="time" id="endT" readonly></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<th>불량량</th>
 						<td><input type="text" id="inferQy"></td>
 					</tr>
@@ -67,14 +63,15 @@ th, td {
 						<th>불량사유</th>
 						<td>
 							<select name="infer">
-							  <option value="PDB-00101" selected>불순물 검출</option>
+							  <option value="choose" selected>선택</option>
+							  <option value="PDB-00101">불순물 검출</option>
 							  <option value="PDB-00100">포장지 훼손</option>
 							  <option value="PDB-00102">아이스크림 제형 파손</option>
 							  <option value="PDB-00103">용기 파손</option>
 							  <option value="PDB-00104">용량 미달</option>
 							</select>
 						</td>
-					</tr>
+					</tr> -->
 				</tbody>
 			</table>
 			<br><br>
@@ -141,7 +138,7 @@ th, td {
 			}]
 		});
 		
-		//그리드2
+		//그리드2  
 		const prcsListGrid = new Grid({
 			el : document.getElementById('prcsListGrid'),
 			data : {
@@ -154,6 +151,9 @@ th, td {
 			rowHeaders : ['rowNum' ],
 			selectionUnit : 'row',
 			columns : [ {
+				header : '진행공정코드',
+				name : 'prcsNowId'
+			}, {
 				header : '공정코드',
 				name : 'prcsId'
 			}, {
@@ -194,8 +194,8 @@ th, td {
 		IndicaGrid.clear();
 		prcsListGrid.clear();
 		
-		IndicaGrid.readData(1, {'IndicaDetaId':cid}, true);
-		prcsListGrid.readData(1, {'prdtNm':cpn}, true);
+		IndicaGrid.readData(1, {'indicaDetaId':cid}, true);
+		prcsListGrid.readData(1, {'prdtNm':cpn, 'indicaDetaId':cid}, true);
 		
 		nonPrcsDialog.dialog("close");
 		
@@ -209,6 +209,21 @@ th, td {
 		console.log(startT.value)
 		
 	})
+	
+	function lpad(val, padLength, padString){
+		while(val.length < padLength)
+			{val = padString + val;}
+		    return val;
+		}
+	
+	// 그리드2에 진행공정코드 붙이기
+	if(IndicaGrid.getRowCount() >= 0) {
+		function pnId() {
+			console.log(prcsListGrid.getRowCount());
+		}
+	}
+		
+	
 </script>
 </body>
 </html>

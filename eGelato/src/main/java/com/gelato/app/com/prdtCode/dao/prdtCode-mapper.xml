@@ -9,7 +9,48 @@
 		   SPEC,
 		   UNIT,
 		   SAF_STC
-	FROM   PRDT	   	
+	FROM   PRDT
+	<where>
+		<if test="prdtId !=null and prdtId !=''">
+			AND PRDT_ID = #{prdtId}
+		</if>
+	</where>	   	
 </select>
+
+<insert id="insertPrdtCode" parameterType="PrdtCodeVO">
+	<selectKey keyProperty="prdtId" resultType="String" order="BEFORE">
+		SELECT 'PRD-'||
+				LPAD(MAX(TO_NUMBER(SUBSTR(PRDT_ID, -5))) +1, 5, 0)
+		    AS  PRDT_ID
+		  FROM  PRDT
+	</selectKey>
+	INSERT INTO PRDT (
+						PRDT_ID,
+						PRDT_NM,
+						SPEC,
+						UNIT,
+						SAF_STC
+	                  )
+	        VALUES (
+	        			#{prdtId},
+	        			#{prdtNm},
+	        			#{spec},
+	        			#{unit},
+	        			#{safStc}
+	               )          
+</insert>
+
+ <update id="updatePrdtCode" parameterType="PrdtCodeVO">
+	UPDATE PRDT
+	
+	   SET PRDT_NM = #{prdtNm},
+	   	   SPEC = #{spec},
+	   	   UNIT = #{unit},
+	   	   SAF_STC = #{safStc}
+	   	   
+	 WHERE PRDT_ID = #{prdtId}	   
+
+</update> 
+
 
 </mapper>

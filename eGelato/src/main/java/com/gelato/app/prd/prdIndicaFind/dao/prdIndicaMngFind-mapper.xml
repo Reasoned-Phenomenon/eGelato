@@ -16,7 +16,16 @@
 		    on pid.line_id = l.line_id
 		    join prdt p
 		    on l.prdt_id = p.prdt_id
-		where trunc(pid.indica_dt) = #{indicaD}
+		    join prod_indica pi
+    		on pid.indica_id = pi.indica_id
+		<where>
+			<if test="fg != 'ALL'">
+            	pi.fg = #{fg}
+            </if>
+			<if test="indicaD != null and indicaD != ''">
+            	<![CDATA[and trunc(pid.indica_dt) = #{indicaD}]]>
+            </if>
+		</where> 
 		group by pid.indica_deta_id, l.prdt_id, p.prdt_nm, pid.qy, pid.line_id, pid.ord, pid.remk
 		order by pid.ord
 	</select>

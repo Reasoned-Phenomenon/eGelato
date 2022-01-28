@@ -83,15 +83,11 @@
 										)
 	</insert>
 	
-	<update id="updateRwmatro" parameterType="RwmatroVO">
-		UPDATE RWMATR_ORDER SET DUDT = #{dudt}
-		WHERE ORDER_ID = #{orderId}
-	</update>
-	
 	<update id="updateRwmatroDeta" parameterType="RwmatroVO">
 		UPDATE RWMATR_ORDER_DETA SET RWMATR_ID = #{rwmatrId},
 									 UNTPRC = #{untprc},
-									 QY = #{qy}
+									 QY = #{qy},
+									 DUDT = #{dudt}
 		WHERE RWMATR_ORDER_DETA_ID = #{rwmatrOrderDetaId}
 	</update>
 	

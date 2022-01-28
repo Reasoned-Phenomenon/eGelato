@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>원자재 불량코드 목록</title>
+<title>불량코드 목록</title>
 </head>
 <style>
 h1 {
@@ -15,7 +15,7 @@ h1 {
 </style>
 <body>
 	<br>
-	<h1>원자재 불량코드 목록</h1>
+	<h1>불량코드 목록</h1>
 	<br>
 	<div id="rwmatrInferCodeListGrid" style="width: 100%"></div>
 	

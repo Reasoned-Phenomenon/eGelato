@@ -16,7 +16,6 @@
 		검사일자 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
 		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-		<button type="button" class="btn cur-p btn-outline-primary" id="btnReset">전체검색</button>
 	</form>
 </div>
 <div style="float: right;">
@@ -31,10 +30,13 @@
 	<div id="rwmatrIstInspList" style="width: 90%"></div>
 
 	<!-- 모달창 -->
-	<div id="dialogFrm"></div>
+	<div id="rwmatrDialogFrm" title="원자재 목록"></div>
+	<div id="vendDialogFrm" title="업체 목록"></div>
+	
+	<div id="orderDialogFrm" title="검사예정 목록"></div>
+	<div id="inferCodeDialogFrm" title="불량코드 목록"></div>
 
 <script>
-let dialog;
 var Grid = tui.Grid;
 
 //modify구분하기위한 변수
@@ -89,6 +91,9 @@ var rwmatrIstInspList = new Grid({
 				{
 				  header: '발주코드',  //발주디테일코드
 				  name: 'rwmatrOrderDetaId',
+			      validation: {
+			          required: true
+			      }
 				},
 				{
 				  header: '발주코드', //코드
@@ -127,7 +132,10 @@ var rwmatrIstInspList = new Grid({
 				  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 				      return b;
 				    },
-				  sortable: true
+				  sortable: true,
+			      validation: {
+			          required: true
+			      }
 				},
 				{
 				  header: '불량량',
@@ -144,13 +152,19 @@ var rwmatrIstInspList = new Grid({
 				  header: '담당자',
 				  name: 'mngr',
 				  editor: 'text',
-				  sortable: true
+				  sortable: true,
+			      validation: {
+			          required: true
+			      }
 				},
 				{
 				  header: '검사일자',
 				  name: 'dt',
 				  editor: 'datePicker',
-				  sortable: true
+				  sortable: true,
+			      validation: {
+			          required: true
+			      }
 				},
 				{
 				  header: '비고',
@@ -174,48 +188,62 @@ var rwmatrIstInspList = new Grid({
 
 
 //발주 모달
-function callModal(){
-	dialog = $( "#dialogFrm" ).dialog({
-		  modal:true,
-		  autoOpen:false,
-	      height: 400,
-	      width: 600,
-	      modal: true
-	}); 
+let orderDialogFrm = $( "#orderDialogFrm" ).dialog({
+	  modal:true,
+	  autoOpen:false,
+      height: 400,
+      width: 600,
+      modal: true
+}); 
 
-    dialog.dialog( "open" );
-    console.log("111112222")
-    $("#dialogFrm").load("${path}/rwmatr/searchOrderDialog.do", function(){console.log("발주 목록")})
+function callModal(){
+	orderDialogFrm.dialog( "open" );
+    $("#orderDialogFrm").load("${path}/rwmatr/searchOrderDialog.do", function(){console.log("발주 목록")})
 }
 
 //자재모달
+let rwmatrDialogFrm = $( "#rwmatrDialogFrm" ).dialog({
+	  modal:true,
+	  autoOpen:false,
+      height: 500,
+      width: 600,
+      modal: true
+});
+
 function callRwmatrModal(){
-	dialog = $( "#dialogFrm" ).dialog({
-		  modal:true,
-		  autoOpen:false,
-	      height: 400,
-	      width: 600,
-	      modal: true
-	}); 
 	
-    console.log("11111")
-    dialog.dialog( "open" );
-    console.log("111112222")
-    $("#dialogFrm").load("${path}/rwmatr/searchRwmatrDialog.do", function(){console.log("원자재 목록")})
+    rwmatrDialogFrm.dialog( "open" );
+    $("#rwmatrDialogFrm").load("${path}/rwmatr/searchRwmatrDialog.do", function(){console.log("원자재 목록")})
 }
+ 
+//업체명 모달
+function callVendModal(){
+
+    vendDialogFrm.dialog( "open" );
+    $("#vendDialogFrm").load("${path}/rwmatr/searchVendDialog.do", function(){console.log("업체명 목록")})
+}
+
+let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
+	  modal:true,
+	  autoOpen:false,
+      height: 500,
+      width: 600,
+      modal: true
+});
 	
 //원자재 불량코드 모달
-function callrwmatrInferCodeModal(){
-	dialog = $( "#dialogFrm" ).dialog({
-		  modal:true,
-		  autoOpen:false,
-	      height: 400,
-	      width: 600,
-	      modal: true
-	}); 
+let inferCodeDialogFrm = $( "#inferCodeDialogFrm" ).dialog({
+	  modal:true,
+	  autoOpen:false,
+      height: 400,
+      width: 600,
+      modal: true
+}); 
 
-    dialog.dialog( "open" );
-    $("#dialogFrm").load("${path}/rwmatr/rwmatrInferCodeModal.do", function(){console.log("원자재 불합격 리스트")})
+function callrwmatrInferCodeModal(){
+
+	inferCodeDialogFrm.dialog( "open" );
+    $("#inferCodeDialogFrm").load("${path}/rwmatr/rwmatrInferCodeModal.do", function(){console.log("원자재 불합격 리스트")})
 }
 
 	//발주코드 클릭시 모달
@@ -237,18 +265,28 @@ function callrwmatrInferCodeModal(){
 				toastr.success( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
 				return;
 			}
-			console.log("불량코드리스트")
-			callrwmatrInferCodeModal();
-		} else if(ev.columnName === 'passQy' || ev.columnName === 'inferQy') {
+			if(rwmatrIstInspList.getValue(rk, "qy") > rwmatrIstInspList.getValue(rk, "passQy")) {
+				$( "#dialogFrm" ).attr("title", "불량코드 목록");
+				console.log("불량코드리스트")
+				callrwmatrInferCodeModal();
+			}
+		} else if(ev.columnName === 'nm' || ev.columnName === 'rwmatrId' || ev.columnName === 'qy' || ev.columnName === 'passQy') {
 			if(rwmatrIstInspList.getValue(rk, "rwmatrOrderDetaId") == '') {
 				//toastr
 				toastr.clear()
 				toastr.success( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
-				return;
+			}
+		} else if(ev.columnName === 'inferQy') {
+			if(rwmatrIstInspList.getValue(rk, "rwmatrOrderDetaId") == '') {
+				//toastr
+				toastr.clear()
+				toastr.success( ('합격량 입력시 자동입력됩니다.'),'Gelato',{timeOut:'1000'} );
 			}
 		}
 		
 	});
+	
+	
 	//불량량 자동계산
 	rwmatrIstInspList.on('editingFinish', (ev) => {
 		console.log("11111111")
@@ -278,9 +316,10 @@ function callrwmatrInferCodeModal(){
 				rwmatrIstInspList.setValue(rk, "passQy", '', true);
 				//toastr
 				toastr.clear()
-				toastr.success( ('합격량은 발주총량보다 높을수 없습니다.'),'Gelato',{timeOut:'1500'} );
+				toastr.success( ('합격량은 발주총량보다 높을수 없습니다.'),'Gelato',{timeOut:'1800'} );
 			}
 		} 
+		
 	});
 
 	
@@ -293,7 +332,7 @@ function callrwmatrInferCodeModal(){
 		rwmatrIstInspList.setValue(rk, "rwmatrId", orderData.rwmatrId, true)
 		rwmatrIstInspList.setValue(rk, "qy", orderData.qy, true)
 		
-		dialog.dialog( "close" );
+		orderDialogFrm.dialog( "close" );
 	}
 	
 	//불량코드리스트 모달에서 받아온 데이터를 새로운 행에 넣어줌 or 텍스트박스에
@@ -301,7 +340,8 @@ function callrwmatrInferCodeModal(){
 		console.log("불량내용 기입")
 		rwmatrIstInspList.setValue(rk, "inferId", inferData.inferId, true)
 		rwmatrIstInspList.setValue(rk, "deta", inferData.deta, true)
-		dialog.dialog( "close" );
+		
+		inferCodeDialogFrm.dialog( "close" );
 	}
 	
 	//자재명 textbox
@@ -314,14 +354,16 @@ function callrwmatrInferCodeModal(){
 		console.log("Rwmatr정보 기입")
 		document.getElementById("rwmName").value = rwmatrData.nm;
 		
-		dialog.dialog( "close" );
+		rwmatrDialogFrm.dialog( "close" );
 	}
 	
 	
-
-	
 	rwmatrIstInspList.on('response', function (ev) {
-		console.log("1111");
+		console.log(ev)
+		if(flag == 'O') {
+			rwmatrIstInspList.readData(1);
+			flag = 'X';
+		}
 	});
 
 	//조회
@@ -339,25 +381,6 @@ function callrwmatrInferCodeModal(){
 									  'mngr':mngr}, true);
 	});
 	
-	//검색초기화
-	btnReset.addEventListener("click", function(){
-		selectList = [];
-		console.log("검색초기화");
-		document.getElementById("startDate").value = '';
-		document.getElementById("endDate").value = '';
-		document.getElementById("rwmName").value = '';
-		document.getElementById("mngr").value = '';
-		
-		startDate = document.getElementById("startDate").value;
-		endDate = document.getElementById("endDate").value;
-		rwmName = document.getElementById("rwmName").value;
-		mngr = document.getElementById("mngr").value;
-		
-		rwmatrIstInspList.readData(1,{'startDate':startDate,
-									'endDate':endDate, 
-									'rwmName':rwmName,
-									'mngr': mngr}, true);
-	});
 	
 	//추가
 	btnAdd.addEventListener("click", function(){
@@ -366,17 +389,34 @@ function callrwmatrInferCodeModal(){
 	
 	//삭제
 	btnDel.addEventListener("click", function(){
-		if(rwmatrIstInspList.removeCheckedRows(true)){
-			rwmatrIstInspList.request('modifyData');
+		
+		if(confirm("선택하신 항목을 삭제하시겠습니까?")){ 
+			rwmatrIstInspList.removeCheckedRows(false)
+			rwmatrIstInspList.request('modifyData',{showConfirm:false});
+			
+			toastr.clear()
+			toastr.success( ('삭제되었습니다.'),'Gelato',{timeOut:'1000'} );
 		}
 	});
 	
 	//저장
 	btnSave.addEventListener("click", function(){
-		selectList = [];
-		rwmatrIstInspList.blur();
-		rwmatrIstInspList.request('modifyData');
-		rwmatrIstInspList.clearModifiedData();
+		if (rwmatrIstInspList.getRow(0) != null) {
+			rwmatrIstInspList.blur();
+			if (confirm("저장하시겠습니까?")) {
+				rwmatrIstInspList.request('modifyData', {
+					showConfirm : false
+				});
+				flag = 'O';
+				toastr.clear()
+				toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} );
+			}
+		} else {
+			toastr.clear()
+			toastr.success( ('저장할 데이터가 없습니다.'),'Gelato',{timeOut:'1000'} );
+		}
+		
+		//rwmatrIstInspList.clearModifiedData();
 	});
 
 </script>

@@ -18,7 +18,7 @@ h1 {
 </style>
 <body>
 	<br>
-	<h1>원자재</h1><br>
+	<h1>원자재 목록</h1><br>
 	<form action="">
 		자재명 : <input type="text" id="rwmNameM">
 		<button type="button" id="rwmatrSearch" class="btn cur-p btn-outline-primary">조회</button>
@@ -62,6 +62,7 @@ var rwmatrListGrid = new Grid({
 	  contentType: 'application/json'
 	},
   	rowHeaders:['rowNum'],
+  	bodyHeight: 300,
   	selectionUnit: 'row',
   	columns:[
   		  {

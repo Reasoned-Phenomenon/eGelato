@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>원자재 출고관리</title>
+<title>원자재LOT 재고조회</title>
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
 <link rel="stylesheet"
@@ -24,22 +24,21 @@
 		유통기한 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
 		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-		<button type="button" class="btn cur-p btn-outline-primary" id="btnReset">전체검색</button>
 	</form>
 </div>
 <hr>
 <br>
 
-<!-- 입고내역 조회 -->
-<div id="rwmatrLotList" style="width: 80%"></div>
-
-<!-- 모달창 -->
-<div id="dialogFrm"></div>
+	<!-- 입고내역 조회 -->
+	<div id="rwmatrLotList" style="width: 80%"></div>
+	
+	<!-- 모달창 -->
+	<div id="rwmatrDialogFrm" title="원자재 목록"></div>
+	<div id="vendDialogFrm" title="업체 목록"></div>
 
 
 <script>
 var Grid = tui.Grid;
-let dialog;
 
 //모달에서 선택한 rowKey값 세팅
 let rk = '';
@@ -129,67 +128,40 @@ var rwmatrLotList = new Grid({
 });
 
 //자재모달
+let rwmatrDialogFrm = $( "#rwmatrDialogFrm" ).dialog({
+	  modal:true,
+	  autoOpen:false,
+      height: 500,
+      width: 600,
+      modal: true
+});
+
 function callRwmatrModal(){
-	dialog = $( "#dialogFrm" ).dialog({
-		  modal:true,
-		  autoOpen:false,
-	      height: 400,
-	      width: 600,
-	      modal: true
-	}); 
 	
-    dialog.dialog( "open" );
-    $("#dialogFrm").load("${path}/rwmatr/searchRwmatrDialog.do", function(){console.log("원자재 목록")})
+    rwmatrDialogFrm.dialog( "open" );
+    $("#rwmatrDialogFrm").load("${path}/rwmatr/searchRwmatrDialog.do", function(){console.log("원자재 목록")})
 }
-
+ 
 //업체명 모달
+let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
+	  modal:true,
+	  autoOpen:false,
+      height: 500,
+      width: 600,
+      modal: true
+});
+
 function callVendModal(){
-	dialog = $( "#dialogFrm" ).dialog({
-		  modal:true,
-		  autoOpen:false,
-	      height: 400,
-	      width: 600,
-	      modal: true
-	}); 
 
-    dialog.dialog( "open" );
-    $("#dialogFrm").load("${path}/rwmatr/searchVendDialog.do", function(){console.log("업체명 목록")})
+    vendDialogFrm.dialog( "open" );
+    $("#vendDialogFrm").load("${path}/rwmatr/searchVendDialog.do", function(){console.log("업체명 목록")})
 }
 
-//검수완료리스트 모달
-function callrwmatrPassModal(){
-	dialog = $( "#dialogFrm" ).dialog({
-		  modal:true,
-		  autoOpen:false,
-	      height: 400,
-	      width: 600,
-	      modal: true
-	}); 
-
-    dialog.dialog( "open" );
-    $("#dialogFrm").load("${path}/rwmatr/rwmatrPassModal.do", function(){console.log("검수완료 리스트")})
-}
-
-//현재고 리스트 모달
-function callrwmatrStcModal(){
-	dialog = $( "#dialogFrm" ).dialog({
-		  modal:true,
-		  autoOpen:false,
-	      height: 600,
-	      width: 1200,
-	      modal: true
-	}); 
-
-    dialog.dialog( "open" );
-    $("#dialogFrm").load("${path}/rwmatr/rwmatrStcModal.do", function(){console.log("검수완료 리스트")})
-}
-	
-
-	//검수합격리스트 모달에서 받아온 데이터를 새로운 행에 넣어줌 or 텍스트박스에
+	// 모달에서 텍스트박스로
 	function getRwmatrData(rwmatrData) {
 		document.getElementById("rwmName").value = rwmatrData.nm;
 		
-		dialog.dialog( "close" );
+		rwmatrDialogFrm.dialog( "close" );
 	}
 	
 	//자재명 textbox
@@ -202,7 +174,7 @@ function callrwmatrStcModal(){
 	function getVendData(vendData) {
 		document.getElementById("vendName").value = vendData.vendName;
 		
-		dialog.dialog( "close" );
+		vendDialogFrm.dialog( "close" );
 	}
 	
 	//업체명 textbox
@@ -224,26 +196,8 @@ function callrwmatrStcModal(){
 									'endDate':endDate, 
 									'rwmName':rwmName,
 									'vendName': vendName}, true);
-	});
+	}); 
 	
-	//검색초기화
-	btnReset.addEventListener("click", function(){
-		console.log("검색초기화");
-		document.getElementById("startDate").value = '';
-		document.getElementById("endDate").value = '';
-		document.getElementById("rwmName").value = '';
-		document.getElementById("vendName").value = '';
-		
-		startDate = document.getElementById("startDate").value;
-		endDate = document.getElementById("endDate").value;
-		rwmName = document.getElementById("rwmName").value;
-		vendName = document.getElementById("vendName").value;
-		
-		rwmatrLotList.readData(1,{'startDate':startDate,
-									'endDate':endDate, 
-									'rwmName':rwmName,
-									'vendName': vendName}, true);
-	});
 	
 
 </script>

@@ -43,6 +43,7 @@
 		},
 	  	rowHeaders:[ 'rowNum'],
 	  	selectionUnit: 'row',
+	  	bodyHeight: 400,
 	  	columns:[
 	  		  {
 			    header: '제품 코드',

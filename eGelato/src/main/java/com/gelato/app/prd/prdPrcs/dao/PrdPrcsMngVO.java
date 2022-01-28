@@ -23,10 +23,12 @@ public class PrdPrcsMngVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	Date indicaDt;
+	String indicaD;
 	
 	//그리드2
 	String prcsId;
 	String nm;
 	String eqmId;
 	String eqmName;
+	String prcsNowId;
 }

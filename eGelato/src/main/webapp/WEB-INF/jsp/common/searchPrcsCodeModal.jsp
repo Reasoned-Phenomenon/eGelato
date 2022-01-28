@@ -41,6 +41,7 @@ var Grid = tui.Grid;
 		},
 	  	rowHeaders:[ 'rowNum'],
 	  	selectionUnit: 'row',
+	  	bodyHeight: 400,
 	  	columns:[
 	  		  {
 			    header: '공정 코드',

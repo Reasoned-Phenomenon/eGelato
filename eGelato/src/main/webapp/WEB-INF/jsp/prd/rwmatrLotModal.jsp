@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +8,7 @@
 </head>
 <body>
 	<br>
-	<h1>자재 LOT 조회</h1>
+	<h1>자재 LOT 목록</h1>
 	<br>
 	<div>자재명 : <input type="text" readonly id="rwname"> 필요수량 : <input type="text" readonly id="rwneed"></div>
 	<br>
@@ -57,11 +55,13 @@
 			  {
 			    header: '현재고',
 			    name: 'qy',
+			    align: 'right',
 			  },
 			  {
 			    header: '사용수량',
 			    name: 'oustQy',
-			    editor : 'text'
+			    editor : 'text',
+		    	align: 'right',
 			  },
 			  {
 			    header: '유통기한',
@@ -95,16 +95,23 @@
 	});
 	
 	chooseRwmatrLotGrid.on("editingFinish", (ev3) => {
-		 let sumVal = chooseRwmatrLotGrid.getSummaryValues('oustQy').sum;
-		 console.log(sumVal);
-		 let rwv = document.getElementById("rwneed").value;
 		 
-		 if(sumVal != rwv) {
-			 $("#btnchoose").hide();
-		 } else {
-			 $("#btnchoose").show();
-		 }
-	 });
+		let cr = chooseRwmatrLotGrid.getCheckedRows().length;
+		console.log(cr);
+		let sumVal = 0;
+		
+		for ( i=0 ; i<cr ; i++) {
+			sumVal = parseInt(sumVal) + parseInt(chooseRwmatrLotGrid.getCheckedRows()[i].oustQy);
+			console.log(sumVal);
+		}
+		let rwv = document.getElementById("rwneed").value;
+		
+		if(sumVal != rwv) {
+			$("#btnchoose").hide();
+		} else {
+			$("#btnchoose").show();
+		}
+	});
 	
 	function chooseRWI(rwi,rwn,rwq,rpi,pdi,pio) {
 		/* chooseRwmatrLotGrid.readData(1,{'rwmatrId':rwi}, true); */

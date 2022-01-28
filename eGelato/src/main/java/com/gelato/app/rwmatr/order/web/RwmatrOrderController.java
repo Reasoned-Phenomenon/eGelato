@@ -34,6 +34,13 @@ public class RwmatrOrderController {
 		return "grid";
 	}
 	
+	//발주 조회 페이지로 이동
+	@RequestMapping("/rwmatr/rwmatrOrderR.do")
+	public String rwmatrOrderR() {
+		System.out.println("발주조회페이지로 이동");
+		return "tiles/rwmatr/rwmatrOrderR";
+	}
+	
 	//원자재 modal
 	@RequestMapping("/rwmatr/searchRwmatrDialog.do")
 	public String rwmatrDialog() {

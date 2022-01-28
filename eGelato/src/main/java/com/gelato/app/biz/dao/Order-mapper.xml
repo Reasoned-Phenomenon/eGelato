@@ -14,9 +14,6 @@
      JOIN prdt d
      ON b.prdt_id = d.prdt_id
      <where>
-     	<if test="orderDt !=null and oustDt != null">
-     		<![CDATA[trunc(a.order_dt) between (#{orderDt}) and (#{oustDt})]]> 
-     	</if>
      	<if test="vendName !=null and vendName != ''">
      		and c.vend_name = #{vendName}
      	</if>
@@ -26,7 +23,18 @@
      	<if test="stFg !='전체'">
      		 and a.st_fg = #{stFg}
      	</if>
-     	
+     	<if test="startDt !=null and startDt != ''">
+     		 <![CDATA[and trunc(a.order_dt) >= to_date(#{startDt})]]> 
+     	</if>
+     	<if test="endDt !=null and endDt != ''">
+     		 <![CDATA[and trunc(a.order_dt) <= to_date(#{endDt})]]> 
+     	</if>
+     	<if test="startedDt !=null and startedDt != ''">
+     		 <![CDATA[and trunc(a.oust_dt) >= to_date(#{startedDt})]]> 
+     	</if>
+     	<if test="endedDt !=null and endedDt != ''">
+     		 <![CDATA[and trunc(a.oust_dt) <= to_date(#{endedDt})]]> 
+     	</if>
      </where>
     	
 </select>
