@@ -77,6 +77,10 @@
                         </li>
                         
                         <li>
+                           <a href="${path }/rwmatr/rwmatrOrderR.do">> <span>원자재 발주조회</span></a>
+                        </li>
+                        
+                        <li>
                            <a href="${path }/rwmatr/rwmatrIstInsp.do">> <span>원자재 입고검사관리</span></a>
                         </li>
                         
@@ -89,6 +93,10 @@
                         </li>
                         
                         <li>
+                           <a href="${path }/rwmatr/rwmatrIstOustR.do">> <span>원자재 입/출고조회</span></a>
+                        </li>
+                        
+                        <li>
                            <a href="${path }/rwmatr/rwmatrLot.do">> <span>원자재LOT 재고조회</span></a>
                         </li>
                         
@@ -98,6 +106,10 @@
                         
                         <li>
                            <a href="${path }/rwmatr/rwmatrInfer.do">> <span>원자재 불량조회</span></a>
+                        </li>
+                        
+                        <li>
+                           <a href="#">> <span>안전재고 관리</span></a>
                         </li>
                         
                      </ul>
@@ -129,7 +141,7 @@
                            <a href="${path }/prd/prdPrcsNow.do">> <span>공정 실적</span></a>
                         </li>
                         <li>
-                           <a href="#">> <span>공정 관리</span></a>
+                           <a href="${path }/prd/prdPrcsMngList.do">> <span>공정 관리</span></a>
                         </li>
                         <li>
                            <a href="#">> <span>제품 공정 흐름도</span></a>

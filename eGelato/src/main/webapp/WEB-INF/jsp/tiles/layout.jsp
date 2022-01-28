@@ -37,6 +37,7 @@
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
+<script src="${path}/resources/css/gelato_grid.css"></script>
 
 <!-- 아이콘 -->
 <link
