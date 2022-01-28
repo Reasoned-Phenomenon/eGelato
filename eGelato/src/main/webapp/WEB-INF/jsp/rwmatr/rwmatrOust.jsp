@@ -156,10 +156,11 @@ var rwmatrOustList = new Grid({
 				{
 				  header: '담당자',
 				  name: 'remk',
+				  editor: 'text',
 				  sortable: true,
 				  formatter({value}) { // 추가
 					  let a = `\${value}`
-				  	  if(a == 'undefined'){
+				  	  if(a == 'null'){
 				  		  a = '';
 				  	  }
 				      return a;

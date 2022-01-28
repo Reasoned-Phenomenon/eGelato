@@ -251,6 +251,18 @@ var rwmatrOustGrid = new Grid({
 				  header: '유통기한',
 				  name: 'expdate',
 				  sortable: true
+				},
+				{
+				  header: '담당자',
+				  name: 'remk',
+				  sortable: true,
+				  formatter({value}) { // 추가
+					  let a = `\${value}`
+				  	  if(a == 'null'){
+				  		  a = '';
+				  	  }
+				      return a;
+				  }
 				}
 		]
 });
