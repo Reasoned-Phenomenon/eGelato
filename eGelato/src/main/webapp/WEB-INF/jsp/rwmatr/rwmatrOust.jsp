@@ -249,9 +249,9 @@ function callrwmatrStcModal(){
 			} else {
 				if(rwmatrOustList.getValue(rk, "oustQy") != '') {
 					if(totalq < oustq){
-						rwmatrOustList.setValue(rk, "oustQy", '', true);
+						rwmatrOustList.setValue(rk, "oustQy", totalq, true);
 						toastr.clear()
-						toastr.success( ('해당 자재의 출고가능항 수량은 ' + totalq + ' 입니다.'),'Gelato',{timeOut:'2000'} );
+						toastr.success( ('해당 자재의 출고가능항 수량은 ' + totalq + ' 입니다.'),'Gelato',{timeOut:'2500'} );
 					} 
 				} 
 			}
