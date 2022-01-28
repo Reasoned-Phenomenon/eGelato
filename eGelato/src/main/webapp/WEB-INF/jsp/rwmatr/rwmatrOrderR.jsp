@@ -76,6 +76,7 @@ Grid.applyTheme('striped', {
 	  }
 });
 
+
 //토스트옵션
 toastr.options = {
 		positionClass : "toast-top-center",
