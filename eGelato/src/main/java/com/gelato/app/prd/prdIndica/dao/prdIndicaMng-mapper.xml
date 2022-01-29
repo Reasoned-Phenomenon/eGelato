@@ -23,7 +23,8 @@
 		select ppd.plan_deta_id as plan_deta_id, 
 		       p.prdt_nm as prdt_nm,
 		       ppd.qy as qy, 
-		       ppd.prod_dcnt as prod_dcnt
+		       ppd.prod_dcnt as prod_dcnt,
+               sum(pid.qy) as qy_val
 		from prod_plan_deta ppd join prdt p
 		    on ppd.prdt_id = p.prdt_id
 		    left outer join prod_indica pi
@@ -31,7 +32,7 @@
 		    left outer join prod_indica_deta pid
 		    on pi.indica_id = pid.indica_id
 		where ppd.plan_deta_id = #{planDetaId}
-		group by ppd.plan_deta_id,p.prdt_nm, ppd.qy,ppd.prod_dcnt
+		group by ppd.plan_deta_id,p.prdt_nm, ppd.qy, ppd.prod_dcnt
 		having ppd.prod_dcnt != count(pid.indica_deta_id)
 	</select>
 	
@@ -185,5 +186,6 @@
 		        #{rwmatrOrderDetaId}
 		        )
 	</insert>
+
 	
 </mapper>

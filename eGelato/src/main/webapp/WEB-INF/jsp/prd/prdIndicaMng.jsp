@@ -150,6 +150,9 @@
 				header : '확인',
 				name : 'fg',
 				hidden : true
+			},{
+				header : '생산지시량',
+				name : 'qyVal',
 			}]
 		});
 		
@@ -169,7 +172,7 @@
 			columns : [ {
 				header : '지시디테일코드',
 				name : 'indicaDetaId',
-				hidden : false
+				hidden : true
 			},{
 				header : '라인코드',
 				name : 'lineId',
