@@ -162,7 +162,6 @@ $("#btnchoose").on("click", function(){
 		rwmatrPassDialogFrm.dialog( "close" );
 		return true;
 	}); */
-	
 });
 
 </script>
