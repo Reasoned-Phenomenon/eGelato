@@ -53,6 +53,12 @@
 			  {
 			    header: '상세계획코드',
 			    name: 'planDetaId',
+			    hidden: false
+			  },
+			  {
+			    header: '제품명',
+			    name: 'prdtNm',
+			    hidden: false
 			  }
 		  ]
 	});

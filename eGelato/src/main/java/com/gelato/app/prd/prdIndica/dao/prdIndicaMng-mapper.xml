@@ -5,15 +5,19 @@
 <!-- 미지시 생산계획 조회 -->
 	<select id="nonIndicaList" resultType="PrdIndicaMngVO">
 		select pp.plan_id as plan_id, 
-		       pp.name as name,
-		       ppd.plan_deta_id as plan_deta_id
+			   pp.name as name, 
+			   ppd.plan_deta_id as plan_deta_id, 
+			   prdt.prdt_nm as prdt_nm
 		from prod_plan pp right outer join prod_plan_deta ppd
 		    on pp.plan_id = ppd.plan_id
 		    left outer join prod_indica pi
 		    on ppd.plan_deta_id = pi.plan_deta_id
 		    left outer join prod_indica_deta pid
 		    on pi.indica_id = pid.indica_id
-		group by ppd.plan_deta_id, pp.plan_id, pp.name,ppd.prod_dcnt, pi.indica_id
+		    join prdt
+		    on ppd.prdt_id = prdt.prdt_id
+		where pp.fg != 'CANCEL'
+		group by pp.plan_id, pp.name, ppd.prod_dcnt, pi.indica_id, ppd.plan_deta_id, prdt.prdt_nm
 		having ppd.prod_dcnt != count(pid.indica_id)
 		order by pp.plan_id
 	</select>
@@ -23,8 +27,9 @@
 		select ppd.plan_deta_id as plan_deta_id, 
 		       p.prdt_nm as prdt_nm,
 		       ppd.qy as qy, 
-		       ppd.prod_dcnt as prod_dcnt,
-               sum(pid.qy) as qy_val
+		       ppd.prod_dcnt as prod_dcnt
+               ,sum(pid.qy) as qy_val
+               ,count(pid.indica_deta_id) as count_di
 		from prod_plan_deta ppd join prdt p
 		    on ppd.prdt_id = p.prdt_id
 		    left outer join prod_indica pi

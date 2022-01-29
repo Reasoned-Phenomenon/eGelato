@@ -75,5 +75,6 @@ public class PrdIndicaMngVO {
 	
 	//추가
 	String qyVal;
+	String countDi;
 	
 }

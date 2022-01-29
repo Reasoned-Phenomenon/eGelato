@@ -132,6 +132,7 @@
 			},
 			rowHeaders : ['rowNum' ],
 			selectionUnit : 'row',
+			bodyHeight: 150,
 			columns : [ {
 				header : '생산계획코드',
 				name : 'planDetaId'
@@ -153,6 +154,11 @@
 			},{
 				header : '생산지시량',
 				name : 'qyVal',
+				hidden : false
+			},{
+				header : '지시 숫자',
+				name : 'countDi',
+				hidden : false
 			}]
 		});
 		
@@ -168,6 +174,7 @@
 				initialRequest: false
 			},
 			rowHeaders : ['rowNum' ],
+			bodyHeight: 150,
 			selectionUnit : 'row',
 			columns : [ {
 				header : '지시디테일코드',
@@ -229,6 +236,7 @@
 			},
 			rowHeaders : ['rowNum' ],
 			selectionUnit : 'row',
+			bodyHeight: 200,
 			columns : [ {
 				header : '제품코드',
 				name : 'prdtId'
@@ -272,6 +280,7 @@
 			},
 			rowHeaders:['checkbox','rowNum'],
 			selectionUnit: 'row',
+			bodyHeight: 200,
 			columns:[{
 				header : '자재명',
 				name : 'nm'
@@ -378,6 +387,8 @@
 		console.log(pdc);
 		pdq = planDetaGrid.getRow(ev.rowKey).qy;
 		console.log(pdq);
+		countDi = planDetaGrid.getRow(ev.rowKey).countDi;
+		console.log(countDi);
 		
 		var obj = {};
 		obj["planDetaId"] = pdi;
@@ -400,10 +411,9 @@
 			console.log(lineId)
 			indicaDetaId = result.indicaDetaId;
 			console.log(indicaDetaId);
-			
 		})
 		
-		for( let i=0 ; i<pdc ; i++ ) {
+		for( let i=0 ; i<pdc-countDi ; i++ ) {
 			console.log(indicaDetaId);
 			indicaDetaId = indicaDetaId.substr(0,13) + lpad(String(parseInt(indicaDetaId.substr(-3))+i),3,0)
 			console.log(indicaDetaId);
@@ -659,9 +669,5 @@
 					
 		}
 	})
-	
-
-	
-	
 </script>
 </html>
