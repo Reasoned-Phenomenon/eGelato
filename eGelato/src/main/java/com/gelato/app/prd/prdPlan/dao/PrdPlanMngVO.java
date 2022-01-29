@@ -61,4 +61,7 @@ public class PrdPlanMngVO {
 	String startD;
 	String endD;
 	
+	//테스트
+	String msg;
+	
 }

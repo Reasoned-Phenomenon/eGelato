@@ -1,9 +1,7 @@
 package com.gelato.app.prd.prdPlan.dao;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.ui.Model;
 
 public interface PrdPlanMngMapper {
 	
@@ -26,7 +24,7 @@ public interface PrdPlanMngMapper {
 	int insertPrdPlanDeta(PrdPlanMngVO vo);
 	
 	//계획 취소 update
-	int updatePrdPlanDeta(PrdPlanMngVO vo);
+	PrdPlanMngVO updatePrdPlanDeta(PrdPlanMngVO mvo);
 	
 	//계획 등록 후 update
 	int updateOrderSht(PrdPlanMngVO vo);
@@ -36,4 +34,7 @@ public interface PrdPlanMngMapper {
 	
 	//계획 취소시 홀딩값 삭제
 	int deleteExcp(PrdPlanMngVO vo);
+	
+	//계획 취소 update - 임시
+	HashMap updatePrdPlanDeta(HashMap temp);
 }

@@ -171,17 +171,25 @@
 	</insert>
 	
 <!-- 생산계획관리 - 계획취소 update -->
-	<update id="updatePrdPlanDeta" parameterType="PrdPlanMngVO">
-		<selectKey keyProperty="planId" resultType="string" order="BEFORE">
-			SELECT PP.PLAN_ID
-			as planId
-			FROM PROD_PLAN PP JOIN PROD_PLAN_DETA PPD
-			    ON PP.PLAN_ID = PPD.PLAN_ID
-			WHERE PPD.PLAN_DETA_Id = #{planDetaId}
-		</selectKey>
-		UPDATE PROD_PLAN SET FG = 'CANCEL'
-		WHERE PLAN_ID = #{planId}
-	</update>
+
+	<!-- <resultMap type="hashmap" id="CancelDetaMap" /> -->
+<!--  	
+	<resultMap type="hashmap" id="Msg"></resultMap>
+	
+	<parameterMap type="PrdPlanMngVO" id="CancelParam">
+		<parameter property="planDetaId" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+		<parameter property="msg" mode="OUT" jdbcType="VARCHAR" javaType="string" resultMap="Msg"/>
+	</parameterMap>
+	
+-->	
+	<parameterMap type="HashMap" id="CancelParam">
+		<parameter property="planDetaId" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+		<parameter property="msg" mode="OUT" jdbcType="VARCHAR" javaType="string"/>
+	</parameterMap>
+	
+	<select id="updatePrdPlanDeta" statementType="CALLABLE" parameterMap="CancelParam">
+		{ call can_pp(?,?) }
+	</select>
 	
 <!-- 생산계획관리 - 계획 등록 후 update -->
 	<update id="updateOrderSht" parameterType="PrdPlanMngVO">

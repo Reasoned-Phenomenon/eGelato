@@ -106,6 +106,20 @@
 		}
 		let rwv = document.getElementById("rwneed").value;
 		
+		let crlist = chooseRwmatrLotGrid.getCheckedRowKeys();
+		console.log(crlist);
+		let crc = chooseRwmatrLotGrid.getRowCount();
+		console.log(crc);
+		
+		/* for (int t = 0; t < crc ; t++) {
+			
+			for (int c ; c < crlist.length ; c++) {
+				if (t != crlist[c] ) {
+					chooseRwmatrLotGrid.setValue(t,'oustQy','0',true);
+				}
+			}
+		} */
+		
 		if(sumVal != rwv) {
 			$("#btnchoose").hide();
 		} else {

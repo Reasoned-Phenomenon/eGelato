@@ -1,5 +1,6 @@
 package com.gelato.app.prd.prdPlan.web;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gelato.app.prd.prdPlan.dao.PrdPlanMngVO;
 import com.gelato.app.prd.prdPlan.service.PrdPlanMngService;
-import com.gelato.app.rwmatr.order.dao.RwmatroVO;
 import com.gelato.app.vr.ModifyVO;
 
 @Controller
@@ -113,13 +113,24 @@ public class PrdPlanMngController {
 	}
 	
 	// modify - 관리
-	@PutMapping("/prd/modifyCanPrdPlan.do")
+	@RequestMapping("/prd/modifyCanPrdPlan.do")
 	@ResponseBody
-	public boolean modifyCanPrdPlan (@RequestBody ModifyVO<PrdPlanMngVO> mvo) {
-		System.out.println("modi 컨트롤러3333");
+	public String modifyCanPrdPlan (@RequestBody PrdPlanMngVO mvo) {
+		/*System.out.println("modi 컨트롤러3333");
 		System.out.println(mvo);
-		prdPlanMngService.modifyCanPrdPlan(mvo);
-		System.out.println("modi 컨트롤러4444");
-		return true;
+		PrdPlanMngVO vvv = new PrdPlanMngVO();
+		vvv = prdPlanMngService.modifyCanPrdPlan(mvo);
+		
+		System.out.println(vvv);
+		System.out.println(vvv.getMsg());
+		*/
+		
+		HashMap temp = new HashMap<String, String>();
+		temp.put("planDetaId", mvo.getPlanDetaId());
+		
+		prdPlanMngService.modifyCanPrdPlan(temp);
+		
+		System.out.println(temp.get("msg"));
+		return (String) temp.get("msg");
 	}
 }

@@ -109,6 +109,9 @@ th, td {
 			name : 'ord',
 			align: 'right',
 		},{
+			header : '진행구분',
+			name : 'fg',
+		},{
 			header : '비고',
 			name : 'remk',
 		}]

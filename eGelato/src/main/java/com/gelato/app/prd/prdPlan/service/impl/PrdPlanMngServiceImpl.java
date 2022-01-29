@@ -1,5 +1,6 @@
 package com.gelato.app.prd.prdPlan.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -84,20 +85,19 @@ public class PrdPlanMngServiceImpl implements PrdPlanMngService{
 	}
 
 	@Override
-	public int modifyCanPrdPlan(ModifyVO<PrdPlanMngVO> mvo) {
-		PrdPlanMngVO pvo = null;
+	public PrdPlanMngVO modifyCanPrdPlan(PrdPlanMngVO mvo) {
 
 		// 계획취소 - update
-		if(!mvo.getUpdatedRows().isEmpty()) {
-			System.out.println("계획취소");
-			ppmMapper.updatePrdPlanDeta(mvo.getUpdatedRows().get(0));
-			System.out.println("계획취소impl 끝");
-			System.out.println("홀딩값 삭제");
-			ppmMapper.deleteExcp(mvo.getUpdatedRows().get(0));
-			System.out.println("홀딩값 삭제 끝");
-		}
+			System.out.println("계획취소, 홀딩값 삭제");
+			
+			/*
+			 * System.out.println("홀딩값 삭제");
+			 * //ppmMapper.deleteExcp(mvo.getUpdatedRows().get(0));
+			 * System.out.println("홀딩값 삭제 끝");
+			 */
+//		}
 		
-		return 0;
+		return ppmMapper.updatePrdPlanDeta(mvo);
 		
 	}
 
@@ -112,6 +112,13 @@ public class PrdPlanMngServiceImpl implements PrdPlanMngService{
 		}
 		return 0;
 	}
+
+	@Override
+	public HashMap modifyCanPrdPlan(HashMap temp) {
+		// TODO Auto-generated method stub
+		return ppmMapper.updatePrdPlanDeta(temp);
+	}
+
 
 	
 	

@@ -216,12 +216,31 @@ th, td {
 		    return val;
 		}
 	
-	// 그리드2에 진행공정코드 붙이기
-	if(IndicaGrid.getRowCount() >= 0) {
-		function pnId() {
-			console.log(prcsListGrid.getRowCount());
-		}
-	}
+	// 그리드2 선택시 공정상세사항 출력
+	prcsListGrid.on("dblclick", (ev) => {
+		prcsListGrid.setSelectionRange({
+		    start: [ev.rowKey, 0],
+		    end: [ev.rowKey, prcsListGrid.getColumns().length-1]
+		});
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		
 	
 </script>
