@@ -35,4 +35,10 @@ public class MngController {
 		
 		return "tiles/mng/egovMenuCreatManageSelect";
 	}
+	
+	@RequestMapping("/mng/egovMenuManageSelect.do")
+	public String egovMenuManageSelect () {
+		
+		return "tiles/mng/egovMenuManageSelect";
+	}
 }
