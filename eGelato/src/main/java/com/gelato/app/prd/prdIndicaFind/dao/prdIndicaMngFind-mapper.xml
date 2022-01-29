@@ -11,6 +11,7 @@
 			   pid.qy as qy, 
 			   pid.line_id as line_id, 
 			   pid.ord as ord, 
+			   f_com_code_to_nm(pi.fg) as fg,
 			   pid.remk as remk
 		from prod_indica_deta pid join line l
 		    on pid.line_id = l.line_id
@@ -26,7 +27,7 @@
             	<![CDATA[and trunc(pid.indica_dt) = #{indicaD}]]>
             </if>
 		</where> 
-		group by pid.indica_deta_id, l.prdt_id, p.prdt_nm, pid.qy, pid.line_id, pid.ord, pid.remk
-		order by pid.ord
+		group by pid.indica_deta_id, l.prdt_id, p.prdt_nm, pid.qy, pid.line_id, pid.ord, pid.remk, pi.fg
+		order by pid.indica_deta_id , pid.ord
 	</select>
 </mapper>

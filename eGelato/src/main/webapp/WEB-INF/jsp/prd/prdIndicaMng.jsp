@@ -149,7 +149,7 @@
 			},{
 				header : '확인',
 				name : 'fg',
-				hidden : false
+				hidden : true
 			}]
 		});
 		
