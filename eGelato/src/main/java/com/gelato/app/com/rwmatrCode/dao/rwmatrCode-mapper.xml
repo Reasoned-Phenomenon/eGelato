@@ -12,7 +12,7 @@
                SAF_STC,
                FG
 		FROM   RWMATR 
-
+        ORDER BY RWMATR_ID desc
 	</select>
 	
 	<!-- 거래처 modal -->
