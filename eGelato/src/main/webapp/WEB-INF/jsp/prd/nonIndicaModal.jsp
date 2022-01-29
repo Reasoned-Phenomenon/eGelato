@@ -49,6 +49,10 @@
 			  {
 			    header: '계획명',
 			    name: 'name',
+			  },
+			  {
+			    header: '상세계획코드',
+			    name: 'planDetaId',
 			  }
 		  ]
 	});
@@ -61,7 +65,7 @@
 	    end: [ev.rowKey, nonIndicaGrid.getColumns().length-1]
 	});
 	
-	var nip = nonIndicaGrid.getRow(ev.rowKey).planId;
+	var nip = nonIndicaGrid.getRow(ev.rowKey).planDetaId;
 	console.log(nip);
 	choosePI(nip);
 

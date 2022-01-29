@@ -338,7 +338,7 @@
 			planIndicaGrid.clear();
 			RwmatrGrid.clear();
 			RwmatrLotGrid.clear();
-			planDetaGrid.readData(1,{planId:nip}, true);
+			planDetaGrid.readData(1,{'planDetaId':nip}, true);
 			NonIndicaDialog.dialog("close");
 		}
 	//종료
@@ -424,6 +424,11 @@
 	});
 	
 	// 생산지시 클릭 -> 필요자재 그리드
+	planIndicaGrid.on("click", (ev5) => {
+		RwmatrGrid.clear();
+		RwmatrLotGrid.clear();
+	})
+	
 	planIndicaGrid.on("editingFinish", (ev3) => {
 		planIndicaGrid.setSelectionRange({
 		    start: [ev3.rowKey, 0],
@@ -586,6 +591,9 @@
 		if(confirm("저장하시겠습니까?")) {
 			planDetaGrid.blur();
 			planIndicaGrid.blur();
+			RwmatrGrid.blur();
+			RwmatrLotGrid.blur();
+			
 			console.log("저장");
 			
 			console.log(pdi);
