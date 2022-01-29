@@ -130,7 +130,8 @@ var rwmatrOrderList = new Grid({
 				{
 				  header: '발주코드',
 				  name: 'orderId',
-				  sortable: true
+				  sortable: true,
+				  hidden:true
 				},
 				{
 				  header: '자재명',
