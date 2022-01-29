@@ -1,13 +1,9 @@
 package com.gelato.app.prd.prdPlan.service;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.gelato.app.prd.prdPlan.dao.PrdPlanMngVO;
-import com.gelato.app.rwmatr.order.dao.RwmatroVO;
 import com.gelato.app.vr.ModifyVO;
 
 public interface PrdPlanMngService {
@@ -28,9 +24,13 @@ public interface PrdPlanMngService {
 	public int modifyPrdPlan(ModifyVO<PrdPlanMngVO> mvo);
 	
 	//modify - 취소
-	public int modifyCanPrdPlan(ModifyVO<PrdPlanMngVO> mvo);
+	PrdPlanMngVO modifyCanPrdPlan(PrdPlanMngVO mvo);
 	
 	//modify - 홀딩값
 	public int modifyExcp(ModifyVO<PrdPlanMngVO> mvo);
 	
+	
+	//임시
+	//modify - 취소
+	HashMap modifyCanPrdPlan(HashMap temp);
 }

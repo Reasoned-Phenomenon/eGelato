@@ -96,6 +96,7 @@ th, td {
 		},
 		rowHeaders : ['rowNum' ],
 		selectionUnit : 'row',
+		bodyHeight: 600,
 		columns : [ {
 			header : '생산계획코드',
 			name : 'planId'
@@ -123,6 +124,9 @@ th, td {
 			header : '생산일수',
 			name : 'prodDcnt',
 			align: 'right',
+		},{
+			header : '진행구분',
+			name : 'fg',
 		},{
 			header : '비고',
 			name : 'remk',

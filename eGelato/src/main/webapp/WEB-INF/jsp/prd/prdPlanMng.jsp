@@ -407,10 +407,30 @@ th, td {
 		
 		if(confirm("취소하시겠습니까?")) {
 			PlanDetaGrid.blur()
-			PlanDetaGrid.request('modifyData',{showConfirm:false})
 			
-			toastr.clear()
-			toastr.success( ('생산 계획이 취소되었습니다.'),'Gelato',{timeOut:'1000'} );
+			list = PlanDetaGrid.getData()[0];
+			pdi = PlanDetaGrid.getData()[0].planDetaId;
+			
+			$.ajax({
+				url : "${path}/prd/modifyCanPrdPlan.do?planDetaId=" + pdi,
+				data : JSON.stringify(list),
+				type:'POST',
+				contentType: 'application/json; charset=utf-8',
+				error : function(result) {
+					console.log('에러', result)
+				}
+			}).done(function (result) {
+				console.log(result);
+				if(result == 'CANT') {
+					console.log(111);
+					toastr.clear()
+					toastr.success( ('지시가 이미 내려졌습니다.'),'Gelato',{timeOut:'1000'} );
+				}else {
+					console.log(222);
+					toastr.clear()
+					toastr.success( ('생산 계획이 취소되었습니다.'),'Gelato',{timeOut:'1000'} );
+				}
+			})
 		}
 		
 		console.log(565656);

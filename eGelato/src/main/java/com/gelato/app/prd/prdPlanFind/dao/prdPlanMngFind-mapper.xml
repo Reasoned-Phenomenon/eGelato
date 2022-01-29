@@ -19,7 +19,8 @@
 		       ppd.qy as qy,
 		       ppd.priort as priort,
 		       ppd.prod_dcnt as prod_dcnt,
-		       ppd.remk as remk
+		       ppd.remk as remk,
+		       f_com_code_to_nm(pp.fg) as fg
 		from prod_plan pp join prod_plan_deta ppd
 			 on pp.plan_id = ppd.plan_id
 			 join prdt p

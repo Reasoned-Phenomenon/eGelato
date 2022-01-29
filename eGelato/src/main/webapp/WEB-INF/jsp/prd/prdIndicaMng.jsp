@@ -627,7 +627,6 @@
 					console.log(result);
 					
 					list3 = RwmatrLotGrid.getData()
-					list3.push
 					
 					$.ajax({
 						url : "${path}/prd/modifyInptRwmatr.do?planDetaId=" + pdi,
