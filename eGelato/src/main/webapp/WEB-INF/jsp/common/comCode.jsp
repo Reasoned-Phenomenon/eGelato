@@ -28,7 +28,7 @@
 
 <br>
 <br>
-
+<button id="btnTest">테스트</button>
 <hr>
 <br>
 <div class="row">
@@ -259,6 +259,19 @@ const codeGrid = new tui.Grid({
 	codeGrid.on('click',function (ev) {
 		console.log(ev)
 	})
+	
+	//테스트
+	btnTest.addEventListener("click", function() {
+
+		$.ajax({
+			url: "${path}/com/schTest?val=abcde",
+			success : function (res) {
+				console.log(res)
+			}		
+		})
+		
+	
+	});
 	
 </script>
 </body>
