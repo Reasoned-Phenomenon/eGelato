@@ -87,6 +87,7 @@ th, td {
 		},
 		rowHeaders : ['rowNum' ],
 		selectionUnit : 'row',
+		bodyHeight: 650,
 		columns : [ {
 			header : '생산지시코드',
 			name : 'indicaDetaId'
