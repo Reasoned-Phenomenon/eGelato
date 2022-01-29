@@ -41,14 +41,24 @@
 
 <!-- 주문서에서 거래처 검색 modal -->
 <select id="vendList" resultType="OrderVO">
-	SELECT  vend_id, vend_name, bizno, telno
- 	FROM vend
+	SELECT VEND_ID, VEND_NAME, BIZNO, TELNO
+	FROM   VEND
+	<where>
+		<if test="vendName !=null and vendName !=''">
+			AND VEND_NAME LIKE '%'||#{vendName}||'%'
+		</if>
+	</where>
 </select>
 
 <!-- 주문서에서 제품코드 검색 modal -->
 <select id="prdtList" resultType="OrderVO">
-	 SELECT prdt_id, prdt_nm, spec
-	 FROM prdt
+	 SELECT PRDT_ID, PRDT_NM, SPEC
+	 FROM   PRDT
+	 <where>
+	 	<if test="prdtNm !=null and prdtNm !=''">
+	 		AND PRDT_NM LIKE '%'||#{prdtNm}||'%'
+	 	</if>
+	 </where>
 </select>
 
 </mapper>

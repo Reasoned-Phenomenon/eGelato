@@ -18,7 +18,7 @@
 		<h3>주문서 관리 조회</h3>
 	     <div>
 	     	
-	      <form id="" name="" method="">
+	      <form>
 	      	<div>
 	      		<ul>
 	      			<li>
@@ -82,9 +82,9 @@
    	 
 	
 <script>
-let dialog;
+let prdtDialog;
 
-let dialog2;
+let vendDialog;
 
 
 var Grid = tui.Grid;
@@ -100,6 +100,7 @@ Grid.applyTheme('striped', {
 	    }
 	  }
 });
+
 
 //그리드 생성
 var ordGrid = new Grid({
@@ -193,15 +194,20 @@ var ordGrid = new Grid({
  			
  			
  			
- 			ordGrid.readData(1, {'startDt':startDt, 'endDt':endDt, 'startedDt':startedDt, 'endedDt':endedDt,'vendName' :vendName, 'prdtNm':prdtNm, 'stFg':stFg }, true);
+ 			ordGrid.readData(1, {'startDt':startDt, 
+ 								 'endDt':endDt, 
+ 								 'startedDt':startedDt, 
+ 								 'endedDt':endedDt,
+ 								 'vendName' :vendName, 
+ 								 'prdtNm':prdtNm, 
+ 								 'stFg':stFg }, true);
  			
  		});
 	
-	// 
 		
 	// 모달창 생성 함수. 거래처
 	$(function () {
-		dialog = $( "#vendListmodal" ).dialog({
+		vendDialog = $( "#vendListmodal" ).dialog({
 			autoOpen: false,
 			height: 500,
 			width: 700,
@@ -218,7 +224,7 @@ var ordGrid = new Grid({
 	
 	// 모달창 생성 함수. 제품
 	$(function () {
-		dialog2 = $( "#prdtListmodal" ).dialog({
+		prdtDialog = $( "#prdtListmodal" ).dialog({
 			autoOpen: false,
 			height: 500,
 			width: 700,
@@ -236,7 +242,7 @@ var ordGrid = new Grid({
 	BtnVend.addEventListener("click", function() {
 		
 		console.log("모달클릭")
-		dialog.dialog( "open" );
+		vendDialog.dialog( "open" );
 		
 		 // 컨트롤러에 보내주고 따로 모달은 jsp 만들 필요가 없으니깐  
 		 $('#vendListmodal').load("${path}/biz/vendModal.do",function () {
@@ -250,7 +256,7 @@ var ordGrid = new Grid({
 	BtnPrdt.addEventListener("click", function() {
 		
 		console.log("버튼클릭");
-		dialog.dialog("open");
+		prdtDialog.dialog("open");
 	
 		$("#prdtListmodal").load("${path}/biz/prdtModal.do",function () {
 			console.log("제품코드 modal");
@@ -264,13 +270,13 @@ var ordGrid = new Grid({
 	 function  getModalData(vendParam) {	
 		console.log(vendParam);
 		$("#vendName").val(vendParam);
-		dialog.dialog("close");
+		vendDialog.dialog("close");
 	} 
 	// 제품코드 인풋 태그에 값들어가게 함.
 	function getModal(prdtParam) {
 		console.log(prdtParam);
 		$("#prdtNm").val(prdtParam);
-		dialog.dialog("close");
+		prdtDialog.dialog("close");
 	}
 	
 		

@@ -8,15 +8,37 @@
 <meta charset="UTF-8">
 <title>거래처 조회 modal</title>
 </head>
+<style>
+h1 {
+	text-align: center
+}
+</style>
 <body>
 	
 	<br>
-	<h3>업체 검색</h3>
+	<h1>업체 검색</h1><br>
+	    <form action="">
+		제품명 : <input type="text" id="vendNameM">
+		<button type="button" id="vendSearch" class="btn cur-p btn-outline-primary">조회</button>
+		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
+	</form>
+	
 	<div id="vendListGrid" style="width: 100%"></div>
 	
 <script>
 
 var Grid = tui.Grid;
+
+//검색 조건
+var vendNameM;
+
+document.getElementById("vendSearch").addEventListener("click", function () {
+	vendNameM = document.getElementById("vendNameM").value;
+	
+	vendListGrid.readData(1,{'vendName':vendNameM}, true);
+});
+
+
 
 //그리드 테마
 Grid.applyTheme('striped', {

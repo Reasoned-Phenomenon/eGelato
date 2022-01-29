@@ -8,8 +8,8 @@ public interface OrderMapper {
 	List<OrderVO> findOrderList(OrderVO vo);
 	
 	// 거래처 조회.
-	List<OrderVO> vendList();
+	List<OrderVO> vendList(OrderVO vo);
 	
 	// 제품코드 조회.
-	List<OrderVO> prdtList();
+	List<OrderVO> prdtList(OrderVO vo);
 }
