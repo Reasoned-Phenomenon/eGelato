@@ -65,6 +65,14 @@
                            <a href="#">> <span>출고 관리</span></a>
                         </li>
                         
+                         <li>
+                           <a href="#">> <span>원자재 입/출고조회</span></a>
+                        </li>
+                        
+                         <li>
+                           <a href="#">> <span>원자재 재고조회</span></a>
+                        </li>
+                        
                      </ul>
                   </li>
                   
