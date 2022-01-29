@@ -3,15 +3,69 @@
 <mapper namespace="com.gelato.app.biz.eprd.dao.EproductMapper">
 
 	<select id="EproductStcList" resultType="EproductVO">
-		
+		SELECT PS.PRDT_ID AS PRDT_ID,
+		       P.PRDT_NM AS PRDT_NM,
+		       PS.QY AS QY,
+		       PS.LOT_NO AS LOT_NO,
+		       PS.PROD_DT AS PROD_DT,
+		       PS.EXPDATE AS EXPDATE,
+		       PS.FG AS FG
+		FROM PRDT_STC PS JOIN PRDT P
+		ON PS.PRDT_ID = P.PRDT_ID
+		<if test="startDate != ''">
+    		AND <![CDATA[TRUNC(PS.PROD_DT) >= to_date(#{startDate})]]>
+    	</if>
+    	<if test="endDate != ''">
+    		AND <![CDATA[TRUNC(PS.PROD_DT) <= to_date(#{endDate})]]>
+    	</if>
+		<if test="eprdtName != '' and eprdtName != null">
+			AND P.PRDT_NM LIKE '%'||#{prdtNm}||'%'
+		</if>
+		ORDER BY EXPDATE
 	</select>
 	
 	<select id="EproductIstList" resultType="EproductVO">
-		
+		SELECT PIO.LOT_NO AS LOT_NO,
+		       PIO.PRDT_ID AS PRDT_ID,
+		       P.PRDT_NM AS PRDT_NM,
+		       PIO.IST_QY AS IST_QY,
+		       PIO.IST_OUST_DTTM AS IST_OUST_DTTM,
+		       PIO.EXPDATE AS EXPDATE
+		FROM PRDT_INST_OUST PIO JOIN PRDT P 
+		ON PIO.PRDT_ID = P.PRDT_ID 
+		WHERE PIO.IST_QY != 0
+		<if test="startDate != ''">
+    		AND <![CDATA[TRUNC(PIO.IST_OUST_DTTM) >= to_date(#{startDate})]]>
+    	</if>
+    	<if test="endDate != ''">
+    		AND <![CDATA[TRUNC(PIO.IST_OUST_DTTM) <= to_date(#{endDate})]]>
+    	</if>
+		<if test="eprdtName != '' and eprdtName != null">
+			AND P.PRDT_NM LIKE '%'||#{prdtNm}||'%'
+		</if>
+		ORDER BY EXPDATE
 	</select>
 	
 	<select id="EproductOustList" resultType="EproductVO">
-		
+		SELECT PIO.LOT_NO AS LOT_NO,
+		       PIO.PRDT_ID AS PRDT_ID,
+		       P.PRDT_NM AS PRDT_NM,
+		       PIO.OUST_QY AS OUST_QY,
+		       PIO.IST_OUST_DTTM AS IST_OUST_DTTM,
+		       PIO.EXPDATE AS EXPDATE
+		FROM PRDT_INST_OUST PIO JOIN PRDT P 
+		ON PIO.PRDT_ID = P.PRDT_ID 
+		WHERE PIO.OUST_QY != 0
+		<if test="startDate != ''">
+    		AND <![CDATA[TRUNC(PIO.IST_OUST_DTTM) >= to_date(#{startDate})]]>
+    	</if>
+    	<if test="endDate != ''">
+    		AND <![CDATA[TRUNC(PIO.IST_OUST_DTTM) <= to_date(#{endDate})]]>
+    	</if>
+		<if test="eprdtName != '' and eprdtName != null">
+			AND P.PRDT_NM LIKE '%'||#{prdtNm}||'%'
+		</if>
+		ORDER BY EXPDATE
 	</select>
 	
 </mapper>

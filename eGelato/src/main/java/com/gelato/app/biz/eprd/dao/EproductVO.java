@@ -28,4 +28,9 @@ public class EproductVO {
 	String istQy;
 	String oustQy;
 	
+	
+	String startDate;
+	String endDate;
+	String eprdtName;
+	
 }
