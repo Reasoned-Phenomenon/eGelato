@@ -18,24 +18,27 @@
 		      ,ARGUMENT_NAME => 'i_id'
 		      ,ARGUMENT_TYPE => 'VARCHAR2'
 		);
+		
 	END;
 
 </select>
 
 
-<select id="proc">
+<select id="setArg">
 
 	BEGIN
 	    DBMS_SCHEDULER.SET_JOB_ARGUMENT_VALUE( 
-	             job_name => '"GELATO"."JOB_INSERT"', 
+	             job_name => #{jobName}, 
 	             argument_position => 1, 
 	             argument_value => #{val});
 	             
-	    DBMS_SCHEDULER.ENABLE('JOB_insert'); 
+	    DBMS_SCHEDULER.ENABLE(#{jobName}); 
 	END;
 
 </select>
 
-
+<select id="stopJob">
+	EXEC DBMS_SCHEDULER.DISABLE(#{jobName}); 
+</select>
 
 </mapper>

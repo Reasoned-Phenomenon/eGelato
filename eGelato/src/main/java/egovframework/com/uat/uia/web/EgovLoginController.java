@@ -131,7 +131,6 @@ public class EgovLoginController {
 	 */
 	@RequestMapping(value = "/uat/uia/actionLogin.do")
 	public String actionLogin(@ModelAttribute("loginVO") LoginVO loginVO, HttpServletRequest request, ModelMap model) throws Exception {
-
 		// 1. 로그인인증제한 활성화시 
 		if( egovLoginConfig.isLock()){
 		    Map<?,?> mapLockUserInfo = (EgovMap)loginService.selectLoginIncorrect(loginVO);
@@ -151,7 +150,6 @@ public class EgovLoginController {
 		    	return "egovframework/com/uat/uia/EgovLoginUsr";
 		    }
 		}
-		
 		// 2. 로그인 처리
 		LoginVO resultVO = loginService.actionLogin(loginVO);
 		
@@ -280,7 +278,7 @@ public class EgovLoginController {
 		List list_headmenu = menuManageService.selectMainMenuHead(menuManageVO);
 		model.addAttribute("list_headmenu", list_headmenu);
 		*/
-
+		System.out.println("홈으로 이동");
 		// 3. 메인 페이지 이동
 		return "redirect:/home.do";
 

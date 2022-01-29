@@ -8,9 +8,9 @@ public class SchedulerVO {
 	String jobName;
 	String programName;
 	String procedureName;
+	
 	String argNum;
-	
-	
+	String ord;
 	String val;
 	
 }
