@@ -66,11 +66,11 @@
                         </li>
                         
                          <li>
-                           <a href="#">> <span>원자재 입/출고조회</span></a>
+                           <a href="${path }/biz/eproductIstOust.do">> <span>완제품 입/출고조회</span></a>
                         </li>
                         
                          <li>
-                           <a href="#">> <span>원자재 재고조회</span></a>
+                           <a href="${path }/biz/eproductStc.do">> <span>완제품 재고조회</span></a>
                         </li>
                         
                      </ul>
