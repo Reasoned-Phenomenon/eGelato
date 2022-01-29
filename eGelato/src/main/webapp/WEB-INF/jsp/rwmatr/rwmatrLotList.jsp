@@ -78,6 +78,7 @@ var rwmatrLotList = new Grid({
 	  initialRequest: false
 	},
   	rowHeaders:['rowNum'],
+  	bodyHeight: 600,
   	selectionUnit: 'row',
   	columns:[
  		  {

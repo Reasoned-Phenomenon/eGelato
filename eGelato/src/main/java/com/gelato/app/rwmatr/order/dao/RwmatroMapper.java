@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface RwmatroMapper {
 
+	List<RwmatroVO> rwmatrOrderMasterList(RwmatroVO vo);
+	List<RwmatroVO> rwmatrOrderSubList(RwmatroVO vo);
 	List<RwmatroVO> rwmatrOrderList(RwmatroVO vo);
 	List<RwmatroVO> selectVendList(RwmatroVO vo);
 	

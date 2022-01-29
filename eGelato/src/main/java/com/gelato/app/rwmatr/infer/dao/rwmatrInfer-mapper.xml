@@ -35,6 +35,9 @@
 			<if test="vendName != '' and vendName != null">
 				AND V.VEND_NAME LIKE '%'||#{vendName}||'%'
 			</if>
+			<if test="inferId != '' and inferId != null">
+				AND RI.INFER_ID LIKE '%'||#{inferId}||'%'
+			</if>
 		</where> 
 		ORDER BY DT DESC
 	</select>

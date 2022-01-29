@@ -18,6 +18,7 @@
 <div style="margin: 20px;">
 	<form action="">
 		자재명 : <input type="text" id="rwmName">업체명 : <input type="text" id="vendName"><br>
+		불량코드 : <input type="text" id="inferId"> 불량상세내용 : <input type="text" id="inferContent" readonly="readonly"><br>
 		검사일자 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
 		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
@@ -37,7 +38,9 @@
 
 	<!-- 모달창 -->
 	<div id="rwmatrDialogFrm" title="원자재 목록"></div>
-	<div id="vendDialogFrm" title="업체 목록"></div>>
+	<div id="vendDialogFrm" title="업체 목록"></div>
+	<div id="inferCodeDialogFrm" title="불량코드 목록"></div>
+	
 
 <script>
 var Grid = tui.Grid;
@@ -52,11 +55,12 @@ let ig;
 //모달에서 선택한 rowKey값 세팅
 let rk = '';
 
-//날짜검색 조건
+//검색 조건
 var startDate;
 var endDate;
 var rwmName;
 var vendName;
+var inferId;
 
 
 //그리드 테마
@@ -172,6 +176,22 @@ function callVendModal(){
     $("#vendDialogFrm").load("${path}/rwmatr/searchVendDialog.do", function(){console.log("업체명 목록")})
 }
 
+//불량코드 모달
+let inferCodeDialogFrm = $( "#inferCodeDialogFrm" ).dialog({
+	  modal:true,
+	  autoOpen:false,
+      height: 500,
+      width: 600,
+      modal: true
+});
+
+function callInferCodeModal(){
+
+	inferCodeDialogFrm.dialog( "open" );
+    $("#inferCodeDialogFrm").load("${path}/rwmatr/rwmatrInferCodeModal.do", function(){console.log("불량코드 목록")})
+}
+
+
 	//불량리스트 모달에서 받아온 데이터를 새로운 행에 넣어줌 or 텍스트박스에
 	function getRwmatrData(rwmatrData) {
 		document.getElementById("rwmName").value = rwmatrData.nm;
@@ -198,6 +218,19 @@ function callVendModal(){
 		callVendModal();
 	});
 	
+	//불량코드 모달에서 받아온 텍스트박스에 넣어줌
+	function getInferData(inferData) {
+		document.getElementById("inferId").value = inferData.inferId;
+		document.getElementById("inferContent").value = inferData.deta;
+		
+		inferCodeDialogFrm.dialog( "close" );
+	}
+	
+	//불량코드 textbox
+	document.getElementById("inferId").addEventListener("click", function() {
+		callInferCodeModal();
+	});
+	
 	
 	//컨트롤러 응답
 	rwmatrInferList.on('response', function (ev) {
@@ -215,13 +248,16 @@ function callVendModal(){
 		endDate = document.getElementById("endDate").value;
 		rwmName = document.getElementById("rwmName").value;
 		vendName = document.getElementById("vendName").value;
+		inferId = document.getElementById("inferId").value;
 		console.log(startDate);
 		console.log(endDate);
+		console.log(inferId);
 		
 		rwmatrInferList.readData(1,{'startDate':startDate,
 									'endDate':endDate, 
 									'rwmName':rwmName,
-									'vendName': vendName}, true);
+									'vendName': vendName,
+									'inferId': inferId}, true);
 	});
 	
 

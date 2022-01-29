@@ -187,7 +187,7 @@ function callVendModal(){
 let rwmatrPassDialogFrm = $( "#rwmatrPassDialogFrm" ).dialog({
 	  modal:true,
 	  autoOpen:false,
-      height: 400,
+      height: 450,
       width: 850,
       modal: true
 });
@@ -210,7 +210,7 @@ function callrwmatrPassModal(){
 	    	}
 			console.log("검수완료리스트")
 			ig = 'g';
-			callrwmatrPassModal();
+			//callrwmatrPassModal();
 		} else if(ev.columnName === 'expdate' || 
 				  ev.columnName === 'rwmatrId' || 
 				  ev.columnName === 'nm' || 
@@ -298,7 +298,8 @@ function callrwmatrPassModal(){
 	
 	//추가
 	btnAdd.addEventListener("click", function(){
-		rwmatrIstList.prependRow();
+		callrwmatrPassModal();
+		//rwmatrIstList.prependRow();
 	});
 	
 	//삭제

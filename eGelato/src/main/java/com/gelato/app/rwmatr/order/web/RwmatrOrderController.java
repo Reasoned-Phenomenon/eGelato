@@ -26,10 +26,28 @@ public class RwmatrOrderController {
 		return "tiles/rwmatr/rwmatrOrder";
 	}
 	
+	//발주 리스트 조회(마스터)
+	@RequestMapping("/rwmatr/rwmatrOrderMasterList.do")
+	public String rwmatrOrderMasterList(RwmatroVO vo, Model model) {
+		System.out.println("발주리스트 조회");
+		model.addAttribute("datas",rwmatroService.rwmatrOrderMasterList(vo));
+		System.out.println(rwmatroService.rwmatrOrderMasterList(vo));
+		return "grid";
+	}
+	
+	//발주 리스트 조회(서브)
+	@RequestMapping("/rwmatr/rwmatrOrderSubList.do")
+	public String rwmatrOrderSubList(RwmatroVO vo, Model model) {
+		System.out.println("발주디테일리스트 조회");
+		model.addAttribute("datas",rwmatroService.rwmatrOrderSubList(vo));
+		System.out.println(rwmatroService.rwmatrOrderSubList(vo));
+		return "grid";
+	}
+	
 	//발주 리스트 조회
 	@RequestMapping("/rwmatr/rwmatrOrderList.do")
 	public String rwmatrOrderList(RwmatroVO vo, Model model) {
-		System.out.println("발주리스트 조회");
+		System.out.println("발주리스트디테일 조회");
 		model.addAttribute("datas",rwmatroService.rwmatrOrderList(vo));
 		return "grid";
 	}

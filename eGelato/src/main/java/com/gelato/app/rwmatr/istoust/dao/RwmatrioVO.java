@@ -24,6 +24,7 @@ public class RwmatrioVO {
 	String qy;
 	String excpQy;
 	String safStc;
+	String remk;
 	
 	String startDate;
 	String endDate;

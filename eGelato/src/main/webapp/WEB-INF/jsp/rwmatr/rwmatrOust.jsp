@@ -152,6 +152,19 @@ var rwmatrOustList = new Grid({
 				  header: '유통기한',
 				  name: 'expdate',
 				  sortable: true
+				},
+				{
+				  header: '담당자',
+				  name: 'remk',
+				  editor: 'text',
+				  sortable: true,
+				  formatter({value}) { // 추가
+					  let a = `\${value}`
+				  	  if(a == 'null'){
+				  		  a = '';
+				  	  }
+				      return a;
+				  }
 				}
 		]
 });
@@ -249,9 +262,9 @@ function callrwmatrStcModal(){
 			} else {
 				if(rwmatrOustList.getValue(rk, "oustQy") != '') {
 					if(totalq < oustq){
-						rwmatrOustList.setValue(rk, "oustQy", '', true);
+						rwmatrOustList.setValue(rk, "oustQy", totalq, true);
 						toastr.clear()
-						toastr.success( ('해당 자재의 출고가능항 수량은 ' + totalq + ' 입니다.'),'Gelato',{timeOut:'2000'} );
+						toastr.success( ('해당 자재의 출고가능항 수량은 ' + totalq + ' 입니다.'),'Gelato',{timeOut:'2500'} );
 					} 
 				} 
 			}
