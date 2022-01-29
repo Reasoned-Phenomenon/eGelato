@@ -124,7 +124,7 @@
                         </li>
                         
                         <li>
-                           <a href="${path }/prd/prdPlanMngFind.do">> <span>생산 계획 조회</span></a>
+                           <a href="${path }/prd/inq/prdPlanMngFind.do">> <span>생산 계획 조회</span></a>
                         </li>
                         
                         <li>
@@ -132,22 +132,19 @@
                         </li>
                         
                         <li>
-                           <a href="${path }/prd/prdIndicaMngFind.do">> <span>생산 지시 조회</span></a>
+                           <a href="${path }/prd/inq/prdIndicaMngFind.do">> <span>생산 지시 조회</span></a>
                         </li>
                         <li>
                            <a href="${path }/prd/prdPrcsMng.do">> <span>생산 관리</span></a>
                         </li>
                         <li>
-                           <a href="${path }/prd/prdPrcsNow.do">> <span>공정 실적</span></a>
+                           <a href="${path }/prd/prdPrcsNow.do">> <span>공정 실적 관리</span></a>
                         </li>
                         <li>
                            <a href="${path }/prd/prdPrcsMngList.do">> <span>공정 관리</span></a>
                         </li>
                         <li>
-                           <a href="#">> <span>제품 공정 흐름도</span></a>
-                        </li>
-                        <li>
-                           <a href="#">> <span>완제품 품질 관리</span></a>
+                           <a href="${path }/prd/prdPlanLine.do">> <span>제품 공정 흐름도</span></a>
                         </li>
                      </ul>
                   </li>

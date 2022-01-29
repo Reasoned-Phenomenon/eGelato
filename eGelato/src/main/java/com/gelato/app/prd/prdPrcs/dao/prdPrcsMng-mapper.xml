@@ -46,7 +46,8 @@
 			   l.prcs_id as prcs_id, 
 		       p.nm as nm, 
 		       p.eqm_id as eqm_id, 
-		       e.eqm_name as eqm_name
+		       e.eqm_name as eqm_name,
+		       e.mngr as mngr
 		from line l join prcs p
 		    on l.prcs_id = p.prcs_id
 		    join eqm e

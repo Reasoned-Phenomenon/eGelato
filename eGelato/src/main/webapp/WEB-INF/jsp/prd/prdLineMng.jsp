@@ -4,16 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공정 실적</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<div>
-		<br>
-		<h2>공정실적관리</h2>
-		<br>
-	</div>
+<div>
 	<br>
-	
-</script>
+	<h2>제품공정흐름도</h2>
+	<br>
+</div>
 </body>
 </html>

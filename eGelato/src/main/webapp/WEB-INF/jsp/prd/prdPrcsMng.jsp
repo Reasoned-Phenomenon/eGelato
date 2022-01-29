@@ -18,8 +18,13 @@ th, td {
 		<br>
 	</div>
 	<br>
-	<div>
-		<button type="button" class="btn btn-secondary" id="btnSearchPlan">생산지시목록</button>
+	<div class="row">
+		<div class="col-sm-10">
+			<button type="button" class="btn btn-secondary" id="btnSearchPlan">생산지시목록</button>
+		</div>
+		<div class="col-sm-2">
+			<button type="button" class="btn btn-secondary" id="btnPrcsMove">공정이동표 출력</button>
+		</div>
 	</div>
 	<hr>
 	<div>
@@ -29,30 +34,30 @@ th, td {
 	</div>
 	<br>
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-7">
 			<h3>공정목록</h3>
 			<hr>
 			<div id="prcsListGrid"></div>
 		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-5">
 			<h3>공정상세사항</h3>
 			<hr>
 			<table>
 				<tbody>
-					<tr>
+					<!-- <tr>
 						<th>공정명</th>
 						<td><input type="text" id="mngr" readonly></td>
 					</tr>
 					<tr>
 						<th>담당자명*</th>
 						<td><input type="text" id="mngr" required></td>
-					</tr>
+					</tr> -->
 					<tr>
 						<th>시작시간</th>
 						<td><input type="time" id="startT" readonly></td>
 					</tr>
 					<tr>
-						<th>종료시간</th>
+						<th>종료예정시간</th>
 						<td><input type="time" id="endT" readonly></td>
 					</tr>
 					<!-- <tr>
@@ -75,7 +80,8 @@ th, td {
 				</tbody>
 			</table>
 			<br><br>
-			<button type="button" class="btn btn-secondary" id="btnPrcs"></button>
+			<button type="button" class="btn btn-secondary" id="btnPrcs"></button>&nbsp;
+			<button type="button" class="btn btn-secondary" id="btnStop">일시정지</button> 
 		</div>
 	</div>	
 	
@@ -165,6 +171,9 @@ th, td {
 			}, {
 				header : '설비명',
 				name : 'eqmName',
+			},{
+				header : '담당자',
+				name : 'mngr',
 			}]
 		});
 	
