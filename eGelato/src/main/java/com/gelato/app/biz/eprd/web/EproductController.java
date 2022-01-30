@@ -15,7 +15,7 @@ public class EproductController {
 	
 	
 	//완제품 현재고 페이지로 이동
-	@RequestMapping("/biz/eproductStc.do")
+	@RequestMapping("/biz/inq/eproductStc.do")
 	public String eproductStc() {
 		return "tiles/biz/eproductStc";
 	}
@@ -30,7 +30,7 @@ public class EproductController {
 	}
 	
 	//완제품 입출고조회 페이지로 이동
-	@RequestMapping("/biz/eproductIstOust.do")
+	@RequestMapping("/biz/inq/eproductIstOust.do")
 	public String eproductIstOust() {
 		return "tiles/biz/eproductIstOust";
 	}

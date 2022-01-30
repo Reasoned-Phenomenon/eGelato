@@ -158,7 +158,7 @@ var rwmatrOustList = new Grid({
 				  name: 'remk',
 				  editor: 'text',
 				  sortable: true,
-				  formatter({value}) { // 추가
+				  formatter({value}) { 
 					  let a = `\${value}`
 				  	  if(a == 'null'){
 				  		  a = '';
