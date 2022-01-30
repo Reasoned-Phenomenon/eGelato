@@ -241,18 +241,18 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 			if(rwmatrOrderList.getValue(rk, "nm") == '' || rwmatrOrderList.getValue(rk, "rwmatrId") == '' ) {
 				//toastr
 				toastr.clear()
-				toastr.success( ('자재를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				toastr.error( ('자재를 선택해주세요.'),'Gelato',{timeOut:'1500'} );
 				return;
 			}
 		} else if(ev.columnName === 'orderId' || ev.columnName === 'orderDt') {
 			//toastr
 			toastr.clear()
-			toastr.success( ('저장시 자동으로 기입되는 값입니다.'),'Gelato',{timeOut:'1000'} );
+			toastr.warning( ('저장시 자동으로 기입되는 값입니다.'),'Gelato',{timeOut:'1500'} );
 			return;
 		} else if(ev.columnName === 'rwmatrId' || ev.columnName === 'vendName') {
 			//toastr
 			toastr.clear()
-			toastr.success( ('자재를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+			toastr.error( ('자재를 선택해주세요.'),'Gelato',{timeOut:'1500'} );
 			return;
 		}
 		
@@ -292,7 +292,7 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 			if((pattern_num.test(rwmatrOrderList.getValue(rk, "untprc"))) == false) {
 				rwmatrOrderList.setValue(rk, "untprc", "", true);
 				toastr.clear()
-				toastr.success( ("숫자만 입력이 가능합니다."),'Gelato',{timeOut:'1000'} );
+				toastr.warning( ("숫자만 입력이 가능합니다."),'Gelato',{timeOut:'1000'} );
 				return;
 			}
 		}
@@ -301,7 +301,7 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 			if((pattern_num.test(rwmatrOrderList.getValue(rk, "qy"))) == false) {
 				rwmatrOrderList.setValue(rk, "qy", "", true);
 				toastr.clear()
-				toastr.success( ("숫자만 입력이 가능합니다."),'Gelato',{timeOut:'1000'} );
+				toastr.warning( ("숫자만 입력이 가능합니다."),'Gelato',{timeOut:'1000'} );
 				return;			
 			} 
 		}
@@ -426,7 +426,7 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 			}
 		} else {
 			toastr.clear()
-			toastr.success( ('저장할 데이터가 없습니다.'),'Gelato',{timeOut:'1000'} );
+			toastr.warning( ('저장할 데이터가 없습니다.'),'Gelato',{timeOut:'1000'} );
 		}
 	});
 

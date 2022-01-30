@@ -262,7 +262,7 @@ function callrwmatrInferCodeModal(){
 			if(rwmatrIstInspList.getValue(rk, "rwmatrOrderDetaId") == '') {
 				//toastr
 				toastr.clear()
-				toastr.success( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				toastr.error( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1500'} );
 				return;
 			}
 			if(rwmatrIstInspList.getValue(rk, "qy") > rwmatrIstInspList.getValue(rk, "passQy")) {
@@ -274,13 +274,13 @@ function callrwmatrInferCodeModal(){
 			if(rwmatrIstInspList.getValue(rk, "rwmatrOrderDetaId") == '') {
 				//toastr
 				toastr.clear()
-				toastr.success( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				toastr.error( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1500'} );
 			}
 		} else if(ev.columnName === 'inferQy') {
 			if(rwmatrIstInspList.getValue(rk, "rwmatrOrderDetaId") == '') {
 				//toastr
 				toastr.clear()
-				toastr.success( ('합격량 입력시 자동입력됩니다.'),'Gelato',{timeOut:'1000'} );
+				toastr.warning( ('합격량 입력시 자동입력됩니다.'),'Gelato',{timeOut:'1500'} );
 			}
 		}
 		
@@ -289,9 +289,7 @@ function callrwmatrInferCodeModal(){
 	
 	//불량량 자동계산
 	rwmatrIstInspList.on('editingFinish', (ev) => {
-		console.log("11111111")
 		console.log(ev);
-		console.log("11111111")
 		rk = ev.rowKey;
 		let totalq = parseInt(rwmatrIstInspList.getValue(rk, "qy"));
 		let passq = parseInt(rwmatrIstInspList.getValue(rk, "passQy"));
@@ -303,7 +301,7 @@ function callrwmatrInferCodeModal(){
 			if((pattern_num.test(rwmatrIstInspList.getValue(rk, "passQy"))) == false) {
 				rwmatrIstInspList.setValue(rk, "passQy", "", true);
 				toastr.clear()
-				toastr.success( ("숫자만 입력이 가능합니다."),'Gelato',{timeOut:'1000'} );
+				toastr.warning( ("숫자만 입력이 가능합니다."),'Gelato',{timeOut:'1500'} );
 				return;
 			}
 		}
@@ -316,7 +314,7 @@ function callrwmatrInferCodeModal(){
 				rwmatrIstInspList.setValue(rk, "passQy", '', true);
 				//toastr
 				toastr.clear()
-				toastr.success( ('합격량은 발주총량보다 높을수 없습니다.'),'Gelato',{timeOut:'1800'} );
+				toastr.warning( ('합격량은 발주총량보다 높을수 없습니다.'),'Gelato',{timeOut:'1800'} );
 			}
 		} 
 		
@@ -413,7 +411,7 @@ function callrwmatrInferCodeModal(){
 			}
 		} else {
 			toastr.clear()
-			toastr.success( ('저장할 데이터가 없습니다.'),'Gelato',{timeOut:'1000'} );
+			toastr.warning( ('저장할 데이터가 없습니다.'),'Gelato',{timeOut:'1000'} );
 		}
 		
 		//rwmatrIstInspList.clearModifiedData();

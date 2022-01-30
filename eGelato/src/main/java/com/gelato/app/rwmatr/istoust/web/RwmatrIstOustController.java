@@ -69,7 +69,7 @@ public class RwmatrIstOustController {
 	}
 	
 	//원자재 현재고 페이지로 이동
-	@RequestMapping("/rwmatr/rwmatrStc.do")
+	@RequestMapping("/rwmatr/inq/rwmatrStc.do")
 	public String rwmatrStc() {
 		return "tiles/rwmatr/rwmatrStc";
 	}
@@ -102,13 +102,13 @@ public class RwmatrIstOustController {
 	}
 	
 	//원자재Lot 재고조회 페이지로 이동
-	@RequestMapping("/rwmatr/rwmatrLot.do")
+	@RequestMapping("/rwmatr/inq/rwmatrLot.do")
 	public String rwmatrLotList() {
 		return "tiles/rwmatr/rwmatrLotList";
 	}
 	
 	//원자재 입/출고조회 페이지로 이동
-	@RequestMapping("/rwmatr/rwmatrIstOustR.do")
+	@RequestMapping("/rwmatr/inq/rwmatrIstOustR.do")
 	public String rwmatrIstOustR() {
 		return "tiles/rwmatr/rwmatrIstOustR";
 	}

@@ -219,12 +219,12 @@ function callrwmatrPassModal(){
 			if(rwmatrIstList.getValue(rk, "rwmatrOrderDetaId") == '') {
 				//toastr
 				toastr.clear()
-				toastr.success( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				toastr.error( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1500'} );
 			}
 		} else if(ev.columnName === 'lotNo' || ev.columnName === 'istOustDttm') {
 			//toastr
 			toastr.clear()
-			toastr.success( ('저장시 자동으로 기입되는 값입니다.'),'Gelato',{timeOut:'1000'} );
+			toastr.warning( ('저장시 자동으로 기입되는 값입니다.'),'Gelato',{timeOut:'1500'} );
 		}
 	});
 	
@@ -330,7 +330,7 @@ function callrwmatrPassModal(){
 			}
 		} else {
 			toastr.clear()
-			toastr.success( ('저장할 데이터가 없습니다.'),'Gelato',{timeOut:'1000'} );
+			toastr.warning( ('저장할 데이터가 없습니다.'),'Gelato',{timeOut:'1000'} );
 		}
 		
 	});
