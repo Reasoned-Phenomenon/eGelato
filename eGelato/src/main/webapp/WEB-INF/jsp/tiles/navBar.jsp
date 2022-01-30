@@ -85,7 +85,7 @@
                         </li>
                         
                         <li>
-                           <a href="${path }/rwmatr/rwmatrOrderR.do">> <span>원자재 발주조회</span></a>
+                           <a href="${path }/rwmatr/inq/rwmatrOrderR.do">> <span>원자재 발주조회</span></a>
                         </li>
                         
                         <li>
@@ -101,19 +101,19 @@
                         </li>
                         
                         <li>
-                           <a href="${path }/rwmatr/rwmatrIstOustR.do">> <span>원자재 입/출고조회</span></a>
+                           <a href="${path }/rwmatr/inq/rwmatrIstOustR.do">> <span>원자재 입/출고조회</span></a>
                         </li>
                         
                         <li>
-                           <a href="${path }/rwmatr/rwmatrLot.do">> <span>원자재LOT 재고조회</span></a>
+                           <a href="${path }/rwmatr/inq/rwmatrLot.do">> <span>원자재LOT 재고조회</span></a>
                         </li>
                         
                         <li>
-                           <a href="${path }/rwmatr/rwmatrStc.do">> <span>원자재 재고조회</span></a>
+                           <a href="${path }/rwmatr/inq/rwmatrStc.do">> <span>원자재 재고조회</span></a>
                         </li>
                         
                         <li>
-                           <a href="${path }/rwmatr/rwmatrInfer.do">> <span>원자재 불량조회</span></a>
+                           <a href="${path }/rwmatr/inq/rwmatrInfer.do">> <span>원자재 불량조회</span></a>
                         </li>
                         
                         <li>

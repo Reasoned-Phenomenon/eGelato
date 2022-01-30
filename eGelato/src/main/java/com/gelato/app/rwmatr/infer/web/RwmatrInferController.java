@@ -17,8 +17,8 @@ public class RwmatrInferController {
 
 	@Autowired RwmatrInferService rwmatrInferService;
 	
-	//원자재 불량 관리 페이지로 이동
-	@RequestMapping("/rwmatr/rwmatrInfer.do")
+	//원자재 불량 조회 페이지로 이동
+	@RequestMapping("/rwmatr/inq/rwmatrInfer.do")
 	public String rwmatrInfer() {
 		return "tiles/rwmatr/rwmatrInfer";
 	}

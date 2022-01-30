@@ -53,7 +53,7 @@ public class RwmatrOrderController {
 	}
 	
 	//발주 조회 페이지로 이동
-	@RequestMapping("/rwmatr/rwmatrOrderR.do")
+	@RequestMapping("/rwmatr/inq/rwmatrOrderR.do")
 	public String rwmatrOrderR() {
 		System.out.println("발주조회페이지로 이동");
 		return "tiles/rwmatr/rwmatrOrderR";
