@@ -15,20 +15,5 @@ public class PrdPrcsNowServiceImpl implements PrdPrcsNowService{
 
 	@Autowired PrdPrcsNowMapper prdPrcsNowMapper;
 	
-	@Override
-	public List<PrdPrcsNowVO> prcsList(PrdPrcsNowVO vo) {
-		return prdPrcsNowMapper.prcsList(vo);
-	}
-
-	@Override
-	public List<PrdPrcsNowVO> prcsDetaList(PrdPrcsNowVO vo) {
-		// TODO Auto-generated method stub
-		return prdPrcsNowMapper.prcsDetaList(vo);
-	}
-
-	@Override
-	public List<PrdPrcsMngVO> chooseIndicaDeta(PrdPrcsNowVO vo) {
-		return prdPrcsNowMapper.chooseIndicaDeta(vo);
-	}
 
 }

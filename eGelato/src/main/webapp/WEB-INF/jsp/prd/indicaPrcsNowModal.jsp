@@ -11,9 +11,18 @@
 	<h1>생산 지시 목록</h1>
 	<br>
 	<div>
-	<input type="date" id="indicaD">
-	<button type="button" id="selectDate" class="btn btn-secondary">검색</button>
-	</div>
+		<table>
+		<tbody>
+			<tr>
+				<th>지시 기간</th>
+				<td><input type="date" id="startD"> ~ <input type="date" id="endD"></td>
+				<td>
+					<button type="button" id="selectDate" class="btn btn-secondary">검색</button>
+				</td>	
+			</tr>
+		</tbody>
+		</table>
+		</div>
 	<br>
 	<div id="chooseIndicaGrid"></div>
 </body>
@@ -64,6 +73,10 @@ var Grid = tui.Grid;
 			  {
 			    header: '생산량',
 			    name: 'qy',
+			  },
+			  {
+			    header: '지시일자',
+			    name: 'indicaDt',
 			  }
 			],
 			 rowHeaders: ['rowNum'],

@@ -31,7 +31,7 @@ th, td {
 				</tr>
 				<tr>
 					<th>지시 일자</th>
-					<td><input type="date" id="indicaD" required></td>
+					<td><input type="date" id="startD" required> ~ <input type="date" id="endD" required></td>
 					<td><button type="button" class="btn btn-secondary" id="btnSer">검색</button></td>
 					<td><button type="button" class="btn btn-secondary" id="btnRes">초기화</button></td>
 				</tr>
@@ -121,12 +121,14 @@ th, td {
 	//검색 클릭시
 	$("#btnSer").on(
 			"click", function(){
-				indicaD = document.getElementById("indicaD").value;
-				console.log(indicaD);
+				startD = document.getElementById("startD").value;
+				console.log(startD);
+				endD = document.getElementById("endD").value;
+				console.log(endD);
 				
 				fg = $("input[name=fg]:checked").val();
 				
-				IndicaGrid.readData(1,{'fg':fg, 'indicaD':indicaD}, true);
+				IndicaGrid.readData(1,{'fg':fg, 'startD':startD, 'endD':endD}, true);
 			})
 </script>
 </html>

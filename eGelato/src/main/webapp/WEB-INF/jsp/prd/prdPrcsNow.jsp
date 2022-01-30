@@ -143,6 +143,45 @@ th, td {
 			name : 'indicaDt',
 		}]
 	});
+	
+	//모달창 출력
+	document.getElementById("prcsDeta").addEventListener("click", function() {
+		  callPrcsModal();
+	});
+	document.getElementById("indicaList").addEventListener("click", function() {
+		  callIndicaModal();
+	});
+	
+	// 공정명 출력
+	function callPrcsModal() {
+		var prcsDialog = $("#prcsDialog").dialog({
+			modal : true,
+			autoOpen : false,
+			height: 600,
+			width: 1000
+		});
+
+		prcsDialog.dialog("open");
+		$("#prcsDialog").load("${path}/prd/prcsDialog.do", function() {
+					console.log("공정목록모달")
+				})
+	}
+	
+	//지시 출력
+	function callIndicaModal() {
+		var indicaDialog = $("#indicaDialog").dialog({
+			modal : true,
+			autoOpen : false,
+			height: 600,
+			width: 1000
+		});
+
+		indicaDialog.dialog("open");
+		$("#indicaDialog").load("${path}/prd/indicaDialog.do", function() {
+					console.log("지시목록모달")
+				})
+	}
+	
 </script>
 </body>
 </html>
