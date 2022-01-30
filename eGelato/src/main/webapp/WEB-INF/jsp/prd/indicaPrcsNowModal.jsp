@@ -51,8 +51,8 @@ var Grid = tui.Grid;
 		});
 		
 	// 그리드 생성
-	var chooseIndicaGrid = new Grid({
-		el: document.getElementById('chooseIndicaGrid'),
+	var IndicaGrid = new Grid({
+		el: document.getElementById('IndicaGrid'),
 	  	data : {
 		  api: {
 		    readData: { url:'${path}/prd/indicaDialogDeta.do', method: 'GET'}
@@ -79,25 +79,29 @@ var Grid = tui.Grid;
 			    name: 'indicaDt',
 			  }
 			],
-			 rowHeaders: ['rowNum'],
-		/* pageOptions: {
-		  useClient: true,
-		  perPage: 10
-		} */
 	});
 	
 	//검색 클릭시
 	$("#selectDate").on(
 		"click", function chooseDate() {
-			indicaD = document.getElementById("indicaD").value;
-			console.log(indicaD);
+			startD = document.getElementById("startD").value;
+			console.log(startD);
+			endD = document.getElementById("endD").value;
+			console.log(endD);
 			
-			chooseIndicaGrid.readData(1,{'indicaD':indicaD}, true);
+			IndicaGrid.readData(1,{'startD':startD,'endD':endD }, true);
 		});
-
-	//그리드 이벤트
-	chooseIndicaGrid.on(
-		"dblclick", (ev) => {
+	
+	IndicaGrid.on("dblclick", (ev) => {
+		
+		IndicaGrid.setSelectionRange({
+		    start: [ev.rowKey, 0],
+		    end: [ev.rowKey, IndicaGrid.getColumns().length-1]
+		});
+		
+		var idi = IndicaGrid.getRow(ev.rowKey).indicaDetaId;
+		console.log(idi);
+		chooseId(idi);
 		
 	});
 </script>

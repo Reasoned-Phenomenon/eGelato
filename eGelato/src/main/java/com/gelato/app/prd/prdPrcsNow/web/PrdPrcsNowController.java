@@ -51,4 +51,13 @@ public class PrdPrcsNowController {
 		model.addAttribute("datas", prdPrcsNowService.indicaDialog(vo));
 		return "grid";
 	}
+	
+	// 지시목록 modal 출력
+	@RequestMapping("/prd/prcsListGrid.do")
+	public String prcsList(PrdPrcsNowVO vo, Model model) {
+		System.out.println("지시목록 출력");
+		System.out.println(vo);
+		model.addAttribute("datas", prdPrcsNowService.prcsList(vo));
+		return "grid";
+	}
 }

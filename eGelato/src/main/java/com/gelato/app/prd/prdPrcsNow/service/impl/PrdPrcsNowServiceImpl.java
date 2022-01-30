@@ -24,6 +24,11 @@ public class PrdPrcsNowServiceImpl implements PrdPrcsNowService{
 	public List<PrdPrcsNowVO> indicaDialog(PrdPrcsNowVO vo) {
 		return prdPrcsNowMapper.indicaDialog(vo);
 	}
+
+	@Override
+	public List<PrdPrcsNowVO> prcsList(PrdPrcsNowVO vo) {
+		return prdPrcsNowMapper.prcsList(vo);
+	}
 	
 
 }

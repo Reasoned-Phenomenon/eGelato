@@ -20,20 +20,62 @@
 	<select id="indicaDialog" resultType="PrdPrcsNowVO">
 		SELECT pid.indica_deta_id as indica_deta_id, 
 			   p.prdt_nm as prdt_nm, 
-			   pid.qy as qy, 
+			   pid.qy as qy,
 			   pid.indica_dt as indica_dt
 		FROM PROD_INDICA_DETA pid join line l
 		    on pid.line_id = l.line_id
 		    join prdt p
 		    on l.prdt_id = p.prdt_id
-		<if test="startD != null and startD != ''">
-			<![CDATA[trunc(pid.indica_dt) >= to_date(#{startD})]]>
-		</if>
-		
-		<if test="endD != null and endD != ''">
-			<![CDATA[and trunc(pid.indica_dt) <= to_date(#{endD})]]>
-		</if>
+	   <where>
+			<if test="startD != null and startD != ''">
+				<![CDATA[trunc(pid.indica_dt) >= to_date(#{startD})]]>
+			</if>
+			
+			<if test="endD != null and endD != ''">
+				<![CDATA[and trunc(pid.indica_dt) <= to_date(#{endD})]]>
+			</if>
+	   </where>
 		group by pid.indica_deta_id, l.prdt_id, p.prdt_nm, pid.qy, pid.indica_dt
 		order by pid.indica_deta_id
+	</select>
+	
+<!-- 메인그리드 -->
+	<select id="prcsList" resultType="PrdPrcsNowVO">
+		select pn.indica_deta_id as indica_deta_id,
+			   pn.prcs_now_id as prcs_now_id,
+			   p.nm as nm, 
+			   p.eqm_id as eqm_id, 
+			   e.eqm_name as eqm_name, 
+			   pn.fr_tm as fr_tm, 
+			   pn.to_tm as to_tm, 
+			   e.mngr as mngr, 
+			   pn.inpt_qy as inpt_qy, 
+        	   (to_number(pn.inpt_qy)-to_number(nvl(pid.infer_qy,0))) as qy, 
+        	   pid.infer_id as infer_id, 
+        	   pid.infer_qy as infer_qy, 
+        	   ic.deta as deta, 
+        	   pi.indica_dt as indica_dt
+		from prcs_now pn join prcs p
+		    on pn.prcs_id = p.prcs_id
+		    join prod_indica_deta pi
+		    on pn.indica_deta_id = pi.indica_deta_id
+		    join eqm e
+		    on p.eqm_id = e.eqm_id
+		    left outer join prcs_infer_deta pid
+		    on pn.indica_deta_id = pid.indica_deta_id and pn.prcs_now_id = pid.prcs_now_id
+		    left outer join infer_code ic
+		    on pid.infer_id = ic.infer_id
+		<where>
+			<if test="nm != null and nm != ''">
+				p.nm = #{nm}
+			</if>
+			<if test="indicaDetaId != null and indicaDetaId != ''">
+				and pi.indica_deta_id = #{indicaDetaId}
+			</if>
+			<if test="inferId != null and inferId != ''">
+				and ic.infer_id = #{inferId}
+			</if>
+		</where>
+		order by pi.indica_deta_id, prcs_now_id
 	</select>
 </mapper>
