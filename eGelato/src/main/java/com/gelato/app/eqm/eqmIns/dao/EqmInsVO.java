@@ -37,4 +37,6 @@ public class EqmInsVO {
 	
 	String fromDayCkDate;
 	String toDayCkDate;
+	
+	String chckAll;
 }

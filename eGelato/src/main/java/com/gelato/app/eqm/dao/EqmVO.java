@@ -20,6 +20,8 @@ public class EqmVO {
 	String useYn;	//사용여부
 	String uph;		//uph
 	
+	String useYnCk;
+	
 	String code;
 	String codeNm;
 	String codeId;
