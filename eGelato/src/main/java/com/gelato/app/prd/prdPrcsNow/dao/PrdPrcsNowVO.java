@@ -41,4 +41,7 @@ public class PrdPrcsNowVO {
 	String startD;
 	String endD;
 	
+	// 모달3
+	String name;
+	
 }

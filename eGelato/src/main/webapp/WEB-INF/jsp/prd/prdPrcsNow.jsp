@@ -65,6 +65,8 @@ th, td {
 	<div id="prcsDialog" title="공정 목록"></div>
 	<!-- 지시 모달-->
 	<div id="indicaDialog" title="생산 지시 목록"></div>
+	<!-- 불량 모달-->
+	<div id="prdtInferCodeDialog" title="불량 상세 목록"></div>
 	
 <script>
 	//계획 조회 그리드 생성
@@ -90,7 +92,8 @@ th, td {
 		el : document.getElementById('prcsList'),
 		data : {
 			api : {
-				readData : {url : '${path}/prd/prcsListGrid.do',method : 'GET'}
+				readData : {url : '${path}/prd/prcsListGrid.do',method : 'GET'},
+				modifyData : { url: '${path}/prd/updPrdtInferCode.do', method: 'PUT'} 
 			},
 			contentType : 'application/json',
 			initialRequest: false
@@ -154,7 +157,7 @@ th, td {
 	document.getElementById("prcsDeta").addEventListener("click", function() {
 		  callPrcsModal();
 	});
-	// 공정명 출력, 삭제
+	// 공정명 출력
 	function chooseNm(pcn) {
 		console.log(pcn);
 		document.getElementById("prcsDeta").value = pcn;
@@ -225,6 +228,61 @@ th, td {
 				
 				prcsList.readData(1,{'nm':nm, 'indicaDetaId':indicaDetaId, 'inferId':infer }, true);
 			})
+			
+	// 불량등록
+	prcsList.on('dblclick', (ev) => {
+			rk = ev.rowKey;
+			console.log(ev)
+		    if (ev.columnName === 'inferId') {
+		    	console.log(prcsList.getRow(ev.rowKey).inferId);
+					console.log("1111")
+		    		callprdtInferCode();
+			}
+		});
+	
+	function callprdtInferCode(){
+		prdtInferCodeDialog = $("#prdtInferCodeDialog").dialog({
+			modal : true,
+			autoOpen : false,
+			height: 400,
+			width: 600
+		});
+		
+	    console.log("11111")
+	    prdtInferCodeDialog.dialog( "open" );
+	    $("#prdtInferCodeDialog").load(
+							"${path}/prd/prdtInferCodeDialog.do", function() {
+								console.log("불량목록 로드")
+							})
+	}
+	
+	// 선택내용 반영
+	function choosePic(picid,picdt){
+		console.log(picid);
+		console.log(picdt);
+		prcsList.setValue(rk, "inferId", picid, true);
+		prcsList.setValue(rk, "deta", picdt, true);
+		prdtInferCodeDialog.dialog( "close" );
+	}
+	
+	// 토스트옵션
+	toastr.options = {
+		positionClass : "toast-top-center",
+		progressBar : true,
+		timeOut: 1500 // null 입력시 무제한.
+		}
+	
+	// 수정 등록
+	btnIns.addEventListener("click", function() {
+		
+		if(confirm("저장하시겠습니까?")) {
+			prcsList.blur()
+			prcsList.request('modifyData',{showConfirm:false})
+		}
+		
+		toastr.clear()
+		toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} );
+	})
 </script>
 </body>
 </html>

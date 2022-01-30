@@ -78,4 +78,21 @@
 		</where>
 		order by pi.indica_deta_id, prcs_now_id
 	</select>
+	
+<!-- 불량 출력 모달 -->
+	<select id="prdtInferCodeDialog" resultType="PrdPrcsNowVO">
+		select infer_id, 
+			   name, 
+			   deta 
+		from infer_code
+		where fg='STEP03'
+	</select>
+	
+<!-- 불량내용 수정 -->
+	<select id="updateInfer" parameterType="PrdPrcsNowVO">
+		UPDATE PRCS_INFER_DETA
+		SET INFER_ID = #{inferId}
+		WHERE INDICA_DETA_ID = #{indicaDetaId}
+		      AND PRCS_NOW_ID = #{prcsNowId}
+	</select>
 </mapper>
