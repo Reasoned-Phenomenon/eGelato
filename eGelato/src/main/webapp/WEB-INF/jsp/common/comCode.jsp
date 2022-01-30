@@ -28,7 +28,14 @@
 
 <br>
 <br>
-<button id="btnTest">테스트</button>
+
+<h3>권한테스트</h3>
+<sec:authorize access="isAnonymous()">
+	로그인
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_EQM')">
+	ROLE_EQM
+</sec:authorize>
 <hr>
 <br>
 <div class="row">
@@ -40,7 +47,6 @@
 	  <ul>
 	    <li><a href="#fragment-1">코드 조회</a></li>
 	    <li><a href="#fragment-2">그룹 코드</a></li>
-	    <!-- <li><a href="#fragment-3">코드</a></li> -->
 	  </ul>
 	  
   		<div id="fragment-1" class="col-sm-8">
@@ -58,13 +64,6 @@
 				frameborder="0"></iframe>
   		</div>
   		
-		<%-- <div id="fragment-3" class="col-sm-8">
-				<iframe src="${path}/sym/ccm/cde/RegistCcmCmmnDetailCodeView.do" 
-				width="800" 
-				height="400" 
-				frameborder="0"></iframe>
-		</div> --%>
-		
 	</div>
 	
 </div>
@@ -259,19 +258,6 @@ const codeGrid = new tui.Grid({
 	codeGrid.on('click',function (ev) {
 		console.log(ev)
 	})
-	
-	//테스트
-	btnTest.addEventListener("click", function() {
-
-		$.ajax({
-			url: "${path}/com/schTest?val=abcde",
-			success : function (res) {
-				console.log(res)
-			}		
-		})
-		
-	
-	});
 	
 </script>
 </body>

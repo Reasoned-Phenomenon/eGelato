@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!-- Sidebar  -->
          <nav id="sidebar">
             <div class="sidebar_blog_1">
@@ -151,7 +149,7 @@
                         </li>
                      </ul>
                   </li>
-                  
+<sec:authorize access="hasRole('ROLE_EQM')">
                   <!-- 설비관리 메뉴 -->
                   <li class="active">
                      <a href="#EQUIPMENT" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-wrench yellow_color"></i> <span>설비 관리</span></a>
@@ -178,7 +176,7 @@
                         
                      </ul>
                   </li>
-                  
+</sec:authorize>
                   <!-- 관리자 메뉴 -->
                   <li class="active">
                      <a href="#ADMIN" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-lock green_color"></i> <span>관리자</span></a>
