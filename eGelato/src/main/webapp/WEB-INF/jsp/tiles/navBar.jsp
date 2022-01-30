@@ -58,7 +58,7 @@
                      <a href="#sales" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-briefcase blue1_color"></i> <span>영업 관리</span></a>
                      <ul class="collapse list-unstyled" id="sales">
                         <li>
-                           <a href="${path}/biz/ordSearch.do">> <span>주문서 관리</span></a>
+                           <a href="${path}/biz/inq/ordSearch.do">> <span>주문서 조회</span></a>
                         </li>
                                                
                         <li>

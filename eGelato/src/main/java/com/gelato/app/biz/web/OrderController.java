@@ -17,7 +17,7 @@ public class OrderController {
 	@Autowired OrderService ordService;
 	
 	// 주문서 관리 페이지로 이동.
-	@GetMapping("/biz/ordSearch.do")
+	@GetMapping("/biz/inq/ordSearch.do")
 	public String ordSearch() {
 		return "tiles/biz/ordSearch";
 	}
