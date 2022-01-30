@@ -62,7 +62,7 @@
                         </li>
                                                
                         <li>
-                           <a href="#">> <span>출고 관리</span></a>
+                           <a href="${path}/biz/oustSearch.do">> <span>출고 관리</span></a>
                         </li>
                         
                      </ul>
