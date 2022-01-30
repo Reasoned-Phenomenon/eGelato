@@ -117,7 +117,7 @@
                         </li>
                         
                         <li>
-                           <a href="#">> <span>안전재고 관리</span></a>
+                           <a href="${path }/rwmatr/rwmatrSafStc.do">> <span>안전재고 관리</span></a>
                         </li>
                         
                      </ul>

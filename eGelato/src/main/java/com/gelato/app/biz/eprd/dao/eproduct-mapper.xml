@@ -12,15 +12,17 @@
 		       PS.FG AS FG
 		FROM PRDT_STC PS JOIN PRDT P
 		ON PS.PRDT_ID = P.PRDT_ID
-		<if test="startDate != ''">
-    		AND <![CDATA[TRUNC(PS.PROD_DT) >= to_date(#{startDate})]]>
-    	</if>
-    	<if test="endDate != ''">
-    		AND <![CDATA[TRUNC(PS.PROD_DT) <= to_date(#{endDate})]]>
-    	</if>
-		<if test="eprdtName != '' and eprdtName != null">
-			AND P.PRDT_NM LIKE '%'||#{prdtNm}||'%'
-		</if>
+		<where>
+			<if test="startDate != ''">
+	    		<![CDATA[TRUNC(PS.PROD_DT) >= to_date(#{startDate})]]>
+	    	</if>
+	    	<if test="endDate != ''">
+	    		AND <![CDATA[TRUNC(PS.PROD_DT) <= to_date(#{endDate})]]>
+	    	</if>
+			<if test="prdtNm != '' and prdtNm != null">
+				AND P.PRDT_NM LIKE '%'||#{prdtNm}||'%'
+			</if>
+		</where>
 		ORDER BY EXPDATE
 	</select>
 	
@@ -40,7 +42,7 @@
     	<if test="endDate != ''">
     		AND <![CDATA[TRUNC(PIO.IST_OUST_DTTM) <= to_date(#{endDate})]]>
     	</if>
-		<if test="eprdtName != '' and eprdtName != null">
+		<if test="prdtNm != '' and prdtNm != null">
 			AND P.PRDT_NM LIKE '%'||#{prdtNm}||'%'
 		</if>
 		ORDER BY EXPDATE
@@ -62,7 +64,7 @@
     	<if test="endDate != ''">
     		AND <![CDATA[TRUNC(PIO.IST_OUST_DTTM) <= to_date(#{endDate})]]>
     	</if>
-		<if test="eprdtName != '' and eprdtName != null">
+		<if test="prdtNm != '' and prdtNm != null">
 			AND P.PRDT_NM LIKE '%'||#{prdtNm}||'%'
 		</if>
 		ORDER BY EXPDATE

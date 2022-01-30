@@ -86,7 +86,7 @@ var eproductStcList = new Grid({
 		  },
 		  {
 		    header: '제품명',
-		    name: 'nm',
+		    name: 'prdtNm',
 		    sortable: true
 		  },
 		  {
@@ -98,25 +98,17 @@ var eproductStcList = new Grid({
 			  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 			      return b;
 			  },
-		    sortable: true,
-	        validation: {
-	        	validatorFn: (value, row, columnName) => Number(value) > Number(row['safStc'])
-	        }
+		    sortable: true
+		  },
+		  {
+			 header: '제조일자',
+			 name: 'prodDt',
+			 sortable: true
 		  },
 		  {
 		    header: '제품LOT번호',
 		    name: 'lotNo',
 		    sortable: true
-		  },
-		  {
-		    header: '제품명',
-		    name: 'nm',
-		    sortable: true
-		  },
-		  {
-			 header: '제조일시',
-			 name: 'istOustDttm',
-			 sortable: true
 		  },
 		  {
 			 header: '유통기한',
@@ -126,11 +118,10 @@ var eproductStcList = new Grid({
 		  {
 			 header: '비고',
 			 name: 'remk',
-			 editor: 'text',
 			 sortable: true,
 			 formatter({value}) { 
 				 let a = `\${value}`
-			  	 if(a == 'null'){
+			  	 if(a == 'null' || a == 'undefined'){
 			  	     a = '';
 			  	 }
 			     return a;

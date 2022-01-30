@@ -21,11 +21,11 @@
 		<button type="button" class="btn cur-p btn-outline-primary" id="btnFindM">조회</button>
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
 	</form>
-	<form>
+	<form style="float: right;">
 		자재명 : <input type="text" id="rwmName">업체명 : <input type="text" id="vendName">
 		<button type="button" class="btn cur-p btn-outline-primary" id="btnFindS">조회</button>
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-	</form>
+	</form><br>
 </div>
 <hr>
 <br>
@@ -120,7 +120,7 @@ var rwmatrOrderList = new Grid({
 	},
 	rowHeaders:['rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 600,
+	bodyHeight: 400,
 	columns:[
 				{
 				  header: '발주디테일코드',

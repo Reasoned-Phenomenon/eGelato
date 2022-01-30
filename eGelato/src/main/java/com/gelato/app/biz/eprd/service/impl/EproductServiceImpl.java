@@ -16,7 +16,7 @@ public class EproductServiceImpl implements EproductService {
 	
 	@Override
 	public List<EproductVO> EproductStcList(EproductVO vo) {
-		return eproductMapper.EproductIstList(vo);
+		return eproductMapper.EproductStcList(vo);
 	}
 
 	@Override

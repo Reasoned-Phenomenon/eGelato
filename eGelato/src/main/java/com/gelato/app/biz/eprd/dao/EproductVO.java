@@ -14,9 +14,11 @@ public class EproductVO {
 	String prdtId;
 	String prdtNm;
 	
-	String prdtLotNo;
+	String lotNo;
 	String qy;
-	String prodDt;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	Date prodDt;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	Date expdate;

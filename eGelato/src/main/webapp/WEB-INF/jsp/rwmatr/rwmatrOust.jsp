@@ -231,14 +231,14 @@ function callrwmatrStcModal(){
 			if(rwmatrOustList.getValue(rk, "lotNo") == '') {
 				//toastr
 				toastr.clear()
-				toastr.success( ('자재LOT번호를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				toastr.error( ('자재LOT번호를 선택해주세요.'),'Gelato',{timeOut:'1500'} );
 				return;
 			}
 		} else if(ev.columnName === 'istOustDttm') {
 			if(rwmatrOustList.getValue(rk, "lotNo") == '') {
 				//toastr
 				toastr.clear()
-				toastr.success( ('저장시 자동으로 기입되는 값입니다.'),'Gelato',{timeOut:'1000'} );
+				toastr.warning( ('저장시 자동으로 기입되는 값입니다.'),'Gelato',{timeOut:'1500'} );
 				return;
 			}
 		}
@@ -256,7 +256,7 @@ function callrwmatrStcModal(){
 			if((pattern_num.test(rwmatrOustList.getValue(rk, "oustQy"))) == false) {
 				rwmatrOustList.setValue(rk, "oustQy", "", true);
 				toastr.clear()
-				toastr.success( ("숫자만 입력이 가능합니다."),'Gelato',{timeOut:'1000'} );
+				toastr.warning( ("숫자만 입력이 가능합니다."),'Gelato',{timeOut:'1500'} );
 				return;
 				
 			} else {
@@ -264,7 +264,7 @@ function callrwmatrStcModal(){
 					if(totalq < oustq){
 						rwmatrOustList.setValue(rk, "oustQy", totalq, true);
 						toastr.clear()
-						toastr.success( ('해당 자재의 출고가능항 수량은 ' + totalq + ' 입니다.'),'Gelato',{timeOut:'2500'} );
+						toastr.warning( ('해당 자재의 최대수량은 ' + totalq + ' 입니다.'),'Gelato',{timeOut:'2500'} );
 					} 
 				} 
 			}
@@ -371,7 +371,7 @@ function callrwmatrStcModal(){
 			}
 		} else {
 			toastr.clear()
-			toastr.success( ('저장할 데이터가 없습니다.'),'Gelato',{timeOut:'1000'} );
+			toastr.warning( ('저장할 데이터가 없습니다.'),'Gelato',{timeOut:'1000'} );
 		}
 		
 	});
