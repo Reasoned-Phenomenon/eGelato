@@ -14,7 +14,7 @@ public class PrdIndicaMngFindController {
 	@Autowired PrdIndicaMngFindService prdIndicaMngFindService;
 	
 	//생산지시조회로 이동
-	@RequestMapping("/prd/prdIndicaMngFind.do")
+	@RequestMapping("/prd/inq/prdIndicaMngFind.do")
 	public String prdIndicaMng() {
 		System.out.println("생산지시조회 페이지 이동");
 		return "tiles/prd/prdIndicaMngFind";

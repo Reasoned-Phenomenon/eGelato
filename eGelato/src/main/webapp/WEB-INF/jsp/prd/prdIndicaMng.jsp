@@ -132,6 +132,7 @@
 			},
 			rowHeaders : ['rowNum' ],
 			selectionUnit : 'row',
+			bodyHeight: 150,
 			columns : [ {
 				header : '생산계획코드',
 				name : 'planDetaId'
@@ -150,6 +151,14 @@
 				header : '확인',
 				name : 'fg',
 				hidden : true
+			},{
+				header : '생산지시량',
+				name : 'qyVal',
+				hidden : false
+			},{
+				header : '지시 숫자',
+				name : 'countDi',
+				hidden : false
 			}]
 		});
 		
@@ -165,11 +174,12 @@
 				initialRequest: false
 			},
 			rowHeaders : ['rowNum' ],
+			bodyHeight: 150,
 			selectionUnit : 'row',
 			columns : [ {
 				header : '지시디테일코드',
 				name : 'indicaDetaId',
-				hidden : false
+				hidden : true
 			},{
 				header : '라인코드',
 				name : 'lineId',
@@ -226,6 +236,7 @@
 			},
 			rowHeaders : ['rowNum' ],
 			selectionUnit : 'row',
+			bodyHeight: 200,
 			columns : [ {
 				header : '제품코드',
 				name : 'prdtId'
@@ -269,6 +280,7 @@
 			},
 			rowHeaders:['checkbox','rowNum'],
 			selectionUnit: 'row',
+			bodyHeight: 200,
 			columns:[{
 				header : '자재명',
 				name : 'nm'
@@ -338,7 +350,7 @@
 			planIndicaGrid.clear();
 			RwmatrGrid.clear();
 			RwmatrLotGrid.clear();
-			planDetaGrid.readData(1,{planId:nip}, true);
+			planDetaGrid.readData(1,{'planDetaId':nip}, true);
 			NonIndicaDialog.dialog("close");
 		}
 	//종료
@@ -375,6 +387,8 @@
 		console.log(pdc);
 		pdq = planDetaGrid.getRow(ev.rowKey).qy;
 		console.log(pdq);
+		countDi = planDetaGrid.getRow(ev.rowKey).countDi;
+		console.log(countDi);
 		
 		var obj = {};
 		obj["planDetaId"] = pdi;
@@ -397,10 +411,9 @@
 			console.log(lineId)
 			indicaDetaId = result.indicaDetaId;
 			console.log(indicaDetaId);
-			
 		})
 		
-		for( let i=0 ; i<pdc ; i++ ) {
+		for( let i=0 ; i<pdc-countDi ; i++ ) {
 			console.log(indicaDetaId);
 			indicaDetaId = indicaDetaId.substr(0,13) + lpad(String(parseInt(indicaDetaId.substr(-3))+i),3,0)
 			console.log(indicaDetaId);
@@ -424,6 +437,11 @@
 	});
 	
 	// 생산지시 클릭 -> 필요자재 그리드
+	planIndicaGrid.on("click", (ev5) => {
+		RwmatrGrid.clear();
+		RwmatrLotGrid.clear();
+	})
+	
 	planIndicaGrid.on("editingFinish", (ev3) => {
 		planIndicaGrid.setSelectionRange({
 		    start: [ev3.rowKey, 0],
@@ -586,6 +604,9 @@
 		if(confirm("저장하시겠습니까?")) {
 			planDetaGrid.blur();
 			planIndicaGrid.blur();
+			RwmatrGrid.blur();
+			RwmatrLotGrid.blur();
+			
 			console.log("저장");
 			
 			console.log(pdi);
@@ -648,9 +669,5 @@
 					
 		}
 	})
-	
-
-	
-	
 </script>
 </html>

@@ -14,6 +14,8 @@
 	<br>
 	<div id="chooseRwmatrLotGrid"></div>
 	<br>
+	<input type="text" readonly id="notice" style="border:0 solid black; color: red;">
+	<br><br>
 	<button type="button" class="btn btn-secondary" id="btnchoose">확인</button>
 
 <script>
@@ -120,9 +122,14 @@
 			}
 		} */
 		
-		if(sumVal != rwv) {
+		if(sumVal > rwv) {
+			$("#notice").val('필요수량보다 많습니다.');
+			$("#btnchoose").hide();
+		} else if(sumVal < rwv) {
+			$("#notice").val('필요수량보다 적습니다.');
 			$("#btnchoose").hide();
 		} else {
+			$("#notice").val('');
 			$("#btnchoose").show();
 		}
 	});

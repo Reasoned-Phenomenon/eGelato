@@ -23,8 +23,13 @@
 			<if test="fg != 'ALL'">
             	pi.fg = #{fg}
             </if>
-			<if test="indicaD != null and indicaD != ''">
-            	<![CDATA[and trunc(pid.indica_dt) = #{indicaD}]]>
+            
+			<if test="startD != null and startD != ''">
+            	<![CDATA[and trunc(pid.indica_dt) >= to_date(#{startD})]]>
+            </if>
+            
+            <if test="endD != null and endD != ''">
+            	<![CDATA[and trunc(pid.indica_dt) <= to_date(#{endD})]]>
             </if>
 		</where> 
 		group by pid.indica_deta_id, l.prdt_id, p.prdt_nm, pid.qy, pid.line_id, pid.ord, pid.remk, pi.fg

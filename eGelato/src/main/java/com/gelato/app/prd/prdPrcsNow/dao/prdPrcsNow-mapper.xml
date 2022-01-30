@@ -3,58 +3,37 @@
 <mapper
 	namespace="com.gelato.app.prd.prdPrcsNow.dao.PrdPrcsNowMapper">
 	
-<!-- 생산지시 modal -->	
-<select id="chooseIndicaDeta" resultType="PrdPrcsNowVO">
-	select pid.indica_deta_id as indicaDetaId, 
-		   p.prdt_nm as prdtNm, 
-		   pid.qy as qy
-	from prod_indica_deta pid join prod_indica pi
-	    on pid.indica_id = pi.indica_id
-	    join prod_plan_deta ppd
-	    on pi.plan_deta_id = ppd.plan_deta_id
-	    join prdt p
-	    on ppd.prdt_id = p.prdt_id
-	<where>
-		<if test="indicaD != null and indicaD != ''">
-    		<![CDATA[ and trunc(pid.indica_dt) = to_date(#{indicaD})]]>
-    	</if>
-	</where> 
-	order by pid.indica_deta_Id
-</select>
-	
-<!-- 공정목록 조회 -->
-	<select id="prcsList" resultType="PrdPrcsNowVO">
-		select pn.prcs_now_id as prcs_now_id, 
-			   pn.prcs_id as prcs_id, 
+<!-- 공정목록 modal -->	
+	<select id="prcsDialog" resultType="PrdPrcsNowVO">
+		select p.prcs_id as prcs_id,
 			   p.nm as nm, 
 			   p.eqm_id as eqm_id, 
-			   e.eqm_name as eqm_name,
-			   pid.indica_deta_id as indica_deta_id
-		from prcs_now pn join prod_indica_deta pid
-		    on pid.indica_deta_id = pn.indica_deta_id
-		    join prcs p
-		    on pn.prcs_id = p.prcs_id
-		    join eqm e
+			   e.eqm_name as eqm_name
+		from prcs p join eqm e
 		    on p.eqm_id = e.eqm_id
-		where pid.indica_deta_id = #{indicaDetaId}
-		order by pn.prcs_now_id
+		<if test="prcsSelDeta != '' and prcsSelDeta != null">
+			where SUBSTR(p.prcs_id, 5, 4) = #{prcsSelDeta}
+		</if>
 	</select>
-	
-<!-- 공정별 실적 조회 -->
-	<select id="prcsDetaList" resultType="PrdPrcsNowVO">
-		select pn.indica_deta_id as indica_deta_id, 
-			   pn.fr_tm as fr_tm, 
-			   pn.to_tm as to_tm, 
-			   pn.inpt_qy as inpt_qy, 
-			   (to_number(pn.inpt_qy)-to_number(nvl(pid.infer_qy,0))) as qy, 
-			   pid.infer_id as infer_id, 
-			   pid.infer_qy as infer_qy,
-			   ic.deta as deta
-		from prcs_now pn left outer join prcs_infer_deta pid
-		    on pn.indica_deta_id = pid.indica_deta_id and pn.prcs_now_id = pid.prcs_now_id
-		    left outer join infer_code ic
-    		on pid.infer_id = ic.infer_id
-		where pn.indica_deta_id = #{indicaDetaId}
-		      AND pn.prcs_now_id = #{prcsNowId}
+
+<!-- 지시목록 modal -->
+	<select id="indicaDialog" resultType="PrdPrcsNowVO">
+		SELECT pid.indica_deta_id as indica_deta_id, 
+			   p.prdt_nm as prdt_nm, 
+			   pid.qy as qy, 
+			   pid.indica_dt as indica_dt
+		FROM PROD_INDICA_DETA pid join line l
+		    on pid.line_id = l.line_id
+		    join prdt p
+		    on l.prdt_id = p.prdt_id
+		<if test="startD != null and startD != ''">
+			<![CDATA[trunc(pid.indica_dt) >= to_date(#{startD})]]>
+		</if>
+		
+		<if test="endD != null and endD != ''">
+			<![CDATA[and trunc(pid.indica_dt) <= to_date(#{endD})]]>
+		</if>
+		group by pid.indica_deta_id, l.prdt_id, p.prdt_nm, pid.qy, pid.indica_dt
+		order by pid.indica_deta_id
 	</select>
 </mapper>

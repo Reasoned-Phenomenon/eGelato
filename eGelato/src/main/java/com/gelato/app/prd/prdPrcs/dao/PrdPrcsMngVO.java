@@ -31,4 +31,5 @@ public class PrdPrcsMngVO {
 	String eqmId;
 	String eqmName;
 	String prcsNowId;
+	String mngr;
 }

@@ -14,7 +14,7 @@ public class PrdPlanMngFindController {
 	@Autowired PrdPlanMngFindService prdPlanMngFindService;
 	
 	// 생산계획조회 페이지로 이동
-	@RequestMapping("/prd/prdPlanMngFind.do")
+	@RequestMapping("/prd/inq/prdPlanMngFind.do")
 	public String prdPlanMngFind() {
 		System.out.println("생산계획조회 페이지 이동");
 		

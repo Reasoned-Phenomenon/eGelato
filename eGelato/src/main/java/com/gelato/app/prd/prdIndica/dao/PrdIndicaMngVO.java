@@ -73,4 +73,8 @@ public class PrdIndicaMngVO {
 	String bomId;
 	String useYn;
 	
+	//추가
+	String qyVal;
+	String countDi;
+	
 }

@@ -6,174 +6,190 @@
 <meta charset="UTF-8">
 <title>공정 실적</title>
 </head>
+<style>
+th, td {
+	padding: 5px;
+}
+</style>
 <body>
 	<div>
 		<br>
-		<h2>공정실적</h2>
+		<h2>공정실적관리</h2>
 		<br>
 	</div>
 	<br>
-	<div>
-		<button type="button" class="btn btn-secondary" id="btnSearchPlan">생산지시목록</button>
+	<div class="row">
+		<div class="col-sm-11">
+			<table>
+			<tbody>
+				<tr>
+					<th>공정명</th>
+					<td>
+						<input type="text" id="prcsDeta" readonly>
+					</td>
+					<td rowspan="3">
+	                    <button type="button" class="btn btn-secondary" id="btnSearch">검색</button>
+	                    <button type="button" class="btn btn-secondary" id="btnClear">초기화</button>
+	                </td>
+				</tr>
+				<tr>
+					<th>생산 지시 목록</th>
+					<td>
+						<input type="text" id="indicaList" readonly>
+					</td>
+				</tr>
+				<tr>
+				<th>불량 분류</th>
+					<td>
+						<select name="infer">
+							<option value="choose" selected>선택</option>
+							  <option value="PDB-00101">불순물 검출</option>
+							  <option value="PDB-00100">포장지 훼손</option>
+							  <option value="PDB-00102">아이스크림 제형 파손</option>
+							  <option value="PDB-00103">용기 파손</option>
+							  <option value="PDB-00104">용량 미달</option>
+						</select>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+		</div>
+		<div class="col-sm-1">
+			<button type="button" class="btn btn-secondary" id="btnIns">등록</button>
+		</div>
 	</div>
 	<hr>
-	<div class="row">
-		<div class="col-sm-5">
-			<h3>공정목록</h3>
-			<hr>
-			<div id="prcsListGrid"></div>
-		</div>
-		<div class="col-sm-7">
-			<h3>공정별실적</h3>
-			<hr>
-			<div id="prcsDetaGrid"></div>
-		</div>
-	</div>
+	<div id="prcsList"></div>
 	
-	<!-- 생산지시 조회 모달-->
-	<div id="nonPrcsDialog" title="생산 지시 목록"></div>
+	<!-- 공정 모달-->
+	<div id="prcsDialog" title="공정 목록"></div>
+	<!-- 지시 모달-->
+	<div id="indicaDialog" title="생산 지시 목록"></div>
+	
 <script>
-
-	//그리드 생성
+	//계획 조회 그리드 생성
 		var Grid = tui.Grid;
-		
-		//그리드 테마
-		Grid.applyTheme('striped', {
-			cell : {
-				header : {
-					background : '#eef'
-				},
-				evenRow : {
-					background : '#fee'
-				},
-				selectedHeader : {
-			    	background : '#FFFFFF'
-			    }
-			}
-		});
 	
-		//그리드1
-		const prcsListGrid = new Grid({
-			el : document.getElementById('prcsListGrid'),
-			data : {
-				api : {
-					readData : {url : '${path}/prd/prcsNowList.do',method : 'GET'},
-				},
-				contentType : 'application/json',
-				initialRequest: false
+	//그리드 테마
+	Grid.applyTheme('striped', {
+		cell : {
+			header : {
+				background : '#eef'
 			},
-			rowHeaders : ['rowNum' ],
-			selectionUnit : 'row',
-			columns : [ {
-				header : '진행공정코드',
-				name : 'prcsNowId'
-			}, {
-				header : '공정코드',
-				name : 'prcsId'
-			}, {
-				header : '공정명',
-				name : 'nm',
-			}, {
-				header : '설비코드',
-				name : 'eqmId',
-			}, {
-				header : '설비명',
-				name : 'eqmName',
-			},{
-				header : '지시디테일',
-				name : 'indicaDetaId',
-				hidden : true
-			}]
-		});
-		
-		//그리드2
-		const prcsDetaGrid = new Grid({
-			el : document.getElementById('prcsDetaGrid'),
-			data : {
-				api : {
-					readData : {url : '${path}/prd/prcsDetaList.do',method : 'GET'},
-				},
-				contentType : 'application/json',
-				initialRequest: false
+			evenRow : {
+				background : '#fee'
 			},
-			//rowHeaders : ['rowNum' ],
-			selectionUnit : 'row',
-			columns : [ {
-				header : '시작시간',
-				name : 'frTm',
-			}, {
-				header : '종료시간',
-				name : 'toTm',
-			}, {
-				header : '담당자명',
-				name : 'mngr',
-			}, {
-				header : '지시량',
-				name : 'inptQy',
-			}, {
-				header : '생산량',
-				name : 'qy',
-			}, {
-				header : '불량코드',
-				name : 'inferId',
-			},  {
-				header : '불량사유',
-				name : 'deta',
-			}, {
-				header : '불량량',
-				name : 'inferQy',
-			}]
-		});
+			selectedHeader : {
+		    	background : '#FFFFFF'
+		    }
+		}
+	});
+	
+	// 그리드 생성 : 관리
+	const prcsList = new Grid({
+		el : document.getElementById('prcsList'),
+		data : {
+			api : {
+				readData : {url : '${path}',method : 'GET'}
+			},
+			contentType : 'application/json',
+			initialRequest: false
+		},
+		rowHeaders : ['rowNum' ],
+		selectionUnit : 'row',
+		bodyHeight: 600,
+		columns : [ {
+			header : '생산계획코드',
+			name : 'indicaDetaId'
+		}, {
+			header : '생산코드',
+			name : 'prcsNowId',
+		}, {
+			header : '공정명',
+			name : 'nm',
+		}, {
+			header : '설비코드',
+			name : 'eqmId',
+		}, {
+			header : '설비명',
+			name : 'eqmName',
+		}, {
+			header : '투입량',
+			name : 'inptQy',
+		},{
+			header : '생산량',
+			name : 'qy',
+		},{
+			header : '불량량',
+			name : 'inferQy',
+		},{
+			header : '불량코드',
+			name : 'inferId',
+		},{
+			header : '불량상세',
+			name : 'deta',
+		},{
+			header : '공정시작시간',
+			name : 'qy',
+			align: 'frTm',
+		}, {
+			header : '공정종료시간',
+			name : 'toTm',
+		}, {
+			header : '담당자명',
+			name : 'mngr',
+		},{
+			header : '지시일자',
+			name : 'indicaDt',
+		}]
+	});
+	
+	//모달창 출력
+	document.getElementById("prcsDeta").addEventListener("click", function() {
+		  callPrcsModal();
+	});
+	document.getElementById("indicaList").addEventListener("click", function() {
+		  callIndicaModal();
+	});
+	
+	// 공정명 출력, 삭제
+	function chooseNm(pcn) {
+		console.log(pcn);
+		document.getElementById("prcsDeta").value = pcn;
 		
-	// 생산지시조회 모달창
-	var nonPrcsDialog = $("#nonPrcsDialog").dialog({
+		prcsDialog.dialog( "close" );
+	}
+	
+	function callPrcsModal() {
+		var prcsDialog = $("#prcsDialog").dialog({
 			modal : true,
 			autoOpen : false,
 			height: 600,
 			width: 1000
 		});
-	
-	$("#btnSearchPlan").on(
-			"click",
-			function() {
-				nonPrcsDialog.dialog("open");
-				$("#nonPrcsDialog").load("${path}/prd/chooseIndicaDialog.do",
-						function() {
-							console.log("모달 로드")
-						})
-			});
-	
-	function choosePi(cid,cpn){
-		nonPrcsDialog.dialog("close");
-		
-		//cid : 선택 지시디테일 아이디
-		//cpn : 선택제품명
-		
-		prcsListGrid.readData(1, {'indicaDetaId':cid}, true);
+
+		prcsDialog.dialog("open");
+		$("#prcsDialog").load("${path}/prd/prcsDialog.do", function() {
+					console.log("공정목록모달")
+				})
 	}
 	
-	prcsListGrid.on(
-			"dblclick", (ev) => {
-			
-				prcsListGrid.setSelectionRange({
-			    start: [ev.rowKey, 0],
-			    end: [ev.rowKey, prcsListGrid.getColumns().length-1]
-			});	
-			
-			var pni = prcsListGrid.getRow(ev.rowKey).prcsNowId;
-			console.log(pni);
-			var idi = prcsListGrid.getRow(ev.rowKey).indicaDetaId;
-			console.log(idi);
-			
-			choosePl(pni, idi);
+	//지시 출력
+	function callIndicaModal() {
+		var indicaDialog = $("#indicaDialog").dialog({
+			modal : true,
+			autoOpen : false,
+			height: 600,
+			width: 1000
 		});
-	
-	function choosePl(pni, idi) {
-		console.log(pni);
-		console.log(idi);
-		
-		prcsDetaGrid.readData(1, {'prcsNowId':pni, 'indicaDetaId':idi}, true);
+
+		indicaDialog.dialog("open");
+		$("#indicaDialog").load("${path}/prd/indicaDialog.do", function() {
+					console.log("지시목록모달")
+				})
 	}
+	
+	
 </script>
 </body>
 </html>

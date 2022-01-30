@@ -13,6 +13,7 @@ public class PrdIndicaMngFindVO {
 	String ord;
 	String remk;
 	
-	String indicaD;
+	String startD;
+	String endD;
 	String fg;
 }

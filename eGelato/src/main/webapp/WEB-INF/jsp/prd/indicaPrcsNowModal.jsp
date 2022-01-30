@@ -11,11 +11,20 @@
 	<h1>생산 지시 목록</h1>
 	<br>
 	<div>
-	<input type="date" id="indicaD">
-	<button type="button" id="selectDate" class="btn btn-secondary">검색</button>
-	</div>
+		<table>
+		<tbody>
+			<tr>
+				<th>지시 기간</th>
+				<td><input type="date" id="startD"> ~ <input type="date" id="endD"></td>
+				<td>
+					<button type="button" id="selectDate" class="btn btn-secondary">검색</button>
+				</td>	
+			</tr>
+		</tbody>
+		</table>
+		</div>
 	<br>
-	<div id="chooseIndicaGrid"></div>
+	<div id="IndicaGrid"></div>
 </body>
 
 <script>
@@ -46,7 +55,7 @@ var Grid = tui.Grid;
 		el: document.getElementById('chooseIndicaGrid'),
 	  	data : {
 		  api: {
-		    readData: { url:'${path}/prd/chooseIndicaDeta.do', method: 'GET'}
+		    readData: { url:'${path}/prd/indicaDialogDeta.do', method: 'GET'}
 		  },
 		  contentType: 'application/json',
 		},
@@ -64,6 +73,10 @@ var Grid = tui.Grid;
 			  {
 			    header: '생산량',
 			    name: 'qy',
+			  },
+			  {
+			    header: '지시일자',
+			    name: 'indicaDt',
 			  }
 			],
 			 rowHeaders: ['rowNum'],
@@ -86,16 +99,6 @@ var Grid = tui.Grid;
 	chooseIndicaGrid.on(
 		"dblclick", (ev) => {
 		
-		chooseIndicaGrid.setSelectionRange({
-		    start: [ev.rowKey, 0],
-		    end: [ev.rowKey, chooseIndicaGrid.getColumns().length-1]
-		});	
-		
-		var cid = chooseIndicaGrid.getRow(ev.rowKey).indicaDetaId;
-		console.log(cid);
-		var cpn = chooseIndicaGrid.getRow(ev.rowKey).prdtNm;
-		console.log(cpn);
-		choosePi(cid,cpn);
 	});
 </script>
 </html>
