@@ -16,9 +16,6 @@
 	<!-- 설비검색 모달 -->
 	<div id="dialog-form" title="설비검색"></div>
 
-	<!-- 비가동사유코드 검색 모달 -->
-	<div id="dialog-search" title="비가동사유코드검색"></div>
-
 	<div class="container">
 		<div class="flex row">
 			<div class="col-4">
@@ -78,7 +75,8 @@
 					<br>
 					<h2>비가동 등록</h2>
 					<br>
-					<form action="${pageContext.request.contextPath}/eqm/eqmNonInsert.do"
+					<form
+						action="${pageContext.request.contextPath}/eqm/eqmNonInsert.do"
 						method="post" name="frm">
 						<table>
 							<tbody>
@@ -101,10 +99,11 @@
 								</tr>
 								<tr>
 									<th>비가동사유</th>
-									<td><input type="text" name="resnId" id="resnId">
-									<button type="button" id="btnEqmNonResnSearch"
-											class="btn cur-p btn-outline-dark btn-sm">🔍</button> <input
-										type="text" name="resnName" id="resnName"></td>
+									<td><select name="resnId" id="resnId">
+											<option value="NOPR01">수리</option>
+											<option value="NOPR02">점검</option>
+											<option value="NOPR03">청소</option>
+									</select></td>
 									<th>비고</th>
 									<td><input type="text" name="remk"></td>
 								</tr>

@@ -50,6 +50,9 @@
 			<if test='gubun != "전체" and gubun != null and gubun != ""'>
 				E.FG = F_COM_NM_TO_CODE(#{gubun})
 			</if>
+			<if test='useYnCk !="" and useYnCk != null'>
+				AND USE_YN = #{useYnCk}
+			</if>
 		</where>
 	</select>
 	

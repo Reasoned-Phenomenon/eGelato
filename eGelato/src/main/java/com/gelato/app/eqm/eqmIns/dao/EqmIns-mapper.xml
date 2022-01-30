@@ -57,7 +57,9 @@
 			 	<if test='gubun != "전체"'>
 					AND E.FG = F_COM_NM_TO_CODE(#{gubun})
 				</if>
-			 	
+			 	<if test='chckAll == "Y"'>
+			 		AND C.CHCK_DT IS NOT NULL
+			 	</if>
 			 </where>
 	</select>
 	

@@ -28,6 +28,8 @@ display : none
 				&nbsp;&nbsp;
 				<button type="button" class="btn btn-search float-right"
 					id="searchBtn">조회</button>
+				<button type="button" class="btn btn-search float-right"
+					id="searchAllBtn">전체조회</button>
 				&nbsp;&nbsp;
 				<button type="button" class="btn btn-exel float-right" id="saveBtn">저장</button>
 				&nbsp;&nbsp;
@@ -223,6 +225,11 @@ display : none
 			eqmInsGrid.clear();
 		})
 
+		//전체조회버튼
+		$("#searchAllBtn").on("click",function(){
+			eqmInsGrid.readData(1,{'gubun' : '전체', 'chckAll' : 'Y'},true);
+		})
+		
 		//조회버튼
 		$("#searchBtn").on(
 				"click",

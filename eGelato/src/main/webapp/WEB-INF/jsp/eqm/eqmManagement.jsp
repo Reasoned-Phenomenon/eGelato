@@ -29,8 +29,8 @@
 					<option value="가공기">가공기
 				</select>
 				<label>사용여부</label>
-				<input type="radio" id="useYn" name="useYn" value="Y">Y
-				<input type="radio" id="useYn" name="useYn" value="N">N
+				<input type="radio" id="useYnCk" name="useYnCk" value="Y">Y
+				<input type="radio" id="useYnCk" name="useYnCk" value="N">N
 				<div id="eqmListGrid"></div>
 			</div>
 			<div class="col-5">
@@ -138,8 +138,9 @@
 		//드롭다운 선택시 바로 조회
 		function selectGubun(){
 			let gubun = $('#gubun option:selected').val();
+			var useYnCk = $("input[name='useYnCk']:checked").val();
 			eqmListGrid.readData(1, {
-				'gubun' : gubun
+				'gubun' : gubun, 'useYnCk' : useYnCk
 			}, true);
 		}
 		
@@ -164,21 +165,14 @@
 		inputImage.addEventListener("change", e => {
 		    readImage(e.target)
 		})
-
-		//설비 사용여부 Y/N 라디오 버튼 
-		$("input[name='useYn']:radio").change(function () {
-	        //라디오 버튼 값을 가져온다.
-	        var useYn = this.value;
-	        console.log(useYn);
-		});
 		
 		//라디오 버튼(Y/N) 클릭시 바로 조회
-		$("input[name='useYn']:radio").change(function () {
+		$("input[name='useYnCk']:radio").change(function () {
 	        //라디오 버튼 값을 가져온다.
 	        console.log(this);
-	        var useYn = this.value;   
+	        var useYnCk = this.value;   
 	        console.log($("#gubun").val());
-	        eqmListGrid.readData(1,{'useYn' : useYn, 'gubun':$("#gubun").val()}, true);
+	        eqmListGrid.readData(1,{'useYnCk' : useYnCk, 'gubun':$("#gubun").val()}, true);
 		});
 		
 		//더블 클릭시 한 행 선택
