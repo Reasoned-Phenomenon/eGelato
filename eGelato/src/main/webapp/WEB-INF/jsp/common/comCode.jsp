@@ -29,13 +29,24 @@
 <br>
 <br>
 
-<h3>권한테스트</h3>
-<sec:authorize access="isAnonymous()">
-	로그인
-</sec:authorize>
-<sec:authorize access="hasRole('ROLE_EQM')">
-	ROLE_EQM
-</sec:authorize>
+<button onclick="window.open('${path}/com/comCode.do','공정이동표','width=800,height=600,location=no,status=no,scrollbars=no,titlebar=no,left=550,top=200');">새창에서</button>
+
+	<div>
+		<h6>권한테스트</h6>
+		
+		<sec:authorize access="isAuthenticated()">
+			로그인 했음
+		</sec:authorize>
+		
+		<sec:authorize access="isAnonymous()">
+			로그인 안 했음
+		</sec:authorize>
+		
+		<sec:authorize access="hasRole('ROLE_EQM')">
+			ROLE_EQM
+		</sec:authorize>
+		
+	</div>
 <hr>
 <br>
 <div class="row">
