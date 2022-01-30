@@ -152,7 +152,14 @@ th, td {
 		  callIndicaModal();
 	});
 	
-	// 공정명 출력
+	// 공정명 출력, 삭제
+	function chooseNm(pcn) {
+		console.log(pcn);
+		document.getElementById("prcsDeta").value = pcn;
+		
+		prcsDialog.dialog( "close" );
+	}
+	
 	function callPrcsModal() {
 		var prcsDialog = $("#prcsDialog").dialog({
 			modal : true,
@@ -181,6 +188,7 @@ th, td {
 					console.log("지시목록모달")
 				})
 	}
+	
 	
 </script>
 </body>

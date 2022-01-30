@@ -14,6 +14,16 @@ import com.gelato.app.prd.prdPrcsNow.service.PrdPrcsNowService;
 public class PrdPrcsNowServiceImpl implements PrdPrcsNowService{
 
 	@Autowired PrdPrcsNowMapper prdPrcsNowMapper;
+
+	@Override
+	public List<PrdPrcsNowVO> prcsDialog(PrdPrcsNowVO vo) {
+		return prdPrcsNowMapper.prcsDialog(vo);
+	}
+
+	@Override
+	public List<PrdPrcsNowVO> indicaDialog(PrdPrcsNowVO vo) {
+		return prdPrcsNowMapper.indicaDialog(vo);
+	}
 	
 
 }

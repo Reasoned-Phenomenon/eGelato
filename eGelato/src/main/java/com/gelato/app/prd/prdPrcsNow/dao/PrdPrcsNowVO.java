@@ -20,7 +20,15 @@ public class PrdPrcsNowVO {
 	
 	String indicaDetaId;
 	String prdtNm;
-	String indicaD;
+	String indicaDt;
 	
 	String deta;
+	
+	// 모달1
+	String prcsSelDeta;
+	
+	// 모달2
+	String startD;
+	String endD;
+	
 }

@@ -24,7 +24,7 @@
 		</table>
 		</div>
 	<br>
-	<div id="chooseIndicaGrid"></div>
+	<div id="IndicaGrid"></div>
 </body>
 
 <script>
@@ -55,7 +55,7 @@ var Grid = tui.Grid;
 		el: document.getElementById('chooseIndicaGrid'),
 	  	data : {
 		  api: {
-		    readData: { url:'${path}/prd/chooseIndicaDeta.do', method: 'GET'}
+		    readData: { url:'${path}/prd/indicaDialogDeta.do', method: 'GET'}
 		  },
 		  contentType: 'application/json',
 		},
@@ -99,16 +99,6 @@ var Grid = tui.Grid;
 	chooseIndicaGrid.on(
 		"dblclick", (ev) => {
 		
-		chooseIndicaGrid.setSelectionRange({
-		    start: [ev.rowKey, 0],
-		    end: [ev.rowKey, chooseIndicaGrid.getColumns().length-1]
-		});	
-		
-		var cid = chooseIndicaGrid.getRow(ev.rowKey).indicaDetaId;
-		console.log(cid);
-		var cpn = chooseIndicaGrid.getRow(ev.rowKey).prdtNm;
-		console.log(cpn);
-		choosePi(cid,cpn);
 	});
 </script>
 </html>
