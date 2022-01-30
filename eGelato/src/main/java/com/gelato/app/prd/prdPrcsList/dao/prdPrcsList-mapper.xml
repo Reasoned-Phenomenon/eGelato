@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.gelato.app.prd.prdPrcsList.dao.prdPrcsList-mapper">
+	namespace="com.gelato.app.prd.prdPrcsList.dao.PrdPrcsListMapper">
+	
+<!-- 공정 리스트  -->
+	<select id="prcsMngList" resultType="PrdPrcsListVO">
+		select p.prcs_id as prcs_id, 
+			   SUBSTR(p.prcs_id, 5, 4) as prcs_sel_deta,
+			   p.nm as nm, 
+			   p.eqm_id as eqm_id, 
+			   e.eqm_name as eqm_name, 
+			   e.model_no as model_no, 
+			   e.mngr as mngr
+		from prcs p join eqm e
+		    on p.eqm_id = e.eqm_id
+		<if test="prcsSelDeta != '' and prcsSelDeta != null">
+			where SUBSTR(p.prcs_id, 5, 4) = #{prcsSelDeta}
+		</if>
+	</select>
 </mapper>
