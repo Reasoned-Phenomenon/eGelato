@@ -25,8 +25,54 @@
 </div>
 <hr>
 <br>
+<div class="container">
+	<div class="flex row">
 	<!-- 안전재고 그리드 -->
-	<div id="rwmatrSafStcGrid" style="width: 80%"></div>
+		<div class="col-7">
+			<div id="rwmatrSafStcGrid" style="width: 80%"></div>
+		</div>
+		<div style="display: inline;">
+			<h2 class="detailTitle">상세조회</h2>
+				<form method="post" name="frm" id="frm" enctype="multipart/form-data">
+					<table>
+						<tbody>
+							<tr>
+								<th>설비코드</th>
+								<td><input id="eqmId" name="eqmId" readOnly></td>
+								<th>설비명</th>
+								<td><input id="eqmName" name="eqmName" readOnly></td>
+							</tr>
+							<tr>
+								<th>공정코드</th>
+								<td><input id="prcsId" name="prcsId" readOnly></td>
+								<th>공정명</th>
+								<td><input id="nm" name="nm" readOnly></td>
+							</tr>
+							<tr>
+								<th>최고온도</th>
+								<td><input id="tempMax" name="tempMax" readOnly></td>
+								<th>최저온도</th>
+								<td><input id="tempMin" name="tempMin" readOnly></td>
+							</tr>
+							<tr>
+								<th>점검주기</th>
+								<td><input id="chckPerd" name="chckPerd" readOnly></td>
+								<th>사용여부</th>
+								<td><input type="radio" id="useYn" name="useYn" value="Y">Y
+									<input type="radio" id="notUse" name="useYn" value="N">N</td>
+							</tr>
+							<tr>
+								<td>
+									<button type="button" id="btnUpd"
+										class="btn cur-p btn-outline-dark">수정</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
 	
 	<!-- 모달창 -->
 	<div id="rwmatrDialogFrm" title="원자재 목록"></div>
