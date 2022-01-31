@@ -15,85 +15,97 @@
 <body>
 	<!-- 설비구분 모달 -->
 	<div id="dialog-form" title="설비구분"></div>
-	<form action="${pageContext.request.contextPath}/eqm/insertEqm.do"
-		method="post" name="frm" enctype="multipart/form-data">
-		<div>
-			<br>
-			<h2 id="title">설비 등록</h2>
-			<br>
-			<div>
-				<div>
-					<table>
-						<tbody>
-							<tr>
-								<th>설비명*</th>
-								<td><input id="eqmName" name="eqmName" required></td>
-								<th>사용여부</th>
-								<td><input type="radio" id="useYn" name="useYn" value="Y" checked>Y
-									<input type="radio" id="notUse" name="useYn" value="N">N</td>
-								<th>설비구분</th>
-								<td><input id="fg" name="fg" required>
-									<button id="btnFindFg" type="button"
-										class="btn cur-p btn-outline-dark btn-sm"
-										data-bs-toggle="modal" aria-label="Close">🔍</button> <input
-									id="fgName" name="fgName"></td>
-							</tr>
-							<tr>
+			<div class="container">
+				<main class="content" id="content">
+					<div class="container">
+						<form action="${pageContext.request.contextPath}/eqm/insertEqm.do"
+							method="post" name="frm" enctype="multipart/form-data">
+							<div>
+								<br>
+								<h2 id="title">설비 등록</h2>
+								<br>
+								<div>
+									<div>
+										<table>
+											<tbody>
+												<tr>
+													<th>설비명*</th>
+													<td><input id="eqmName" name="eqmName" required></td>
+													<th>사용여부</th>
+													<td><input type="radio" id="useYn" name="useYn"
+														value="Y" checked>Y <input type="radio"
+														id="notUse" name="useYn" value="N">N</td>
+													<th>설비구분</th>
+													<td><input id="fg" name="fg" required>
+														<button id="btnFindFg" type="button"
+															class="btn cur-p btn-outline-dark btn-sm"
+															data-bs-toggle="modal" aria-label="Close">🔍</button> <input
+														id="fgName" name="fgName"></td>
+												</tr>
+												<tr>
 
-								<th>설비규격</th>
-								<td><input id="spec" name="spec"></td>
-							</tr>
-							<tr>
-								<th>모델번호</th>
-								<td><input id="modelNo" name="modelNo"></td>
-								<th>제작업체</th>
-								<td><input id="vendId" name="vendId"></td>
-								<th>등록자</th>
-								<td><input id="mngr" name="mngr" width="50px"></td>
-							</tr>
-							<tr>
-								<th>설비규격</th>
-								<td><input></td>
-							</tr>
-							<tr>
-								<th>구매일자*</th>
-								<td><input type="date" id="pureDt" name="pureDt" required></td>
-							</tr>
-							<tr>
-								<th>온도</th>
-								<td><input placeholder="최저온도" id="tempMin" name="tempMin">~<input
-									placeholder="최고온도" id="tempMax" name="tempMax">°C</td>
-							</tr>
-							<tr>
-								<th>UPH*</th>
-								<td><input id="uph" name="uph" required></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div>
-					<h3>설비 이미지 등록</h3>
-					 <div class="image-container">
-						<img style="width: 250px;" id="preview-image"
-							src="../resources/images/img/이미지프리뷰.jpg"> 
+													<th>설비규격</th>
+													<td><input id="spec" name="spec"></td>
+												</tr>
+												<tr>
+													<th>모델번호</th>
+													<td><input id="modelNo" name="modelNo"></td>
+													<th>제작업체</th>
+													<td><input id="vendId" name="vendId"></td>
+													<th>등록자</th>
+													<td><input id="mngr" name="mngr" width="50px"></td>
+												</tr>
+												<tr>
+													<th>설비규격</th>
+													<td><input></td>
+												</tr>
+												<tr>
+													<th>구매일자*</th>
+													<td><input type="date" id="pureDt" name="pureDt"
+														required></td>
+												</tr>
+												<tr>
+													<th>온도</th>
+													<td><input placeholder="최저온도" id="tempMin"
+														name="tempMin">~<input placeholder="최고온도"
+														id="tempMax" name="tempMax">°C</td>
+												</tr>
+												<tr>
+													<th>UPH*</th>
+													<td><input id="uph" name="uph" required></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div>
+										<h3>설비 이미지 등록</h3>
+										<div class="image-container">
+											<img style="width: 250px;" id="preview-image"
+												src="../resources/images/img/이미지프리뷰.jpg">
+										</div>
+
+										<!-- egov 파일업로드 시작 -->
+
+										<input name="file_1" id="egovComFileUploader" type="file"
+											title="설비 이미지 업로드" multiple />
+										<div id="egovComFileList"></div>
+
+										<!-- egov 파일 업로드 끝 -->
+
+									</div>
+									<div>
+										<button type="reset" value="내용초기화"
+											class="btn cur-p btn-outline-dark">초기화</button>
+										<button class="btn cur-p btn-outline-dark">저장</button>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
-						
-					<!-- egov 파일업로드 시작 -->
-					
-					<input name="file_1" id="egovComFileUploader" type="file" title="설비 이미지 업로드" multiple/>
-					<div id="egovComFileList"></div>
-					
-					<!-- egov 파일 업로드 끝 -->
-					
-				</div>
-				<div>
-					<button type="reset" value="내용초기화"
-						class="btn cur-p btn-outline-dark">초기화</button>
-					<button class="btn cur-p btn-outline-dark">저장</button>
-				</div>
+				</main>
 			</div>
 		</div>
-	</form>
+	</div>
 	<script>
 	function readImage(input) {
 	    // 인풋 태그에 파일이 있는 경우
