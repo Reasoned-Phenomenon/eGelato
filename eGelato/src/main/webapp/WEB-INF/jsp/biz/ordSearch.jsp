@@ -62,9 +62,7 @@
 	      			
 	      				<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
 	      				<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
-						<button type="button" class="btn cur-p btn-outline-primary" id="btnExcel">Excel</button>
-					
-						
+
 						  <br>
 	      				</div>
 	      			</li>
