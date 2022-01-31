@@ -1,8 +1,10 @@
-package com.gelato.app.prd.prdLine.dao;
+package com.gelato.app.prd.prdLine.service;
 
 import java.util.List;
 
-public interface PrdLineMngMapper {
+import com.gelato.app.prd.prdLine.dao.PrdLineMngVO;
+
+public interface PrdLineMngService {
 
 	// 그리드1
 	List<PrdLineMngVO> lineGrid();

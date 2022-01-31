@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gelato.app.prd.prdLine.dao.prdLineMng-mapper">
+<mapper namespace="com.gelato.app.prd.prdLine.dao.PrdLineMngMapper">
+
+<!-- 그리드1 -->
+	<select id="lineGrid" resultType="PrdLineMngVO">
+		select p.prdt_id as prdt_id, 
+			   p.prdt_nm as prdt_nm, 
+			   l.line_id as line_id
+		from prdt p left outer join line l
+		    on p.prdt_id = l.prdt_id
+		group by p.prdt_id, p.prdt_nm, l.line_id
+		order by p.prdt_id
+	</select>
+	
+<!-- 그리드2 -->	
+	<select id="linePrcsGrid" resultType="PrdLineMngVO">
+		select l.prdt_id as prdt_id,
+			   p.prcs_id as prcs_id, 
+			   p.nm as nm, 
+			   p.eqm_id as eqm_id, 
+			   e.eqm_name as eqm_name
+		from line l join prcs p
+		    on l.prcs_id = p.prcs_id
+		    join eqm e
+		    on p.eqm_id = e.eqm_id
+		where l.prdt_id = #{prdtId}
+	</select>
 </mapper>
