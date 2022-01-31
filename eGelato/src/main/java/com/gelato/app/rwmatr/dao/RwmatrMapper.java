@@ -6,4 +6,9 @@ public interface RwmatrMapper {
 
 	//원자재 리스트
 	List<RwmatrVO> rwmatrList(RwmatrVO vo);
+	
+	//원자재 리스트
+	List<RwmatrVO> rwmatrSafStcList(RwmatrVO vo);
+	
+	int updateRwmatr(RwmatrVO vo);
 }

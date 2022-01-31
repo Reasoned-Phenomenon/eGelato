@@ -20,5 +20,31 @@
         ORDER BY 1
 	</select>
 	
+	<select id="rwmatrSafStcList" resultType="RwmatrVO">
+		SELECT R.RWMATR_ID as RWMATR_ID, 
+			   V.VEND_NAME as VEND_NAME, 
+			   R.NM as NM, 
+			   R.SPEC as SPEC, 
+			   R.WK_UNIT as WK_UNIT, 
+			   R.SAF_STC as SAF_STC
+		FROM RWMATR R JOIN VEND V
+        ON R.VEND_ID = V.VEND_ID
+        <where>
+        	R.FG = 'STEP01'
+        	<if test="rwmName != ''">
+				AND R.NM LIKE '%'||#{rwmName}||'%'
+			</if>
+			<if test="vendName != ''">
+				AND V.VEND_NAME LIKE '%'||#{vendName}||'%'
+			</if>
+        </where>
+        ORDER BY 1
+	</select>
+	
+	<update id="updateRwmatr">
+		update rwmatr set SAF_STC = #{safStc}
+		where RWMATR_ID = #{rwmatrId}
+	</update>
+	
 
 </mapper>
