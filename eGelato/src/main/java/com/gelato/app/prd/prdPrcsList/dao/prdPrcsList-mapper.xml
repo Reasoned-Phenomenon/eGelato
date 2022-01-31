@@ -18,4 +18,49 @@
 			where SUBSTR(p.prcs_id, 5, 4) = #{prcsSelDeta}
 		</if>
 	</select>
+	
+<!-- 미사용 설비 리스트 -->
+	<select id="unUseEqmList" resultType="PrdPrcsListVO">
+		select e.eqm_id as eqm_id, 
+			   e.eqm_name as eqm_name, 
+			   e.model_no as model_no, 
+			   e.mngr as mngr
+		from eqm e left outer join prcs p
+		    on e.eqm_id = p.eqm_id
+		where p.prcs_id is null
+		    and e.use_yn = 'Y'
+	</select>
+	
+<!-- 공정 등록 -->	
+	<insert id="insertPrcsDeta" parameterType="PrdPrcsListVO">
+		<selectKey keyProperty="prcsId" resultType="string" order="BEFORE">
+			SELECT 'PRO-' || #{prcsSelDeta} || '-' || SUBSTR(('00'||to_char((substr(max(prcs_id),11))+1)),-3)
+            from prcs
+            where SUBSTR(PRCS_ID, 5, 4) = #{prcsSelDeta}
+		</selectKey>
+		INSERT INTO PRCS (PRCS_ID, 
+						  NM, 
+						  EQM_ID)
+		VALUES ( 
+				#{prcsId},
+				#{nm},
+				#{eqmId}
+				)		
+	</insert>
+	
+<!-- 공정 수정 -->	
+	<update id="updatePrcsDeta" parameterType="PrdPrcsListVO">
+		update prcs
+		set nm = #{nm},
+		    EQM_ID = #{eqmId}
+		where prcs_id=#{prcsId}
+	</update>
+	
+<!-- 공정 삭제 -->
+	<delete id="deletePrcsDeta" parameterType="PrdPrcsListVO">
+		DELETE PRCS
+		WHERE prcs_id=#{prcsId}
+	</delete>
+	
+	
 </mapper>

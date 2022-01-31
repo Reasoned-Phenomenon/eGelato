@@ -40,7 +40,7 @@ var unUseEqmGrid = new Grid({
 	el: document.getElementById('unUseEqmGrid'),
   	data : {
 	  api: {
-	    readData: { url:'${path}', method: 'GET'}
+	    readData: { url:'${path}/prd/unUseEqmList.do', method: 'GET'}
 	  },
 	  contentType: 'application/json'
 	},
@@ -71,15 +71,17 @@ unUseEqmGrid.on("dblclick", (ev) => {
 	    end: [ev.rowKey, unUseEqmGrid.getColumns().length-1]
 	});
 	
-	var prid = unUseEqmGrid.getRow(ev.rowKey).eqmId;
-	var prnm = unUseEqmGrid.getRow(ev.rowKey).eqmName;
-	var prnm = unUseEqmGrid.getRow(ev.rowKey).modelNo;
-	var prnm = unUseEqmGrid.getRow(ev.rowKey).mngr;
+	var uei = unUseEqmGrid.getRow(ev.rowKey).eqmId;
+	var uen = unUseEqmGrid.getRow(ev.rowKey).eqmName;
+	var umn = unUseEqmGrid.getRow(ev.rowKey).modelNo;
+	var umg = unUseEqmGrid.getRow(ev.rowKey).mngr;
 	
-	console.log(prid);
-	console.log(prnm);
+	console.log(uei);
+	console.log(uen);
+	console.log(umn);
+	console.log(umg);
 	
-	//selectPr(prid,prnm);
+	chooseEq(uei,uen,umn,umg);
 
 });
 

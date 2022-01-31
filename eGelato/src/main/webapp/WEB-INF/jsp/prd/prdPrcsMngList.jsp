@@ -84,7 +84,8 @@ th, td {
 		el : document.getElementById('prcsMngList'),
 		data : {
 			api : {
-				readData : {url : '${path}/prd/prcsMngList.do',method : 'GET'}
+				readData : {url : '${path}/prd/prcsMngList.do',method : 'GET'},
+				modifyData : { url: '${path}/prd/prcsModifyData.do', method: 'PUT'} 
 			},
 			contentType : 'application/json',
 			initialRequest: false
@@ -98,9 +99,30 @@ th, td {
 		}, {
 			header : '공정구분',
 			name : 'prcsSelDeta',
+			align: 'center',
+			editor: {
+	            type: GelatoSelectEditor,
+	            options: {
+	            	listItems : [
+	            		{text: '선택', value: ''},
+						{text: '냉동공정', value: 'FREZ'},
+						{text: '성형공정', value: 'SHAP'},
+						{text: '혼합공정', value: 'BLEN'},
+						{text: '분쇄공정', value: 'CRSH'},
+						{text: '코팅공정', value: 'COAT'},
+						{text: '개별포장공정', value: 'UNIT'},
+						{text: '박스포장공정', value: 'BOXI'},
+						{text: '품질검사공정', value: 'FORE'},
+						{text: '무게검사공정', value: 'WIGH'},
+	            		]}
+		      		},
+		    renderer: {
+		            type: GelatoSelect
+		      }
 		}, {
 			header : '공정명',
 			name : 'nm',
+			editor : 'text',
 		}, {
 			header : '설비코드',
 			name : 'eqmId',
@@ -138,28 +160,10 @@ th, td {
 	prcsMngList.on('dblclick', (ev) => {
 			rk = ev.rowKey;
 			console.log(ev)
-		    if (ev.columnName === 'prcsSelDeta') {
-				callprcsSelDeta();
-			} else if (ev.columnName === 'eqmId') {
+		    if (ev.columnName === 'eqmId') {
 				calleqmId();
 			}
 		});
-	
-	function callprcsSelDeta(){
-		prcsDetaDialog = $("#prcsDetaDialog").dialog({
-			modal : true,
-			autoOpen : false,
-			height: 400,
-			width: 600
-		});
-		
-	    console.log("11111")
-	    prcsDetaDialog.dialog( "open" );
-	    $("#prcsDetaDialog").load(
-							"${path}/prd/prcsDetaDialog.do", function() {
-								console.log("공정코드목록 로드")
-							})
-	}
 	
 	function calleqmId(){
 	    	eqmDialog = $("#eqmDialog").dialog({
@@ -177,17 +181,57 @@ th, td {
 							})
     }					
 	
+	function chooseEq(uei,uen,umn,umg) {
+		console.log(uei);
+		console.log(uen);
+		console.log(umn);
+		console.log(umg);
+		
+		prcsMngList.setValue(rk, "eqmId", uei, true);
+		prcsMngList.setValue(rk, "eqmName", uen, true);
+		prcsMngList.setValue(rk, "modelNo", umn, true);
+		prcsMngList.setValue(rk, "mngr", umg, true);
+		
+		eqmDialog.dialog( "close" );
+	}
+	
+	
 	// 행추가
 	btnAdd.addEventListener("click", function() {
 		prcsMngList.prependRow();
 	});
 	
+	// 토스트옵션
+	toastr.options = {
+			positionClass : "toast-top-center",
+			progressBar : true,
+			timeOut: 1500 // null 입력시 무제한.
+		}
+	
 	// 행삭제
 	btnDel.addEventListener("click", function() {
 		if(confirm("삭제하시겠습니까?")){ 
 			prcsMngList.removeCheckedRows(false) //true -> 확인 받고 삭제 / false는 바로 삭제
+			prcsMngList.request('modifyData', { showConfirm : false });
+			
+			toastr.clear()
+			toastr.success( ('삭제되었습니다.'),'Gelato',{timeOut:'1000'} );
 		}
 	});
+	
+	// 등록, 수정
+	btnIns.addEventListener("click", function() {
+		prcsMngList.blur();
+		if(confirm("저장하시겠습니까?")){ 
+			prcsMngList.request('modifyData', { showConfirm : false });
+			
+			toastr.clear()
+			toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} )
+		}
+	})
+	
+	
+	
 </script>
 </body>
 </html>

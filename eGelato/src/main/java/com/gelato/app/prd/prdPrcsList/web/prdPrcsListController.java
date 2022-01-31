@@ -3,10 +3,14 @@ package com.gelato.app.prd.prdPrcsList.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gelato.app.prd.prdPrcsList.dao.PrdPrcsListVO;
 import com.gelato.app.prd.prdPrcsList.service.PrdPrcsListService;
+import com.gelato.app.vr.ModifyVO;
 
 @Controller
 public class prdPrcsListController {
@@ -20,7 +24,7 @@ public class prdPrcsListController {
 		return "tiles/prd/prdPrcsMngList";
 	}
 	
-	// 공정목록 modal 출력
+	// 공정목록 출력
 	@RequestMapping("/prd/prcsMngList.do")
 	public String prcsMngList(PrdPrcsListVO vo ,Model model) {
 		System.out.println("공정목록 출력");
@@ -29,17 +33,27 @@ public class prdPrcsListController {
 		return "grid";
 	}
 	
-	// 불량목록 modal
-	@RequestMapping("/prd/prcsDetaDialog.do")
-	public String prcsDetaDialog() {
-		System.out.println("공정코드모달");
-		return "prd/prcsDetaListModal"; 
-	}
-	
 	// 지시목록 modal
 	@RequestMapping("/prd/eqmDialog.do")
 	public String indicaDialog() {
 		System.out.println("미사용설비목록모달");
 		return "prd/unUseEqmListModal"; 
+	}
+	
+	//모달창 list
+	@RequestMapping("/prd/unUseEqmList.do")
+	public String unUseEqmList(Model model) {
+		System.out.println("모달 출력");
+		model.addAttribute("datas", prdPrcsListService.unUseEqmList());
+		return "grid";
+	}
+	
+	// 등록,수정,삭제
+	@PutMapping("/prd/prcsModifyData.do")
+	@ResponseBody
+	public boolean modifyData (@RequestBody ModifyVO<PrdPrcsListVO> mvo) {
+		System.out.println(mvo);
+		prdPrcsListService.modifyPrcs(mvo);
+		return true;
 	}
 }
