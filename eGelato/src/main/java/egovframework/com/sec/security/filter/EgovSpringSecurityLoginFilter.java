@@ -90,6 +90,7 @@ public class EgovSpringSecurityLoginFilter implements Filter {
 		//context-common.xml 빈 설정에 egovUserDetailsSecurityService를 등록 해서 사용해야 정상적으로 동작한다.
 		if (EgovUserDetailsHelper.getAuthenticatedUser() == null || requestURL.contains(loginProcessURL)) {
 			System.out.println("스프링 시큐리티 인증이 처리 되었는지");
+			
 			if (isRemotelyAuthenticated != null && isRemotelyAuthenticated.equals("true")) {
 				try {
 					//세션 토큰 정보를 가지고 DB로부터 사용자 정보를 가져옴
@@ -102,7 +103,7 @@ public class EgovSpringSecurityLoginFilter implements Filter {
 
 						//로컬 인증결과 세션에 저장
 						session.setAttribute("isLocallyAuthenticated", "true");
-
+						
 						//스프링 시큐리티 로그인
 						//httpResponse.sendRedirect(httpRequest.getContextPath() + "/j_spring_security_check?j_username=" + loginVO.getUserSe() + loginVO.getId() + "&j_password=" + loginVO.getUniqId());
 
