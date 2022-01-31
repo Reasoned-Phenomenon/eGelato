@@ -25,7 +25,8 @@ public class OracleSchedulerServiceImpl implements OracleSchedulerService {
 	@Override
 	public String stopSche(OracleSchedulerVO vo) {
 		
-		//정지 시킬 잡 FOR문
+		//정지 시킬 잡 FOR문 + prcs_st
+		//
 		mapper.stopJob(vo);
 		//
 		
