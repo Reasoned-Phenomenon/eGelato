@@ -877,7 +877,7 @@ span {
 }
 
 #sidebar ul.components ul {
-    background: #43474c;
+    background: #214162;
     padding: 20px 0;
 }
 
@@ -910,14 +910,14 @@ a[data-toggle="collapse"] {
     position: relative;
 }
 
-/* #content {
+#content {
     width: 100%;
     min-height: 100vh;
     transition: ease all 0.3s;
     position: relative;
     padding: 60px 25px 25px 305px;
     background: #f8f8f8;
-} */
+}
 
 .page_title {
     background: #fff;
