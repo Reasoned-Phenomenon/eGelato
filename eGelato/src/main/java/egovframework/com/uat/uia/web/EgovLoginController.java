@@ -1,5 +1,6 @@
 package egovframework.com.uat.uia.web;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -131,6 +132,7 @@ public class EgovLoginController {
 	 */
 	@RequestMapping(value = "/uat/uia/actionLogin.do")
 	public String actionLogin(@ModelAttribute("loginVO") LoginVO loginVO, HttpServletRequest request, ModelMap model) throws Exception {
+		System.out.println("로그인 처리한다~~~~~~~");
 		// 1. 로그인인증제한 활성화시 
 		if( egovLoginConfig.isLock()){
 		    Map<?,?> mapLockUserInfo = (EgovMap)loginService.selectLoginIncorrect(loginVO);
@@ -150,16 +152,25 @@ public class EgovLoginController {
 		    	return "egovframework/com/uat/uia/EgovLoginUsr";
 		    }
 		}
+		System.out.println("2. 로그인 처리");
 		// 2. 로그인 처리
 		LoginVO resultVO = loginService.actionLogin(loginVO);
-		
+		System.out.println("3. 일반 로그인 처리");
 		// 3. 일반 로그인 처리
 		if (resultVO != null && resultVO.getId() != null && !resultVO.getId().equals("")) {
-
+			System.out.println("3-1. 로그인 정보를 세션에 저장");
 			// 3-1. 로그인 정보를 세션에 저장
 			request.getSession().setAttribute("loginVO", resultVO);
 			// 2019.10.01 로그인 인증세션 추가
 			request.getSession().setAttribute("accessUser", resultVO.getUserSe().concat(resultVO.getId()));
+			
+			//세션에 권한 저장
+			List<String> authList = (List<String>)EgovUserDetailsHelper.getAuthorities();
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~권한~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			System.out.println(authList);
+			System.out.println(authList.get(0));
+			request.getSession().setAttribute("gelatoRole", authList);
+			
 			return "redirect:/uat/uia/actionMain.do";
 
 		} else {

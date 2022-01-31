@@ -18,6 +18,7 @@
 	    <spring.maven.artifact.version>4.3.25.RELEASE</spring.maven.artifact.version>
 		<egovframework.rte.version>3.10.0</egovframework.rte.version>
 		<org.apache.tiles-version>3.0.8</org.apache.tiles-version>
+		<org.springframework.security-version>4.2.3.RELEASE</org.springframework.security-version>
 	</properties>
 
 	<repositories>
@@ -64,6 +65,23 @@
     </repositories>
 
 	<dependencies>
+		<!-- 시큐리티 -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${org.springframework.security-version}</version>
+		</dependency> 
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${org.springframework.security-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${org.springframework.security-version}</version>
+		</dependency>
+		
 		<!-- ?���??��?��?��?��?�� ?��?��?���? -->
         <dependency>
 		    <groupId>egovframework.rte</groupId>
