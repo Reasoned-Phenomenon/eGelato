@@ -17,7 +17,8 @@
 2020.08.28   정진호                   표준프레임워크 v3.10 개선
 
 -->
-
+	
+	
 	<security:http pattern="/css/**" security="none"/>
 	<security:http pattern="/html/**" security="none"/>
     <security:http pattern="/images/**" security="none"/>
@@ -28,13 +29,14 @@
  	<security:http pattern="/uat/uia/egovLoginUsr.do" security="none"/>
  	<security:http pattern="/sec/ram/accessDenied.do" security="none"/>
  	<security:http pattern="/uat/uia/actionLogout.do" security="none"/>
+ 	
  	<security:http pattern="/index.do" security="none"/>
  	<security:http pattern="/home.do" security="none"/>
 
     <egov-security:config id="securityConfig"
 		loginUrl="/uat/uia/egovLoginUsr.do"
 		logoutSuccessUrl="/home.do"
-		loginFailureUrl="/uat/uia/egovLoginUsr.do"
+		loginFailureUrl="/home.do"
 		accessDeniedUrl="/sec/ram/accessDenied.do"
 
 		dataSource="egov.dataSource"
@@ -102,5 +104,7 @@
 	</bean>
 	<security:http-firewall ref="egovStrictHttpFirewall"/>
 	-->
-
+	
+	<!-- <security:http auto-config="true" use-expressions="true" /> -->
+	<!-- <http auto-config="true" use-expressions="true" /> -->
 </beans>

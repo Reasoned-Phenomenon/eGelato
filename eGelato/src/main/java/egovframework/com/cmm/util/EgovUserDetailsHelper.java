@@ -48,6 +48,8 @@ public class EgovUserDetailsHelper {
 	 * @return List - 사용자 권한정보 목록
 	 */
 	public static List<String> getAuthorities() {
+		System.out.println("인증된 사용자의 권한 정보를 가져온다.");
+		System.out.println(egovUserDetailsService.getAuthorities());
 		return egovUserDetailsService.getAuthorities();
 	}
 

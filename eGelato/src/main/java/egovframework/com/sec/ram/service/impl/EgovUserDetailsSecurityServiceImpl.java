@@ -3,7 +3,6 @@ package egovframework.com.sec.ram.service.impl;
 import java.util.List;
 
 import egovframework.com.cmm.service.EgovUserDetailsService;
-
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import egovframework.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 
@@ -35,11 +34,12 @@ public class EgovUserDetailsSecurityServiceImpl extends EgovAbstractServiceImpl 
 		
 		// 이 메소드의 경우 인증이 되지 않더라고 null을 리턴하지 않기 때문에 
 		// 명시적으로 인증되지 않은 경우 null을 리턴하도록 수정함
-		
+		System.out.println("인증된 사용자객체를 VO형식으로 가져온다.");
+		System.out.println(EgovUserDetailsHelper.isAuthenticated());
 		if (EgovUserDetailsHelper.isAuthenticated()) {
 			return EgovUserDetailsHelper.getAuthenticatedUser();	
 		}
-		
+		System.out.println("인증된 사용자객체를 VO형식---> null");
 		return null;
 	}
 
