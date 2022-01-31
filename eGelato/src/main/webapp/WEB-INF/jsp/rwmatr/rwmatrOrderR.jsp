@@ -134,6 +134,11 @@ var rwmatrOrderList = new Grid({
 				  hidden:true
 				},
 				{
+				  header: '자재코드',
+				  name: 'rwmatrId',
+				  sortable: true
+				},
+				{
 				  header: '자재명',
 				  name: 'nm',
 				  editor: 'text',
@@ -141,11 +146,6 @@ var rwmatrOrderList = new Grid({
 			      validation: {
 			          required: true
 			      }
-				},
-				{
-				  header: '자재코드',
-				  name: 'rwmatrId',
-				  sortable: true
 				},
 				{
 				  header: '단가(원)',
