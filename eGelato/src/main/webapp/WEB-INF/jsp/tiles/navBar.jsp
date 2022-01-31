@@ -18,7 +18,7 @@
 							src="${path}/resources/images/layout_img/user_img.jpg" alt="#" />
 					</div>
 					<div class="user_info">
-						<h6>${loginVO.id }</h6>
+						<h6>${loginVO.name }</h6>
 						<p>
 							<span class="online_animation"></span> Online
 						</p>
