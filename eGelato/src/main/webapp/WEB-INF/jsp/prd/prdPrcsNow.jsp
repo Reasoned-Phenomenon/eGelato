@@ -33,7 +33,7 @@ th, td {
 	                </td>
 				</tr>
 				<tr>
-					<th>생산 지시 목록</th>
+					<th>생산 지시 코드</th>
 					<td>
 						<input type="text" id="indicaList" readonly>
 					</td>
@@ -41,8 +41,8 @@ th, td {
 				<tr>
 				<th>불량 분류</th>
 					<td>
-						<select name="infer">
-							<option value="choose" selected>선택</option>
+						<select name="infer" id="infer">
+							<option value="" selected>선택</option>
 							  <option value="PDB-00101">불순물 검출</option>
 							  <option value="PDB-00100">포장지 훼손</option>
 							  <option value="PDB-00102">아이스크림 제형 파손</option>
@@ -65,6 +65,8 @@ th, td {
 	<div id="prcsDialog" title="공정 목록"></div>
 	<!-- 지시 모달-->
 	<div id="indicaDialog" title="생산 지시 목록"></div>
+	<!-- 불량 모달-->
+	<div id="prdtInferCodeDialog" title="불량 상세 목록"></div>
 	
 <script>
 	//계획 조회 그리드 생성
@@ -90,7 +92,8 @@ th, td {
 		el : document.getElementById('prcsList'),
 		data : {
 			api : {
-				readData : {url : '${path}',method : 'GET'}
+				readData : {url : '${path}/prd/prcsListGrid.do',method : 'GET'},
+				modifyData : { url: '${path}/prd/updPrdtInferCode.do', method: 'PUT'} 
 			},
 			contentType : 'application/json',
 			initialRequest: false
@@ -99,7 +102,7 @@ th, td {
 		selectionUnit : 'row',
 		bodyHeight: 600,
 		columns : [ {
-			header : '생산계획코드',
+			header : '생산지시코드',
 			name : 'indicaDetaId'
 		}, {
 			header : '생산코드',
@@ -110,37 +113,43 @@ th, td {
 		}, {
 			header : '설비코드',
 			name : 'eqmId',
+			width : 90
 		}, {
 			header : '설비명',
 			name : 'eqmName',
 		}, {
 			header : '투입량',
 			name : 'inptQy',
+			width : 70
 		},{
 			header : '생산량',
 			name : 'qy',
+			width : 70
 		},{
 			header : '불량량',
 			name : 'inferQy',
+			width : 70
 		},{
 			header : '불량코드',
 			name : 'inferId',
+			width : 90
 		},{
 			header : '불량상세',
 			name : 'deta',
 		},{
 			header : '공정시작시간',
-			name : 'qy',
-			align: 'frTm',
+			name : 'frTm',
 		}, {
 			header : '공정종료시간',
 			name : 'toTm',
 		}, {
 			header : '담당자명',
 			name : 'mngr',
+			width : 90
 		},{
 			header : '지시일자',
 			name : 'indicaDt',
+			width : 90
 		}]
 	});
 	
@@ -148,20 +157,16 @@ th, td {
 	document.getElementById("prcsDeta").addEventListener("click", function() {
 		  callPrcsModal();
 	});
-	document.getElementById("indicaList").addEventListener("click", function() {
-		  callIndicaModal();
-	});
-	
-	// 공정명 출력, 삭제
+	// 공정명 출력
 	function chooseNm(pcn) {
 		console.log(pcn);
 		document.getElementById("prcsDeta").value = pcn;
 		
-		prcsDialog.dialog( "close" );
+		prcsDialog.dialog("close");
 	}
 	
 	function callPrcsModal() {
-		var prcsDialog = $("#prcsDialog").dialog({
+			prcsDialog = $("#prcsDialog").dialog({
 			modal : true,
 			autoOpen : false,
 			height: 600,
@@ -175,8 +180,12 @@ th, td {
 	}
 	
 	//지시 출력
+	document.getElementById("indicaList").addEventListener("click", function() {
+		  callIndicaModal();
+	});
+	
 	function callIndicaModal() {
-		var indicaDialog = $("#indicaDialog").dialog({
+			indicaDialog = $("#indicaDialog").dialog({
 			modal : true,
 			autoOpen : false,
 			height: 600,
@@ -189,7 +198,91 @@ th, td {
 				})
 	}
 	
+	function chooseId(idi) {
+		console.log(idi);
+		document.getElementById("indicaList").value = idi;
+		
+		indicaDialog.dialog("close");
+	}
 	
+	// 초기화
+	$("#btnClear").on(
+		"click",
+		function() {
+			$("#prcsDeta").val('');
+			$("#indicaList").val('');
+			$('#infer').val('');
+			prcsList.clear();
+	});
+	
+	// 검색
+	$("#btnSearch").on(
+			"click", function(){
+				nm = document.getElementById("prcsDeta").value;
+				indicaDetaId = document.getElementById("indicaList").value;
+				infer = $("#infer option:selected").val();
+				
+				console.log(nm);
+				console.log(indicaDetaId);
+				console.log(infer);
+				
+				prcsList.readData(1,{'nm':nm, 'indicaDetaId':indicaDetaId, 'inferId':infer }, true);
+			})
+			
+	// 불량등록
+	prcsList.on('dblclick', (ev) => {
+			rk = ev.rowKey;
+			console.log(ev)
+		    if (ev.columnName === 'inferId') {
+		    	console.log(prcsList.getRow(ev.rowKey).inferId);
+					console.log("1111")
+		    		callprdtInferCode();
+			}
+		});
+	
+	function callprdtInferCode(){
+		prdtInferCodeDialog = $("#prdtInferCodeDialog").dialog({
+			modal : true,
+			autoOpen : false,
+			height: 400,
+			width: 600
+		});
+		
+	    console.log("11111")
+	    prdtInferCodeDialog.dialog( "open" );
+	    $("#prdtInferCodeDialog").load(
+							"${path}/prd/prdtInferCodeDialog.do", function() {
+								console.log("불량목록 로드")
+							})
+	}
+	
+	// 선택내용 반영
+	function choosePic(picid,picdt){
+		console.log(picid);
+		console.log(picdt);
+		prcsList.setValue(rk, "inferId", picid, true);
+		prcsList.setValue(rk, "deta", picdt, true);
+		prdtInferCodeDialog.dialog( "close" );
+	}
+	
+	// 토스트옵션
+	toastr.options = {
+		positionClass : "toast-top-center",
+		progressBar : true,
+		timeOut: 1500 // null 입력시 무제한.
+		}
+	
+	// 수정 등록
+	btnIns.addEventListener("click", function() {
+		
+		if(confirm("저장하시겠습니까?")) {
+			prcsList.blur()
+			prcsList.request('modifyData',{showConfirm:false})
+		}
+		
+		toastr.clear()
+		toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} );
+	})
 </script>
 </body>
 </html>
