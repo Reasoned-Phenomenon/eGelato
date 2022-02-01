@@ -96,7 +96,6 @@ th, td {
 				modifyData : { url: '${path}/prd/updPrdtInferCode.do', method: 'PUT'} 
 			},
 			contentType : 'application/json',
-			initialRequest: false
 		},
 		rowHeaders : ['rowNum' ],
 		selectionUnit : 'row',

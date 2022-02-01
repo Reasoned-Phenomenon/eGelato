@@ -7,14 +7,17 @@
 		select pid.indica_deta_id as indicaDetaId, 
 			   p.prdt_nm as prdtNm, 
 			   pid.qy as qy
-		from prod_indica_deta pid join prod_indica pi
-		    on pid.indica_id = pi.indica_id
-		    join prod_plan_deta ppd
-		    on pi.plan_deta_id = ppd.plan_deta_id
-		    join prdt p
-		    on ppd.prdt_id = p.prdt_id
+		from prod_indica_deta pid left outer join prcs_now pn
+		     on pid.indica_deta_id = pn.indica_deta_id
+		     join prod_indica pi
+		     on pid.indica_id = pi.indica_id
+		     join prod_plan_deta ppd
+		     on pi.plan_deta_id = ppd.plan_deta_id
+		     join prdt p
+		     on ppd.prdt_id = p.prdt_id
 		<where>
-			pi.fg = 'PROCEE'
+			pn.indica_deta_id is null
+      		and pi.fg = 'PROCEE'
 			<if test="indicaD != null and indicaD != ''">
 	    		<![CDATA[ and trunc(pid.indica_dt) = to_date(#{indicaD})]]>
 	    	</if>

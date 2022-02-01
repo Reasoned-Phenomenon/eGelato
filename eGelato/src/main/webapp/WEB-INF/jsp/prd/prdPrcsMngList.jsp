@@ -88,7 +88,6 @@ th, td {
 				modifyData : { url: '${path}/prd/prcsModifyData.do', method: 'PUT'} 
 			},
 			contentType : 'application/json',
-			initialRequest: false
 		},
 		rowHeaders : [ 'checkbox', 'rowNum' ],
 		selectionUnit : 'row',

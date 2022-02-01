@@ -53,4 +53,11 @@ public class PrdPrcsMngController {
 		model.addAttribute("datas", prdPrcsMngService.prcsList(vo));
 		return "grid";
 	}
+	
+	//공정이동표
+	@RequestMapping("/prd/prcsMoveDialog.do")
+	public String prcsMoveDialog() {
+		System.out.println("생산지시조회 모달");
+		return "prd/prcsMoveList";
+	}
 }

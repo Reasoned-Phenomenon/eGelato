@@ -44,14 +44,6 @@ th, td {
 			<hr>
 			<table>
 				<tbody>
-					<!-- <tr>
-						<th>공정명</th>
-						<td><input type="text" id="mngr" readonly></td>
-					</tr>
-					<tr>
-						<th>담당자명*</th>
-						<td><input type="text" id="mngr" required></td>
-					</tr> -->
 					<tr>
 						<th>시작시간</th>
 						<td><input type="time" id="startT" readonly></td>
@@ -60,34 +52,17 @@ th, td {
 						<th>종료예정시간</th>
 						<td><input type="time" id="endT" readonly></td>
 					</tr>
-					<!-- <tr>
-						<th>불량량</th>
-						<td><input type="text" id="inferQy"></td>
-					</tr>
-					<tr>
-						<th>불량사유</th>
-						<td>
-							<select name="infer">
-							  <option value="choose" selected>선택</option>
-							  <option value="PDB-00101">불순물 검출</option>
-							  <option value="PDB-00100">포장지 훼손</option>
-							  <option value="PDB-00102">아이스크림 제형 파손</option>
-							  <option value="PDB-00103">용기 파손</option>
-							  <option value="PDB-00104">용량 미달</option>
-							</select>
-						</td>
-					</tr> -->
 				</tbody>
 			</table>
 			<br><br>
-			<button type="button" class="btn btn-secondary" id="btnPrcs"></button>&nbsp;
-			<button type="button" class="btn btn-secondary" id="btnStop">일시정지</button> 
+			<button type="button" class="btn btn-secondary" id="btnPrcs">생산시작</button>&nbsp;
 		</div>
 	</div>	
 	
 	<!-- 생산지시 조회 모달-->
 	<div id="nonPrcsDialog" title="생산 지시 목록"></div>
-	
+	<!-- 공정이동표 -->
+	<div id="prcsMoveDialog" title="공정이동표"></div>
 	
 <script>
 	// 생산 시작 버튼 
@@ -195,6 +170,7 @@ th, td {
 							console.log("주문창 로드")
 						})
 			});
+	
 	// indicaId 받아서 readData 넘기기
 	function choosePi(cid,cpn){
 		console.log(cid);
@@ -225,15 +201,23 @@ th, td {
 		    return val;
 		}
 	
-	// 그리드2 선택시 공정상세사항 출력
-	prcsListGrid.on("dblclick", (ev) => {
-		prcsListGrid.setSelectionRange({
-		    start: [ev.rowKey, 0],
-		    end: [ev.rowKey, prcsListGrid.getColumns().length-1]
+	// 공정이동표
+	var prcsMoveDialog = $("#prcsMoveDialog").dialog({
+			modal : true,
+			autoOpen : false,
+			height: 600,
+			width: 1000
 		});
-	});
 	
-	
+	$("#btnPrcsMove").on(
+			"click",
+			function() {
+				prcsMoveDialog.dialog("open");
+				$("#prcsMoveDialog").load("${path}/prd/prcsMoveDialog.do",
+						function() {
+							console.log("공정이동표 로드")
+						})
+			});
 	
 	
 	
