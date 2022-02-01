@@ -108,8 +108,14 @@
 		
 		var pcn = prcsGrid.getRow(ev.rowKey).nm;
 		console.log(pcn);
-		chooseNm(pcn);
+		var pid = prcsGrid.getRow(ev.rowKey).prcsId;
+		console.log(pid);
+		var eid = prcsGrid.getRow(ev.rowKey).eqmId;
+		console.log(eid);
+		var enm = prcsGrid.getRow(ev.rowKey).eqmName;
+		console.log(enm);
 		
+		chooseNm(pcn, pid, eid, enm);
 	});
 </script>
 </body>

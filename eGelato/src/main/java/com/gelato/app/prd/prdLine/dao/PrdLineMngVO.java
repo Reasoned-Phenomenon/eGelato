@@ -15,4 +15,7 @@ public class PrdLineMngVO {
 	String nm;
 	String eqmId;
 	String eqmName;
+	
+	String prcsDeta;
+	String ord;
 }

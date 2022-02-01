@@ -158,7 +158,7 @@ th, td {
 		  callPrcsModal();
 	});
 	// 공정명 출력
-	function chooseNm(pcn) {
+	function chooseNm(pcn, pid, eid, enm) {
 		console.log(pcn);
 		document.getElementById("prcsDeta").value = pcn;
 		

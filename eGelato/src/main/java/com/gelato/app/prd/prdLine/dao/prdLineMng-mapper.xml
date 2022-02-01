@@ -6,7 +6,8 @@
 	<select id="lineGrid" resultType="PrdLineMngVO">
 		select p.prdt_id as prdt_id, 
 			   p.prdt_nm as prdt_nm, 
-			   l.line_id as line_id
+			   l.line_id as line_id,
+			   substr(l.line_id, 5,3) as prcsDeta
 		from prdt p left outer join line l
 		    on p.prdt_id = l.prdt_id
 		group by p.prdt_id, p.prdt_nm, l.line_id
@@ -19,11 +20,67 @@
 			   p.prcs_id as prcs_id, 
 			   p.nm as nm, 
 			   p.eqm_id as eqm_id, 
-			   e.eqm_name as eqm_name
+			   e.eqm_name as eqm_name,
+			   l.line_id as line_id
 		from line l join prcs p
 		    on l.prcs_id = p.prcs_id
 		    join eqm e
 		    on p.eqm_id = e.eqm_id
 		where l.prdt_id = #{prdtId}
+		ORDER BY l.ord
 	</select>
+	
+<!-- 라인등록 -->
+	<insert id="insertLineDeta" parameterType="PrdLineMngVO">
+		<selectKey keyProperty="lineId" resultType="string" order="BEFORE">
+			SELECT 'LIN-' || #{prcsDeta} || '-' || SUBSTR(('00'||to_char((substr(max(line_id),10))+1)),-3)
+			FROM LINE
+			where SUBSTR(line_id, 5, 3) = #{prcsDeta}
+		</selectKey>
+		insert into line (line_id, 
+						  ord, 
+						  prcs_id, 
+						  prdt_id) 
+		values (
+				 #{lineId},
+				 #{ord},
+				 #{prcsId},
+				 #{prdtId}
+				)
+	</insert>
+	
+<!-- 공정삭제 -->
+	<delete id="deleteLineDeta" parameterType="PrdLineMngVO">
+		delete line
+		where LINE_ID = #{lineId}
+		      AND ORD = #{ord}
+	</delete>
+	
+<!-- 공정 삭제시 순번 업데이트 -->
+	<select id="updateLineOrd" resultType="PrdLineMngVO">
+		update line
+		set ORD = ROWNUM
+		where prdt_id = #{prdtId}
+	</select>
+	
+<!-- 단건추가 -->
+	<insert id="insertPrcsDeta" parameterType="PrdLineMngVO">
+		insert into line (line_id, 
+						  ord, 
+						  prcs_id, 
+						  prdt_id) 
+		values (
+				 #{lineId},
+				 #{ord},
+				 #{prcsId},
+				 #{prdtId}
+				)
+	</insert>
+	
+<!-- 공정수정 -->	
+	<update id="updateLineDeta" parameterType="PrdLineMngVO">
+		update line
+		set prcs_id = #{prcsId}
+		where prdt_id = #{prdtId} and ord = #{ord}
+	</update>
 </mapper>
