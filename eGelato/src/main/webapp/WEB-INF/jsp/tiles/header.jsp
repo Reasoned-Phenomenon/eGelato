@@ -17,7 +17,7 @@
                 </ul>
                 <ul class="user_profile_dd">
                    <li>
-                      <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="${path}/resources/images/layout_img/user_img.jpg" alt="#" /><span class="name_user">John David</span></a>
+                      <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="${path}/resources/images/layout_img/user_img.jpg" alt="#" /><span class="name_user">${loginVO.name }</span></a>
                       <div class="dropdown-menu">
                          <a class="dropdown-item" href="${path }/uat/uia/actionLogout.do"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
                       </div>

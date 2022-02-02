@@ -1,6 +1,5 @@
 package egovframework.com.uat.uia.web;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -163,13 +162,6 @@ public class EgovLoginController {
 			request.getSession().setAttribute("loginVO", resultVO);
 			// 2019.10.01 로그인 인증세션 추가
 			request.getSession().setAttribute("accessUser", resultVO.getUserSe().concat(resultVO.getId()));
-			
-			//세션에 권한 저장
-			List<String> authList = (List<String>)EgovUserDetailsHelper.getAuthorities();
-			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~권한~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			System.out.println(authList);
-			System.out.println(authList.get(0));
-			request.getSession().setAttribute("gelatoRole", authList);
 			
 			return "redirect:/uat/uia/actionMain.do";
 
