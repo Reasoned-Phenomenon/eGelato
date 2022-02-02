@@ -25,48 +25,45 @@
 	<script>
 
     const el = document.getElementById('chart-area');
+    
     const data = {
+      categories: [logTm],
       series: [
         {
-          name: 'Temperature',
-          data: [10],
-        },
+          name: eqmName,
+          data: [tempNow],
+        }
       ],
     };
+    
     const options = {
-      chart: { title: '설비1 실시간 온도', width: 550, height: 500 },
-      series: {
-        solid: true,
-        dataLabels: { visible: true, offsetY: -30, formatter: (value) => `\${value}℃` },
+      chart: { title:  eqmName' Temperature', width: 1000, height: 500 },
+      xAxis: {
+        title: 'Month',
       },
-      theme: {
-        circularAxis: {
-          lineWidth: 0,
-          strokeStyle: 'rgba(0, 0, 0, 0)',
-          tick: {
-            lineWidth: 0,
-            strokeStyle: 'rgba(0, 0, 0, 0)',
-          },
-          label: {
-            color: 'rgba(0, 0, 0, 0)',
-          },
-        },
-        series: {
-          dataLabels: {
-            fontSize: 40,
-            fontFamily: 'Impact',
-            fontWeight: 600,
-            color: '#00a9ff',
-            textBubble: {
-              visible: false,
-            },
-          },
-        },
+      yAxis: {
+        title: 'Amount',
+      },
+      tooltip: {
+        formatter: (value) => `${value}°C`,
+      },
+      legend: {
+        align: 'bottom',
+      },
+      series: {
+        shift: true,
       },
     };
 
-    const chart = toastui.Chart.gaugeChart({ el, data, options });
+    const chart = toastui.Chart.lineChart({ el, data, options });
+
+    const intervalId = setInterval(() => {
+      const random = Math.round(Math.random() * 100);
+      const random2 = Math.round(Math.random() * 100);
+      chart.addData([random, random2], logTm);
+    }, 5000);
   
+
 	</script>
 </body>
 </html>

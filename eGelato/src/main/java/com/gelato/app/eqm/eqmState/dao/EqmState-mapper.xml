@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.gelato.app.eqm.eqmMonitoring.dao.EqmMonitoringMapper">
+	namespace="com.gelato.app.eqm.eqmState.dao.EqmStateMapper">
+
+	<select id="temperature" resultType="eqmStateVO">
+		SELECT S.EQM_ID,
+			   E.EQM_NAME,
+			   S.LOG_TM,
+			   S.TEMP_NOW
+		FROM EQM_ST_NOW S 
+			 LEFT OUTER JOIN EQM E
+			 ON(S.EQM_ID = E.EQM_ID)
+	</select>
 	
+	<select id="output" resultType="eqmStateVO">
+		SELECT S.EQM_ID,
+			   E.EQM_NAME,
+			   S.LOG_TM,
+			   S.PRO_QY
+		FROM EQM_ST_NOW S 
+			 LEFT OUTER JOIN EQM E
+			 ON(S.EQM_ID = E.EQM_ID)
+	</select>
 	
+	<select id="uph" resultType="eqmStateVO">
+		
+	</select>
+
 </mapper>

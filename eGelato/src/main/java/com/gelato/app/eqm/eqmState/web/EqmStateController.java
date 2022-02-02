@@ -19,4 +19,25 @@ public class EqmStateController {
 	public String eqmMonitoring() {
 		return "tiles/eqm/eqmState";
 	}
+	
+	//실시간설비상태 - 온도(페이지)
+	@GetMapping("/eqm/temperature.do")
+	public String tempPage() {
+		return "tiles/eqm/temperature";
+	}
+	
+	//실시간설비상태 - 온도
+	
+	//실시간설비상태 - UPH(페이지)
+	@GetMapping("/eqm/uph.do")
+	public String uphPage() {
+		return "tiles/eqm/uph";
+	}
+	
+	//실시간설비상태 - 생산량(페이지)
+	@GetMapping("/eqm/output.do")
+	public String outputPage() {
+		return "tiles/eqm/output";
+	}
+	
 }
