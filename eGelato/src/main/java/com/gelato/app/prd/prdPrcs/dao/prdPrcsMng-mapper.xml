@@ -59,4 +59,77 @@
 		    on l.prdt_id = pr.prdt_id
 		where pr.prdt_nm = #{prdtNm}
 	</select>
+	
+	<!-- prcs_now insert -->
+	<insert id="insertPrcsNow" parameterType="PrdPrcsMngVO">
+		insert into prcs_now (prcs_now_id, 
+							  indica_deta_Id, 
+							  ord, 
+							  fr_tm, 
+							  mngr, 
+							  inpt_qy, 
+							  prcs_id, 
+							  line_ord)
+		values (
+				#{prcsNowId},
+				#{indicaDetaId},
+				#{ord},
+				sysdate,
+				#{mngr},
+				#{inptQy},
+				#{prcsId},
+				#{lineOrd}
+				)
+	</insert>
+	
+	<!-- prcsSt insert -->
+	<insert id="insertPrcsSt" parameterType="PrdPrcsMngVO">
+		insert into prcs_st (st, 
+							 log_tm, 
+							 prcs_now_id, 
+							 indica_deta_id, 
+							 ord)
+		values (
+				'STATE1',
+				sysdate,
+				#{prcsNowId},
+				#{indicaDetaId},
+				#{ord}
+				)
+	</insert>
+	
+	<!-- 프로시저 eqm_output -->
+	<parameterMap type="String" id="eqmParam">
+		<parameter property="prcsNowId" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+		<parameter property="indicaDetaId" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+		<parameter property="ord" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+	</parameterMap>
+	
+	<select id="eqmProcedure" statementType="CALLABLE" parameterMap="eqmParam">
+		{call eqm_output(?,?,?)}	
+	</select>
+	
+	<!-- 일시정지 -->
+	<update id="prcsStStop" parameterType="PrdPrcsMngVO">
+		update prcs_st
+		set st = 'STATE2'
+		where prcs_now_id = #{prcsNowId} and
+		      indica_deta_id = #{indicaDetaId} and
+		      ord = #{ord}
+	</update>
+	
+	<!-- 재시작 -->
+	<update id="prcsStRest" parameterType="PrdPrcsMngVO">
+		update prcs_st
+		set st = 'STATE1'
+		where prcs_now_id = #{prcsNowId} and
+		      indica_deta_id = #{indicaDetaId} and
+		      ord = #{ord}
+	</update>
+	
+	
+	
+	
+	
+	
 </mapper>

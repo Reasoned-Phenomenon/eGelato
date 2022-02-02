@@ -1,12 +1,19 @@
 package com.gelato.app.prd.prdPrcs.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gelato.app.prd.prdPrcs.dao.PrdPrcsMngVO;
 import com.gelato.app.prd.prdPrcs.service.PrdPrcsMngService;
+import com.gelato.app.vr.ModifyVO;
 
 @Controller
 public class PrdPrcsMngController {
@@ -54,10 +61,36 @@ public class PrdPrcsMngController {
 		return "grid";
 	}
 	
-	//공정이동표
+	//공정이동표 이동
 	@RequestMapping("/prd/prcsMoveDialog.do")
 	public String prcsMoveDialog() {
 		System.out.println("생산지시조회 모달");
 		return "prd/prcsMoveList";
+	}
+	
+	//생산시작
+	@PutMapping("/prd/modifyPrcs.do")
+	@ResponseBody
+	public boolean modifyPrcs(@RequestBody ModifyVO<PrdPrcsMngVO> mvo) {
+		System.out.println("생산 시작");
+		System.out.println(mvo);
+		prdPrcsMngService.modifyPrcs(mvo);
+		return true;
+	}
+	
+	//생산중지
+	@RequestMapping( value = "/prd/prcsStStop.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int prcsStStop(@RequestBody List<PrdPrcsMngVO> vo) {
+		System.out.println("생산 중지");
+		return prdPrcsMngService.prcsStStop(vo);
+	}
+	
+	//생산재시작
+	@RequestMapping( value = "/prd/prcsStRest.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int prcsStRest(@RequestBody List<PrdPrcsMngVO> vo) {
+		System.out.println("생산 재시작");
+		return prdPrcsMngService.prcsStRest(vo);
 	}
 }
