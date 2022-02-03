@@ -12,4 +12,18 @@ public interface PrdPrcsMngMapper {
 	
 	// 공정 출력
 	List<PrdPrcsMngVO> prcsList(PrdPrcsMngVO vo);
+	
+	// modify
+	int insertPrcsNow (PrdPrcsMngVO vo);
+	int insertPrcsSt (PrdPrcsMngVO vo);
+	
+	// 프로시저 호출
+	int eqmProcedure(PrdPrcsMngVO vo);
+	//HashMap eqmProcedure(HashMap temp);
+	
+	// 일시정지
+	int prcsStStop (PrdPrcsMngVO vo);
+	
+	// 재시작
+	int prcsStRest (PrdPrcsMngVO vo);
 }

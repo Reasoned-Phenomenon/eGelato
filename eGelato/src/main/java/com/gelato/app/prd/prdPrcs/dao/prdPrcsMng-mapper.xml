@@ -7,14 +7,17 @@
 		select pid.indica_deta_id as indicaDetaId, 
 			   p.prdt_nm as prdtNm, 
 			   pid.qy as qy
-		from prod_indica_deta pid join prod_indica pi
-		    on pid.indica_id = pi.indica_id
-		    join prod_plan_deta ppd
-		    on pi.plan_deta_id = ppd.plan_deta_id
-		    join prdt p
-		    on ppd.prdt_id = p.prdt_id
+		from prod_indica_deta pid left outer join prcs_now pn
+		     on pid.indica_deta_id = pn.indica_deta_id
+		     join prod_indica pi
+		     on pid.indica_id = pi.indica_id
+		     join prod_plan_deta ppd
+		     on pi.plan_deta_id = ppd.plan_deta_id
+		     join prdt p
+		     on ppd.prdt_id = p.prdt_id
 		<where>
-			pi.fg = 'PROCEE'
+			pn.indica_deta_id is null
+      		and pi.fg = 'PROCEE'
 			<if test="indicaD != null and indicaD != ''">
 	    		<![CDATA[ and trunc(pid.indica_dt) = to_date(#{indicaD})]]>
 	    	</if>
@@ -56,4 +59,77 @@
 		    on l.prdt_id = pr.prdt_id
 		where pr.prdt_nm = #{prdtNm}
 	</select>
+	
+	<!-- prcs_now insert -->
+	<insert id="insertPrcsNow" parameterType="PrdPrcsMngVO">
+		insert into prcs_now (prcs_now_id, 
+							  indica_deta_Id, 
+							  ord, 
+							  fr_tm, 
+							  mngr, 
+							  inpt_qy, 
+							  prcs_id, 
+							  line_ord)
+		values (
+				#{prcsNowId},
+				#{indicaDetaId},
+				#{ord},
+				sysdate,
+				#{mngr},
+				#{inptQy},
+				#{prcsId},
+				#{lineOrd}
+				)
+	</insert>
+	
+	<!-- prcsSt insert -->
+	<insert id="insertPrcsSt" parameterType="PrdPrcsMngVO">
+		insert into prcs_st (st, 
+							 log_tm, 
+							 prcs_now_id, 
+							 indica_deta_id, 
+							 ord)
+		values (
+				'STATE1',
+				sysdate,
+				#{prcsNowId},
+				#{indicaDetaId},
+				#{ord}
+				)
+	</insert>
+	
+	<!-- 프로시저 eqm_output -->
+	<parameterMap type="String" id="eqmParam">
+		<parameter property="prcsNowId" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+		<parameter property="indicaDetaId" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+		<parameter property="ord" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+	</parameterMap>
+	
+	<select id="eqmProcedure" statementType="CALLABLE" parameterMap="eqmParam">
+		{call eqm_output(?,?,?)}	
+	</select>
+	
+	<!-- 일시정지 -->
+	<update id="prcsStStop" parameterType="PrdPrcsMngVO">
+		update prcs_st
+		set st = 'STATE2'
+		where prcs_now_id = #{prcsNowId} and
+		      indica_deta_id = #{indicaDetaId} and
+		      ord = #{ord}
+	</update>
+	
+	<!-- 재시작 -->
+	<update id="prcsStRest" parameterType="PrdPrcsMngVO">
+		update prcs_st
+		set st = 'STATE1'
+		where prcs_now_id = #{prcsNowId} and
+		      indica_deta_id = #{indicaDetaId} and
+		      ord = #{ord}
+	</update>
+	
+	
+	
+	
+	
+	
 </mapper>

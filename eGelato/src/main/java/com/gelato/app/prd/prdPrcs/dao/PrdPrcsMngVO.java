@@ -32,6 +32,10 @@ public class PrdPrcsMngVO {
 	String eqmName;
 	String prcsNowId;
 	String mngr;
+	String frTm;
+	String lineOrd;
+	String inptQy;
 	
 	String prcsSelDeta;
+	String st;
 }
