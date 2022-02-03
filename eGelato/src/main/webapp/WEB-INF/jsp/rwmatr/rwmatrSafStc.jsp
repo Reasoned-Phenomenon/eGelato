@@ -12,6 +12,7 @@
 <script type="text/javascript" src="https://uicdn.toast.com/tui.pagination/v3.4.0/tui-pagination.js"></script>
 </head>
 <body>
+<h3>안전재고 관리</h3>
 <div style="margin: 20px;">
 	<form action="">
 		자재명 : <input type="text" id="rwmName">업체명 : <input type="text" id="vendName"><br>
@@ -24,8 +25,49 @@
 </div>
 <hr>
 <br>
+<div class="container">
+	<div class="flex row">
 	<!-- 안전재고 그리드 -->
-	<div id="rwmatrSafStcGrid" style="width: 80%"></div>
+		<div class="col-7">
+			<div id="rwmatrSafStcGrid" style="width: 80%"></div>
+		</div>
+		<div style="display: inline;">
+			<h2 class="detailTitle">상세조회</h2><br>
+				<form method="post" name="frm" id="frm" enctype="multipart/form-data">
+					<table>
+						<tbody>
+							<tr>
+								<th>BOM</th>
+								<td><input id="bomId" name="bomId" readOnly></td>
+							</tr>
+							<tr>
+								<th>공정코드</th>
+								<td><input id="prcsId" name="prcsId" readOnly></td>
+							</tr>
+							<tr>
+								<th>공정명</th>
+								<td><input id="nm" name="nm" readOnly></td>
+							</tr>
+							<tr>
+								<th>설비</th>
+								<td><input id="eqmId" name="eqmId" readOnly></td>
+							</tr>
+							<tr>
+								<th>UPH</th>
+								<td><input id="uph" name="uph" readOnly></td>
+							</tr>
+							<tr>
+								<td>
+									<button type="button" id="btnUpd"
+										class="btn cur-p btn-outline-dark">수정</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
 	
 	<!-- 모달창 -->
 	<div id="rwmatrDialogFrm" title="원자재 목록"></div>
@@ -199,6 +241,7 @@ function callVendModal(){
 		
 	});
 
+	
 </script>
 </body>
 </html>
