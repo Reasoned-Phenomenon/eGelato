@@ -29,15 +29,12 @@
  	<security:http pattern="/sec/ram/accessDenied.do" security="none"/>
  	<security:http pattern="/uat/uia/actionLogout.do" security="none"/>
  	
- 	<!-- <security:http auto-config="true" use-expressions="true" /> -->
- 	
  	<security:http pattern="/index.do" security="none"/>
- 	<security:http pattern="/home.do" security="none"/>
 
     <egov-security:config id="securityConfig"
 		loginUrl="/uat/uia/egovLoginUsr.do"
-		logoutSuccessUrl="/home.do"
-		loginFailureUrl="/uat/uia/egovLoginUsr.do?login_error=1"
+		logoutSuccessUrl="/"
+		loginFailureUrl="/uat/uia/egovLoginUsr.do"
 		accessDeniedUrl="/sec/ram/accessDenied.do"
 
 		dataSource="egov.dataSource"
@@ -55,10 +52,10 @@
 		hashBase64="false"
 
 		concurrentMaxSessons="1"
-		concurrentExpiredUrl="/home.do"
+		concurrentExpiredUrl="/"
 		errorIfMaximumExceeded="false"
 
-		defaultTargetUrl="/home.do"
+		defaultTargetUrl="/"
 		alwaysUseDefaultTargetUrl="true"
 
 		sniff="true"

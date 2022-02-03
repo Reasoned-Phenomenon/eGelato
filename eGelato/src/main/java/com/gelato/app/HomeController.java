@@ -27,9 +27,9 @@ public class HomeController {
 		HttpSession session = httpRequest.getSession();
 		
 		//세션에 권한 저장
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~권한~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		List<String> authList = (List<String>)EgovUserDetailsHelper.getAuthorities();
 		session.setAttribute("gelatoRole", authList);
+		System.out.println("HomeController 권한 저장"+authList);
 		
 		return "tiles/home/home";
 	}

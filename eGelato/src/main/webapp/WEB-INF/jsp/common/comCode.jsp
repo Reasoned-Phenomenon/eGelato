@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,11 +30,7 @@
 <br>
 
 <button onclick="window.open('${path}/com/comCode.do','공정이동표','width=800,height=600,location=no,status=no,scrollbars=no,titlebar=no,left=550,top=200');">새창에서</button>
-	
-<div>
-	<h6>권한테스트</h6>
-	${gelatoRole }
-</div>
+
 <hr>
 <br>
 <div class="row">
