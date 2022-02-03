@@ -216,7 +216,6 @@ var rwmatrOrderList = new Grid({
 				{
 				  header: '납기요청일',
 				  name: 'dudt',
-				  editor: 'datePicker',
 				  sortable: true,
 			      validation: {
 			          required: true
@@ -224,6 +223,7 @@ var rwmatrOrderList = new Grid({
 				}
 		]
 });
+
 
 rwmatrOrderMasterList.on('click', (ev) => {	
 	console.log(ev)
