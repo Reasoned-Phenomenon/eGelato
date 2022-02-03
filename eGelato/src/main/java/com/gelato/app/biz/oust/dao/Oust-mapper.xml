@@ -2,8 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gelato.app.biz.oustdao.OustMapper">
 
-
-
+	<!-- 출고 전체 조회 -->
+	<select id="OustList" resultType="OustVO">
+		SELECT A.ORDER_SHT_DETA_ID AS ORDER_SHT_DETA_ID,
+			   A.PRDT_ID AS PRDT_ID,
+			   A.ORDER_ID AS ORDER_ID,
+			   A.QY AS QY,
+			   P.LOT_NO AS LOT_NO,
+			   P.PRDT_ID AS PRDT_ID,
+			   P.QY AS QY,
+			   P.PROD_DT AS PROD_DT,
+			   P.EXPDATE AS EXPDATE,
+			   P.FG AS FG	
+		
+		 FROM  ORDER_SHT_DETA A JOIN PRDT_STC P 
+		   ON  A.PRDT_ID = P.PRDT_ID
+	
+	</select>
 
 
 
