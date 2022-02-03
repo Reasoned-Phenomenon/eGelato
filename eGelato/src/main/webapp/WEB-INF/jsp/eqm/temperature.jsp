@@ -36,7 +36,7 @@
       ],
     };
     
-    const options = {
+    const options = { 
       chart: { title:  eqmName' Temperature', width: 1000, height: 500 },
       xAxis: {
         title: 'Month',
