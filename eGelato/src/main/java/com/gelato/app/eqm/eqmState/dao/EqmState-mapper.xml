@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.gelato.app.eqm.eqmState.dao.EqmStateMapper">
+<mapper namespace="com.gelato.app.eqm.eqmState.dao.EqmStateMapper">
 
-	<select id="temperature" resultType="eqmStateVO">
-		SELECT S.EQM_ID,
-			   E.EQM_NAME,
-			   S.LOG_TM,
-			   S.TEMP_NOW
+	<select id="temperature" resultType="EqmStateVO">
+		SELECT S.EQM_ID as EQM_ID,
+			   S.LOG_TM as LOG_TM,
+			   S.TEMP_NOW as TEMP_NOW
 		FROM EQM_ST_NOW S 
-			 LEFT OUTER JOIN EQM E
-			 ON(S.EQM_ID = E.EQM_ID)
+			 LEFT OUTER JOIN PRCS P
+			 ON(S.EQM_ID = P.EQM_ID)
+			 LEFT OUTER JOIN PRCS_NOW PN
+			 ON(P.PRCS_ID = PN.PRCS_ID)
+			 LEFT OUTER JOIN PRCS_ST PS
+			 ON(PN.PRCS_NOW_ID = PS.PRCS_NOW_ID)
+		WHERE PS.ST = 'STATE1'
 	</select>
 	
-	<select id="output" resultType="eqmStateVO">
+	<select id="output" resultType="EqmStateVO">
 		SELECT S.EQM_ID,
-			   E.EQM_NAME,
 			   S.LOG_TM,
-			   S.PRO_QY
+			   S.PROD_QY
 		FROM EQM_ST_NOW S 
-			 LEFT OUTER JOIN EQM E
-			 ON(S.EQM_ID = E.EQM_ID)
+			 LEFT OUTER JOIN PRCS P
+			 ON(S.EQM_ID = P.EQM_ID)
+			 LEFT OUTER JOIN PRCS_NOW PN
+			 ON(P.PRCS_ID = PN.PRCS_ID)
+			 LEFT OUTER JOIN PRCS_ST PS
+			 ON(PN.PRCS_NOW_ID = PS.PRCS_NOW_ID)
+		WHERE PS.ST = 'STATE1'
 	</select>
 	
-	<select id="uph" resultType="eqmStateVO">
-		
-	</select>
-
 </mapper>

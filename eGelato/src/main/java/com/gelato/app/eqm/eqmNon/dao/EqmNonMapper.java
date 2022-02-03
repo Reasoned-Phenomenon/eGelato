@@ -19,7 +19,7 @@ public interface EqmNonMapper {
 	int insertNonEqm(EqmNonVO eqmNonVo);
 	
 	// 설비비가동사유코드 검색 모달
-	List<EqmNonVO> EqmNonResnSearch(EqmNonVO eqmNonVo);
+	List<EqmNonVO> eqmNonResnSearch(EqmNonVO eqmNonVo);
 	
 	//설비 비가동 등록 후 사용여부 업데이트
 	int updateEqmNon(EqmNonVO eqmNonVo);

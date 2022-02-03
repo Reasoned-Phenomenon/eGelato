@@ -27,11 +27,11 @@
     const el = document.getElementById('chart-area');
     
     const data = {
-      categories: [logTm],
+      categories: [],
       series: [
         {
           name: eqmName,
-          data: [tempNow],
+          data: [],
         }
       ],
     };
@@ -57,13 +57,25 @@
 
     const chart = toastui.Chart.lineChart({ el, data, options });
 
+    //5초마다 반영
     const intervalId = setInterval(() => {
       const random = Math.round(Math.random() * 100);
       const random2 = Math.round(Math.random() * 100);
       chart.addData([random, random2], logTm);
     }, 5000);
   
-
+    //값 가져오기
+    
+	$.ajax({
+		url : "${path}/eqm/findEqmTemp.do",
+		dataType : 'json'
+		error : function(result){
+			console.log('에러',result)
+		}
+	}).done(function (result){
+		console.log("값내놔",result)
+		data.categories
+	})
 	</script>
 </body>
 </html>

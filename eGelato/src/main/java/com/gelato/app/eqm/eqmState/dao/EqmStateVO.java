@@ -20,8 +20,8 @@ public class EqmStateVO {
 	String prodQy;	//산출량
 	String uph;		//uph
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	String logTm;	//log시간
 	String tempNow;	//실시간 온도
 	

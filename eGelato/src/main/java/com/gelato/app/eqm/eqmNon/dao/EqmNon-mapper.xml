@@ -102,7 +102,7 @@
 	</update>
 	
 	<!-- 비가동사유코드 모달 -->
-	<select id="EqmNonResnSearch" resultType="EqmNonVO" parameterType="EqmNonVO">
+	<select id="eqmNonResnSearch" resultType="EqmNonVO" parameterType="EqmNonVO">
 		SELECT * 
 		FROM EQM_NON_OPR_RESN
 	</select>
