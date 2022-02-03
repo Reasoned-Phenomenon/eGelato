@@ -73,8 +73,16 @@ public class PrdPrcsMngController {
 	@ResponseBody
 	public boolean modifyPrcs(@RequestBody ModifyVO<PrdPrcsMngVO> mvo) {
 		System.out.println("생산 시작");
-		System.out.println(mvo);
 		prdPrcsMngService.modifyPrcs(mvo);
+		
+		System.out.println(mvo);
+		System.out.println(mvo.getUpdatedRows().size());
+		
+		for ( int i = 0 ; i < mvo.getUpdatedRows().size() ; i++) {
+			System.out.println("공정돌리기" + i);
+			prdPrcsMngService.startSche(mvo.getUpdatedRows().get(i));
+		}
+		
 		return true;
 	}
 	
@@ -83,7 +91,13 @@ public class PrdPrcsMngController {
 	@ResponseBody
 	public int prcsStStop(@RequestBody List<PrdPrcsMngVO> vo) {
 		System.out.println("생산 중지");
-		return prdPrcsMngService.prcsStStop(vo);
+		prdPrcsMngService.prcsStStop(vo);
+		
+		for (int i = 0 ; i < vo.size() ; i++) {
+			System.out.println(vo.get(i));
+			prdPrcsMngService.stopSche(vo.get(i));
+		}
+		return 0;
 	}
 	
 	//생산재시작
@@ -91,6 +105,13 @@ public class PrdPrcsMngController {
 	@ResponseBody
 	public int prcsStRest(@RequestBody List<PrdPrcsMngVO> vo) {
 		System.out.println("생산 재시작");
-		return prdPrcsMngService.prcsStRest(vo);
+		prdPrcsMngService.prcsStRest(vo);
+
+		for (int i = 0 ; i < vo.size() ; i++) {
+			System.out.println(vo.get(i));
+			prdPrcsMngService.restartSche(vo.get(i));
+		}
+		
+		return 0;
 	}
 }

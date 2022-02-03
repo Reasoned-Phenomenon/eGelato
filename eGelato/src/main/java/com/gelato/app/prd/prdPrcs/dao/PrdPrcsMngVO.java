@@ -38,4 +38,7 @@ public class PrdPrcsMngVO {
 	
 	String prcsSelDeta;
 	String st;
+	
+	String jobName;
+	String programName;
 }
