@@ -14,21 +14,23 @@
 	<br>
 	<div>
 		<div>
-			<button type="button" class="btn btn-large btn-dark"
-				style="width: 70%; height: 100px; font-size: 40px; margin: auto; display:block;">온도</button>
+			<button type="button" id="btnTemp" class="btn btn-large btn-dark" onclick="location.href='${path}/eqm/temperature.do'"
+				style="width: 70%; height: 100px; font-size: 40px; margin: auto; display: block;">온도</button>
 		</div>
 		<br>
 		<div>
-			<button type="button" class="btn btn-large btn-dark"
-				style="width: 70%; height: 100px; font-size: 40px; margin: auto; display:block;">생산량</button>
+			<button type="button" id="btnOutput" class="btn btn-large btn-dark" onclick="location.href='${path}/eqm/output.do'"
+				style="width: 70%; height: 100px; font-size: 40px; margin: auto; display: block;">생산량</button>
 		</div>
 		<br>
 		<div>
-			<button type="button" class="btn btn-large btn-dark"
-				style="width: 70%; height: 100px; font-size: 40px; margin: auto; display:block;">UPH</button>
+			<button type="button" id="btnUph" class="btn btn-large btn-dark" onclick="location.href='${path}/eqm/uph.do'"
+				style="width: 70%; height: 100px; font-size: 40px; margin: auto; display: block;">UPH</button>
 		</div>
 		<br>
-		
 	</div>
+	
+	<script>
+	</script>
 </body>
 </html>

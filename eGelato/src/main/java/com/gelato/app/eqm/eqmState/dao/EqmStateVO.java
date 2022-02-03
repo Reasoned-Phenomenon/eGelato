@@ -12,6 +12,7 @@ import lombok.Data;
 public class EqmStateVO {
 	
 	String eqmId;	//설비코드
+	String eqmName;	//설비명
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	Date calTm;		//계산일자
@@ -21,7 +22,7 @@ public class EqmStateVO {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-	String logTime;	//log시간
+	String logTm;	//log시간
 	String tempNow;	//실시간 온도
 	
 }
