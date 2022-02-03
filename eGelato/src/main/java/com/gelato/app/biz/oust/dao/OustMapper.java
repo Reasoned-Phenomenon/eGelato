@@ -4,6 +4,9 @@ import java.util.List;
 
 public interface OustMapper {
 	
-	// 출고 조회
-	List<OustVO> OustList(OustVO vo);
+	// 출고 조회 (그리드1)
+	List<OustVO> oustList();
+	
+	// 출고 관리 그리드2
+	List<OustVO> oustLotList(OustVO vo);
 }

@@ -152,6 +152,12 @@ var ordGrid = new Grid({
 			  
 			},
 			{
+			  header: '제품명',
+			  name: 'prdtNm',
+			  align: 'center'
+				  
+				},
+			{
         	  header: '수량',
 		      name: 'qy',
 		      align: 'center'
