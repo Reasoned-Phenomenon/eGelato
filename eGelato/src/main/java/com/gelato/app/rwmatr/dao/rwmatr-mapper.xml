@@ -46,5 +46,31 @@
 		where RWMATR_ID = #{rwmatrId}
 	</update>
 	
+	<select id="rwmatrUphList" resultType="RwmatrVO">
+		SELECT R.RWMATR_ID AS RWMATR_ID, 
+		       R.NM AS NM, 
+		       B.BOM_ID AS BOM_ID, 
+		       B.PRDT_ID AS PRDT_ID, 
+		       PT.PRDT_NM AS PRDT_NM, 
+		       L.LINE_ID AS LINE_ID, 
+		       PS.PRCS_ID AS PRCS_ID, 
+		       PS.NM AS PRCSNM, 
+		       E.EQM_ID AS EQM_ID, 
+		       E.EQM_NAME AS EQM_NAME, 
+		       UC.UPH AS UPH
+		FROM RWMATR R LEFT OUTER JOIN BOM B
+		    ON R.RWMATR_ID = B.RWMATR_ID
+		LEFT OUTER JOIN PRDT PT 
+		    ON B.PRDT_ID = PT.PRDT_ID
+		LEFT OUTER JOIN LINE L
+		    ON L.PRDT_ID  = PT.PRDT_ID
+		LEFT OUTER JOIN PRCS PS
+		    ON PS.PRCS_ID = L.PRCS_ID
+		LEFT OUTER JOIN EQM E
+		    ON PS.EQM_ID = E.EQM_ID
+		LEFT OUTER JOIN UPH_CAL UC
+		    ON E.EQM_ID = UC.EQM_ID
+		WHERE R.RWMATR_ID = #{rwmatrId}
+	</select>
 
 </mapper>

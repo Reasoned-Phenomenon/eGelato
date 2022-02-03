@@ -255,7 +255,7 @@ var rwmatrOustGrid = new Grid({
 				{
 				  header: '담당자',
 				  name: 'remk',
-				  sortable: true,
+				  sortable: true ,
 				  formatter({value}) { // 추가
 					  let a = `\${value}`
 				  	  if(a == 'null'){

@@ -25,60 +25,53 @@
 </div>
 <hr>
 <br>
-<div class="container">
-	<div class="flex row">
+<div class="row">
 	<!-- 안전재고 그리드 -->
-		<div class="col-7">
-			<div id="rwmatrSafStcGrid" style="width: 80%"></div>
-		</div>
-		<div style="display: inline;">
-			<h2 class="detailTitle">상세조회</h2><br>
-				<form method="post" name="frm" id="frm" enctype="multipart/form-data">
-					<table>
-						<tbody>
-							<tr>
-								<th>BOM</th>
-								<td><input id="bomId" name="bomId" readOnly></td>
-							</tr>
-							<tr>
-								<th>공정코드</th>
-								<td><input id="prcsId" name="prcsId" readOnly></td>
-							</tr>
-							<tr>
-								<th>공정명</th>
-								<td><input id="nm" name="nm" readOnly></td>
-							</tr>
-							<tr>
-								<th>설비</th>
-								<td><input id="eqmId" name="eqmId" readOnly></td>
-							</tr>
-							<tr>
-								<th>UPH</th>
-								<td><input id="uph" name="uph" readOnly></td>
-							</tr>
-							<tr>
-								<td>
-									<button type="button" id="btnUpd"
-										class="btn cur-p btn-outline-dark">수정</button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</form>
-			</div>
-		</div>
+	<div class="col-4">
+		<div id="rwmatrSafStcGrid"></div>
 	</div>
+	<div class="col-8">
+		<div id="rwmatrUphGrid"></div><br>
+		<h2 class="detailTitle">상세조회</h2><br>
+			<form method="post" name="frm" id="frm" enctype="multipart/form-data">
+				<table>
+					<tbody>
+						<tr>
+							<th>자재코드</th>
+							<td><input id="rwmatrId" name="rwmatrId" readOnly></td>
+							
+						</tr>
+						<tr>
+							<th>자재명</th>
+							<td><input id="nm" name="nm" readOnly></td>
+						</tr>
+						<tr>
+							<th>안전재고</th>
+							<td><input id="safStc" name="safStc"></td>
+						</tr>
+							<td>
+								<button type="button" id="btnUpd"
+									class="btn cur-p btn-outline-dark">수정</button>
+							</td>
+					</tbody>
+				</table>
+			</form>
+	</div>
+</div>
 	
 	<!-- 모달창 -->
 	<div id="rwmatrDialogFrm" title="원자재 목록"></div>
 	<div id="vendDialogFrm" title="업체 목록"></div>
-	
+
+		
 <script>
 var Grid = tui.Grid;
 
 //검색조건
 var rwmName;
 var vendName;
+
+var rwmatrId;
 
 document.getElementById("btnFind").addEventListener("click", function () {
 	rwmName = document.getElementById("rwmName").value;
@@ -165,6 +158,85 @@ var rwmatrSafStcGrid = new Grid({
 		    sortable: true
 		  }
 		]
+});
+
+//그리드 생성
+var rwmatrUphGrid = new Grid({
+	el: document.getElementById('rwmatrUphGrid'),
+  	data : {
+	  api: {
+	    readData: { url:'${path}/rwmatr/rwmatrUphList.do', method: 'GET'},
+	  },
+	  contentType: 'application/json'
+	},
+  	rowHeaders:['rowNum'],
+  	bodyHeight: 300,
+  	selectionUnit: 'row',
+  	columns:[
+		  {
+		    header: 'BOM코드',
+		    name: 'bomId',
+		    sortable: true
+		  },
+		  {
+		    header: '제품코드',
+		    name: 'prdtId',
+		    sortable: true
+		  },
+		  {
+		    header: '제품명',
+		    name: 'prdtNm',
+		    sortable: true
+		  },
+		  {
+		    header: '라인코드',
+		    name: 'lineId',
+		    sortable: true
+		  },
+		  {
+		    header: '공정코드',
+		    name: 'prcsId',
+		    sortable: true
+		  },
+		  {
+		    header: '공정명',
+		    name: 'prcsNm',
+		    sortable: true
+		  },
+		  {
+		    header: '설비코드',
+		    name: 'eqmId',
+		    sortable: true
+		  },
+		  {
+		    header: '설비명',
+		    name: 'eqmName',
+		    sortable: true
+		  },
+		  {
+		    header: 'UPH',
+		    name: 'uph',
+		    sortable: true
+		  },
+		]
+});
+
+rwmatrSafStcGrid.on('click', (ev) => {	
+	console.log(ev)
+	//cell 선택시 row 선택됨.
+	rwmatrSafStcGrid.setSelectionRange({
+	      start: [ev.rowKey, 0],
+	      end: [ev.rowKey, rwmatrSafStcGrid.getColumns().length-1]
+	  });
+	
+	//클릭한 row의 orderId에 해당하는 code를 읽어옴
+	rwmatrId = rwmatrSafStcGrid.getRow(ev.rowKey).rwmatrId;
+	rwmatrUphGrid.readData(1, {'rwmatrId':rwmatrId}, true);
+	
+	$("#rwmatrId").val(rwmatrSafStcGrid.getRow(ev.rowKey).rwmatrId);
+	$("#nm").val(rwmatrSafStcGrid.getRow(ev.rowKey).nm);
+	$("#safStc").val(rwmatrSafStcGrid.getRow(ev.rowKey).safStc);
+	
 });
 
 //자재모달
