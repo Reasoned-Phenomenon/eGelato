@@ -128,7 +128,7 @@ th, td {
 				name : 'ord',
 			}]
 		});
-		
+		  
 		//그리드2  
 		const prcsListGrid = new Grid({
 			el : document.getElementById('prcsListGrid'),
