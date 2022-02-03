@@ -241,6 +241,7 @@ function callVendModal(){
 		
 	});
 
+	
 </script>
 </body>
 </html>
