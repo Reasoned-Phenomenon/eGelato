@@ -255,7 +255,7 @@ th, td {
 				prcsListGrid.setValue(i,'ord',ior);
 				prcsListGrid.setValue(i,'indicaDetaId',idi);
 				prcsListGrid.setValue(i,'lineOrd',i+1);
-				prcsListGrid.setValue(i,'inptQy',iqy);
+				//prcsListGrid.setValue(i,'inptQy',iqy);
 				
 				// jobName 만들기, programName 만들기
 				jobName = 'JOB_' + prcsListGrid.getData()[i].prcsNowId.substr(0,3) 
