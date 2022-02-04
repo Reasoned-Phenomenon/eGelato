@@ -20,9 +20,6 @@
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
 	</form>
 </div>
-<div style="float: right;">
-	<button type="button" class="btn cur-p btn-outline-primary" id="btnSave">저장</button>
-</div>
 <hr>
 <br>
 <div class="row">
@@ -72,6 +69,8 @@ var vendName;
 
 var rwmatrId;
 
+var rk;
+
 document.getElementById("btnFind").addEventListener("click", function () {
 	rwmName = document.getElementById("rwmName").value;
 	vendName = document.getElementById("vendName").value;
@@ -104,7 +103,6 @@ var rwmatrSafStcGrid = new Grid({
   	data : {
 	  api: {
 	    readData: { url:'${path}/rwmatr/rwmatrSafStcList.do', method: 'GET'},
-		modifyData : { url: '${path}/rwmatr/rwmatrModifyData.do', method: 'PUT'}
 	  },
 	  contentType: 'application/json'
 	},
@@ -148,7 +146,6 @@ var rwmatrSafStcGrid = new Grid({
 		    header: '안전재고',
 		    align: 'right',
 		    name: 'safStc',
-		    editor: 'text',
 	    	formatter({value}) { // 추가
 			  let a = `\${value}`
 		  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -188,11 +185,6 @@ var rwmatrUphGrid = new Grid({
 		    sortable: true
 		  },
 		  {
-		    header: '라인코드',
-		    name: 'lineId',
-		    sortable: true
-		  },
-		  {
 		    header: '공정코드',
 		    name: 'prcsId',
 		    sortable: true
@@ -213,14 +205,25 @@ var rwmatrUphGrid = new Grid({
 		    sortable: true
 		  },
 		  {
+		    header: '소모량',
+		    name: 'qy',
+		    sortable: true
+		  },
+		  {
 		    header: 'UPH',
 		    name: 'uph',
 		    sortable: true
 		  },
+		  {
+		    header: '총소모량',
+		    name: 'total',
+		    sortable: true
+		  }
 		]
 });
 
 rwmatrSafStcGrid.on('click', (ev) => {	
+	rk = ev.rowKey;
 	console.log(ev)
 	//cell 선택시 row 선택됨.
 	rwmatrSafStcGrid.setSelectionRange({
@@ -293,21 +296,34 @@ function callVendModal(){
 		callVendModal();
 	});
 	
-	//저장
-	btnSave.addEventListener("click", function(){
-		console.log("저장")
-		if (rwmatrSafStcGrid.getRow(0) != null) {
-			rwmatrSafStcGrid.blur();
-			if (confirm("저장하시겠습니까?")) {
-				rwmatrSafStcGrid.request('modifyData', {
-					showConfirm : false
-				});
-				toastr.clear()
-				toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} );
-			}
-		} else {
+	//안전재고 수정
+	btnUpd.addEventListener("click", function(){
+		let rwmatrId = $("#rwmatrId").val();
+		let safStc = $("#safStc").val();
+		//let rwmatr = frm.serialize();
+		
+		if(rwmatrId == ''){
 			toastr.clear()
-			toastr.warning( ('저장할 데이터가 없습니다.'),'Gelato',{timeOut:'1000'} );
+			toastr.warning( ('자재를 선택하세요.'),'Gelato',{timeOut:'1800'} );
+		} else{
+			if (confirm("수정하시겠습니까?")) {
+				$.ajax({
+					url : "${path}/rwmatr/rwmatrModifyData.do",
+					type:'POST',
+					dataType: "json",
+					data: {"rwmatrId": rwmatrId,
+							"safStc" : safStc},
+					error : function(result) {
+						toastr.clear()
+						toastr.error( ('알 수 없는 오류가 발생하였습니다.'),'Gelato',{timeOut:'1800'} );
+					}
+				}).done(function (result) {
+					console.log(result);
+					rwmatrSafStcGrid.setValue(rk, "safStc", safStc, true);
+					toastr.clear()
+					toastr.success( ('수정되었습니다.'),'Gelato',{timeOut:'1800'} );
+				})
+			}
 		}
 		
 	});

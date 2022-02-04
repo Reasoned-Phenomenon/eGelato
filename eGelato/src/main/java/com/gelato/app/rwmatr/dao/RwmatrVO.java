@@ -26,5 +26,7 @@ public class RwmatrVO {
 	String prcsNm;
 	String eqmId;
 	String eqmName;
+	String qy;
 	String uph;
+	String total;
 }
