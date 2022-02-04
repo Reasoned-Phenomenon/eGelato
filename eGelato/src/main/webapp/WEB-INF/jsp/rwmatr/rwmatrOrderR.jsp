@@ -91,9 +91,6 @@ var endDate;
 var rwmName;
 var vendName;
 
-//버튼 css
-$("button").addClass("btn cur-p btn-dark");
-
 //토스트옵션
 toastr.options = {
 		positionClass : "toast-top-center",
