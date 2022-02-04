@@ -3,19 +3,19 @@ package com.gelato.app.rwmatr.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gelato.app.rwmatr.dao.RwmatrMapper;
 import com.gelato.app.rwmatr.dao.RwmatrVO;
 import com.gelato.app.rwmatr.service.RwmatrService;
-import com.gelato.app.vr.ModifyVO;
 
 @Controller
 public class RwmatrController {
 
 	@Autowired RwmatrService rwmatrService;
+	@Autowired RwmatrMapper rwmatrMapper;
 	
 	//안전재고 관리 페이지로 이동
 	@RequestMapping("/rwmatr/rwmatrSafStc.do")
@@ -42,11 +42,11 @@ public class RwmatrController {
 	}
 	
 	//안전재고 수정
-	@PutMapping("/rwmatr/rwmatrModifyData.do")
+	@PostMapping("/rwmatr/rwmatrModifyData.do")
 	@ResponseBody
-	public boolean modifyData (@RequestBody ModifyVO<RwmatrVO> mvo) {
-		System.out.println(mvo);
-		rwmatrService.modifyRwmatr(mvo);
-		return true;
+	public String modifyData(RwmatrVO vo) {
+		System.out.println(vo);
+		rwmatrMapper.updateRwmatr(vo);
+		return "grid";
 	}
 }

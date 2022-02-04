@@ -57,7 +57,9 @@
 		       PS.NM AS PRCSNM, 
 		       E.EQM_ID AS EQM_ID, 
 		       E.EQM_NAME AS EQM_NAME, 
-		       UC.UPH AS UPH
+		       B.QY AS QY,
+		       UC.UPH AS UPH,
+		       B.QY * UC.UPH AS TOTAL
 		FROM RWMATR R LEFT OUTER JOIN BOM B
 		    ON R.RWMATR_ID = B.RWMATR_ID
 		LEFT OUTER JOIN PRDT PT 
