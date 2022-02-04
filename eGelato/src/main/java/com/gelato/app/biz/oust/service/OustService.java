@@ -11,4 +11,7 @@ public interface OustService {
 	
 	// 출고 관리 그리드2
 	List<OustVO> oustLotList(OustVO vo);
+	
+	// 완제품 재고 조회 modal.
+	List<OustVO> prdtStcList(OustVO vo);
 }

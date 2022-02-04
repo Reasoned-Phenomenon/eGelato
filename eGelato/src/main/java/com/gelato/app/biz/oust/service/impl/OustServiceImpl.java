@@ -14,17 +14,25 @@ public class OustServiceImpl  implements OustService {
 	
 	@Autowired OustMapper oustMapper;
 
-	// 출고페이지 조회.
+	// 출고페이지 조회.(그리드1)
 	@Override
 	public List<OustVO> oustList() {
 		
 		return oustMapper.oustList();
 	}
 
+	// 완제품 입출고 조회.(그리드2)
 	@Override
 	public List<OustVO> oustLotList(OustVO vo) {
 		
 		return oustMapper.oustLotList(vo);
+	}
+
+	// 완제품 재고 modal 조회.
+	@Override
+	public List<OustVO> prdtStcList(OustVO vo) {
+		
+		return oustMapper.prdtStcList(vo);
 	}
 	
 	

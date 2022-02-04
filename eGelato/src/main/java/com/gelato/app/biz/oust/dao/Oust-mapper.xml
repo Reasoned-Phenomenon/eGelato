@@ -12,9 +12,10 @@
 			  
 		 FROM  ORDER_SHT_DETA A JOIN PRDT P
 		   ON  A.PRDT_ID = P.PRDT_ID
-	
+	     ORDER BY ORDER_SHT_DETA_ID ASC
 	</select>
-
+	
+	<!--완제품 입출고 조회. -->
 	<select id="oustLotList" resultType="OustVO">
 		SELECT LOT_NO AS LOT_NO,
 			   IST_OUST_DTTM AS IST_OUST_DTTM,
@@ -23,7 +24,21 @@
 			   OUST_QY AS OUST_QY,
 			   EXPDATE AS EXPDATE
 		  FROM PRDT_INST_OUST	   
-	     WHERE PRDT_ID = #{prdtId}
+	     
 	</select>
+	
+	<!-- 완제품 재고 조회 modal. -->
+	<select id="prdtStcList" resultType="OustVO">
+		SELECT A.LOT_NO AS LOT_NO,
+		       A.PRDT_ID AS PRDT_ID,
+		       A.QY AS prdtQY,
+		       A.PROD_DT AS PROD_DT,
+		       A.EXPDATE AS EXPDATE,
+		       A.FG AS FG,
+		       B.OUST_QY AS OUST_QY
+	      FROM PRDT_STC	A JOIN PRDT_INST_OUST B
+	        ON A.PRDT_ID = B.PRDT_ID	       
+	</select>
+
 
 </mapper>
