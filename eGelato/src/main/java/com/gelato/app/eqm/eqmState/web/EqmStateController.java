@@ -27,11 +27,13 @@ public class EqmStateController {
 	}
 	
 	//실시간설비상태 - 온도
-	
-	//실시간설비상태 - UPH(페이지)
-	@GetMapping("/eqm/uph.do")
-	public String uphPage() {
-		return "tiles/eqm/uph";
+	@GetMapping("/eqm/findEqmTemp.do")
+	public String findTemp(Model model, EqmStateVO eqmStateVo) {
+		
+		System.out.println(eqmStateVo);
+		System.out.println(service.temperature(eqmStateVo));
+		model.addAttribute("datas", service.temperature(eqmStateVo));
+		return "grid";
 	}
 	
 	//실시간설비상태 - 생산량(페이지)
@@ -39,5 +41,17 @@ public class EqmStateController {
 	public String outputPage() {
 		return "tiles/eqm/output";
 	}
+	
+	//실시간설비상태 - 생산량
+	@GetMapping("/eqm/findEqmOutPut.do")
+	public String findOutPutTemp(Model model, EqmStateVO eqmStateVo) {
+		
+		System.out.println(eqmStateVo);
+		System.out.println(service.temperature(eqmStateVo));
+		model.addAttribute("datas", service.output(eqmStateVo));
+		return "grid";
+	}
+	
+	
 	
 }

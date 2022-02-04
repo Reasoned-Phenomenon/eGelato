@@ -71,7 +71,7 @@ public class EqmNonController {
 	// 설비비가동관리 - 비가동사유코드 모달
 	@RequestMapping("/eqm/eqmNonResnGrid.do")
 	public String getSeolbi(Model model, EqmNonVO eqmNonVo) {
-		model.addAttribute("datas", service.EqmNonResnSearch(eqmNonVo));
+		model.addAttribute("datas", service.eqmNonResnSearch(eqmNonVo));
 		return "grid";
 	}
 
