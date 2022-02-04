@@ -38,7 +38,7 @@
       DBMS_SCHEDULER.CREATE_JOB (
           job_name =>#{jobName},
           program_name =>#{programName},
-          schedule_name =>'sch_5sec',
+          REPEAT_INTERVAL => 'FREQ=secondly;INTERVAL=5',
           comments => 'Gelato Job',
           enabled =>FALSE
       );

@@ -94,7 +94,7 @@ public class PrdPrcsMngServiceImpl implements PrdPrcsMngService{
 		
 		// 라인에 있는 공정들 FOR문 돌리면 됨 
 		mapper.mkJob(vo);
-		//
+		
 		return null;
 	}
 
