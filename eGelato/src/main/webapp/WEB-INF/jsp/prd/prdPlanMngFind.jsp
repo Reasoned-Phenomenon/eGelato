@@ -30,8 +30,8 @@ th, td {
 						<input type="radio" id="fgCan" name="fg" value="CANCEL">취소
                     </td>
                     <td rowspan="3">
-                        <button type="button" class="btn btn-secondary" id="btnSearch">검색</button>
-                        <button type="button" class="btn btn-secondary" id="btnClear">초기화</button>
+                        <button type="button" class="btn cur-p btn-dark" id="btnSearch">검색</button>
+                        <button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
                     </td>
                 </tr>
                 <tr>
@@ -78,7 +78,7 @@ th, td {
    	var Grid = tui.Grid;
 
 	//그리드 테마
-	Grid.applyTheme('striped', {
+	/* Grid.applyTheme('striped', {
 		cell : {
 			header : {
 				background : '#eef'
@@ -90,7 +90,7 @@ th, td {
 		    	background : '#FFFFFF'
 		    }
 		}
-	});
+	}); */
 
 	// 그리드 생성 : 관리
 	const PlanSearchGrid = new Grid({

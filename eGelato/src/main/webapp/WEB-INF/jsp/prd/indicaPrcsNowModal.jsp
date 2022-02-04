@@ -17,7 +17,7 @@
 				<th>지시 기간</th>
 				<td><input type="date" id="startD"> ~ <input type="date" id="endD"></td>
 				<td>
-					<button type="button" id="selectDate" class="btn btn-secondary">검색</button>
+					<button type="button" id="selectDate" class="btn cur-p btn-dark">검색</button>
 				</td>	
 			</tr>
 		</tbody>
@@ -36,7 +36,7 @@
 var Grid = tui.Grid;
 
 	//그리드 테마
-	Grid.applyTheme('striped', {
+	/* Grid.applyTheme('striped', {
 		  cell: {
 		    header: {
 		      background: '#eef'
@@ -48,7 +48,7 @@ var Grid = tui.Grid;
 		    	background : '#FFFFFF'
 		    }
 		  }
-		});
+		}); */
 		
 	// 그리드 생성
 	var IndicaGrid = new Grid({

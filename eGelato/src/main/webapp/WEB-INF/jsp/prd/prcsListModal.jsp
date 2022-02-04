@@ -5,10 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>공정 목록</title>
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script> -->
 </head>
 <body>
 	<br>
@@ -34,7 +30,7 @@
 			</select>
 		</td>	
 		<td>
-			<button type="button" id="btnSel" class="btn btn-secondary">검색</button>
+			<button type="button" id="btnSel" class="btn btn-find-small" data-bs-toggle="modal" aria-label="Close">검색</button>
 		</td>	
 	</tr>
 	</tbody>
@@ -46,7 +42,7 @@
 	var Grid = tui.Grid;
 	
 	//그리드 테마
-	Grid.applyTheme('striped', {
+	/* Grid.applyTheme('striped', {
 		  cell: {
 		    header: {
 		      background: '#eef'
@@ -58,7 +54,7 @@
 		    	background : '#FFFFFF'
 		    }
 		  }
-		});
+		}); */
 		
 	// 그리드 생성
 	var prcsGrid = new Grid({

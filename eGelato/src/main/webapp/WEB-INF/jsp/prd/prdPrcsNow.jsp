@@ -28,8 +28,8 @@ th, td {
 						<input type="text" id="prcsDeta" readonly>
 					</td>
 					<td rowspan="3">
-	                    <button type="button" class="btn btn-secondary" id="btnSearch">검색</button>
-	                    <button type="button" class="btn btn-secondary" id="btnClear">초기화</button>
+	                    <button type="button" class="btn cur-p btn-dark" id="btnSearch">검색</button>
+	                    <button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
 	                </td>
 				</tr>
 				<tr>
@@ -55,7 +55,7 @@ th, td {
 			</table>
 		</div>
 		<div class="col-sm-1">
-			<button type="button" class="btn btn-secondary" id="btnIns">등록</button>
+			<button type="button" class="btn cur-p btn-dark" id="btnIns">등록</button>
 		</div>
 	</div>
 	<hr>
@@ -73,7 +73,7 @@ th, td {
 		var Grid = tui.Grid;
 	
 	//그리드 테마
-	Grid.applyTheme('striped', {
+	/* Grid.applyTheme('striped', {
 		cell : {
 			header : {
 				background : '#eef'
@@ -85,7 +85,7 @@ th, td {
 		    	background : '#FFFFFF'
 		    }
 		}
-	});
+	}); */
 	
 	// 그리드 생성 : 관리
 	const prcsList = new Grid({

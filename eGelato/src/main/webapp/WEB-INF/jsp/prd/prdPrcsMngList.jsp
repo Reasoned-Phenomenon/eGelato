@@ -39,17 +39,17 @@ th, td {
 							</select>
 						</td>
 						<td>
-							<button type="button" class="btn btn-secondary" id="btnPrcSel">검색</button>
-							<button type="button" class="btn btn-secondary" id="btnClear">초기화</button>
+							<button type="button" class="btn cur-p btn-dark" id="btnPrcSel">검색</button>
+							<button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<div class="col-sm-2">
-			<button type="button" class="btn btn-secondary" id="btnAdd">추가</button>
-			<button type="button" class="btn btn-secondary" id="btnDel">삭제</button>
-			<button type="button" class="btn btn-secondary" id="btnIns">저장</button>
+			<button type="button" class="btn cur-p btn-dark" id="btnAdd">추가</button>
+			<button type="button" class="btn cur-p btn-dark" id="btnDel">삭제</button>
+			<button type="button" class="btn cur-p btn-dark" id="btnIns">저장</button>
 		</div>
 	</div>
 	<br><hr><br>
@@ -65,7 +65,7 @@ th, td {
 		var Grid = tui.Grid;
 	
 	//그리드 테마
-	Grid.applyTheme('striped', {
+	/* Grid.applyTheme('striped', {
 		cell : {
 			header : {
 				background : '#eef'
@@ -77,7 +77,7 @@ th, td {
 		    	background : '#FFFFFF'
 		    }
 		}
-	});
+	}); */
 	
 	// 그리드 생성 : 관리
 	const prcsMngList = new Grid({
