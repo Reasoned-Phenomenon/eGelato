@@ -74,6 +74,7 @@ Grid.applyTheme('striped', {
 		},
   	rowHeaders:['rowNum'],
   	selectionUnit: 'row',
+  	bodyHeight: 500,
   	columns:[
   			{
 			  header: '주문 코드',

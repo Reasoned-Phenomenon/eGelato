@@ -21,6 +21,7 @@ public class OustVO {
 	// 완제품 재고 테이블.
 	String  lotNo; // 완제품 로트번호.
 	String  prdtQy; // 완제품 수량.
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	Date prodDt;  // 제조일자.
