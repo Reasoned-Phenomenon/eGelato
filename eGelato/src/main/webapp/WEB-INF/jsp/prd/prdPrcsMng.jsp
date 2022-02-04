@@ -20,10 +20,10 @@ th, td {
 	<br>
 	<div class="row">
 		<div class="col-sm-10">
-			<button type="button" class="btn btn-secondary" id="btnSearchPlan">생산지시목록</button>
+			<button type="button" class="btn cur-p btn-dark" id="btnSearchPlan">생산지시목록</button>
 		</div>
 		<div class="col-sm-2">
-			<button type="button" class="btn btn-secondary" id="btnPrcsMove">공정이동표 출력</button>
+			<button type="button" class="btn cur-p btn-dark" id="btnPrcsMove">공정이동표 출력</button>
 		</div>
 	</div>
 	<hr>
@@ -55,9 +55,9 @@ th, td {
 				</tbody>
 			</table>
 			<br><br>
-			<button type="button" class="btn btn-secondary" id="btnPrcs">생산시작</button>&nbsp;
-			<button type="button" class="btn btn-secondary" id="btnStop">긴급중지</button>&nbsp;
-			<button type="button" class="btn btn-secondary" id="btnRest">재시작</button>&nbsp;
+			<button type="button" class="btn cur-p btn-dark" id="btnPrcs">생산시작</button>&nbsp;
+			<button type="button" class="btn cur-p btn-dark" id="btnStop">긴급중지</button>&nbsp;
+			<button type="button" class="btn cur-p btn-dark" id="btnRest">재시작</button>&nbsp;
 		</div>
 	</div>	
 	
@@ -82,7 +82,7 @@ th, td {
 		var Grid = tui.Grid;
 
 		//그리드 테마
-		Grid.applyTheme('striped', {
+		/* Grid.applyTheme('striped', {
 			cell : {
 				header : {
 					background : '#eef'
@@ -94,7 +94,7 @@ th, td {
 			    	background : '#FFFFFF'
 			    }
 			}
-		});
+		}); */
 		
 		// 그리드1
 		const IndicaGrid = new Grid({

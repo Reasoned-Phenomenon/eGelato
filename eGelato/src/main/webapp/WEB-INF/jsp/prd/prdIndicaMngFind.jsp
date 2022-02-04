@@ -32,8 +32,8 @@ th, td {
 				<tr>
 					<th>지시 일자</th>
 					<td><input type="date" id="startD" required> ~ <input type="date" id="endD" required></td>
-					<td><button type="button" class="btn btn-secondary" id="btnSer">검색</button></td>
-					<td><button type="button" class="btn btn-secondary" id="btnRes">초기화</button></td>
+					<td><button type="button" class="btn cur-p btn-dark" id="btnSer">검색</button></td>
+					<td><button type="button" class="btn cur-p btn-dark" id="btnRes">초기화</button></td>
 				</tr>
 			</tbody>
 		</table>
@@ -45,8 +45,14 @@ th, td {
 
 <script>
 	//생산계획일자 현재날짜 기본 설정
-	/* document.getElementById('indicaD').value = new Date().toISOString()
-			.substring(0, 10); */
+	const d = new Date();
+
+	const year = d.getFullYear(); // 년
+	const month = d.getMonth();   // 월
+	const day = d.getDate();      // 일
+	
+	document.getElementById('startD').value = new Date(year, month, day - 7).toISOString().substring(0,10);
+	document.getElementById('endD').value = new Date().toISOString().substring(0, 10);
 	
 	//초기화버튼
 	$("#btnRes").on(
@@ -61,7 +67,7 @@ th, td {
 	var Grid = tui.Grid;
 
 	//그리드 테마
-	Grid.applyTheme('striped', {
+	/* Grid.applyTheme('striped', {
 		cell : {
 			header : {
 				background : '#eef'
@@ -73,7 +79,7 @@ th, td {
 		    	background : '#FFFFFF'
 		    }
 		}
-	});
+	}); */
 
 	//지시조회 그리드
 	const IndicaGrid = new Grid({

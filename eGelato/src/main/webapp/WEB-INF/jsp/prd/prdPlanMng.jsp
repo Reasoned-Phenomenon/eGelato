@@ -10,6 +10,13 @@
 th, td {
 	padding: 5px;
 }
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+    color: #ffffff;
+    text-decoration: none;
+    background: black;
+}
+
 </style>
 <body>
 
@@ -27,8 +34,8 @@ th, td {
 		
 		<div id="ManageTab">
 				<div id="PlanDetaGrid" ></div> <br>
-				<button type="button" class="btn btn-secondary" id="btnSearchPlan">계획조회</button>
-				<button type="button" class="btn btn-secondary" id="btnPlanDel">계획취소</button>	
+				<button type="button" class="btn cur-p btn-dark" id="btnSearchPlan">계획조회</button>
+				<button type="button" class="btn cur-p btn-dark" id="btnPlanDel">계획취소</button>	
 		</div>
 		
 		<div id="InsertTab">
@@ -38,7 +45,7 @@ th, td {
 						<th>생산 계획명</th>
 						<td><input type="text" id="planName" required></td>
 						<td rowspan="2">
-							<button type="button" class="btn btn-secondary" id="btnClear">초기화</button>
+							<button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
 						</td>
 					</tr>
 					<tr>
@@ -48,10 +55,10 @@ th, td {
 				</tbody>
 			</table>
 			<div id="PlanDetaInsGrid"></div> <br>
-			<button type="button" class="btn btn-secondary" id="btnOrderSht">주문서조회</button>
-			<button type="button" class="btn btn-secondary" id="btnPlanIns">계획등록</button>
-			<button type="button" class="btn btn-secondary" id="btnAdd">행 추가</button>
-			<button type="button" class="btn btn-secondary" id="btnDel">행 삭제</button>
+			<button type="button" class="btn cur-p btn-dark" id="btnOrderSht">주문서조회</button>
+			<button type="button" class="btn cur-p btn-dark" id="btnPlanIns">계획등록</button>
+			<button type="button" class="btn cur-p btn-dark" id="btnAdd">행 추가</button>
+			<button type="button" class="btn cur-p btn-dark" id="btnDel">행 삭제</button>
 		</div>
 	</div>
 	
@@ -76,7 +83,7 @@ th, td {
 	//생산계획일자 현재날짜 기본 설정
 	document.getElementById('planDt').value = new Date().toISOString()
 			.substring(0, 10);
-
+	
 	//탭 생성
 	$( "#tabs" ).tabs();
 	
@@ -102,7 +109,7 @@ th, td {
 		var Grid = tui.Grid;
 
 		//그리드 테마
-		Grid.applyTheme('striped', {
+		/* Grid.applyTheme('striped', {
 			cell : {
 				header : {
 					background : '#eef'
@@ -114,7 +121,7 @@ th, td {
 			    	background : '#FFFFFF'
 			    }
 			}
-		});
+		}); */
 
 		// 그리드 생성 : 관리
 		const PlanDetaGrid = new Grid({
@@ -129,6 +136,7 @@ th, td {
 			},
 			rowHeaders : ['rowNum' ],
 			selectionUnit : 'row',
+			width:1770,
 			columns : [ {
 				header : '생산계획코드',
 				name : 'planDetaId'
@@ -177,7 +185,7 @@ th, td {
 			},
 			rowHeaders : [ 'checkbox', 'rowNum' ],
 			selectionUnit : 'row',
-			width:1500,
+			width:1770,
 			columns : [ {
 				header : '주문코드',
 				name : 'orderId',
@@ -323,7 +331,7 @@ th, td {
 				modal : true,
 				autoOpen : false,
 				height: 600,
-				width: 400
+				width: 500
 			});
 			
 		    console.log("11111")

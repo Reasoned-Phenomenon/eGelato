@@ -18,7 +18,7 @@ h1 {
 	<div>
 	<h4> 기간으로 조회 </h4> 
 	<input type="date" id="startD"> ~ <input type="date" id="endD">
-	<button type="button" id="selectDate" class="btn btn-secondary">검색</button>
+	<button type="button" id="selectDate" class="btn btn-find-small" data-bs-toggle="modal" aria-label="Close">검색</button>
 	</div>
 	<br>
 	<div id="searchPlanGrid"></div>
@@ -43,7 +43,7 @@ $("#selectDate").on(
 	var Grid = tui.Grid;
 	
 	//그리드 테마
-	Grid.applyTheme('striped', {
+	/* Grid.applyTheme('striped', {
 		  cell: {
 		    header: {
 		      background: '#eef'
@@ -55,7 +55,7 @@ $("#selectDate").on(
 		    	background : '#FFFFFF'
 		    }
 		  }
-		});
+		}); */
 		
 	// 그리드 생성
 	var searchPlanGrid = new Grid({

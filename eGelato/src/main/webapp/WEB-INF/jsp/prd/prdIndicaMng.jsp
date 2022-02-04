@@ -20,10 +20,10 @@
 	<br>
 	<div class="row">
 		<div class="col-sm-11">
-			 <button type="button" class="btn btn-secondary" id="btnSearch">미지시 계획 조회</button>
+			 <button type="button" class="btn cur-p btn-dark" id="btnSearch">미지시 계획 조회</button>
 		</div>
 		<div class="col-sm-1">
-			 <button type="button" class="btn btn-secondary" id="btnIns" >지시 등록</button>
+			 <button type="button" class="btn cur-p btn-dark" id="btnIns" >지시 등록</button>
 		</div>
 	</div>
 	<hr>
@@ -105,7 +105,7 @@
 		var Grid = tui.Grid;
 	
 		//그리드 테마
-		Grid.applyTheme('striped', {
+		/* Grid.applyTheme('striped', {
 			cell : {
 				header : {
 					background : '#eef'
@@ -117,7 +117,7 @@
 			    	background : '#FFFFFF'
 			    }
 			}
-		});
+		}); */
 		
 		// 그리드1 : 계획
 		const planDetaGrid = new Grid({
@@ -139,26 +139,30 @@
 			}, {
 				header : '제품명',
 				name : 'prdtNm',
+			},{
+				header : '생산일수',
+				name : 'prodDcnt',
+				align: 'right',
 			}, {
 				header : '수량',
 				name : 'qy',
 				align: 'right',
 			}, {
-				header : '생산일수',
-				name : 'prodDcnt',
-				align: 'right',
-			},{
-				header : '확인',
-				name : 'fg',
-				hidden : true
-			},{
 				header : '생산지시량',
 				name : 'qyVal',
 				hidden : false
-			},{
-				header : '지시 숫자',
-				name : 'countDi',
+			}, {
+				header : '잔량',
+				name : 'leftQy',
 				hidden : false
+			}, {
+				header : '남은 지시',
+				name : 'countDi',
+				hidden : true
+			}, {
+				header : '확인',
+				name : 'fg',
+				hidden : true
 			}]
 		});
 		
@@ -527,11 +531,11 @@
 
 	function moveCR(gcr){
 		RwmatrLotDialog.dialog("close");
-		console.log(gcr);
-		/* console.log(gcr[1].lotNo);
+		/* console.log(gcr);
+		console.log(gcr[1].lotNo);
 		console.log(gcr[1].oustQy);
-		console.log(gcr[1].expdate); */
-		console.log(gcr.length);
+		console.log(gcr[1].expdate);
+		console.log(gcr.length); */
 		
 		let rrc = RwmatrLotGrid.getRowCount();
 		console.log(rrc);
@@ -542,9 +546,14 @@
 		for( let i=(rrc-gcr.length) ; i<rrc ; i++){
 			//appendRow 한 다음에 setValue 시키기
 			
-			console.log(989898)
+			console.log(989898)	
+			
+				/* console.log(gcr);
+				console.log(gcr[i].lotNo);
+				console.log(gcr[i].oustQy);
+				console.log(gcr[i].expdate);
+				console.log(gcr.length); */
 				
-			//for ( j=0 ; j<gcr.length ; j++) {
 				RwmatrLotGrid.setValue(i, 'nm', rwn);
  				RwmatrLotGrid.setValue(i, 'lotNo', gcr[j].lotNo);
 				RwmatrLotGrid.setValue(i, 'oustQy', gcr[j].oustQy);

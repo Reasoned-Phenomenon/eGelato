@@ -30,9 +30,9 @@
 				  <option value="SAN">샌드형</option>
 				  <option value="TUB">튜브형</option>
 			</select>
-			<button type="button" class="btn btn-secondary" id="btnAdd" >추가</button>
-			<button type="button" class="btn btn-secondary" id="btnDel" >삭제</button>
-			<button type="button" class="btn btn-secondary" id="btnIns" >등록</button>
+			<button type="button" class="btn cur-p btn-dark" id="btnAdd" >추가</button>
+			<button type="button" class="btn cur-p btn-dark" id="btnDel" >삭제</button>
+			<button type="button" class="btn cur-p btn-dark" id="btnIns" >등록</button>
 			<hr>
 			<div id="linePrcsGrid"></div>
 		</div>
@@ -53,7 +53,7 @@
 	var Grid = tui.Grid;
 	
 	//그리드 테마
-	Grid.applyTheme('striped', {
+	/* Grid.applyTheme('striped', {
 		cell : {
 			header : {
 				background : '#eef'
@@ -65,7 +65,7 @@
 		    	background : '#FFFFFF'
 		    }
 		}
-	});
+	}); */
 	
 	// 그리드 생성 1
 	const lineGrid = new Grid({

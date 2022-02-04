@@ -30,8 +30,8 @@ th, td {
 						<input type="radio" id="fgCan" name="fg" value="CANCEL">취소
                     </td>
                     <td rowspan="3">
-                        <button type="button" class="btn btn-secondary" id="btnSearch">검색</button>
-                        <button type="button" class="btn btn-secondary" id="btnClear">초기화</button>
+                        <button type="button" class="btn cur-p btn-dark" id="btnSearch">검색</button>
+                        <button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
                     </td>
                 </tr>
                 <tr>
@@ -64,13 +64,21 @@ th, td {
     
     	
     //생산계획일자 현재날짜 기본 설정
+	const d = new Date();
+
+	const year = d.getFullYear(); // 년
+	const month = d.getMonth();   // 월
+	const day = d.getDate();      // 일
+	
+	document.getElementById('startD').value = new Date(year, month, day - 7).toISOString().substring(0,10);
 	document.getElementById('endD').value = new Date().toISOString().substring(0, 10);
-  
+	
+    //
    	// 계획 조회 그리드 생성
    	var Grid = tui.Grid;
 
 	//그리드 테마
-	Grid.applyTheme('striped', {
+	/* Grid.applyTheme('striped', {
 		cell : {
 			header : {
 				background : '#eef'
@@ -82,7 +90,7 @@ th, td {
 		    	background : '#FFFFFF'
 		    }
 		}
-	});
+	}); */
 
 	// 그리드 생성 : 관리
 	const PlanSearchGrid = new Grid({
@@ -92,7 +100,7 @@ th, td {
 				readData : {url : '${path}/prd/planListPF.do',method : 'GET'}
 			},
 			contentType : 'application/json',
-			initialRequest: false
+			//initialRequest: false
 		},
 		rowHeaders : ['rowNum' ],
 		selectionUnit : 'row',

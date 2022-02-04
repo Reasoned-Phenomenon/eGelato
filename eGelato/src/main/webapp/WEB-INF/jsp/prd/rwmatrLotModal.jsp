@@ -16,14 +16,14 @@
 	<br>
 	<input type="text" readonly id="notice" style="border:0 solid black; color: red;">
 	<br><br>
-	<button type="button" class="btn btn-secondary" id="btnchoose">확인</button>
+	<button type="button" class="btn cur-p btn-dark" id="btnchoose">확인</button>
 
 <script>
 	var Grid = tui.Grid;
 	var iqy;
 	
 	//그리드 테마
-	Grid.applyTheme('striped', {
+	/* Grid.applyTheme('striped', {
 		  cell: {
 		    header: {
 		      background: '#eef'
@@ -35,7 +35,7 @@
 		    	background : '#FFFFFF'
 		    }
 		  }
-		});
+		}); */
 
 	//그리드 생성
 	var chooseRwmatrLotGrid = new Grid({
@@ -209,16 +209,6 @@
 
 				moveCR(gcr);
 				
-				/* let rrc = RwmatrLotGrid.getRowCount();
-				console.log(rrc);
-				
-				for( let i=0 ; i<gcr.length ; i++){
-					console.log("자재LOT 등록")
-					RwmatrLotGrid.setValue(rrc, 'nm', rwn);
-					RwmatrLotGrid.setValue(rrc, 'lotNo', gcr[i].lotNo);
-					RwmatrLotGrid.setValue(rrc, 'oustQy', gcr[i].oustQy);
-					RwmatrLotGrid.setValue(rrc, 'expdate', gcr[i].expdate);
-				} */
 				
 			});
 </script>
