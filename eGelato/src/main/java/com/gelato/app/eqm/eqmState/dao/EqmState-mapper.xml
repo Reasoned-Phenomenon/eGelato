@@ -3,7 +3,7 @@
 <mapper namespace="com.gelato.app.eqm.eqmState.dao.EqmStateMapper">
 
 	<select id="temperature" resultType="EqmStateVO">
-		SELECT S.EQM_ID as EQM_ID,
+		SELECT DISTINCT S.EQM_ID as EQM_ID,
 			   S.LOG_TM as LOG_TM,
 			   S.TEMP_NOW as TEMP_NOW
 		FROM EQM_ST_NOW S 

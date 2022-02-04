@@ -42,4 +42,16 @@ public class EqmStateController {
 		return "tiles/eqm/output";
 	}
 	
+	//실시간설비상태 - 생산량
+	@GetMapping("/eqm/findEqmOutPut.do")
+	public String findOutPutTemp(Model model, EqmStateVO eqmStateVo) {
+		
+		System.out.println(eqmStateVo);
+		System.out.println(service.temperature(eqmStateVo));
+		model.addAttribute("datas", service.output(eqmStateVo));
+		return "grid";
+	}
+	
+	
+	
 }
