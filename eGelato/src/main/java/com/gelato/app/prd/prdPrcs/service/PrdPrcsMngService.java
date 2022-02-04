@@ -24,4 +24,9 @@ public interface PrdPrcsMngService {
 	
 	// 재시작
 	int prcsStRest (List<PrdPrcsMngVO> vo);
+	
+	// 스케줄러
+	String startSche (PrdPrcsMngVO vo);
+	String stopSche (PrdPrcsMngVO vo);
+	String restartSche (PrdPrcsMngVO vo);
 }

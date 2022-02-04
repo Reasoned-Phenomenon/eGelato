@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gelato.app.prd.prdPrcs.dao.OracleSchedulerMapper;
 import com.gelato.app.prd.prdPrcs.dao.PrdPrcsMngMapper;
 import com.gelato.app.prd.prdPrcs.dao.PrdPrcsMngVO;
 import com.gelato.app.prd.prdPrcs.service.PrdPrcsMngService;
@@ -15,6 +16,7 @@ import com.gelato.app.vr.ModifyVO;
 public class PrdPrcsMngServiceImpl implements PrdPrcsMngService{
 
 	@Autowired PrdPrcsMngMapper ppmMapper;
+	@Autowired OracleSchedulerMapper mapper;
 
 	@Override
 	public List<PrdPrcsMngVO> chooseIndica(PrdPrcsMngVO vo) {
@@ -56,8 +58,6 @@ public class PrdPrcsMngServiceImpl implements PrdPrcsMngService{
 			System.out.println("공정상태등록");
 			ppmMapper.insertPrcsSt(vo);
 			
-			System.out.println("프로시저 돌리기");
-			//ppmMapper.eqmProcedure(vo);
 		}
 		return 0;
 	}
@@ -87,6 +87,36 @@ public class PrdPrcsMngServiceImpl implements PrdPrcsMngService{
 			ppmMapper.prcsStRest(vo.get(i));
 		}
 		return 0;
+	}
+
+	@Override
+	public String startSche(PrdPrcsMngVO vo) {
+		
+		// 라인에 있는 공정들 FOR문 돌리면 됨 
+		mapper.mkJob(vo);
+		//
+		return null;
+	}
+
+	@Override
+	public String stopSche(PrdPrcsMngVO vo) {
+		
+		//정지 시킬 잡 FOR문 + prcs_st
+		//
+		mapper.stopJob(vo);
+		//
+		
+		return null;
+	}
+
+	@Override
+	public String restartSche(PrdPrcsMngVO vo) {
+		
+		//시작시킬 잡 FOR문
+		mapper.startJob(vo);
+		//
+				
+		return null;
 	}
 	
 

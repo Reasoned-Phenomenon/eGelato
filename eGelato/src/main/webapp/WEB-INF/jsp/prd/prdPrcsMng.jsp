@@ -184,6 +184,14 @@ th, td {
 				header : '공정상태',
 				name : 'st',
 				hidden : false
+			},{
+				header : 'jobName',
+				name : 'jobName',
+				hidden : false
+			},{
+				header : 'programName',
+				name : 'programName',
+				hidden : false
 			}]
 		});
 	
@@ -239,7 +247,7 @@ th, td {
 			iqy = IndicaGrid.getData()[0].qy;
 			
 			// 첫 행에 시간 넣기
-			prcsListGrid.setValue(0,'frTm',stT);
+			//prcsListGrid.setValue(0,'frTm',stT);
 			
 			// 전체 행에 필요값 넣기
 			var i
@@ -247,14 +255,29 @@ th, td {
 				prcsListGrid.setValue(i,'ord',ior);
 				prcsListGrid.setValue(i,'indicaDetaId',idi);
 				prcsListGrid.setValue(i,'lineOrd',i+1);
-				prcsListGrid.setValue(i,'inptQy',iqy);
+				//prcsListGrid.setValue(i,'inptQy',iqy);
+				
+				// jobName 만들기, programName 만들기
+				jobName = 'JOB_' + prcsListGrid.getData()[i].prcsNowId.substr(0,3) 
+							+ prcsListGrid.getData()[i].prcsNowId.substr(4,3)
+							+ prcsListGrid.getData()[i].prcsNowId.substr(8,3);
+				console.log(jobName);
+				
+				programName = prcsListGrid.getData()[i].prcsNowId.substr(0,3) 
+							+ prcsListGrid.getData()[i].prcsNowId.substr(4,3)
+							+ prcsListGrid.getData()[i].prcsNowId.substr(8,3);
+				console.log(programName);
+				
+				prcsListGrid.setValue(i,'jobName',jobName);
+				prcsListGrid.setValue(i,'programName',programName);
+				
 			}
 			
 			prcsListGrid.request('modifyData', {showConfirm : false});
 		
 			toastr.clear()
 			toastr.success( ('공정을 시작합니다.'),'Gelato',{timeOut:'1000'} );
-		}
+		} 
 	})
 	
 	// 공정이동표
@@ -282,10 +305,14 @@ th, td {
 			
 			// 전체행 update
 			grc = prcsListGrid.getRowCount();
+			ior = IndicaGrid.getData()[0].ord;
+			idi = IndicaGrid.getData()[0].indicaDetaId;
 			
 			var j
 			for (j = 0 ; j < grc ; j++) {
 				prcsListGrid.setValue(j,'st','STATE2');
+				prcsListGrid.setValue(j,'ord',ior);
+				prcsListGrid.setValue(j,'indicaDetaId',idi);
 			}
 			
 			ior = IndicaGrid.getData()[0].ord;
@@ -319,10 +346,14 @@ th, td {
 			
 			// 전체행 update
 			grc = prcsListGrid.getRowCount();
+			ior = IndicaGrid.getData()[0].ord;
+			idi = IndicaGrid.getData()[0].indicaDetaId;
 			
 			var j
 			for (j = 0 ; j < grc ; j++) {
 				prcsListGrid.setValue(j,'st','STATE1');
+				prcsListGrid.setValue(j,'ord',ior);
+				prcsListGrid.setValue(j,'indicaDetaId',idi);
 			}
 			
 			ior = IndicaGrid.getData()[0].ord;

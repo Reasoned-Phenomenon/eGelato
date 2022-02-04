@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.prd.prdPrcs.dao.OracleSchedulerMapper">
+
+<select id="mkJob" parameterType="PrdPrcsMngVO">
+
+	BEGIN
+      DBMS_SCHEDULER.CREATE_PROGRAM(
+      program_name => #{programName},
+      program_action => 'eqm_output',
+      program_type => 'STORED_PROCEDURE',
+      NUMBER_OF_ARGUMENTS => 3,
+      enabled => FALSE);
+      
+      DBMS_SCHEDULER.DEFINE_PROGRAM_ARGUMENT (
+             PROGRAM_NAME => #{programName}
+            ,ARGUMENT_POSITION => 1
+            ,ARGUMENT_NAME => 'o_id'
+            ,ARGUMENT_TYPE => 'VARCHAR2'
+      );
+      
+      DBMS_SCHEDULER.DEFINE_PROGRAM_ARGUMENT (
+             PROGRAM_NAME => #{programName}
+            ,ARGUMENT_POSITION => 2
+            ,ARGUMENT_NAME => 'o_indica_deta_id'
+            ,ARGUMENT_TYPE => 'VARCHAR2'
+      );
+      
+      DBMS_SCHEDULER.DEFINE_PROGRAM_ARGUMENT (
+             PROGRAM_NAME => #{programName}
+            ,ARGUMENT_POSITION => 3
+            ,ARGUMENT_NAME => 'o_ord'
+            ,ARGUMENT_TYPE => 'VARCHAR2'
+      );
+      
+      DBMS_SCHEDULER.ENABLE(#{programName});
+      
+      DBMS_SCHEDULER.CREATE_JOB (
+          job_name =>#{jobName},
+          program_name =>#{programName},
+          schedule_name =>'sch_5sec',
+          comments => 'Gelato Job',
+          enabled =>FALSE
+      );
+      
+      DBMS_SCHEDULER.SET_JOB_ARGUMENT_VALUE( 
+                job_name => #{jobName}, 
+                argument_position => 1, 
+                argument_value => #{prcsNowId});
+                
+       DBMS_SCHEDULER.SET_JOB_ARGUMENT_VALUE( 
+                job_name => #{jobName}, 
+                argument_position => 2, 
+                argument_value => #{indicaDetaId});
+                
+       DBMS_SCHEDULER.SET_JOB_ARGUMENT_VALUE( 
+                job_name => #{jobName}, 
+                argument_position => 3, 
+                argument_value => #{lineOrd});
+                
+       DBMS_SCHEDULER.ENABLE(#{jobName});
+      
+   END;
+
+</select>
+
+<select id="startJob">          
+	BEGIN
+		DBMS_SCHEDULER.ENABLE(#{jobName});
+	END;
+</select>
+
+<select id="stopJob">
+	BEGIN
+		DBMS_SCHEDULER.DISABLE(#{jobName});
+	END;
+</select>
+
+</mapper>
