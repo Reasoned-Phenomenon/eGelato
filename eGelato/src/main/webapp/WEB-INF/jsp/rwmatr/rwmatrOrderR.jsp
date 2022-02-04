@@ -91,18 +91,8 @@ var endDate;
 var rwmName;
 var vendName;
 
-//그리드 테마
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-});
-
+//버튼 css
+$("button").addClass("btn cur-p btn-dark");
 
 //토스트옵션
 toastr.options = {
