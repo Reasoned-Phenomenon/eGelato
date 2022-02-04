@@ -15,18 +15,18 @@
 
 	<form>
 		<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-7">
 			
-	    	<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
-	    	<button type="button" class="btn cur-p btn-outline-primary" id="btnAdd">등록</button>
+	    	
 			<h3>주문서 현황</h3>
+			<hr>
 			<br>
 			
 			<div id="oustGrid"></div>
 			<br>
 			
 		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-5">
 			<h3>입출고 현황</h3>
 			<hr>
 			<div id="oustLotGrid"></div>
@@ -77,13 +77,13 @@ Grid.applyTheme('striped', {
   	bodyHeight: 500,
   	columns:[
   			{
-			  header: '주문 코드',
-			  name: 'orderId'
+			  header: '주문 상세 코드',
+			  name: 'orderShtDetaId'
 			
 			},
 			{
-			   header: '주문 상세 코드',
-			   name: 'orderShtDetaId'
+			   header: '주문 코드',
+			   name: 'orderId'
 				
 			},
 			{
@@ -95,7 +95,7 @@ Grid.applyTheme('striped', {
 			  header: '제품 명',
 			  name: 'prdtNm'
 				  
-				},
+			},
 			{
 			  header: '주문 수량',
 			  name: 'qy'
@@ -155,10 +155,14 @@ const oustLotGrid =  new Grid({
 		    end: [ev.rowKey, oustGrid.getColumns().length-1]
 		});
 	 
-	 pdi = oustGrid.getRow(ev.rowKey).prdtId;
-	 console.log(pdi);	
-	 oustLotGrid.readData(1,{'prdtId':pdi}, true);	
+		pid = oustGrid.getRow(ev.rowKey).prdtId;
+		console.log(pid);
+		oqy = oustGrid.getRow(ev.rowKey).qy;
+		console.log(oqy);
+		pnm = oustGrid.getRow(ev.rowKey).prdtNm;
+		console.log(pnm);
 		
+		chooseRI(pid,oqy,pnm);
 	});
 	
 	
@@ -172,7 +176,40 @@ const oustLotGrid =  new Grid({
 		})
 	});
 	
-	// 수정할 때 모달창.
+ 	// 수정할 때 모달창.
+	function chooseRI(pid,oqy,pnm) {
+		dialog.dialog( "open" );
+		 $('#prdtStcmodal').load("${path}/biz/prdtStcGrid.do",function () {
+				console.log('현재고 modal 로드');
+				chooseRWI(pid,oqy,pnm);
+		})
+ 	}
+ 	
+ 	function moveCR(grc) {
+ 		dialog.dialog("close");
+ 		
+ 		console.log(grc);
+ 		//console.log(gcr.length);
+ 		let rrc = oustLotGrid.getRowCount();
+		console.log(rrc);
+		for( let i=(rrc-gcr.length) ; i<rrc ; i++){
+			//appendRow 한 다음에 setValue 시키기
+			
+			console.log(989898)
+				
+			//for ( j=0 ; j<gcr.length ; j++) {
+				oustLotGrid.setValue(i, 'prdtId', pid);
+ 				
+				
+				j++;
+			
+			//}
+		}
+ 	}
+	
+ 
+		
+		
 	
 	
 

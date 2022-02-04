@@ -41,4 +41,19 @@ public class OustController {
 		model.addAttribute("datas", oustService.oustLotList(vo));
 		return "grid";
 	}
+	
+	// 완제품 재고 modal 조회.
+	@RequestMapping("/biz/prdtStcList.do")
+	public String prdtStcList(Model model, OustVO vo) {
+		System.out.println("완제품 재고");
+		model.addAttribute("datas", oustService.prdtStcList(vo));
+		System.out.println(oustService.prdtStcList(vo));
+		return "grid";
+	}
+	
+	@RequestMapping("/biz/prdtStcGrid.do")
+	public String vendModal(Model model) {
+		System.out.println("완제품 재고");
+		return "/biz/prdtStcModal";
+	}
 }

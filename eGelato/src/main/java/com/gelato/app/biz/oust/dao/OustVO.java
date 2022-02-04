@@ -44,6 +44,8 @@ public class OustVO {
 	String startDate;
 	String endDate;
 	
-	//
-	String prdtNm;// 제품명
+	// 
+	String prdtNm;// 제품명.
+	
+	
 }
