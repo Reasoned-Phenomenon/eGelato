@@ -14,6 +14,7 @@
 			 LEFT OUTER JOIN PRCS_ST PS
 			 ON(PN.PRCS_NOW_ID = PS.PRCS_NOW_ID)
 		WHERE PS.ST = 'STATE1'
+		ORDER BY EQM_ID
 	</select>
 	
 	<select id="output" resultType="EqmStateVO">
@@ -28,6 +29,7 @@
 			 LEFT OUTER JOIN PRCS_ST PS
 			 ON(PN.PRCS_NOW_ID = PS.PRCS_NOW_ID)
 		WHERE PS.ST = 'STATE1'
+		ORDER BY EQM_ID
 	</select>
 	
 </mapper>

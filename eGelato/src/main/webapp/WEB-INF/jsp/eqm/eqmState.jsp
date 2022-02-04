@@ -14,76 +14,99 @@
 	<h2>모니터링 관리</h2>
 	<br>
 	<div>
-		<label>모니터링</label><select id="state" onchange="selectState()">
+		<select id="state" onchange="selectState()">
+			<option value="선택">선택</option>
 			<option value="온도">온도</option>
 			<option value="생산량">생산량</option>
 		</select>
 	</div>
 	<div id="chart-area"></div>
-	<script>
 
+<script>
+
+	const el = document.getElementById('chart-area');
+	    
+	var logTm = 0;
+	var tempNow; 
+	var data = {};
+	var options = {};
+	var chart;
 	
-     const el = document.getElementById('chart-area');
-    
-     /*const data = {
-    	        series: [
-    	          {
-    	            name: 'SiteA',
-    	            data: [
-    	              ['08/22/2020 10:00:00', 202],
-    	              ['08/22/2020 10:05:00', 212],
-    	              ['08/22/2020 10:10:00', 222],
-    	              ['08/22/2020 10:15:00', 351],
-    	              ['08/22/2020 10:20:00', 412],
-    	              ['08/22/2020 10:25:00', 420],
-    	              ['08/22/2020 10:30:00', 300],
-    	              ['08/22/2020 10:35:00', 213],
-    	              ['08/22/2020 10:40:00', 230],
-    	              ['08/22/2020 10:45:00', 220],
-    	              ['08/22/2020 10:50:00', 234],
-    	              ['08/22/2020 10:55:00', 210],
-    	              ['08/22/2020 11:00:00', 220],
-    	            ],
-    	          },
-    	          {
-    	            name: 'SiteB',
-    	            data: [
-    	              ['08/22/2020 10:00:00', 312],
-    	              ['08/22/2020 10:10:00', 320],
-    	              ['08/22/2020 10:20:00', 295],
-    	              ['08/22/2020 10:30:00', 300],
-    	              ['08/22/2020 10:40:00', 320],
-    	              ['08/22/2020 10:50:00', 30],
-    	              ['08/22/2020 11:00:00', 20],
-    	            ],
-    	          },
-    	        ],
-    	      };
-    	      const options = {
-    	        chart: { title: 'Concurrent user', width: 1000, height: 500 },
-    	        xAxis: { pointOnColumn: true, title: 'minute', date: { format: 'hh:mm:ss' }, },
-    	        yAxis: { title: 'users' },
-    	      };
-
-    	      const chart = toastui.Chart.lineChart({ el, data, options });*/
-     
-    var logTm = 0;
-    var tempNow; 
-    var data = {};
-    var options = {};
-    var chart;
-    
-    
-    //5초마다 반영  
-    const intervalId = setInterval(() => {
-    	logTm += 1;
-      const random = Math.round(Math.random() * 100);
-      chart.addData([60], new Date('2022-02-03T21:29:30'));
-    }, 5000);   
-    
-    $(function(){
-   	 var state = $('#state option:selected').val();
-    	console.log(state)
+	
+	//5초마다 반영
+	/* const intervalId = setInterval(() => {
+		logTm += 1;
+		const random = Math.round(Math.random() * 100);
+			chart.addData([random],new Date());
+		}, 5000);    */
+	
+	//화면 로드시 바로 보이는 차트
+	/*$(function(){
+		var state = $('#state option:selected').val();
+		console.log(state)
+		$.ajax({
+			url : "${path}/eqm/findEqmTemp.do",
+			dataType : 'json',
+			method : 'GET',
+			async : false,
+			error : function(result){
+				console.log('에러',result)
+			}
+		}).done(function (result){
+			console.log(result)
+			data = {
+				categories: [],
+				series: [
+					{
+						name: 'eqmId',
+						data: [],
+					}
+				],
+			};
+	 
+		for(let i = 0; i<result.data.contents.length; i++){
+			data.categories.push(result.data.contents[i].logTm);
+			data.series[0].data.push(Number(result.data.contents[i].tempNow))
+		} 
+	
+		options = { 
+			chart: { title: '실시간 설비 온도', width: 1000, height: 500 },
+			xAxis: {
+				pointOnColumn: true,
+				title: '시간',
+				date : {format : 'hh:mm:ss'}
+			},
+			yAxis: {
+				title: 'Amount',
+			},
+			tooltip: {
+				formatter: (value) => value+`°C`,
+			},
+			legend: {
+				align: 'bottom',
+			},
+			series: {
+				shift: true,
+			},
+		
+		};
+		
+		chart = toastui.Chart.lineChart({ el, data, options });
+		
+		})
+	}) */
+	
+	var flag = 0;
+ 
+	//값 가져오기 
+	function selectState() {
+		
+		
+		var state = $('#state option:selected').val();
+		console.log("select: ",state)
+		
+		
+		if(state == '온도'){
 			$.ajax({
 				url : "${path}/eqm/findEqmTemp.do",
 				dataType : 'json',
@@ -94,112 +117,71 @@
 				}
 			}).done(function (result){
 				console.log(result)
-				 data = {
-			      series: [
-			        {
-			          name: 'eqmId',
-			          data: [],
-			        }
-			      ],
-			    };
-				 
-				console.log("값내놔",result)
-				console.log(result.data.contents.length)
+				console.log(result.data.contents[0].eqmId)
+				
+				data = {
+					categories: [],
+					series: [],
+				};
+				
+				var a = {name: '', data: [],};
+				
 				for(let i = 0; i<result.data.contents.length; i++){
 					
-					data.series[0].data.push([result.data.contents[i].logTm, Number(result.data.contents[i].tempNow)])
+					data.categories.push(result.data.contents[i].logTm);
+					
+					if(flag != result.data.contents[i].eqmId){
+						if (a.name != '') {
+							console.log("추가")
+							data.series.push(a);
+						} else {
+							console.log("a 초기화")
+							a.name = '';
+							a.data = [];
+						}
+						console.log("a 값 넣어줌")
+						flag = result.data.contents[i].eqmId;
+						a.name = result.data.contents[i].eqmId;
+						a.data.push(Number(result.data.contents[i].tempNow));
+					} else {
+						console.log("데이터만 넣어줌")
+						a.data.push(Number(result.data.contents[i].tempNow));
+					}
+					
+					if(i == result.data.contents.length-1) {
+						console.log("마지막 넣어줌")
+						data.series.push(a);
+					}
+						
 				} 
-				console.log(data)
-				console.log(data.series[0].data)
-				
+					
 				options = { 
-				      chart: { title:  '실시간 설비 온도', width: 1000, height: 500 },
-				      xAxis: {
-				   	    pointOnColumn: true,
-				        title: '시간',
-				        date : {format : 'hh:mm:ss'}
-				      },
-				      yAxis: {
-				        title: 'Amount',
-				      },
-				      tooltip: {
-				        formatter: (value) => `${value}°C`,
-				      },
-				      legend: {
-				        align: 'bottom',
-				      },
-				      series: {
-				        shift: true,
-				      },
+					chart: { title: '실시간 설비 온도', width: 1000, height: 500 },
+					xAxis: {
+						pointOnColumn: true,
+						title: '시간',
+						date : {format : 'hh:mm:ss'}
+					},
+					yAxis: {
+						title: 'Amount',
+					},
+					tooltip: {
+						formatter: (value) =>  value+`°C`,
+					},
+					legend: {
+						align: 'bottom',
+					},
+					series: {
+						shift: true,
+					},
 				
-				    };
+				};
+				
 				chart = toastui.Chart.lineChart({ el, data, options });
 				
-				
-				//chart.setData({'series' : [{name : 'abc', data : [data.series[0].data, ]}]});
-			})
-    })
-    
-    //값 가져오기
-     function selectState() {
-    	var state = $('#state option:selected').val();
-    	console.log(state)
-    	if(state == '온도'){
-			$.ajax({
-				url : "${path}/eqm/findEqmTemp.do",
-				dataType : 'json',
-				method : 'GET',
-				async : false,
-				error : function(result){
-					console.log('에러',result)
-				}
-			}).done(function (result){
-				
-				 data = {
-			      series: [
-			        {
-			          name: 'eqmId',
-			          data: [],
-			        }
-			      ],
-			    };
-				 
-				console.log("값내놔",result)
-				console.log(result.data.contents.length)
-				for(let i = 0; i<result.data.contents.length; i++){
-					
-					data.series[0].data.push([result.data.contents[i].logTm, Number(result.data.contents[i].tempNow)])
-				} 
-				console.log(data)
-				console.log(data.series[0].data)
-				
-				options = { 
-				      chart: { title:  '실시간 설비 온도', width: 1000, height: 500 },
-				      xAxis: {
-				   	    pointOnColumn: true,
-				        title: '시간',
-				        date : {format : 'hh:mm:ss'}
-				      },
-				      yAxis: {
-				        title: 'Amount',
-				      },
-				      tooltip: {
-				        formatter: (value) => `${value}°C`,
-				      },
-				      legend: {
-				        align: 'bottom',
-				      },
-				      series: {
-				        shift: true,
-				      },
-				
-				    };
-				
-				
-				//chart.setData({'series' : [{name : 'abc', data : [data.series[0].data, ]}]});
 			}) 
-    	}else {
-    		$.ajax({
+		}else {
+			$.ajax({
 				url : "${path}/eqm/findEqmOutput.do",
 				dataType : 'json',
 				method : 'GET',
@@ -207,17 +189,61 @@
 				console.log('에러',result)
 				}
 			}).done(function (result){
+				
 				console.log("값내놔",result)
-				for(let i = 0; i<result.length; i++){
-					data.categories.push(result[i])
+				
+				data = {
+					categories: [],
+					series: [
+						{
+							name: result.data.contents[0].eqmId,
+							data: [],
+						}
+					],
+				};
+				
+				for(let i = 0; i<result.data.contents.length; i++){
+					data.categories.push(result.data.contents[i].logTm);
+					
+					var b = {
+						name: '',
+						data: [],
+					};
+					
+					b.name = result.data.contents[i].eqmId;
+					b.data.push(Number(result.data.contents[i].prodQy));
+					
+					data.series.push(b);
 				}
+				
+				options = { 
+					chart: { title:  '실시간 설비 생산량', width: 1000, height: 500 },
+					xAxis: {
+						pointOnColumn: true,
+						title: '시간',
+						date : {format : 'hh:mm:ss'}
+					},
+					yAxis: {
+						title: 'Amount',
+					},
+					tooltip: {
+						formatter: (value) =>  value+`개`,
+					},
+					legend: {
+						align: 'bottom',
+					},
+					series: {
+						shift: true,
+					},
+				
+				};
+				
+				chart = toastui.Chart.lineChart({ el, data, options });
 			})
-    	}
-    }  
-    
-     
-     
-     
-	</script>
+		}
+	}  
+  
+  
+</script>
 </body>
 </html>
