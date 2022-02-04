@@ -16,4 +16,15 @@ public class RwmatrVO {
 	
 	//join
 	String vendName;
+	
+	//라인,공정,uph
+	String bomId;
+	String prdtId;
+	String prdtNm;
+	String lineId;
+	String prcsId;
+	String prcsNm;
+	String eqmId;
+	String eqmName;
+	String uph;
 }

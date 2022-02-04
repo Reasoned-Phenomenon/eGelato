@@ -26,6 +26,11 @@ public class RwmatrServiceImpl implements RwmatrService {
 	}
 
 	@Override
+	public List<RwmatrVO> rwmatrUphList(RwmatrVO vo) {
+		return rwmatrMapper.rwmatrUphList(vo);
+	}
+	
+	@Override
 	public int modifyRwmatr(ModifyVO<RwmatrVO> mvo) {
 		
 		for(RwmatrVO vo : mvo.getUpdatedRows()) {

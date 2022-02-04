@@ -32,6 +32,15 @@ public class RwmatrController {
 		return "grid";
 	}
 	
+	//uph 리스트 검색
+	@RequestMapping("/rwmatr/rwmatrUphList.do")
+	public String rwmatrUphList(RwmatrVO vo, Model model) {
+		System.out.println("uph 조회");
+		model.addAttribute("datas", rwmatrService.rwmatrUphList(vo));
+		System.out.println(rwmatrService.rwmatrUphList(vo));
+		return "grid";
+	}
+	
 	//안전재고 수정
 	@PutMapping("/rwmatr/rwmatrModifyData.do")
 	@ResponseBody
