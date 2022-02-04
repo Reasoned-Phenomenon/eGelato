@@ -13,21 +13,42 @@
 <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script> -->
 </head>
+<style>
+th, td {
+	padding: 5px;
+}
+</style>
 <body>
 <h3>원자재 발주관리</h3>
 <div style="margin: 20px;">
-	<form action="">
-		자재명 : <input type="text" id="rwmName">업체명 : <input type="text" id="vendName"><br>
-		발주신청일 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
-		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
-		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-		<!-- <button type="button" class="btn cur-p btn-outline-primary" id="btnReset">전체검색</button> -->
-	</form>
+	<div>
+		<form action="">
+		    <table>
+		        <tbody>
+		            <tr>
+		                <th>자재명</th>
+		                <td><input type="text" id="rwmName"></td>
+		            </tr>
+		            <tr>
+		                <th>업체명</th>
+		                <td><input type="text" id="vendName"></td>
+		                
+		            </tr>
+		            <tr>
+		                <th>발주신청일</th>
+		                <td><input type="date" id="startDate"> ~ <input type="date" id="endDate"></td>
+		                <td><button type="button" id="btnFind">조회</button></td>
+		                <td><button type="reset">초기화</button></td>
+		            </tr>
+		        </tbody>
+		    </table>
+	    </form>
+	</div>
 </div>
 <div style="float: right;">
-	<button type="button" class="btn cur-p btn-outline-primary" id="btnAdd">추가</button>
-	<button type="button" class="btn cur-p btn-outline-primary" id="btnDel">삭제</button>
-	<button type="button" class="btn cur-p btn-outline-primary" id="btnSave">저장</button>
+	<button type="button" id="btnAdd">추가</button>
+	<button type="button" id="btnDel">삭제</button>
+	<button type="button" id="btnSave">저장</button>
 </div>
 <hr>
 <br>
@@ -58,17 +79,8 @@ var endDate;
 var rwmName;
 var vendName;
 
-//그리드 테마
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-});
+//버튼
+$("button").addClass("btn cur-p btn-dark");
 
 //토스트옵션
 toastr.options = {
