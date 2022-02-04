@@ -45,8 +45,14 @@ th, td {
 
 <script>
 	//생산계획일자 현재날짜 기본 설정
-	/* document.getElementById('indicaD').value = new Date().toISOString()
-			.substring(0, 10); */
+	const d = new Date();
+
+	const year = d.getFullYear(); // 년
+	const month = d.getMonth();   // 월
+	const day = d.getDate();      // 일
+	
+	document.getElementById('startD').value = new Date(year, month, day - 7).toISOString().substring(0,10);
+	document.getElementById('endD').value = new Date().toISOString().substring(0, 10);
 	
 	//초기화버튼
 	$("#btnRes").on(

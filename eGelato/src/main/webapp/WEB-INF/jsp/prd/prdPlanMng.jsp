@@ -76,7 +76,7 @@ th, td {
 	//생산계획일자 현재날짜 기본 설정
 	document.getElementById('planDt').value = new Date().toISOString()
 			.substring(0, 10);
-
+	
 	//탭 생성
 	$( "#tabs" ).tabs();
 	

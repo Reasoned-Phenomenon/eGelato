@@ -139,26 +139,30 @@
 			}, {
 				header : '제품명',
 				name : 'prdtNm',
+			},{
+				header : '생산일수',
+				name : 'prodDcnt',
+				align: 'right',
 			}, {
 				header : '수량',
 				name : 'qy',
 				align: 'right',
 			}, {
-				header : '생산일수',
-				name : 'prodDcnt',
-				align: 'right',
-			},{
-				header : '확인',
-				name : 'fg',
-				hidden : true
-			},{
 				header : '생산지시량',
 				name : 'qyVal',
 				hidden : false
-			},{
-				header : '지시 숫자',
-				name : 'countDi',
+			}, {
+				header : '잔량',
+				name : 'leftQy',
 				hidden : false
+			}, {
+				header : '남은 지시',
+				name : 'countDi',
+				hidden : true
+			}, {
+				header : '확인',
+				name : 'fg',
+				hidden : true
 			}]
 		});
 		

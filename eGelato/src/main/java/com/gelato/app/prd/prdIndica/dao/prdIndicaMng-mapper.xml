@@ -27,9 +27,10 @@
 		select ppd.plan_deta_id as plan_deta_id, 
 		       p.prdt_nm as prdt_nm,
 		       ppd.qy as qy, 
-		       ppd.prod_dcnt as prod_dcnt
-               ,sum(pid.qy) as qy_val
-               ,count(pid.indica_deta_id) as count_di
+		       ppd.prod_dcnt as prod_dcnt,
+               sum(pid.qy) as qy_val,
+               count(pid.indica_deta_id) as count_di,
+               ppd.qy - sum(pid.qy) as left_qy
 		from prod_plan_deta ppd join prdt p
 		    on ppd.prdt_id = p.prdt_id
 		    left outer join prod_indica pi

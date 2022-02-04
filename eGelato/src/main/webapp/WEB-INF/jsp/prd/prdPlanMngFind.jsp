@@ -64,8 +64,16 @@ th, td {
     
     	
     //생산계획일자 현재날짜 기본 설정
+	const d = new Date();
+
+	const year = d.getFullYear(); // 년
+	const month = d.getMonth();   // 월
+	const day = d.getDate();      // 일
+	
+	document.getElementById('startD').value = new Date(year, month, day - 7).toISOString().substring(0,10);
 	document.getElementById('endD').value = new Date().toISOString().substring(0, 10);
-  
+	
+    //
    	// 계획 조회 그리드 생성
    	var Grid = tui.Grid;
 
@@ -92,7 +100,7 @@ th, td {
 				readData : {url : '${path}/prd/planListPF.do',method : 'GET'}
 			},
 			contentType : 'application/json',
-			initialRequest: false
+			//initialRequest: false
 		},
 		rowHeaders : ['rowNum' ],
 		selectionUnit : 'row',
