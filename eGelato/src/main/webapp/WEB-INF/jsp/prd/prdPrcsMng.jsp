@@ -277,7 +277,7 @@ th, td {
 		
 			toastr.clear()
 			toastr.success( ('공정을 시작합니다.'),'Gelato',{timeOut:'1000'} );
-		}
+		} 
 	})
 	
 	// 공정이동표
