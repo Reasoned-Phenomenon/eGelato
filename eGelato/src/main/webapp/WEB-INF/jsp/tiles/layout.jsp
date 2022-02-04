@@ -36,6 +36,11 @@
 <script
 	src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
 	
+<!-- css -->
+<link rel="stylesheet" href="${path}/resources/css/style2.css">
+<link rel="stylesheet" href="${path}/resources/css/layout2.css">
+<link rel="stylesheet" href="${path}/resources/css/normal2.css">
+
 
 <!-- grid -->
 <link rel="stylesheet"

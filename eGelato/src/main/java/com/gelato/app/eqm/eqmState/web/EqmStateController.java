@@ -36,14 +36,8 @@ public class EqmStateController {
 		return "grid";
 	}
 	
-	//실시간설비상태 - 생산량(페이지)
-	@GetMapping("/eqm/output.do")
-	public String outputPage() {
-		return "tiles/eqm/output";
-	}
-	
 	//실시간설비상태 - 생산량
-	@GetMapping("/eqm/findEqmOutPut.do")
+	@GetMapping("/eqm/findEqmOutput.do")
 	public String findOutPutTemp(Model model, EqmStateVO eqmStateVo) {
 		
 		System.out.println(eqmStateVo);

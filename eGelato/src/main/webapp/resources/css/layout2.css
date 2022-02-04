@@ -511,7 +511,7 @@ body.odd .content .container,body.odd .join-box,body.odd .layer-container,body.o
 .search-area .form-group{display:inline-block}
 .search-area>.form-group input[data-input=date],.search-area>.form-group input[type=date]{border:1px solid #777}
 /**ë¯¸ì •ì¶”ê°€**/
-.search-area .btn{min-width: 98px;}
+.search-area .btn{min-width:100px}
 .search-area .btn-top{margin-left:5px;margin-right:5px;}
 /**ë¯¸ì •ì¶”ê°€**/
 .search-area>.search-group{width:600px}
