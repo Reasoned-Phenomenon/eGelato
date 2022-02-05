@@ -16,11 +16,20 @@ h1 {
 <body>
 	<br>
 	<h1>현재고 목록</h1><br>
-	<form action="">
-		자재명 : <input type="text" id="rwmNameM">
-		<button type="button" id="rwmatrSearch" class="btn cur-p btn-outline-primary">조회</button>
-		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-	</form>
+	<div>
+		<form action="">
+		    <table>
+		        <tbody>
+		            <tr>
+		                <th>자재명</th>
+		                <td><input type="text" id="rwmNameM"></td>
+		                <td><button type="button" id="rwmatrSearch" class="btn cur-p btn-dark">조회</button></td>
+		                <td><button type="reset" class="btn cur-p btn-dark">초기화</button></td>
+		            </tr>
+		        </tbody>
+		    </table>
+	    </form>
+	</div>
 	
 	<div id="rwmatrStcListGrid" style="width: 100%"></div>
 	
@@ -36,19 +45,6 @@ document.getElementById("rwmatrSearch").addEventListener("click", function () {
 	rwmatrStcListGrid.readData(1,{'rwmName':rwmNameM}, true);
 });
 
-//checkOnlyOne(element);
-//그리드 테마
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-	});
-	
 // 그리드 생성
 var rwmatrStcListGrid = new Grid({
 	el: document.getElementById('rwmatrStcListGrid'),

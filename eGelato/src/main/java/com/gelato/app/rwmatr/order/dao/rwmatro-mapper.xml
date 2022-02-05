@@ -89,7 +89,7 @@
 		FROM VEND
 		WHERE FG = 'VEND01'
 		<if test="vendName != '' and vendName != null">
-			AND VEND_NAME LIKE '%'||#{vendName}||'%'
+			AND VEND_NAME LIKE '%'||UPPER(#{vendName})||'%'
 		</if>
 	</select>
 	

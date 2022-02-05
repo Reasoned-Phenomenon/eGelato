@@ -1,4 +1,10 @@
 //버튼 css
-$(function () {
+$(function() {
 	$("button").addClass("btn cur-p btn-dark");
+	var e = document.forms;
+	for (i = 0; i < e.length; i++) {
+		for (j = 0; j < e[i].elements.length; j++) {
+			if (e[i].elements[j].readOnly) e[i].elements[j].style.backgroundColor = "#a3e3e3";
+		}
+	}
 })

@@ -17,12 +17,20 @@ h1 {
 	<br>
 	<h1>업체 목록</h1>
 	<br>
-	
-	<form action="">
-		거래처 : <input type="text" id="vendNameM">
-		<button type="button" id="vendSearch" class="btn cur-p btn-outline-primary">조회</button>
-		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-	</form>
+	<div>
+		<form action="">
+		    <table>
+		        <tbody>
+		            <tr>
+		                <th>업체명</th>
+		                <td><input type="text" id="vendNameM"></td>
+		                <td><button type="button" id="vendSearch" class="btn cur-p btn-dark">조회</button></td>
+		                <td><button type="reset" class="btn cur-p btn-dark">초기화</button></td>
+		            </tr>
+		        </tbody>
+		    </table>
+	    </form>
+	</div>
 	
 	<div id="vendListGrid" style="width: 100%"></div>
 	
@@ -38,18 +46,6 @@ document.getElementById("vendSearch").addEventListener("click", function () {
 	vendListGrid.readData(1,{'vendName':vendNameM}, true);
 });
 
-//그리드 테마
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-	});
-	
 // 그리드 생성
 var vendListGrid = new Grid({
 	el: document.getElementById('vendListGrid'),

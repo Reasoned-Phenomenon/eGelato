@@ -7,26 +7,43 @@
 <head>
 <meta charset="UTF-8">
 <title>원자재 입고관리</title> 
-<link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
-<script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
-<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 </head>
+<style>
+th, td {
+	padding: 5px;
+}
+</style>
 <body>
 <h3>원자재 입고관리</h3>
 <div style="margin: 20px;">
-	<form action="">
-		자재명 : <input type="text" id="rwmName">업체명 : <input type="text" id="vendName"><br>
-		입고일 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
-		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
-		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-	</form>
+	<div>
+		<form action="">
+		    <table>
+		        <tbody>
+		            <tr>
+		                <th>자재명</th>
+		                <td><input type="text" id="rwmName"></td>
+		            </tr>
+		            <tr>
+		                <th>업체명</th>
+		                <td><input type="text" id="vendName"></td>
+		                
+		            </tr>
+		            <tr>
+		                <th>입고일자</th>
+		                <td><input type="date" id="startDate"> ~ <input type="date" id="endDate"></td>
+		                <td><button type="button" id="btnFind">조회</button></td>
+		                <td><button type="reset">초기화</button></td>
+		            </tr>
+		        </tbody>
+		    </table>
+	    </form>
+	</div>
 </div>
 <div style="float: right;">
-	<button type="button" class="btn cur-p btn-outline-primary" id="btnAdd">추가</button>
-	<button type="button" class="btn cur-p btn-outline-primary" id="btnDel">삭제</button>
-	<button type="button" class="btn cur-p btn-outline-primary" id="btnSave">저장</button>
+	<button type="button" id="btnAdd">추가</button>
+	<button type="button" id="btnDel">삭제</button>
+	<button type="button" id="btnSave">저장</button>
 </div>
 <hr>
 <br>
@@ -58,23 +75,6 @@ var startDate;
 var endDate;
 var rwmName;
 var vendName;
-
-//LOT번호 부여할 자재코드,자재명,입고량
-//let rwmId;
-//let rwmNm;
-//let rwmQy;
-
-//그리드 테마
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-});
 
 toastr.options = {
 		positionClass : "toast-top-center",

@@ -7,18 +7,33 @@
 <head>
 <meta charset="UTF-8">
 <title>안전재고 관리</title>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" src="https://uicdn.toast.com/tui.pagination/v3.4.0/tui-pagination.js"></script>
 </head>
+<style>
+th, td {
+	padding: 5px;
+}
+</style>
 <body>
 <h3>안전재고 관리</h3>
 <div style="margin: 20px;">
-	<form action="">
-		자재명 : <input type="text" id="rwmName">업체명 : <input type="text" id="vendName"><br>
-		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
-		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-	</form>
+	<div>
+		<form action="">
+		    <table>
+		        <tbody>
+		            <tr>
+		                <th>자재명</th>
+		                <td><input type="text" id="rwmName"></td>
+		            </tr>
+		            <tr>
+		                <th>업체명</th>
+		                <td><input type="text" id="vendName"></td>
+		                <td><button type="button" id="btnFind">조회</button></td>
+		                <td><button type="reset">초기화</button></td>
+		            </tr>
+		        </tbody>
+		    </table>
+	    </form>
+	</div>
 </div>
 <hr>
 <br>
@@ -30,7 +45,7 @@
 	<div class="col-8">
 		<div id="rwmatrUphGrid"></div><br>
 		<h2 class="detailTitle">상세조회</h2><br>
-			<form method="post" name="frm" id="frm" enctype="multipart/form-data">
+			<form>
 				<table>
 					<tbody>
 						<tr>
@@ -46,10 +61,10 @@
 							<th>안전재고</th>
 							<td><input id="safStc" name="safStc"></td>
 						</tr>
-							<td>
-								<button type="button" id="btnUpd"
-									class="btn cur-p btn-outline-dark">수정</button>
-							</td>
+						<tr>
+							<td><button type="button" id="btnUpd">수정</button></td>
+							<td><button type="reset">초기화</button></td>
+						</tr>
 					</tbody>
 				</table>
 			</form>
@@ -78,18 +93,6 @@ document.getElementById("btnFind").addEventListener("click", function () {
 	rwmatrSafStcGrid.readData(1,{'rwmName':rwmName,
 								 'vendName':vendName}, true);
 });
-
-//그리드 테마
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-	});
 
 toastr.options = {
 		positionClass : "toast-top-center",
@@ -207,16 +210,46 @@ var rwmatrUphGrid = new Grid({
 		  {
 		    header: '소모량',
 		    name: 'qy',
+		    align: 'right',
+		    formatter({value}) {
+				  let a = `\${value}`
+			  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+			  	  if(b == 'null'){
+					return '';  
+				  } else {
+			        return b;
+				  }
+			    },
 		    sortable: true
 		  },
 		  {
 		    header: 'UPH',
 		    name: 'uph',
+		    align: 'right',
+		    formatter({value}) {
+				  let a = `\${value}`
+			  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+			  	  if(b == 'null'){
+					return '';  
+				  } else {
+			        return b;
+				  }
+			    },
 		    sortable: true
 		  },
 		  {
 		    header: '총소모량',
 		    name: 'total',
+		    align: 'right',
+		    formatter({value}) {
+				  let a = `\${value}`
+			  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+			  	  if(b == 'null'){
+					return '';  
+				  } else {
+			        return b;
+				  }
+			    },
 		    sortable: true
 		  }
 		]
