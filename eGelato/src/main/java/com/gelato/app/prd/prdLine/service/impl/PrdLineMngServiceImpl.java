@@ -54,6 +54,7 @@ public class PrdLineMngServiceImpl implements PrdLineMngService{
 		}
 		
 		for(PrdLineMngVO vo : mvo.getDeletedRows()) {
+			System.out.println(vo);
 			System.out.println("행삭제");
 			plMapper.deleteLineDeta(vo);
 			System.out.println("ord업데이트");

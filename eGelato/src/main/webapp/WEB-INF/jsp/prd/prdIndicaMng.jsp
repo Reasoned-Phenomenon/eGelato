@@ -143,18 +143,24 @@
 				header : '생산일수',
 				name : 'prodDcnt',
 				align: 'right',
+				width : 90
 			}, {
 				header : '수량',
 				name : 'qy',
 				align: 'right',
+				width : 90
 			}, {
 				header : '생산지시량',
 				name : 'qyVal',
-				hidden : false
+				hidden : false,
+				align: 'right',
+				width : 90
 			}, {
 				header : '잔량',
 				name : 'leftQy',
-				hidden : false
+				hidden : false,
+				align: 'right',
+				width : 90
 			}, {
 				header : '남은 지시',
 				name : 'countDi',

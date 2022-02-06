@@ -125,6 +125,7 @@ th, td {
 		}, {
 			header : '설비코드',
 			name : 'eqmId',
+			editor : 'text',
 		}, {
 			header : '설비명',
 			name : 'eqmName',

@@ -29,10 +29,6 @@ th, td {
                         <input type="radio" id="fgFin" name="fg" value="FINISH">완료
 						<input type="radio" id="fgCan" name="fg" value="CANCEL">취소
                     </td>
-                    <td rowspan="3">
-                        <button type="button" class="btn cur-p btn-dark" id="btnSearch">검색</button>
-                        <button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
-                    </td>
                 </tr>
                 <tr>
                     <th>제품명</th>
@@ -42,12 +38,14 @@ th, td {
                 <tr>
                     <th>계획 일자</th>
                     <td><input type="date" id="startD" required> ~ <input type="date" id="endD" required></td>
+                    <td>
+                        <button type="button" class="btn cur-p btn-dark" id="btnSearch">검색</button>
+                        <button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <br>
-    <hr>
     <br>
     <!-- 계획 조회 그리드 -->
     <div id="PlanSearchGrid"></div>
@@ -162,7 +160,7 @@ th, td {
 			modal : true,
 			autoOpen : false,
 			height: 600,
-			width: 400
+			width: 500
 		});
 		
 	    console.log("11111")
