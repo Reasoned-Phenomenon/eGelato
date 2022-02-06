@@ -69,4 +69,10 @@ public class PrdLineMngServiceImpl implements PrdLineMngService{
 		}
 		return 0;
 	}
+
+	@Override
+	public List<PrdLineMngVO> prdtMoveInfo(PrdLineMngVO vo) {
+		System.out.println("공정이동표");
+		return plMapper.prdtMoveInfo(vo);
+	}
 }

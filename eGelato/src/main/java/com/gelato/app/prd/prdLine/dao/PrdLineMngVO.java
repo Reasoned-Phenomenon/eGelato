@@ -18,4 +18,8 @@ public class PrdLineMngVO {
 	
 	String prcsDeta;
 	String ord;
+	
+	// 공정이동표
+	String indicaDetaId;
+	String qy;
 }
