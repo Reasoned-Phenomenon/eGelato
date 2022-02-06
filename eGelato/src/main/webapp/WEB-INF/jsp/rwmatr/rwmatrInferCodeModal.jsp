@@ -21,18 +21,6 @@ h1 {
 	
 <script>
 var Grid = tui.Grid;
-//checkOnlyOne(element);
-//그리드 테마
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-	});
 	
 // 그리드 생성
 var rwmatrInferCodeListGrid = new Grid({

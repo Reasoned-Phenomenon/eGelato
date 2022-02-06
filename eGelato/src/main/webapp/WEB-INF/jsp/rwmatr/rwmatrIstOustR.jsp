@@ -12,6 +12,11 @@
 th, td {
 	padding: 5px;
 }
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+    color: #ffffff;
+    text-decoration: none;
+    background: black;
+}
 </style>
 <body>
 
@@ -31,28 +36,61 @@ th, td {
 	
 	<div id="rwmatrIst">
 		<div style="margin: 20px;">
-			<form id="rwmatrIstGrid">
-				자재명 : <input type="text" id="rwmNameI">업체명 : <input type="text" id="vendNameI"><br>
-				입고일 :   <input type="date" id="startDateI"> ~ <input type="date" id="endDateI">
-				<button type="button" class="btn cur-p btn-outline-primary" id="btnFindI">조회</button>
-				<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-			</form>
+			<div>
+				<form id="rwmatrI">
+				    <table>
+				        <tbody>
+				            <tr>
+				                <th>자재명</th>
+				                <td><input type="text" id="rwmNameI"></td>
+				            </tr>
+				            <tr>
+				                <th>업체명</th>
+				                <td><input type="text" id="vendNameI"></td>
+				                
+				            </tr>
+				            <tr>
+				                <th>입고일자</th>
+				                <td><input type="date" id="startDateI"> ~ <input type="date" id="endDateI"></td>
+				                <td><button type="button" id="btnFindI">조회</button></td>
+				                <td><button type="reset">초기화</button></td>
+				            </tr>
+				        </tbody>
+				    </table>
+			    </form>
+			</div>
 		</div>
 		<div id="rwmatrIstGrid"></div> <br>
 	</div>
 	
 	<div id="rwmatrOust">
 		<div style="margin: 20px;">
-			<form id="rwmatrO">
-				자재명 : <input type="text" id="rwmNameO">업체명 : <input type="text" id="vendNameO"><br>
-				출고일 :   <input type="date" id="startDateO"> ~ <input type="date" id="endDateO">
-				<button type="button" class="btn cur-p btn-outline-primary" id="btnFindO">조회</button>
-				<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-			</form>
+			<div>
+				<form id="rwmatrO">
+				    <table>
+				        <tbody>
+				            <tr>
+				                <th>자재명</th>
+				                <td><input type="text" id="rwmNameO"></td>
+				            </tr>
+				            <tr>
+				                <th>업체명</th>
+				                <td><input type="text" id="vendNameO"></td>
+				                
+				            </tr>
+				            <tr>
+				                <th>출고일자</th>
+				                <td><input type="date" id="startDateO"> ~ <input type="date" id="endDateO"></td>
+				                <td><button type="button" id="btnFindO">조회</button></td>
+				                <td><button type="reset">초기화</button></td>
+				            </tr>
+				        </tbody>
+				    </table>
+			    </form>
+			</div>
 		</div>
 		<div id="rwmatrOustGrid"></div> <br>
 	</div>
-	
 </div>
 
 <!-- 모달창 -->
@@ -92,21 +130,6 @@ toastr.options = {
 	
 //계획상세 그리드 생성
 var Grid = tui.Grid;
-
-//그리드 테마
-Grid.applyTheme('striped', {
-	cell : {
-		header : {
-			background : '#eef'
-		},
-		evenRow : {
-			background : '#fee'
-		},
-		selectedHeader : {
-	    	background : '#FFFFFF'
-	    }
-	}
-});
 
 //입고 조회 그리드
 var rwmatrIstGrid = new Grid({

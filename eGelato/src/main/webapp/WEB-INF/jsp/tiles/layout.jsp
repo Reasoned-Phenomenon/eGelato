@@ -102,6 +102,7 @@
 	
 <!-- gelato.js -->
 <script src="${path }/resources/js/gelatoCom.js"></script>
+<script src="${path }/resources/js/gelatoCss.js"></script>
 
 </head>
 <body class="dashboard dashboard_1">

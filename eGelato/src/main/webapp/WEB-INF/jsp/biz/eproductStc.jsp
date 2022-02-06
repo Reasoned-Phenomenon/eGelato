@@ -13,15 +13,32 @@
 <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 </head>
+<style>
+th, td {
+	padding: 5px;
+}
+</style>
 <body>
 <h3>완제품 재고조회</h3>
 <div style="margin: 20px;">
-	<form action="">
-		제품명 : <input type="text" id="prdtNm"><br>
-		제조일자 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
-		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
-		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-	</form>
+	<div>
+		<form action="">
+		    <table>
+		        <tbody>
+		            <tr>
+		                <th>제품명</th>
+		                <td><input type="text" id="prdtNm"></td>
+		            </tr>
+		            <tr>
+		                <th>제조일자</th>
+		                <td><input type="date" id="startDate"> ~ <input type="date" id="endDate"></td>
+		                <td><button type="button" id="btnFind">조회</button></td>
+		                <td><button type="reset">초기화</button></td>
+		            </tr>
+		        </tbody>
+		    </table>
+	    </form>
+	</div>
 </div>
 <hr>
 <br>
@@ -48,22 +65,6 @@ let rk = '';
 var prdtNm;
 var startDate;
 var endDate;
-
-//그리드 테마
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    },
-	    invalid: {
-	    	background: 'red',
-	    	text: 'white'
-	    }
-	  }
-});
 
 //그리드 생성
 var eproductStcList = new Grid({

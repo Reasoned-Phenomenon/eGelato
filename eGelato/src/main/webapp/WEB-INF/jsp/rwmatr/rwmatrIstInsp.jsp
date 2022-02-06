@@ -8,20 +8,42 @@
 <meta charset="UTF-8">
 <title>원자재 입고검사관리</title> 
 </head>
+<style>
+th, td {
+	padding: 5px;
+}
+</style>
 <body>
 <h3>원자재 입고검사관리</h3>
 <div style="margin: 20px;">
-	<form action="">
-		자재명 : <input type="text" id="rwmName">담당자 : <input type="text" id="mngr"><br>
-		검사일자 :   <input type="date" id="startDate"> ~ <input type="date" id="endDate">
-		<button type="button" class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
-		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-	</form>
+	<div>
+		<form action="">
+		    <table>
+		        <tbody>
+		            <tr>
+		                <th>자재명</th>
+		                <td><input type="text" id="rwmName"></td>
+		            </tr>
+		            <tr>
+		                <th>담당자</th>
+		                <td><input type="text" id="mngr"></td>
+		                
+		            </tr>
+		            <tr>
+		                <th>검사일자</th>
+		                <td><input type="date" id="startDate"> ~ <input type="date" id="endDate"></td>
+		                <td><button type="button" id="btnFind">조회</button></td>
+		                <td><button type="reset">초기화</button></td>
+		            </tr>
+		        </tbody>
+		    </table>
+	    </form>
+	</div>
 </div>
 <div style="float: right;">
-	<button type="button" class="btn cur-p btn-outline-primary" id="btnAdd">추가</button>
-	<button type="button" class="btn cur-p btn-outline-primary" id="btnDel">삭제</button>
-	<button type="button" class="btn cur-p btn-outline-primary" id="btnSave">저장</button>
+	<button type="button" id="btnAdd">추가</button>
+	<button type="button" id="btnDel">삭제</button>
+	<button type="button" id="btnSave">저장</button>
 </div>
 <hr>
 <br>
@@ -51,20 +73,6 @@ var startDate;
 var endDate;
 var rwmName;
 var mngr;
-
-
-
-//그리드 테마
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-});
 
 //토스트옵션
 toastr.options = {

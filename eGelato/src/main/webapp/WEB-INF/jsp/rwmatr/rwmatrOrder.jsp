@@ -7,11 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>원자재 발주관리</title> 
- <!-- <link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
-<script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
-<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script> -->
 </head>
 <style>
 th, td {
@@ -78,9 +73,6 @@ var startDate;
 var endDate;
 var rwmName;
 var vendName;
-
-//버튼
-$("button").addClass("btn cur-p btn-dark");
 
 //토스트옵션
 toastr.options = {
