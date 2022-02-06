@@ -19,12 +19,19 @@ h1 {
 		
 	</form>
 	
-	<div id="prdtStcGrid" style="width: 100%"></div>
+	<div id="prdtStcGrid" style="width: 120%"></div>
 	
 <script>
 var Grid = tui.Grid;	
 
 var iqy;
+
+// 변수 선언.
+let lno;      // 로트번호.
+let ioutd;   // 입출고 날짜.
+let isqy;    // 입고량.
+let oqy;     // 출고량.
+let edate;   // 유통기한.
 
 //그리드 테마
 Grid.applyTheme('striped', {
@@ -65,7 +72,8 @@ var prdtStcGrid = new Grid({
 		  {
 		    header: '사용 수량',
 		    name: 'oustQy',
-		    align: 'center'
+		    align: 'center',
+		    editor: 'text'
 		  },
 		  {
 		    header: '제조 일자',
@@ -89,7 +97,7 @@ var prdtStcGrid = new Grid({
 			  }
 		]
 });
-
+    //TODO 함수명 변수명 수정하기.
 	function chooseRWI(pid,oqy,pnm) {
 		
 		$.ajax({
@@ -114,29 +122,34 @@ var prdtStcGrid = new Grid({
 	
 	$("#updateBtn").on(
 			"click", function(){
-				
+			console.log('=============================11');	
 			console.log(prdtStcGrid.getCheckedRows());
+			console.log(prdtStcGrid.getCheckedRows()[0].lotNo);
+			console.log(prdtStcGrid.getCheckedRows()[0].istOustDttm);
+			
 				
+			
 			let gcr = prdtStcGrid.getCheckedRows();
 			console.log(gcr);
 				
 			for( let i=0 ; i<gcr.length ; i++) {
-			    prdtStcGrid.appendRow({'prdtId':pid})
+				
+				lno = prdtStcGrid.getCheckedRows()[i].lotNo;
+				ioutd = prdtStcGrid.getCheckedRows()[i].istOustDttm;
+				isqy = prdtStcGrid.getCheckedRows()[i].istQy;
+				oqy = prdtStcGrid.getCheckedRows()[i].oustQy;
+				edate = prdtStcGrid.getCheckedRows()[i].expdate;
+				
+				oustLotGrid.appendRow({'prdtId':pid, 'lotNo':lno, 
+					                   'istOustDttm':ioutd,
+					                    'istQy':isqy, 'oustQy':oqy,
+					                    'expdate':edate})
+			   		         
+			console.log();		                    
 			}
-
+                       
 			moveCR(gcr);
-				
-				/* let rrc = RwmatrLotGrid.getRowCount();
-				console.log(rrc);
-				
-				for( let i=0 ; i<gcr.length ; i++){
-					console.log("자재LOT 등록")
-					RwmatrLotGrid.setValue(rrc, 'nm', rwn);
-					RwmatrLotGrid.setValue(rrc, 'lotNo', gcr[i].lotNo);
-					RwmatrLotGrid.setValue(rrc, 'oustQy', gcr[i].oustQy);
-					RwmatrLotGrid.setValue(rrc, 'expdate', gcr[i].expdate);
-				} */
-				
+	
 			});
 
 </script> 

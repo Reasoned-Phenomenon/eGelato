@@ -12,7 +12,7 @@
 			  
 		 FROM  ORDER_SHT_DETA A JOIN PRDT P
 		   ON  A.PRDT_ID = P.PRDT_ID
-	     ORDER BY ORDER_SHT_DETA_ID ASC
+	    ORDER BY ORDER_SHT_DETA_ID ASC
 	</select>
 	
 	<!--완제품 입출고 조회. -->
@@ -24,7 +24,7 @@
 			   OUST_QY AS OUST_QY,
 			   EXPDATE AS EXPDATE
 		  FROM PRDT_INST_OUST	   
-	     
+	     WHERE PRDT_ID = #{prdtId}
 	</select>
 	
 	<!-- 완제품 재고 조회 modal. -->
@@ -37,7 +37,8 @@
 		       A.FG AS FG,
 		       B.OUST_QY AS OUST_QY
 	      FROM PRDT_STC	A JOIN PRDT_INST_OUST B
-	        ON A.PRDT_ID = B.PRDT_ID	       
+	        ON A.PRDT_ID = B.PRDT_ID 
+	     WHERE A.PRDT_ID = #{prdtId}	       
 	</select>
 
 

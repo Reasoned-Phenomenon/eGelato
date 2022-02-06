@@ -148,13 +148,14 @@ const oustLotGrid =  new Grid({
 	
 });
 
-// 출고 관리드 1에서 더블클릭시 해당 정보 출력.
+// 출고 관리드(주문서 현황 그리드) 1에서 더블클릭시 완제품 현재고 modal창 실헹.
  oustGrid.on("dblclick", (ev) => {
 	 oustGrid.setSelectionRange({
 		    start: [ev.rowKey, 0],
 		    end: [ev.rowKey, oustGrid.getColumns().length-1]
 		});
 	 
+	 	// 완제품 현재고 modal창 띄우면서 필요로 하는 값 들고 감. 
 		pid = oustGrid.getRow(ev.rowKey).prdtId;
 		console.log(pid);
 		oqy = oustGrid.getRow(ev.rowKey).qy;
@@ -176,7 +177,7 @@ const oustLotGrid =  new Grid({
 		})
 	});
 	
- 	// 수정할 때 모달창.
+ 	// 수정할 때 모달창.(출고량 입력)
 	function chooseRI(pid,oqy,pnm) {
 		dialog.dialog( "open" );
 		 $('#prdtStcmodal').load("${path}/biz/prdtStcGrid.do",function () {
@@ -185,25 +186,37 @@ const oustLotGrid =  new Grid({
 		})
  	}
  	
- 	function moveCR(grc) {
+ 	// TODO 함수명 바꾸기. 의미 알 수 있게.
+ 	function moveCR(gcr) {
  		dialog.dialog("close");
  		
- 		console.log(grc);
- 		//console.log(gcr.length);
+ 		// 값이 들어온거 확인. 모달창에서 넘겨온 값.
+ 		console.log(gcr);
+ 		
  		let rrc = oustLotGrid.getRowCount();
 		console.log(rrc);
 		for( let i=(rrc-gcr.length) ; i<rrc ; i++){
 			//appendRow 한 다음에 setValue 시키기
 			
-			console.log(989898)
-				
-			//for ( j=0 ; j<gcr.length ; j++) {
-				oustLotGrid.setValue(i, 'prdtId', pid);
- 				
-				
-				j++;
+			console.log(787878787878);
 			
-			//}
+			// modal창에서 그리드2(입출고 테이블)에서 값 넘겨주기.
+			oustLotGrid.setValue(i, 'prdtId', pid);
+			oustLotGrid.setValue(i, 'lotNo', lno);
+			oustLotGrid.setValue(i, 'istOustDttm', ioutd);
+			oustLotGrid.setValue(i, 'istQy', isqy);
+			oustLotGrid.setValue(i, 'oustQy', oqy);
+			oustLotGrid.setValue(i, 'expdate', edate);
+		
+			
+			console.log(pid);
+			console.log(lno);
+			console.log(ioutd);
+			console.log(isqy);
+			console.log(oqy);
+			console.log(edate);
+
+ 			
 		}
  	}
 	

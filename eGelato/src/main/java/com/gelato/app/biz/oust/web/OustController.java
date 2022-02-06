@@ -29,6 +29,8 @@ public class OustController {
 		System.out.println("출고 list 조회.");
 		System.out.println(oustService.oustList());
 		model.addAttribute("datas", oustService.oustList());
+		
+		// TODO 연습이요~ 서버옆에 있는 Tasks에 기록이 남아짐. 보고 체크 할 수 있음.
 		return "grid";
 	}
 	
