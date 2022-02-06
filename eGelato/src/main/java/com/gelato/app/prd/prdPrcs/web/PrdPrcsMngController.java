@@ -64,7 +64,6 @@ public class PrdPrcsMngController {
 	//공정이동표 이동
 	@RequestMapping("/prd/prcsMoveDialog.do")
 	public String prcsMoveDialog() {
-		System.out.println("생산지시조회 모달");
 		return "prd/prcsMoveList";
 	}
 	

@@ -23,7 +23,7 @@ th, td {
 			<button type="button" class="btn cur-p btn-dark" id="btnSearchPlan">생산지시목록</button>
 		</div>
 		<div class="col-sm-2">
-			<button type="button" class="btn cur-p btn-dark" id="btnPrcsMove">공정이동표 출력</button>
+			<button id="btnPrcsMove" onclick="moveURL()"> 공정이동표</button>
 		</div>
 	</div>
 	<hr>
@@ -63,8 +63,6 @@ th, td {
 	
 	<!-- 생산지시 조회 모달-->
 	<div id="nonPrcsDialog" title="생산 지시 목록"></div>
-	<!-- 공정이동표 -->
-	<div id="prcsMoveDialog" title="공정이동표"></div>
 	
 <script>
 
@@ -163,35 +161,35 @@ th, td {
 			},{
 				header : '시작시간',
 				name : 'frTm',
-				hidden : false
+				hidden : true
 			},{
 				header : '지시순번',
 				name : 'ord',
-				hidden : false
+				hidden : true
 			},{
 				header : '생산지시코드',
 				name : 'indicaDetaId',
-				hidden : false
+				hidden : true
 			},{
 				header : '수량',
 				name : 'inptQy',
-				hidden : false
+				hidden : true
 			},{
 				header : '라인순번',
 				name : 'lineOrd',
-				hidden : false
+				hidden : true
 			},{
 				header : '공정상태',
 				name : 'st',
-				hidden : false
+				hidden : true
 			},{
 				header : 'jobName',
 				name : 'jobName',
-				hidden : false
+				hidden : true
 			},{
 				header : 'programName',
 				name : 'programName',
-				hidden : false
+				hidden : true
 			}]
 		});
 	
@@ -280,24 +278,6 @@ th, td {
 		} 
 	})
 	
-	// 공정이동표
-	var prcsMoveDialog = $("#prcsMoveDialog").dialog({
-			modal : true,
-			autoOpen : false,
-			height: 600,
-			width: 1000
-		});
-	
-	$("#btnPrcsMove").on(
-			"click",
-			function() {
-				prcsMoveDialog.dialog("open");
-				$("#prcsMoveDialog").load("${path}/prd/prcsMoveDialog.do",
-						function() {
-							console.log("공정이동표 로드")
-						})
-			});
-	
 	// 긴급정지버튼 누름
 	btnStop.addEventListener('click', function () {
 		
@@ -379,6 +359,17 @@ th, td {
 		}
 		
 	})
+	
+	// 공정이동표
+	
+	function moveURL() {
+		console.log(11111);
+		let mid = IndicaGrid.getData()[0].indicaDetaId;
+		console.log(mid);
+		window.open('${path}/prd/prcsMoveDialog.do?mid='+ mid, 
+					'공정이동표',
+					'width=800,height=600,location=no,status=no,scrollbars=no,titlebar=no,left=550,top=200');
+	}
 </script>
 </body>
 </html>
