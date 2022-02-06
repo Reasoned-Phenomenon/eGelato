@@ -47,8 +47,8 @@
 										<td><input id="fg" name="fg" required
 											class="form-control ta-r" style="width: 50px;">
 											<button id="btnFindFg" type="button"
-												class="btn btn-find-small" data-bs-toggle="modal"
-												aria-label="Close">🔍</button> <input type="text"
+												class="btn-modal" data-bs-toggle="modal"
+												aria-label="Close"></button> <input type="text"
 											id="fgName" name="fgName" class="form-control"
 											style="width: 100px;" disabled></td>
 									</tr>
@@ -96,8 +96,8 @@
 
 						</div>
 						<div>
-							<button type="reset" value="내용초기화" class="btn cur-p btn-dark">초기화</button>
-							<button class="btn cur-p btn-outline-dark">저장</button>
+							<button type="reset" value="내용초기화" class="btn">초기화</button>
+							<button class="btn">저장</button>
 						</div>
 					</div>
 				</div>

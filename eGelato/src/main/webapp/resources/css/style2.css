@@ -1,6 +1,6 @@
 @charset 'utf-8';
-a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:0;-webkit-box-shadow:0 0 4px 1px #9cdffb;box-shadow:0 0 4px 1px #9cdffb}
-a:hover:focus,button:hover:focus,input:hover:focus,select:hover:focus,textarea:hover:focus{-webkit-box-shadow: none;box-shadow: none;}
+/*a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:0;-webkit-box-shadow:0 0 4px 1px rgb(255, 255, 255);box-shadow:0 0 4px 1px #9cdffb}
+a:hover:focus,button:hover:focus,input:hover:focus,select:hover:focus,textarea:hover:focus{-webkit-box-shadow: none;box-shadow: none;}*/
 ul.decimal>li,ul.disc>li{position:relative}
 ul.disc>li{padding-left:1em}
 ul.disc>li:before{position:absolute;left:0;content:"\2022"}
@@ -579,7 +579,7 @@ select::-ms-expand {display: none;}
  @datepicker
 *******************************************************************************/
 .ui-datepicker{font-size:14px;z-index:9999!important;display:none;overflow:hidden;outline:0;background-color:#fff;-webkit-box-shadow:0 0 50px rgba(0,0,0,.5);box-shadow:0 0 1px 0 rgba(0,0,0,.5),0 3px 1px -2px rgba(0,0,0,.12),0 3px 10px 0 rgba(0,0,0,.2)}
-.hasDatepicker,input[type=date]{width:150px;padding-right:36px;background-color:#fff;background-image:url(../images/ico_calender.svg);background-repeat:no-repeat;background-position:calc(100% - 10px) center}
+/*.hasDatepicker,input[type=date]{width:150px;padding-right:36px;background-color:#fff;background-image:url(../images/ico_calender.svg);background-repeat:no-repeat;background-position:calc(100% - 10px) center}*/
 .ui-datepicker-header{position:relative;background-color:#004fbf}
 .ui-datepicker-title{text-align:center;color:#fff}
 .ui-datepicker-month{margin-left:15px}
