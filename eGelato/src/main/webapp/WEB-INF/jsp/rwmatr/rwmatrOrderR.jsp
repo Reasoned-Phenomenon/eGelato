@@ -155,7 +155,6 @@ var rwmatrOrderList = new Grid({
 				{
 				  header: '자재명',
 				  name: 'nm',
-				  editor: 'text',
 				  sortable: true,
 			      validation: {
 			          required: true
@@ -165,7 +164,6 @@ var rwmatrOrderList = new Grid({
 				  header: '단가(원)',
 				  align: 'right',
 				  name: 'untprc',
-				  editor: 'text',
 				  formatter({value}) { // 추가
 					  let a = `\${value}`
 				  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -183,7 +181,6 @@ var rwmatrOrderList = new Grid({
 				  header: '발주량',
 				  align: 'right',
 				  name: 'qy',
-				  editor: 'text',
 				  formatter({value}) { // 추가
 					  let a = `\${value}`
 				  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
