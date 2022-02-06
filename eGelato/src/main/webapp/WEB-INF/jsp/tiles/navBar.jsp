@@ -54,6 +54,7 @@
 
 		<!-- 메뉴 시작 -->
 		<ul class="list-unstyled components">
+<c:if test="${role eq 'ROLE_ADMIN'}">		
 			<!-- 정보 메뉴 -->
 			<li class="active"><a href="#common" data-toggle="collapse"
 				aria-expanded="false" class="dropdown-toggle"><i
@@ -75,7 +76,7 @@
 								코드 관리</span></a></li>
 
 				</ul></li>
-
+</c:if>
 			<!-- 영업 관리 메뉴 -->
 	
 			<li class="active"><a href="#sales" data-toggle="collapse"
