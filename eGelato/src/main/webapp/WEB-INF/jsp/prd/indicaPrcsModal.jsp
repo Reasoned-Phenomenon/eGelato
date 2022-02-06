@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>미생산 지시 조회</title>
 </head>
+<style>
+h1 {
+	text-align: center
+}
+</style>
 <body>
 	<br>
 	<h1>생산 지시 목록</h1>
@@ -20,8 +25,8 @@
 
 <script>
 //생산계획일자 현재날짜 기본 설정
-	/* document.getElementById('indicaD').value = new Date().toISOString()
-			.substring(0, 10); */
+	document.getElementById('indicaD').value = new Date().toISOString()
+			.substring(0, 10);
 		
 //그리드 생성
 var Grid = tui.Grid;

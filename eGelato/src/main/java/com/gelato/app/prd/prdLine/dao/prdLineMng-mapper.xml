@@ -83,4 +83,20 @@
 		set prcs_id = #{prcsId}
 		where prdt_id = #{prdtId} and ord = #{ord}
 	</update>
+	
+<!-- 공정이동표 -->	
+	<select id="prdtMoveInfo" resultType="PrdLineMngVO">
+		select pid.indica_deta_id as indica_deta_id, 
+			   pid.line_id as line_id, 
+			   l.prdt_id as prdt_id, 
+			   p.prdt_nm as prdt_nm, 
+			   pid.qy as qy
+		from prod_indica_deta pid join line l
+		    on pid.line_id = l.line_id
+		    join prdt p
+		    on l.prdt_id = p.prdt_id
+		where pid.indica_deta_id = #{indicaDetaId}
+		group by pid.indica_deta_id, pid.line_id, l.prdt_id, p.prdt_nm, pid.qy
+	</select>
+	
 </mapper>

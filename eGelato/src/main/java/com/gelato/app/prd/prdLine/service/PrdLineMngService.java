@@ -14,4 +14,7 @@ public interface PrdLineMngService {
 	List<PrdLineMngVO> linePrcsGrid(PrdLineMngVO vo);
 	
 	public int modifyLine(ModifyVO<PrdLineMngVO> mvo);
+	
+	// 공정이동표
+	List<PrdLineMngVO> prdtMoveInfo(PrdLineMngVO vo);
 }

@@ -49,4 +49,13 @@ public class PrdLineMngController {
 		prdLineMngService.modifyLine(mvo);
 		return true;
 	}
+	
+	// 공정이동표 출력
+	@RequestMapping("/prd/prdtMoveInfo.do")
+	public String prdtMoveInfo(Model model, PrdLineMngVO vo) {
+		System.out.println("공정이동표");
+		System.out.println(vo);
+		model.addAttribute("datas", prdLineMngService.prdtMoveInfo(vo));
+		return "grid";
+	}
 }

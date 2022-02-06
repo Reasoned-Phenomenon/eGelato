@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>미지시 계획 조회</title>
 </head>
+<style>
+h1 {
+	text-align: center
+}
+</style>
 <body>
 	<br>
 	<h1>미지시 계획 목록</h1>

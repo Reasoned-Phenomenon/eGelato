@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>미생산 지시 조회</title>
 </head>
+<style>
+h1 {
+	text-align: center
+}
+</style>
 <body>
 	<br>
 	<h1>생산 지시 목록</h1>
@@ -17,7 +22,7 @@
 				<th>지시 기간</th>
 				<td><input type="date" id="startD"> ~ <input type="date" id="endD"></td>
 				<td>
-					<button type="button" id="selectDate" class="btn cur-p btn-dark">검색</button>
+					<button type="button" id="selectDate" class="btn btn-find-small" data-bs-toggle="modal" aria-label="Close">검색</button>
 				</td>	
 			</tr>
 		</tbody>
@@ -29,8 +34,15 @@
 
 <script>
 //생산계획일자 현재날짜 기본 설정
-	/* document.getElementById('indicaD').value = new Date().toISOString()
-			.substring(0, 10); */
+	//생산계획일자 현재날짜 기본 설정
+	const d = new Date();
+
+	const year = d.getFullYear(); // 년
+	const month = d.getMonth();   // 월
+	const day = d.getDate();      // 일
+	
+	document.getElementById('startD').value = new Date(year, month, day - 7).toISOString().substring(0,10);
+	document.getElementById('endD').value = new Date().toISOString().substring(0, 10);
 		
 //그리드 생성
 var Grid = tui.Grid;

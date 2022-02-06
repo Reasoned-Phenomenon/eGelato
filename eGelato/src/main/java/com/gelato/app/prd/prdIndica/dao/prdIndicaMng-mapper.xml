@@ -84,6 +84,7 @@
 		from rwmatr rw join rwmatr_stc rs
 		    on rw.rwmatr_id = rs.rwmatr_id
 		where rw.rwmatr_id = #{rwmatrId}
+			  AND rs.qy != 0
 		ORDER BY rs.expdate asc
 	</select>
 

@@ -54,6 +54,7 @@ public class PrdLineMngServiceImpl implements PrdLineMngService{
 		}
 		
 		for(PrdLineMngVO vo : mvo.getDeletedRows()) {
+			System.out.println(vo);
 			System.out.println("행삭제");
 			plMapper.deleteLineDeta(vo);
 			System.out.println("ord업데이트");
@@ -67,5 +68,11 @@ public class PrdLineMngServiceImpl implements PrdLineMngService{
 			plMapper.updateLineOrd(vo);
 		}
 		return 0;
+	}
+
+	@Override
+	public List<PrdLineMngVO> prdtMoveInfo(PrdLineMngVO vo) {
+		System.out.println("공정이동표");
+		return plMapper.prdtMoveInfo(vo);
 	}
 }

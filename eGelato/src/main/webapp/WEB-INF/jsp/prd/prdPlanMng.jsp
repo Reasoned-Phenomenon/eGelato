@@ -44,13 +44,13 @@ th, td {
 					<tr>
 						<th>생산 계획명</th>
 						<td><input type="text" id="planName" required></td>
-						<td rowspan="2">
-							<button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
-						</td>
 					</tr>
 					<tr>
 						<th>생산 계획 일자</th>
 						<td><input type="date" id="planDt" required></td>
+						<td>
+							<button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -136,7 +136,7 @@ th, td {
 			},
 			rowHeaders : ['rowNum' ],
 			selectionUnit : 'row',
-			width:1770,
+			width:1500,
 			columns : [ {
 				header : '생산계획코드',
 				name : 'planDetaId'
@@ -185,13 +185,14 @@ th, td {
 			},
 			rowHeaders : [ 'checkbox', 'rowNum' ],
 			selectionUnit : 'row',
-			width:1770,
+			width:1500,
 			columns : [ {
 				header : '주문코드',
 				name : 'orderId',
 			}, {
 				header : '제품명',
 				name : 'prdtNm',
+				editor : 'text',
 			}, {
 				header : '제품코드',
 				name : 'prdtId',

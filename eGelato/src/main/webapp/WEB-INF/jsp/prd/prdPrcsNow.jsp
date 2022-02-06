@@ -27,10 +27,6 @@ th, td {
 					<td>
 						<input type="text" id="prcsDeta" readonly>
 					</td>
-					<td rowspan="3">
-	                    <button type="button" class="btn cur-p btn-dark" id="btnSearch">검색</button>
-	                    <button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
-	                </td>
 				</tr>
 				<tr>
 					<th>생산 지시 코드</th>
@@ -50,6 +46,10 @@ th, td {
 							  <option value="PDB-00104">용량 미달</option>
 						</select>
 					</td>
+					<td>
+	                    <button type="button" class="btn cur-p btn-dark" id="btnSearch">검색</button>
+	                    <button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
+	                </td>
 				</tr>
 			</tbody>
 			</table>

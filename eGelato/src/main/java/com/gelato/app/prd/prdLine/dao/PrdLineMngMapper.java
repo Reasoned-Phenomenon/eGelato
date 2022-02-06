@@ -16,4 +16,7 @@ public interface PrdLineMngMapper {
 	List<PrdLineMngVO> updateLineOrd(PrdLineMngVO vo);
 	int insertPrcsDeta(PrdLineMngVO vo);
 	int updateLineDeta(PrdLineMngVO vo);
+	
+	// 공정이동표
+	List<PrdLineMngVO> prdtMoveInfo(PrdLineMngVO vo);
 }
