@@ -5,13 +5,23 @@
 <!-- 그리드1 -->
 	<select id="lineGrid" resultType="PrdLineMngVO">
 		select p.prdt_id as prdt_id, 
-			   p.prdt_nm as prdt_nm, 
-			   l.line_id as line_id,
-			   substr(l.line_id, 5,3) as prcsDeta
+		       p.prdt_nm as prdt_nm, 
+		       l.line_id as line_id,
+		       substr(l.line_id, 5,3) as prcsDeta
 		from prdt p left outer join line l
 		    on p.prdt_id = l.prdt_id
 		group by p.prdt_id, p.prdt_nm, l.line_id
-		order by p.prdt_id
+		
+		union
+		
+		select r.rwmatr_id as prdt_id, 
+		       r.nm as prdt_nm, 
+		       l.line_id as line_id,
+		       substr(l.line_id, 5,3) as prcsDeta
+		from rwmatr r left outer join line l
+		    on r.rwmatr_id = l.prdt_id
+		where r.fg = 'STEP02'
+		group by r.rwmatr_id, r.nm, l.line_id
 	</select>
 	
 <!-- 그리드2 -->	

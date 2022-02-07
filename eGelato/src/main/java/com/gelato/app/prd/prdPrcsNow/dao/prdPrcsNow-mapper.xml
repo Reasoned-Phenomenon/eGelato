@@ -18,25 +18,38 @@
 
 <!-- 지시목록 modal -->
 	<select id="indicaDialog" resultType="PrdPrcsNowVO">
-		SELECT pid.indica_deta_id as indica_deta_id, 
-			   p.prdt_nm as prdt_nm, 
-			   pid.qy as qy,
-			   pid.indica_dt as indica_dt
+		select * from
+		(SELECT pid.indica_deta_id as indica_deta_id, 
+		       p.prdt_nm as prdt_nm, 
+		       pid.qy as qy,
+		       pid.indica_dt as indica_dt
 		FROM PROD_INDICA_DETA pid join line l
 		    on pid.line_id = l.line_id
 		    join prdt p
 		    on l.prdt_id = p.prdt_id
+		group by pid.indica_deta_id, l.prdt_id, p.prdt_nm, pid.qy, pid.indica_dt
+		
+		union
+		
+		SELECT pid.indica_deta_id as indica_deta_id, 
+		       r.nm as prdt_nm, 
+		       pid.qy as qy,
+		       pid.indica_dt as indica_dt
+		FROM PROD_INDICA_DETA pid join line l
+		    on pid.line_id = l.line_id
+		    join rwmatr r
+		    on l.prdt_id = r.rwmatr_id
+		group by pid.indica_deta_id, l.prdt_id, r.nm, pid.qy, pid.indica_dt)
 	   <where>
 			<if test="startD != null and startD != ''">
-				<![CDATA[trunc(pid.indica_dt) >= to_date(#{startD})]]>
+				<![CDATA[trunc(indica_dt) >= to_date(#{startD})]]>
 			</if>
 			
 			<if test="endD != null and endD != ''">
-				<![CDATA[and trunc(pid.indica_dt) <= to_date(#{endD})]]>
+				<![CDATA[and trunc(indica_dt) <= to_date(#{endD})]]>
 			</if>
 	   </where>
-		group by pid.indica_deta_id, l.prdt_id, p.prdt_nm, pid.qy, pid.indica_dt
-		order by pid.indica_deta_id
+		order by indica_deta_id
 	</select>
 	
 <!-- 메인그리드 -->

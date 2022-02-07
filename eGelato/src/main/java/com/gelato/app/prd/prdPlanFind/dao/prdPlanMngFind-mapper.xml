@@ -48,7 +48,7 @@
              
 		<where>
                 <if test="fg != 'ALL'">
-                	fg = #{fg}
+                	F_COM_NM_TO_CODE(fg) = #{fg}
                 </if>
                 
                 <if test="startD != null and startD != ''">

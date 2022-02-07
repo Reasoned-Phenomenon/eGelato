@@ -35,11 +35,11 @@ h1 {
 <script>
 //생산계획일자 현재날짜 기본 설정
 	//생산계획일자 현재날짜 기본 설정
-	const d = new Date();
+	var d = new Date();
 
-	const year = d.getFullYear(); // 년
-	const month = d.getMonth();   // 월
-	const day = d.getDate();      // 일
+	var year = d.getFullYear(); // 년
+	var month = d.getMonth();   // 월
+	var day = d.getDate();      // 일
 	
 	document.getElementById('startD').value = new Date(year, month, day - 7).toISOString().substring(0,10);
 	document.getElementById('endD').value = new Date().toISOString().substring(0, 10);
