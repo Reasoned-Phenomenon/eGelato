@@ -52,7 +52,7 @@
 									<div class="col-8">
 										<label>설비코드</label> <input id="searchId" required>
 										<button type="button" id="btnEqmSearch"
-											class="btn cur-p btn-outline-dark btn-sm">🔍</button>
+											class="btn-modal">🔍</button>
 										<input id="searchNm" readonly>
 
 									</div>
@@ -63,8 +63,6 @@
 								<div class="col-6">
 									<button type="reset" class="btn btn-reset" id="resetBtn">초기화</button>
 									<button type="button" class="btn btn-search" id="searchBtn">조회</button>
-									<button type="button" class="btn btn-exel" id="excelBtn">Excel</button>
-									<button type="button" class="btn btn-print" id="printBtn">인쇄</button>
 								</div>
 							</div>
 						</div>

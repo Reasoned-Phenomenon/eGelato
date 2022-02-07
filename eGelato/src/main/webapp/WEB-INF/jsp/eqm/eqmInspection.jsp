@@ -18,69 +18,63 @@
 	<div id="dialog-form" title="설비검색"></div>
 	<!-- 해당일자 점검내역 모달 -->
 	<div id="chckDialog-form" title="일 점검자료 관리"></div>
-	<div class="wrap">
-		<div class="container">
-			<main class="content" id="content">
-				<h2 class="title">설비 정기점검 관리</h2>
-				<div class="container">
-					<div class="row">
-						<div class="col-12">
-							<button type="reset" class="btn btn-reset float-right"
-								id="resetBtn">초기화</button>
-							&nbsp;&nbsp;
-							<button type="button" class="btn btn-search float-right"
-								id="searchBtn">조회</button>
-							<button type="button" class="btn btn-search float-right"
-								id="searchAllBtn">전체조회</button>
-							&nbsp;&nbsp;
-							<button type="button" class="btn btn-exel float-right"
-								id="saveBtn">저장</button>
-							&nbsp;&nbsp;
-							<button type="button" class="btn btn-print float-right"
-								id="removeBtn">삭제</button>
-						</div>
-					</div>
-					<form id="dataForm" name="dataForm" method="post">
-						<div class="grid-option-area row">
-							<div class="col-6">
-								<div>
-									<label>점검일자</label><input type="date" id="chckDate">
-								</div>
-								<div>
-									<label>설비구분</label> <select id="gubun" onchange="selectGubun()">
-										<option value="전체">전체
-										<option value="배합기">배합기
-										<option value="운송기">운송기
-										<option value="측정기">측정기
-										<option value="가공기">가공기
-									</select>
-								</div>
-							</div>
-							<div class="col-6 border" style="width: 500px;">
-								<div>
-									<ul>
-										<li>
-											<h5>설비 점검대상기간</h5>
-										</li>
-										<li>
-											<div>
-												<label>점검일자</label> <input id="fromCkDate" name="fromCkDate"
-													type="date"><label>~</label><input id="toCkDate"
-													name="toCkDate" type="date">
-												<button class="btn btn-print float-right" id="eqmChck"
-													type="button">설비조회</button>
-											</div>
-										<li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</form>
+	<div class="container">
+		<div class="row">
+			<br> 
+			<br>
+			<h2 class="title">설비 정기점검 관리</h2>
+			<div class="col-12">
+				<button type="reset" class="btn btn-reset float-right" id="resetBtn">초기화</button>
+				&nbsp;&nbsp;
+				<button type="button" class="btn btn-search float-right"
+					id="searchBtn">조회</button>
+				<button type="button" class="btn btn-search float-right"
+					id="searchAllBtn">전체조회</button>
+				&nbsp;&nbsp;
+				<button type="button" class="btn btn-exel float-right" id="saveBtn">저장</button>
+				&nbsp;&nbsp;
+				<button type="button" class="btn btn-print float-right"
+					id="removeBtn">삭제</button>
+			</div>
+		</div>
+		<form id="dataForm" name="dataForm" method="post">
+			<div class="grid-option-area row">
+				<div class="col-6">
 					<div>
-						<div id="eqmInsGrid"></div>
+						<label>점검일자</label><input type="date" id="chckDate">
+					</div>
+					<div>
+						<label>설비구분</label> <select id="gubun" onchange="selectGubun()">
+							<option value="전체">전체
+							<option value="배합기">배합기
+							<option value="운송기">운송기
+							<option value="측정기">측정기
+							<option value="가공기">가공기
+						</select>
 					</div>
 				</div>
-			</main>
+				<div class="col-6 border">
+					<div>
+						<ul>
+							<li>
+								<h5>설비 점검대상기간</h5>
+							</li>
+							<li>
+								<div>
+									<label>점검일자</label> <input id="fromCkDate" name="fromCkDate"
+										type="date"><label>~</label><input id="toCkDate"
+										name="toCkDate" type="date">
+									<button class="btn btn-print float-right" id="eqmChck"
+										type="button">설비조회</button>
+								</div>
+							<li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div>
+			<div id="eqmInsGrid"></div>
 		</div>
 	</div>
 	<script>
