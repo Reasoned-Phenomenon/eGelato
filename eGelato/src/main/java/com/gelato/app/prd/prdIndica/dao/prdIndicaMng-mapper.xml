@@ -111,7 +111,7 @@
 		    join prod_plan_deta ppd
     		on p.prdt_id = ppd.prdt_id
 		where l.line_id = #{lineId}
-			and ppd.plan_deta_id = 'PPD-20220206-001'
+			and ppd.plan_deta_id = #{planDetaId}
 		group by l.prdt_id, b.rwmatr_id, r.nm, b.qy, ppd.plan_deta_id
         
         UNION
