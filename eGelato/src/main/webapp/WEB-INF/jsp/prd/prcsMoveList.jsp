@@ -13,6 +13,7 @@
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
 <!-- 바코드 -->
 <script src="${path}/resources/js/jquery-barcode.js" type="text/javascript"></script>
 
@@ -21,38 +22,35 @@
 	<h2 style = 'text-align: center;'>공정이동표</h2>
 	<br>
 	
-	<div id="bcTarget"></div> 
+	<div id="bcTarget" ></div> 
 	<div>
 		<table>
 		<tbody>
 			<tr>
 				<th>라인코드</th>
-				<td><input type="text"></td>
-			</tr>
-			<tr>
+				<td id="lineId"></td>
 				<th>제품코드</th>
-				<td><input type="text"></td>
+				<td id="prdtId"></td>
 			</tr>
 			<tr>
 				<th>제품명</th>
-				<td><input type="text"></td>
-			</tr>
-			<tr>
+				<td id="prdtNm"></td>
 				<th>수량</th>
-				<td><input type="text"></td>
+				<td id="qy"></td>
 			</tr>
 		</tbody>
 		</table>
 	</div>
 	
-	<input type="button" value="인쇄하기" id="print" onclick="window.print()"/>
+	<button type="button" class="btn btn-secondary" id="btnPrint" >인쇄</button>
 </body>
 
 <script>
+	//onclick="window.print()"
 	let mid = '${param.mid}';
 	console.log(mid);
 	
-	$("#bcTarget").barcode(mid, "code128",{barWidth:4, barHeight:75});  
+	$("#bcTarget").barcode(mid, "code128",{barWidth:3, barHeight:50});  
 	
 	$.ajax({
 		url : "${path}/prd/prdtMoveInfo.do?indicaDetaId="+mid,
@@ -67,6 +65,17 @@
 		console.log(result.data.contents[0].prdtId);
 		console.log(result.data.contents[0].prdtNm);
 		console.log(result.data.contents[0].qy);
+		
+		lineId.innerHTML = result.data.contents[0].lineId;
+		prdtId.innerHTML = result.data.contents[0].prdtId;
+		prdtNm.innerHTML = result.data.contents[0].prdtNm;
+		qy.innerHTML = result.data.contents[0].qy;
+		
+	})
+	
+	btnPrint.addEventListener("click", function() {
+		console.log(121212);
+		window.print();
 	})
 </script>
 
