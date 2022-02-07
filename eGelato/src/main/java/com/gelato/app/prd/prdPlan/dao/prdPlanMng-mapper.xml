@@ -83,30 +83,61 @@
 		<choose>
 			<when test = "orderId != null">
 				select osd.prdt_id as prdt_id, 
-					   p.prdt_nm as prdt_nm, 
-					   os.order_id as order_id, 
-					   osd.qy as qy
+				       r.nm as prdt_nm, 
+				       os.order_id as order_id, 
+				       osd.qy as qy
 				from order_sht os join order_sht_deta osd
 				    on os.order_id = osd.order_id
-				    join prdt p
-				    on p.prdt_id = osd.prdt_id
+				    join rwmatr r
+				    on r.rwmatr_id = osd.prdt_id
 				where os.order_Id = #{orderId}
+				      and r.nm is not null
+    
+				union all
+    
+				select osd.prdt_id as prdt_id, 
+				               p.prdt_nm as prdt_nm, 
+				               os.order_id as order_id, 
+				               osd.qy as qy
+				        from order_sht os join order_sht_deta osd
+				            on os.order_id = osd.order_id
+				            join prdt p
+				            on p.prdt_id = osd.prdt_id
+				        where os.order_Id = #{orderId}
+				              and p.prdt_nm is not null
 			</when>
 			<otherwise>
 				select ppd.plan_deta_id as plan_deta_id, 
-					   ppd.prdt_id as prdt_id, 
-					   p.prdt_nm as prdt_nm, 
-					   pp.order_id as order_id, 
-					   ppd.qy as qy, 
-					   ppd.prod_dcnt as prod_dcnt, 
-					   ppd.priort as priort, 
-					   pp.fg as fg
-				from prod_plan pp join prod_plan_deta ppd
-				    on pp.plan_id = ppd.plan_id
-				    join prdt p
-				    on p.prdt_id = ppd.prdt_id
-				where pp.plan_id = #{planId}
-				order by ppd.priort
+	                   ppd.prdt_id as prdt_id, 
+	                   r.nm as prdt_nm, 
+	                   pp.order_id as order_id, 
+	                   ppd.qy as qy, 
+	                   ppd.prod_dcnt as prod_dcnt, 
+	                   ppd.priort as priort, 
+	                   pp.fg as fg
+	            from prod_plan pp join prod_plan_deta ppd
+	                on pp.plan_id = ppd.plan_id
+	                left outer join rwmatr r
+	                on r.rwmatr_id = ppd.prdt_id
+	            where pp.plan_id = #{planId}
+	                  and r.nm is not null
+	            
+	            union
+	            
+				select ppd.plan_deta_id as plan_deta_id, 
+				                   ppd.prdt_id as prdt_id, 
+				                   p.prdt_nm as prdt_nm, 
+				                   pp.order_id as order_id, 
+				                   ppd.qy as qy, 
+				                   ppd.prod_dcnt as prod_dcnt, 
+				                   ppd.priort as priort, 
+				                   pp.fg as fg
+				            from prod_plan pp join prod_plan_deta ppd
+				                on pp.plan_id = ppd.plan_id
+				                left outer join prdt p
+				                on p.prdt_id = ppd.prdt_id
+				            where pp.plan_id = #{planId}
+				                  and p.prdt_nm is not null
 			</otherwise>
 		</choose>
 	</select>

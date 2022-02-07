@@ -11,37 +11,58 @@
 	
 <!-- 계획 조회 -->
 	<select id="planList" resultType="PrdPlanMngFindVO">
-		select pp.plan_id as plan_id,
-		       pp.name as name,
-		       ppd.plan_deta_id as plan_deta_id,
-		       p.prdt_nm as prdt_nm,
-		       p.prdt_id as prdt_id,
-		       ppd.qy as qy,
-		       ppd.priort as priort,
-		       ppd.prod_dcnt as prod_dcnt,
-		       ppd.remk as remk,
-		       f_com_code_to_nm(pp.fg) as fg
-		from prod_plan pp join prod_plan_deta ppd
-			 on pp.plan_id = ppd.plan_id
-			 join prdt p
-			 on p.prdt_id = ppd.prdt_id
+		select * from 
+				(select pp.plan_id as plan_id,
+				       pp.name as name,
+				       ppd.plan_deta_id as plan_deta_id,
+				       p.prdt_nm as prdt_nm,
+				       p.prdt_id as prdt_id,
+				       ppd.qy as qy,
+				       ppd.priort as priort,
+				       ppd.prod_dcnt as prod_dcnt,
+				       ppd.remk as remk,
+				       f_com_code_to_nm(pp.fg) as fg,
+		               pp.dt as dt
+				from prod_plan pp join prod_plan_deta ppd
+					 on pp.plan_id = ppd.plan_id
+					 join prdt p
+					 on p.prdt_id = ppd.prdt_id
+		             
+		        union
+		
+				select pp.plan_id as plan_id,
+						       pp.name as name,
+						       ppd.plan_deta_id as plan_deta_id,
+						       r.nm as prdt_nm,
+						       r.rwmatr_id as prdt_id,
+						       ppd.qy as qy,
+						       ppd.priort as priort,
+						       ppd.prod_dcnt as prod_dcnt,
+						       ppd.remk as remk,
+						       f_com_code_to_nm(pp.fg) as fg,
+				               pp.dt as dt
+						from prod_plan pp join prod_plan_deta ppd
+							 on pp.plan_id = ppd.plan_id
+							 join rwmatr r
+							 on r.rwmatr_id = ppd.prdt_id)
+             
 		<where>
                 <if test="fg != 'ALL'">
-                	pp.fg = #{fg}
+                	fg = #{fg}
                 </if>
                 
                 <if test="startD != null and startD != ''">
-                	<![CDATA[and trunc(pp.dt) >= to_date(#{startD})]]>
+                	<![CDATA[and trunc(dt) >= to_date(#{startD})]]>
                 </if>
                 
                 <if test="endD != null and endD != ''">
-                	<![CDATA[and trunc(pp.dt) <= to_date(#{endD})]]>
+                	<![CDATA[and trunc(dt) <= to_date(#{endD})]]>
                 </if>
                 
                  <if test="prdtNm != null and prdtNm != ''">
-                	and p.prdt_nm = #{prdtNm}
+                	and prdt_nm = #{prdtNm}
                 </if>
 		</where>
-		order by ppd.plan_deta_id
+		order by plan_deta_id
 	</select>
 </mapper>

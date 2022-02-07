@@ -14,17 +14,36 @@
 		    on ppd.plan_deta_id = pi.plan_deta_id
 		    left outer join prod_indica_deta pid
 		    on pi.indica_id = pid.indica_id
-		    join prdt
+            join prdt
 		    on ppd.prdt_id = prdt.prdt_id
 		where pp.fg != 'CANCEL'
 		group by pp.plan_id, pp.name, ppd.prod_dcnt, pi.indica_id, ppd.plan_deta_id, prdt.prdt_nm
 		having ppd.prod_dcnt != count(pid.indica_id)
-		order by pp.plan_id
+        
+        union
+        
+		select pp.plan_id as plan_id, 
+			   pp.name as name, 
+			   ppd.plan_deta_id as plan_deta_id, 
+			   r.nm as prdt_nm
+		from prod_plan pp right outer join prod_plan_deta ppd
+		    on pp.plan_id = ppd.plan_id
+		    left outer join prod_indica pi
+		    on ppd.plan_deta_id = pi.plan_deta_id
+		    left outer join prod_indica_deta pid
+		    on pi.indica_id = pid.indica_id
+            join rwmatr r
+		    on ppd.prdt_id = r.rwmatr_id
+		where pp.fg != 'CANCEL'
+		group by pp.plan_id, pp.name, ppd.prod_dcnt, pi.indica_id, ppd.plan_deta_id, r.nm
+		having ppd.prod_dcnt != count(pid.indica_id)
+		
+		order by plan_deta_id
 	</select>
 	
 <!-- 생산계획조회 그리드 출력 -->
 	<select id="choosePlan" resultType="PrdIndicaMngVO">
-		select ppd.plan_deta_id as plan_deta_id, 
+		 select ppd.plan_deta_id as plan_deta_id, 
 		       p.prdt_nm as prdt_nm,
 		       ppd.qy as qy, 
 		       ppd.prod_dcnt as prod_dcnt,
@@ -40,6 +59,27 @@
 		where ppd.plan_deta_id = #{planDetaId}
 		group by ppd.plan_deta_id,p.prdt_nm, ppd.qy, ppd.prod_dcnt
 		having ppd.prod_dcnt != count(pid.indica_deta_id)
+        
+        UNION
+        
+        select ppd.plan_deta_id as plan_deta_id, 
+                   r.nm as prdt_nm,
+                   ppd.qy as qy, 
+                   ppd.prod_dcnt as prod_dcnt,
+                   sum(pid.qy) as qy_val,
+                   count(pid.indica_deta_id) as count_di,
+                   ppd.qy - sum(pid.qy) as left_qy
+            from prod_plan_deta ppd join RWMATR r
+                on ppd.prdt_id = r.rwmatr_id
+                left outer join prod_indica pi
+                on ppd.plan_deta_id = pi.plan_deta_id
+                left outer join prod_indica_deta pid
+                on pi.indica_id = pid.indica_id
+            where ppd.plan_deta_id = #{planDetaId}
+            group by ppd.plan_deta_id,r.nm, ppd.qy, ppd.prod_dcnt
+            having ppd.prod_dcnt != count(pid.indica_deta_id)
+            
+		order by plan_deta_id
 	</select>
 	
 <!-- 생산지시 그리드 출력 -->
@@ -71,9 +111,29 @@
 		    join prod_plan_deta ppd
     		on p.prdt_id = ppd.prdt_id
 		where l.line_id = #{lineId}
+			and ppd.plan_deta_id = 'PPD-20220206-001'
+		group by l.prdt_id, b.rwmatr_id, r.nm, b.qy, ppd.plan_deta_id
+        
+        UNION
+        
+		select l.prdt_id as prdt_id, 
+			   b.rwmatr_id as rwmatr_id, 
+			   r.nm as nm, 
+			   (b.qy*#{qy}/10) as qy,
+			   ppd.plan_deta_id as plan_deta_id
+		from  rwmatr rw join line l 
+		    on rw.rwmatr_id = l.prdt_id
+		    join bom b
+		    on rw.rwmatr_id = b.prdt_id
+		    join rwmatr r
+		    on b.rwmatr_id = r.rwmatr_id
+		    join prod_plan_deta ppd
+    		on rw.rwmatr_id = ppd.prdt_id
+		where l.line_id = #{lineId}
 			and ppd.plan_deta_id = #{planDetaId}
 		group by l.prdt_id, b.rwmatr_id, r.nm, b.qy, ppd.plan_deta_id
-		order by b.rwmatr_id
+		
+		order by rwmatr_id
 	</select>
 
 <!-- 자재 선택 후 lot 정하기 -->

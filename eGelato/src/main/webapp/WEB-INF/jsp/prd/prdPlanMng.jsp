@@ -192,7 +192,7 @@ th, td {
 			}, {
 				header : '제품명',
 				name : 'prdtNm',
-				editor : 'text',
+				//editor : 'text',
 			}, {
 				header : '제품코드',
 				name : 'prdtId',
