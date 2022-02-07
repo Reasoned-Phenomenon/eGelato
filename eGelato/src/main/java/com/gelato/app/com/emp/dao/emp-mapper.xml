@@ -2,10 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gelato.app.com.emp.dao.EmpMapper">
 
-	<select id="findMber">
+	<select id="findMber" resultType="EmpVO">
 		SELECT mber_id, mber_nm, esntl_id
 		FROM COMTNGNRLMBER
-		WHERE mber_sttus = 'P';
+		WHERE mber_sttus = 'P'
+		<if test="mberNm != null">
+			AND mber_nm LIKE '%' || #{mberNm} || '%'
+		</if>
+		ORDER BY mber_nm
 	</select>
 
 </mapper>

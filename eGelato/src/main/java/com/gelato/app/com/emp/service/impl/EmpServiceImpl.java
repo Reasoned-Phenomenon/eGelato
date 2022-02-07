@@ -15,8 +15,8 @@ public class EmpServiceImpl implements EmpService {
 	@Autowired EmpMapper mapper;
 	
 	@Override
-	public List<EmpVO> findMber() {
-		return mapper.findMber();
+	public List<EmpVO> findMber(EmpVO vo) {
+		return mapper.findMber(vo);
 	}
 
 	

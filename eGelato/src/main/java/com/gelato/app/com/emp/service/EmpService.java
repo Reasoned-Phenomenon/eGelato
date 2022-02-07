@@ -6,5 +6,5 @@ import com.gelato.app.com.emp.dao.EmpVO;
 
 public interface EmpService {
 
-	List<EmpVO> findMber();
+	List<EmpVO> findMber(EmpVO vo);
 }

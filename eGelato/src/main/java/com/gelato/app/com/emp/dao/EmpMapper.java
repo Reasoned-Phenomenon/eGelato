@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface EmpMapper {
 
-	List<EmpVO> findMber();
+	List<EmpVO> findMber(EmpVO vo);
 }

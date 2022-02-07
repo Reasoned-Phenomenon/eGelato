@@ -7,63 +7,66 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<div>
+	이름 <input type="text" id="empNm" name="empNm">
+	<button type="button" id="btnEmpFind">검색</button>
+</div>
+<hr>
 <div id="empModalGrid"></div>
 
 <script>
 
-var modalDataSource = {
+var empModalDataSource = {
 		api: {
-		    readData: 	{url: '${path}/com/findComCodeDeta.do', method: 'GET' }
+		    readData: 	{url: '${path}/com/findMber.do', method: 'GET' }
 	  	},
 		contentType: 'application/json'
 	};
-	
+
 var columns = 	[
-	  {
-		    header: 'CODE',
-		    name: 'code'
+		{
+		    header: '이름',
+		    name: 'mberNm'
 		  },
 		  {
-		    header: 'CODE_NM',
-		    name: 'codeNm'
+		    header: '아이디',
+		    name: 'mberId'
 		  },
 		  {
-		    header: 'CODE_DC',
-		    name: 'codeDc'
-		  },
-		  {
-		    header: 'USE_AT',
-		    name: 'useAt',
-		    align: 'center'
+		    header: 'esntlId',
+		    name: 'esntlId',
+		    hidden:true
 		  }
-		];
+	];
 		
-var modalGrid = new tui.Grid({
-	el: document.getElementById('modalGrid'),
-	data: modalDataSource,
-	width: 450,
-	bodyHeight:300,
+var empModalGrid = new tui.Grid({
+	el: document.getElementById('empModalGrid'),
+	data: empModalDataSource,
+	width: 650,
+	bodyHeight: 280,
 	selectionUnit: 'row',
 	columns 
 });
 
 //이벤트
-modalGrid.on('dblclick', (ev) => {	
+empModalGrid.on('dblclick', (ev) => {	
 	
 	//cell 선택시 row 선택됨.
-	modalGrid.setSelectionRange({
+	empModalGrid.setSelectionRange({
 	      start: [ev.rowKey, 0],
-	      end: [ev.rowKey, modalGrid.getColumns().length-1]
+	      end: [ev.rowKey, empModalGrid.getColumns().length-1]
 	  });
 	
-	//클릭한 row의 codeId에 해당하는 code를 읽어옴
-	//console.log(modalGrid.getRow(ev.rowKey))
-	codeParam = modalGrid.getRow(ev.rowKey).codeNm;
-	console.log(codeParam)
-	getModalData(codeParam);
-
+	getEmpModalData(empModalGrid.getValue(ev.rowKey,'mberNm'), empModalGrid.getValue(ev.rowKey,'esntlId'));
+	
 });
+
+btnEmpFind.addEventListener("click",function(){ 
+	
+	empModalGrid.readData(1, {mberNm:$("#empNm").val()}, true);
+	
+	$("#empNm").val('');
+})
 
 </script>
 

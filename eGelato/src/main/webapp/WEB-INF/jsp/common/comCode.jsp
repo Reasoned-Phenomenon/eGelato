@@ -28,7 +28,7 @@
 
 <br>
 <br>
-
+<button type="button" id="btnModal">모달 테스트</button>
 <hr>
 <br>
 <div class="row">
@@ -59,6 +59,8 @@
   		
 	</div>
 	
+<div id="dialog-form" title="사원 검색"></div>	
+
 </div>
 
 <script>
@@ -253,6 +255,38 @@ const codeGrid = new tui.Grid({
 	codeGrid.on('click',function (ev) {
 		console.log(ev)
 	})
+	
+	let empDialog;
+	
+	empDialog = $( "#dialog-form" ).dialog({
+	      autoOpen: false,
+	      height: 500,
+	      width: 700,
+	      modal: true,
+	      buttons: {
+	          Cancel: function() {
+	        	  empDialog.dialog( "close" );
+	          }
+	      }
+	     
+	});
+	
+	btnModal.addEventListener("click", function() { 
+		
+		empDialog.dialog( "open" );
+		$('#dialog-form').load("${path}/com/empModal.do");
+		console.log("오기는함")
+		
+	})
+	
+	function getEmpModalData(mberNm, esntlId) {
+		console.log("-----------------")
+		console.log(mberNm)
+		console.log(esntlId)
+		console.log("-----------------")
+		empDialog.dialog( "close" );
+	}
+	
 	
 </script>
 </body>
