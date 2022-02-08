@@ -11,12 +11,6 @@ th, td {
 	padding: 5px;
 }
 
-.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
-    color: #ffffff;
-    text-decoration: none;
-    background: black;
-}
-
 </style>
 <body>
 
@@ -34,8 +28,8 @@ th, td {
 		
 		<div id="ManageTab">
 				<div id="PlanDetaGrid" ></div> <br>
-				<button type="button" class="btn cur-p btn-dark" id="btnSearchPlan">계획조회</button>
-				<button type="button" class="btn cur-p btn-dark" id="btnPlanDel">계획취소</button>	
+				<button type="button"  id="btnSearchPlan">계획조회</button>
+				<button type="button"  id="btnPlanDel">계획취소</button>	
 		</div>
 		
 		<div id="InsertTab">
@@ -49,16 +43,16 @@ th, td {
 						<th>생산 계획 일자</th>
 						<td><input type="date" id="planDt" required></td>
 						<td>
-							<button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
+							<button type="button"  id="btnClear">초기화</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<div id="PlanDetaInsGrid"></div> <br>
-			<button type="button" class="btn cur-p btn-dark" id="btnOrderSht">주문서조회</button>
-			<button type="button" class="btn cur-p btn-dark" id="btnPlanIns">계획등록</button>
-			<button type="button" class="btn cur-p btn-dark" id="btnAdd">행 추가</button>
-			<button type="button" class="btn cur-p btn-dark" id="btnDel">행 삭제</button>
+			<button type="button"  id="btnOrderSht">주문서조회</button>
+			<button type="button"  id="btnPlanIns">계획등록</button>
+			<button type="button"  id="btnAdd">행 추가</button>
+			<button type="button"  id="btnDel">행 삭제</button>
 		</div>
 	</div>
 	

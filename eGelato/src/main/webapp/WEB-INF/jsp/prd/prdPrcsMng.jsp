@@ -20,7 +20,7 @@ th, td {
 	<br>
 	<div class="row">
 		<div class="col-sm-10">
-			<button type="button" class="btn cur-p btn-dark" id="btnSearchPlan">생산지시목록</button>
+			<button type="button"  id="btnSearchPlan">생산지시목록</button>
 		</div>
 		<div class="col-sm-2">
 			<button id="btnPrcsMove" onclick="moveURL()"> 공정이동표</button>
@@ -55,9 +55,9 @@ th, td {
 				</tbody>
 			</table>
 			<br><br>
-			<button type="button" class="btn cur-p btn-dark" id="btnPrcs">생산시작</button>&nbsp;
-			<button type="button" class="btn cur-p btn-dark" id="btnStop">긴급중지</button>&nbsp;
-			<button type="button" class="btn cur-p btn-dark" id="btnRest">재시작</button>&nbsp;
+			<button type="button"  id="btnPrcs">생산시작</button>&nbsp;
+			<button type="button"  id="btnStop">긴급중지</button>&nbsp;
+			<button type="button"  id="btnRest">재시작</button>&nbsp;
 		</div>
 	</div>	
 	

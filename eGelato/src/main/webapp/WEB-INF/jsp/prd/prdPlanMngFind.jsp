@@ -39,8 +39,8 @@ th, td {
                     <th>계획 일자</th>
                     <td><input type="date" id="startD" required> ~ <input type="date" id="endD" required></td>
                     <td>
-                        <button type="button" class="btn cur-p btn-dark" id="btnSearch">검색</button>
-                        <button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
+                        <button type="button"  id="btnSearch">검색</button>
+                        <button type="button"  id="btnClear">초기화</button>
                     </td>
                 </tr>
             </tbody>

@@ -47,15 +47,15 @@ th, td {
 						</select>
 					</td>
 					<td>
-	                    <button type="button" class="btn cur-p btn-dark" id="btnSearch">검색</button>
-	                    <button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
+	                    <button type="button"  id="btnSearch">검색</button>
+	                    <button type="button"  id="btnClear">초기화</button>
 	                </td>
 				</tr>
 			</tbody>
 			</table>
 		</div>
 		<div class="col-sm-1">
-			<button type="button" class="btn cur-p btn-dark" id="btnIns">등록</button>
+			<button type="button"  id="btnIns">등록</button>
 		</div>
 	</div>
 	<hr>

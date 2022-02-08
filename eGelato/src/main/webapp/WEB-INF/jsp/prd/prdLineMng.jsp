@@ -30,9 +30,9 @@
 				  <option value="SAN">샌드형</option>
 				  <option value="TUB">튜브형</option>
 			</select>
-			<button type="button" class="btn cur-p btn-dark" id="btnAdd" >추가</button>
-			<button type="button" class="btn cur-p btn-dark" id="btnDel" >삭제</button>
-			<button type="button" class="btn cur-p btn-dark" id="btnIns" >등록</button>
+			<button type="button"  id="btnAdd" >추가</button>
+			<button type="button"  id="btnDel" >삭제</button>
+			<button type="button"  id="btnIns" >등록</button>
 			<hr>
 			<div id="linePrcsGrid"></div>
 		</div>
@@ -81,7 +81,8 @@
 		bodyHeight: 610,
 		columns : [ {
 			header : '제품코드',
-			name : 'prdtId'
+			name : 'prdtId',
+			sortable: true
 		}, {
 			header : '제품명',
 			name : 'prdtNm',
@@ -120,6 +121,9 @@
 		},{
 			header : '공정코드',
 			name : 'prcsId',
+			validation: {
+				required: true
+	        }
 		}, {
 			header : '공정명',
 			name : 'nm',
@@ -195,6 +199,9 @@
 		    	console.log(lineGrid.getRow(ev2.rowKey).prcsId);
 					console.log("1111")
 		    		callprcsCode();
+			} else if( ev2.columnName === 'nm' || ev2.columnName === 'eqmId' || ev2.columnName === 'eqmName') {
+				toastr.clear()
+				toastr.error( ('공정코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
 			}
 		});
 	
