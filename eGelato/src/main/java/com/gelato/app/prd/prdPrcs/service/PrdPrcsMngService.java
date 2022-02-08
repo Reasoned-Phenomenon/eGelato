@@ -29,4 +29,7 @@ public interface PrdPrcsMngService {
 	String startSche (PrdPrcsMngVO vo);
 	String stopSche (PrdPrcsMngVO vo);
 	String restartSche (PrdPrcsMngVO vo);
+	
+	// 수량 가지고오기
+	List<PrdPrcsMngVO> selectQy(PrdPrcsMngVO vo);
 }

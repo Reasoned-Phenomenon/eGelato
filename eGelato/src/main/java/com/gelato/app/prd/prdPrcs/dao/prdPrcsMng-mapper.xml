@@ -179,6 +179,20 @@
 		      ord = #{ord}
 	</update>
 	
+	<select id="selectQy" resultType="PrdPrcsMngVO">
+		SELECT pn.inpt_qy as inpt_qy_t, 
+		       SUM(esn.prod_qy) as prod_qy_t, 
+		       SUM(esn.infer_qy) as infer_qy_t
+		FROM prcs_now pn
+		JOIN prcs p 
+		ON pn.prcs_id = p.prcs_id
+		JOIN eqm_st_now esn
+		ON p.eqm_id = esn.eqm_id
+		where pn.indica_deta_id = #{indicaDetaId}
+		AND trunc(esn.log_tm) = TO_DATE(SUBSTR(#{indicaDetaId}, 5,8))
+		GROUP BY pn.prcs_now_id,pn.inpt_qy
+		order by 1
+	</select>
 	
 	
 	

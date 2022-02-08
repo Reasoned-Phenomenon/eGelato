@@ -159,6 +159,15 @@ th, td {
 				header : '담당자',
 				name : 'mngr',
 			},{
+				header : '투입량',
+				name : 'inptQyT',
+			},{
+				header : '불량량',
+				name : 'inferQyT',
+			},{
+				header : '생산량',
+				name : 'prodQyT',
+			},{
 				header : '시작시간',
 				name : 'frTm',
 				hidden : true
@@ -275,6 +284,7 @@ th, td {
 		
 			toastr.clear()
 			toastr.success( ('공정을 시작합니다.'),'Gelato',{timeOut:'1000'} );
+			
 		} 
 	})
 	
@@ -370,6 +380,58 @@ th, td {
 					'공정이동표',
 					'width=800,height=600,location=no,status=no,scrollbars=no,titlebar=no,left=550,top=200');
 	}
+	
+	// 시작 이후 setInterval로 쿼리 새로 조회해오기
+	let inptQyV;
+	let inferQyV;
+	let prodQyV;
+	
+	function getQyData() {
+		//console.log(111);
+		
+		irc = IndicaGrid.getRowCount()
+		
+		if(irc != 0) {
+			idi = IndicaGrid.getData()[0].indicaDetaId
+			//console.log(idi);
+		
+			$.ajax({
+				url : "${path}/prd/selectQy.do",
+				type:'POST',
+				dataType:'json',
+				data : {"indicaDetaId" : idi},
+				error : function(result) {
+					console.log('에러', result)
+				}
+			}).done(function (result) {
+				//console.log(result.data.contents.length);
+				/* console.log(result.data.contents[0].inptQyT);
+				console.log(result.data.contents[0].inferQyT);
+				console.log(result.data.contents[0].prodQyT); */
+				
+				console.log(111);
+				
+				for(let i=0 ; i<result.data.contents.length ; i++) {
+					
+					inptQyV = result.data.contents[i].inptQyT
+					inferQyV = result.data.contents[i].inferQyT
+					prodQyV = result.data.contents[i].prodQyT
+					
+					prcsListGrid.setValue(i,'inptQyT',inptQyV);			
+					prcsListGrid.setValue(i,'inferQyT',inferQyV);	
+					prcsListGrid.setValue(i,'prodQyT',prodQyV);	
+				}
+			})
+		}
+	}
+	
+	// 
+	$(document).ready ( function getData() {
+		getQyData();
+		timerld = setInterval(getQyData, 5000);
+	});
+	
+	
 </script>
 </body>
 </html>

@@ -118,6 +118,12 @@ public class PrdPrcsMngServiceImpl implements PrdPrcsMngService{
 				
 		return null;
 	}
+
+	@Override
+	public List<PrdPrcsMngVO> selectQy(PrdPrcsMngVO vo) {
+		System.out.println(vo);
+		return ppmMapper.selectQy(vo);
+	}
 	
 
 }
