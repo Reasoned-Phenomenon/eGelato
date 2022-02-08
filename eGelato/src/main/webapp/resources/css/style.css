@@ -332,6 +332,7 @@ blockquote {
 }
 
 h2 {
+	margin-left: 10px;
     font-size: 26px;
     color: #000;
     line-height: 20px;

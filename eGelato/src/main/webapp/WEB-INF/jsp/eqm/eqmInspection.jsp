@@ -20,21 +20,16 @@
 	<div id="chckDialog-form" title="일 점검자료 관리"></div>
 	<div class="container">
 		<div class="row">
-			<br> 
-			<br>
 			<h2 class="title">설비 정기점검 관리</h2>
-			<div class="col-12">
-				<button type="reset" class="btn btn-reset float-right" id="resetBtn">초기화</button>
-				&nbsp;&nbsp;
-				<button type="button" class="btn btn-search float-right"
-					id="searchBtn">조회</button>
-				<button type="button" class="btn btn-search float-right"
-					id="searchAllBtn">전체조회</button>
-				&nbsp;&nbsp;
-				<button type="button" class="btn btn-exel float-right" id="saveBtn">저장</button>
-				&nbsp;&nbsp;
-				<button type="button" class="btn btn-print float-right"
-					id="removeBtn">삭제</button>
+			<div class="search-area search-area-border grid-option-area">
+				<div class="col-6 ml-1"></div>
+				<div class="col-6 ta-r mr-1">
+					<button type="reset" id="resetBtn" class="btn">초기화</button>
+					<button type="button" id="searchBtn" class="btn">조회</button>
+					<button type="button" id="searchAllBtn" class="btn">전체조회</button>
+					<button type="button" id="saveBtn" class="btn">저장</button>
+					<button type="button" id="removeBtn" class="btn">삭제</button>
+				</div>
 			</div>
 		</div>
 		<form id="dataForm" name="dataForm" method="post">
