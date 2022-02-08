@@ -4,25 +4,42 @@
 	
 	<!-- 생산관리 - modal -->
 	<select id="chooseIndica" resultType="PrdPrcsMngVO">
-		select pid.indica_deta_id as indicaDetaId, 
-			   p.prdt_nm as prdtNm, 
-			   pid.qy as qy
-		from prod_indica_deta pid left outer join prcs_now pn
-		     on pid.indica_deta_id = pn.indica_deta_id
-		     join prod_indica pi
-		     on pid.indica_id = pi.indica_id
-		     join prod_plan_deta ppd
-		     on pi.plan_deta_id = ppd.plan_deta_id
-		     join prdt p
-		     on ppd.prdt_id = p.prdt_id
+		select * from
+			(select pid.indica_deta_id as indica_deta_id, 
+			       p.prdt_nm as prdt_nm, 
+			       pid.qy as qy,
+			       pid.indica_dt as indica_dt
+			from prod_indica_deta pid left outer join prcs_now pn
+			     on pid.indica_deta_id = pn.indica_deta_id
+			     join prod_indica pi
+			     on pid.indica_id = pi.indica_id
+			     join prod_plan_deta ppd
+			     on pi.plan_deta_id = ppd.plan_deta_id
+			     join prdt p
+			     on ppd.prdt_id = p.prdt_id
+			where pi.fg = 'PROCEE'
+			
+			UNION
+			
+			select pid.indica_deta_id as indica_deta_id, 
+			       r.nm as prdt_nm, 
+			       pid.qy as qy,
+			       pid.indica_dt as indica_dt
+			from prod_indica_deta pid left outer join prcs_now pn
+			     on pid.indica_deta_id = pn.indica_deta_id
+			     join prod_indica pi
+			     on pid.indica_id = pi.indica_id
+			     join prod_plan_deta ppd
+			     on pi.plan_deta_id = ppd.plan_deta_id
+			     join rwmatr r
+			     on ppd.prdt_id = r.rwmatr_id
+			where pi.fg = 'PROCEE')
 		<where>
-			pn.indica_deta_id is null
-      		and pi.fg = 'PROCEE'
 			<if test="indicaD != null and indicaD != ''">
-	    		<![CDATA[ and trunc(pid.indica_dt) = to_date(#{indicaD})]]>
+	    		<![CDATA[ trunc(indica_dt) = to_date(#{indicaD})]]>
 	    	</if>
 		</where> 
-		order by pid.indica_deta_Id
+		order by indica_deta_Id
 	</select>
 
 	<!-- 생산관리 - 그리드1 -->
@@ -41,16 +58,34 @@
 		    join prdt p
 		    on ppd.prdt_id = p.prdt_id
 		where pid.indica_deta_id = #{indicaDetaId}
+
+		UNION
+		
+		select pid.indica_deta_id as indica_deta_id, 
+			   r.nm as prdt_nm, 
+			   ppd.prdt_id as prdt_id, 
+			   pid.qy as qy, 
+			   pid.line_id as line_id, 
+			   pid.ord as ord
+		from prod_indica_deta pid 
+		    join prod_indica pi
+		    on pid.indica_id = pi.indica_id
+		    join prod_plan_deta ppd
+		    on pi.plan_deta_id = ppd.plan_deta_id
+		    join rwmatr r
+		    on ppd.prdt_id = r.rwmatr_id
+		where pid.indica_deta_id = #{indicaDetaId}
 	</select>
 	
 	<!-- 그리드2 -->
 	<select id="prcsList" resultType="PrdPrcsMngVO">
 		select pn_id(#{indicaDetaId}) as prcs_now_id,
-			   l.prcs_id as prcs_id, 
+		       l.prcs_id as prcs_id, 
 		       p.nm as nm, 
 		       p.eqm_id as eqm_id, 
 		       e.eqm_name as eqm_name,
-		       e.mngr as mngr
+		       e.mngr as mngr,
+		       l.ord as ord
 		from line l join prcs p
 		    on l.prcs_id = p.prcs_id
 		    join eqm e
@@ -58,6 +93,25 @@
 		    join prdt pr
 		    on l.prdt_id = pr.prdt_id
 		where pr.prdt_nm = #{prdtNm}
+		        
+		union
+		
+		select pn_id(#{indicaDetaId}) as prcs_now_id,
+		       l.prcs_id as prcs_id, 
+		       p.nm as nm, 
+		       p.eqm_id as eqm_id, 
+		       e.eqm_name as eqm_name,
+		       e.mngr as mngr,
+		       l.ord as ord
+		from line l join prcs p
+		    on l.prcs_id = p.prcs_id
+		    join eqm e
+		    on p.eqm_id = e.eqm_id
+		    join rwmatr r
+		    on l.prdt_id = r.rwmatr_id
+		where r.nm = #{prdtNm}
+		
+		order by ord
 	</select>
 	
 	<!-- prcs_now insert -->
