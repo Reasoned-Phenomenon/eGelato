@@ -378,25 +378,6 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 									'vendName': vendName}, true);
 	});
 	
-	/* //검색초기화
-	btnReset.addEventListener("click", function(){
-		console.log("검색초기화");
-		document.getElementById("startDate").value = '';
-		document.getElementById("endDate").value = '';
-		document.getElementById("rwmName").value = '';
-		document.getElementById("vendName").value = '';
-		
-		startDate = document.getElementById("startDate").value;
-		endDate = document.getElementById("endDate").value;
-		rwmName = document.getElementById("rwmName").value;
-		vendName = document.getElementById("vendName").value;
-		
-		rwmatrOrderList.readData(1,{'startDate':startDate,
-									'endDate':endDate, 
-									'rwmName':rwmName,
-									'vendName': vendName}, true);
-	}); */
-	
 	//추가
 	btnAdd.addEventListener("click", function(){
 		rwmatrOrderList.prependRow();
