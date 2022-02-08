@@ -14,4 +14,11 @@ public interface OustService {
 	
 	// 완제품 재고 조회 modal.
 	List<OustVO> prdtStcList(OustVO vo);
+	
+	
+	// 완제품 재고 테이블 insert. 
+	//int insertPrdtStc(OustVO vo);
+	
+	// 입출고 테이블 update.
+	//int updatePrdtInstOust(OustVO vo);
 }

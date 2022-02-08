@@ -120,8 +120,7 @@ const oustLotGrid =  new Grid({
 	columns:[
 	{
 		header: '제품 코드',
-		name: 'prdtId'
-			  
+		name: 'prdtId'	  
 	},	
 	{
 		header : '완제품 LOT 번호',
@@ -209,12 +208,12 @@ const oustLotGrid =  new Grid({
 			oustLotGrid.setValue(i, 'expdate', edate);
 		
 			
-			console.log(pid);
-			console.log(lno);
-			console.log(ioutd);
-			console.log(isqy);
-			console.log(oqy);
-			console.log(edate);
+			console.log(pid); // 제품 코드 번호 값 확인.
+			console.log(lno); // 로트번호 값 확인.
+			console.log(ioutd); // 입출고 날짜 값 확인.
+			console.log(isqy);  // 입고량 값 확인.
+			console.log(oqy);  // 출고량은 값 값 확인.
+			console.log(edate); // 유통기한 값 확인.
 
  			
 		}
