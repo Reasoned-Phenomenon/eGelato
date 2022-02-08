@@ -10,4 +10,6 @@ public interface EqmStateService {
 	List<EqmStateVO> output(EqmStateVO eqmStateVo);
 
 	List<EqmStateVO> uph(EqmStateVO eqmStateVo);
+	
+	List<EqmStateVO> findNowEqm(EqmStateVO eqmStateVo);
 }

@@ -25,4 +25,8 @@ public class EqmStateVO {
 	String logTm;	//log시간
 	String tempNow;	//실시간 온도
 	
+	String indicaDetaId;
+	String prcsNowId;
+	String prcsId;
+	
 }
