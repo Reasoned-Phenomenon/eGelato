@@ -98,9 +98,9 @@
 								<tr>
 									<th>비가동사유</th>
 									<td><select name="resnId" id="resnId">
-											<option value="NOPR01">수리</option>
-											<option value="NOPR02">점검</option>
-											<option value="NOPR03">청소</option>
+											<option value="EQMR-001">수리</option>
+											<option value="EQMR-002">점검</option>
+											<option value="EQMR-003">청소</option>
 									</select></td>
 									<th>비고</th>
 									<td><input type="text" name="remk"></td>

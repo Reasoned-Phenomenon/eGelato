@@ -12,12 +12,8 @@
 				</div>
 			</div>
 			<div class="sidebar_user_info">
-				<div class="icon_setting"></div>
 				<div class="user_profle_side">
-					<div class="user_img">
-						<img class="img-responsive"
-							src="${path}/resources/images/layout_img/user_img.jpg" alt="#" />
-					</div>
+					<img src="${path}/resources/images/logo/imsiLogo.png" alt="#" style="width:120px;"/>
 					<div class="user_info">
 						<h6>${loginVO.name }</h6>
 						<p>

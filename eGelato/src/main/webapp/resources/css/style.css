@@ -589,7 +589,7 @@ a:focus {
     font-size: 15px;
     display: block;
     width: 100%;
-    padding: 0.25rem 1.5rem;
+    padding: 1.5rem;
     clear: both;
     font-weight: 400;
     color: #ffffff;
@@ -737,7 +737,7 @@ a:focus {
 
 .sidebar_toggle {
     border: none;
-    padding: 14px 26px 14px;
+    padding: 1.5rem;
     font-size: 21px;
     background: #343A40;
     margin-right: 0;

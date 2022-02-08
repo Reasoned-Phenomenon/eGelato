@@ -15,24 +15,43 @@
 	<br>
 	<div>
 		<select id="state" onchange="selectState()">
-			<option value="선택">선택</option>
 			<option value="온도">온도</option>
 			<option value="생산량">생산량</option>
 		</select>
 	</div>
 	<div id="chart-area"></div>
+	<div id="chart-area2"></div>
 
-<script>
+	<script>
 
 	const el = document.getElementById('chart-area');
-	    
+	const el2 = document.getElementById('chart-area2');
+    
 	var logTm = 0;
 	var tempNow; 
-	var data = {};
+	var data = {
+			categories: [],
+			series: [],
+		};
+	var data2 = {
+			categories: [],
+			series: [],
+		};
 	var options = {};
+	var options2 = {};
 	var chart;
+	var chart2;
 	var flag = 0;
 	
+
+	$(function(){
+		tempAjax();
+		outputAjax();
+		setTimeout(() => {
+		chart = toastui.Chart.lineChart({ el, data, options });
+		//chart2 = toastui.Chart.lineChart({ el2, data, options2 });
+		}, 1000);
+	})
 	
 	//온도 ajax
 	function tempAjax(){
@@ -81,6 +100,8 @@
 					console.log("마지막 넣어줌")
 					data.series.push(a);
 				}
+				//chart.setData(data);
+				
 			} 
 				
 			options = { 
@@ -102,9 +123,7 @@
 				series: {
 					shift: true,
 				},
-			
 			};
-			chart = toastui.Chart.lineChart({ el, data, options });
 		}) 
 	}
 	
@@ -121,24 +140,27 @@
 			
 			console.log("값내놔",result)
 			
-			data = {
+			data2 = {
 				categories: [],
 				series: [],
-			};
+			}; 
+			
 			var b = {name: '', data: [],};
+			
 			for(let i = 0; i<result.data.contents.length; i++){
 				
-				data.categories.push(result.data.contents[i].logTm);
+				data2.categories.push(result.data.contents[i].logTm);
 				
 				if(flag != result.data.contents[i].eqmId){
 					if (b.name != '') {
 						console.log("추가")
-						data.series.push(b);
+						data2.series.push(b);
 					}else {
 						console.log("a 초기화")
 						b.name = '';
 						b.data = [];
 					}
+					
 					console.log("b 값 넣어줌")
 					flag = result.data.contents[i].eqmId;
 					b.name = result.data.contents[i].eqmId;
@@ -149,11 +171,11 @@
 					}
 					if(i == result.data.contents.length-1) {
 						console.log("마지막 넣어줌")
-						data.series.push(b);
+						data2.series.push(b);
 					}
 				} 
 			
-			options = { 
+			options2 = { 
 				chart: { title:  '실시간 설비 생산량', width: 1000, height: 500 },
 				xAxis: {
 					pointOnColumn: true,
@@ -173,10 +195,14 @@
 					shift: true,
 				},
 			};
-			chart = toastui.Chart.lineChart({ el, data, options });
 		})
 	}
- 
+	
+	
+	const intervalId = setInterval(() => {
+		tempAjax();
+		}, 5000);  
+	
 	//값 가져오기 
 	function selectState() {
 		
@@ -184,19 +210,12 @@
 			console.log("select: ",state)
 		
 		if(state == '온도'){
-			tempAjax();
-			//5초마다 반영
-			 const intervalId = setInterval(() => {
-				tempAjax();
-				const random = Math.round(Math.random() * 100);
-					chart.addData([random],new Date());
-				}, 5000);  
+			 tempAjax();
 		}else {
-			outputAjax();
+			 outputAjax();
 		}
 	}  
-  
-  
+	
 </script>
 </body>
 </html>

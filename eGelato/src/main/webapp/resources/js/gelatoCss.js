@@ -4,7 +4,7 @@ $(function() {
 	var e = document.forms;
 	for (i = 0; i < e.length; i++) {
 		for (j = 0; j < e[i].elements.length; j++) {
-			if (e[i].elements[j].readOnly) e[i].elements[j].style.backgroundColor = "#a3e3e3";
+			if (e[i].elements[j].readOnly) e[i].elements[j].style.backgroundColor = "rgb(230 230 230)";
 		}
 	}
 })
