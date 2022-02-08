@@ -15,9 +15,15 @@ public class EqmStateController {
 	EqmStateService service;
 	
 	//실시간설비상태 - 페이지
+//	@GetMapping("/eqm/eqmState.do")
+//	public String eqmMonitoring() {
+//		return "tiles/eqm/eqmState";
+//	}
+	
+	//실시간설비상태 - 페이지(sw)
 	@GetMapping("/eqm/eqmState.do")
 	public String eqmMonitoring() {
-		return "tiles/eqm/eqmState";
+		return "tiles/eqm/eqmStateNow";
 	}
 	
 	//실시간설비상태 - 온도(페이지)
