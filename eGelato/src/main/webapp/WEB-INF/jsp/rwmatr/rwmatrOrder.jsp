@@ -22,12 +22,17 @@ th, td {
 		        <tbody>
 		            <tr>
 		                <th>자재명</th>
-		                <td><input type="text" id="rwmName"></td>
+		                <td>
+		                	<input type="text" id="rwmName"><button type="button" id="rwmNameM" class="btn-modal"></button>
+		                	<input type="text" id="rwmId" readOnly>
+		                </td>
 		            </tr>
 		            <tr>
 		                <th>업체명</th>
-		                <td><input type="text" id="vendName"></td>
-		                
+		                <td>
+		                	<input type="text" id="vendName"><button type="button" id="vendNameM" class="btn-modal"></button>
+		                	<input type="text" id="vendId" readOnly>
+		                </td>
 		            </tr>
 		            <tr>
 		                <th>발주신청일</th>
@@ -262,27 +267,6 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 		
 	});
 	
-	
-	//구현중..
-	/* rwmatrOrderList.on('editingStart', (ev) => {
-		 if(ev.columnName === 'orderId' || 
-		   ev.columnName === 'nm' || 
-		   ev.columnName === 'rwmatrId' || 
-		   ev.columnName === 'utnprc' || 
-		   ev.columnName === 'qy' || 
-		   ev.columnName === 'orderDt' ||
-		   ev.columnName === 'dudt') { 
-		   var getRw = rwmatrOrderList.getRow(ev.rowKey);
-		   if(getRw != '') {
-				//toastr
-				toastr.clear()
-				toastr.success( ('변경불가'),'Gelato',{timeOut:'1000'} );
-				ev.stop();
-		   }
-		
-	}); */
-	
-	
 	 rwmatrOrderList.on('editingFinish', (ev) => {
 		console.log(ev);
 		rk = ev.rowKey;
@@ -329,13 +313,14 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 			rwmatrOrderList.setValue(rk, "vendName", rwmatrData.vendName, true)
 		} else if(ig == 'i'){
 			document.getElementById("rwmName").value = rwmatrData.nm;
+			document.getElementById("rwmId").value = rwmatrData.rwmatrId;
 		}
 		
 		rwmatrDialogFrm.dialog( "close" );
 	}
 	
 	//자재명 textbox
-	document.getElementById("rwmName").addEventListener("click", function() {
+	document.getElementById("rwmNameM").addEventListener("click", function() {
 		  ig = 'i';
 		  callRwmatrModal();
 	});
@@ -343,12 +328,12 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 	//업체리스트 모달에서 받아온 텍스트박스에 넣어줌
 	function getVendData(vendData) {
 		document.getElementById("vendName").value = vendData.vendName;
-		
+		document.getElementById("vendId").value = vendData.vendId;
 		vendDialogFrm.dialog( "close" );
 	}
 	
 	//업체명 textbox
-	document.getElementById("vendName").addEventListener("click", function() {
+	document.getElementById("vendNameM").addEventListener("click", function() {
 		callVendModal();
 	});
 	

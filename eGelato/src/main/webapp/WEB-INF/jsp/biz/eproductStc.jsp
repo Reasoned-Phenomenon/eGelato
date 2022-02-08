@@ -27,7 +27,10 @@ th, td {
 		        <tbody>
 		            <tr>
 		                <th>제품명</th>
-		                <td><input type="text" id="prdtNm"></td>
+		                <td>
+		                	<input type="text" id="prdtNm"><button type="button" id="prdtNmM" class="btn-modal"></button>
+		                	<input type="text" id="prdtId" readOnly>
+		                </td>
 		            </tr>
 		            <tr>
 		                <th>제조일자</th>
@@ -132,7 +135,7 @@ var eproductStcList = new Grid({
 });
 
 //완제품 textbox
-document.getElementById("prdtNm").addEventListener("click", function() {
+document.getElementById("prdtNmM").addEventListener("click", function() {
 	calleprdtModal();
 });
 

@@ -42,12 +42,17 @@ th, td {
 				        <tbody>
 				            <tr>
 				                <th>자재명</th>
-				                <td><input type="text" id="rwmNameI"></td>
+				                <td>
+				                	<input type="text" id="rwmNameI"><button type="button" id="rwmNameIM" class="btn-modal"></button>
+				                	<input type="text" id="rwmIdI" readOnly>
+				                </td>
 				            </tr>
 				            <tr>
 				                <th>업체명</th>
-				                <td><input type="text" id="vendNameI"></td>
-				                
+				                <td>
+				                	<input type="text" id="vendNameI"><button type="button" id="vendNameIM" class="btn-modal"></button>
+				                	<input type="text" id="vendIdI" readOnly>
+				                </td>
 				            </tr>
 				            <tr>
 				                <th>입고일자</th>
@@ -71,12 +76,17 @@ th, td {
 				        <tbody>
 				            <tr>
 				                <th>자재명</th>
-				                <td><input type="text" id="rwmNameO"></td>
+				                <td>
+				                	<input type="text" id="rwmNameO"><button type="button" id="rwmNameOM" class="btn-modal"></button>
+				                	<input type="text" id="rwmIdO" readOnly>
+				                </td>
 				            </tr>
 				            <tr>
 				                <th>업체명</th>
-				                <td><input type="text" id="vendNameO"></td>
-				                
+				                <td>
+				                	<input type="text" id="vendNameO"><button type="button" id="vendNameOM" class="btn-modal"></button>
+				                	<input type="text" id="vendIdO" readOnly>
+				                </td>
 				            </tr>
 				            <tr>
 				                <th>출고일자</th>
@@ -319,27 +329,27 @@ function callVendModal(){
 }
 
 
-$("#rwmNameI, #rwmNameO").click(function() {
+$("#rwmNameIM, #rwmNameOM").click(function() {
 	callRwmatrModal();
 	
-	if( $(this).is("#rwmNameI") ) {
-		console.log($(this).is("#rwmNameI"))
+	if( $(this).is("#rwmNameIM") ) {
+		console.log($(this).is("#rwmNameIM"))
 		flag = 'I';
-	} else if( $(this).is("#rwmNameO") ) {
-		console.log($(this).is("#rwmNameO"))
+	} else if( $(this).is("#rwmNameOM") ) {
+		console.log($(this).is("#rwmNameOM"))
 		flag = 'O';
 	}
 	
 })
 
-$("#vendNameI, #vendNameO").click(function() {
+$("#vendNameIM, #vendNameOM").click(function() {
 	callVendModal();
 	
-	if( $(this).is("#vendNameI") ) {
-		console.log($(this).is("#vendNameI"))
+	if( $(this).is("#vendNameIM") ) {
+		console.log($(this).is("#vendNameIM"))
 		flag = 'I';
-	} else if( $(this).is("#vendNameO") ) {
-		console.log($(this).is("#vendNameO"))
+	} else if( $(this).is("#vendNameOM") ) {
+		console.log($(this).is("#vendNameOM"))
 		flag = 'O';
 	}
 })
@@ -347,9 +357,12 @@ $("#vendNameI, #vendNameO").click(function() {
 //모달에서 텍스트박스로
 function getRwmatrData(rwmatrData) {
 	if(flag == 'I') {
+		console.log(rwmatrData);
 		document.getElementById("rwmNameI").value = rwmatrData.nm;
+		document.getElementById("rwmIdI").value = rwmatrData.rwmatrId;
 	} else if(flag == 'O') {
 		document.getElementById("rwmNameO").value = rwmatrData.nm;
+		document.getElementById("rwmIdO").value = rwmatrData.rwmatrId;
 	}
 	rwmatrDialogFrm.dialog( "close" );
 }
@@ -358,8 +371,10 @@ function getRwmatrData(rwmatrData) {
 function getVendData(vendData) {
 	if(flag == 'I') {
 		document.getElementById("vendNameI").value = vendData.vendName;
+		document.getElementById("vendIdI").value = vendData.vendId;
 	} else if(flag == 'O') {
-		document.getElementById("rvendNameO").value = vendData.vendName;
+		document.getElementById("vendNameO").value = vendData.vendName;
+		document.getElementById("vendIdO").value = vendData.vendId;
 	}
 	vendDialogFrm.dialog( "close" );
 }
