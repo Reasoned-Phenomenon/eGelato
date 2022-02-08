@@ -13,6 +13,7 @@
 			       RII.INFER_QY AS INFER_QY, 
 			       RII.MNGR AS MNGR,
 			       RII.REMK AS REMK,
+                   CM.MBER_NM AS MBER_NM,
                    RI.INFER_ID AS INFER_ID,
                    IC.DETA AS DETA
 		FROM RWMATR_IST_INSP RII JOIN RWMATR R
@@ -23,6 +24,11 @@
         	ON RI.RWMATR_ORDER_DETA_ID = RII.RWMATR_ORDER_DETA_ID
         JOIN INFER_CODE IC
        		ON IC.INFER_ID = RI.INFER_ID
+        LEFT OUTER JOIN (SELECT MBER_ID, MBER_NM, ESNTL_ID
+		                 FROM COMTNGNRLMBER
+		                 WHERE MBER_STTUS = 'P'
+		                 ORDER BY MBER_NM) CM
+            ON RII.MNGR = CM.ESNTL_ID
         <where>
 	    	<if test="startDate != ''">
 	    		<![CDATA[TRUNC(RII.DT) >= to_date(#{startDate})]]>
@@ -34,7 +40,7 @@
 				AND R.NM LIKE '%'||#{rwmName}||'%'
 			</if>
 			<if test="mngr != '' and mngr != null">
-				AND RII.MNGR LIKE '%'||#{mngr}||'%'
+				AND CM.MBER_NM LIKE '%'||#{mngr}||'%'
 			</if>
 		</where> 
         ORDER BY 1 DESC

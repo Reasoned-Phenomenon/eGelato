@@ -4,14 +4,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>사원 목록</title>
+<style>
+h1 {
+	text-align: center
+}
+</style>
 </head>
 <body>
-<div>
-	이름 <input type="text" id="empNm" name="empNm">
-	<button type="button" id="btnEmpFind">검색</button>
-</div>
-<hr>
+	<br>
+	<h1>사원 목록</h1><br>
+	<div>
+		<form action="">
+		    <table>
+		        <tbody>
+		            <tr>
+		                <th>이름</th>
+		                <td><input type="text" id="empNm" name="empNm"></td>
+		                <td><button type="button" id="btnEmpFind" class="btn cur-p btn-dark">조회</button></td>
+		                <td><button type="reset" class="btn cur-p btn-dark">초기화</button></td>
+		            </tr>
+		        </tbody>
+		    </table>
+	    </form>
+	</div>
+	
+
 <div id="empModalGrid"></div>
 
 <script>
@@ -42,7 +60,7 @@ var columns = 	[
 var empModalGrid = new tui.Grid({
 	el: document.getElementById('empModalGrid'),
 	data: empModalDataSource,
-	width: 650,
+	width: 400,
 	bodyHeight: 280,
 	selectionUnit: 'row',
 	columns 

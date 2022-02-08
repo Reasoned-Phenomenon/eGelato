@@ -22,11 +22,14 @@ th, td {
 		        <tbody>
 		            <tr>
 		                <th>자재명</th>
-		                <td><input type="text" id="rwmName"></td>
+		                <td>
+			                <input type="text" id="rwmName"><button type="button" id="rwmNameM" class="btn-modal"></button>
+			                <input type="text" id="rwmId" readOnly>
+			            </td>
 		            </tr>
 		            <tr>
 		                <th>담당자</th>
-		                <td><input type="text" id="mngr"></td>
+		                <td><input type="text" id="mngr"><button type="button" id="mngrM" class="btn-modal"></button></td>
 		                
 		            </tr>
 		            <tr>
@@ -57,6 +60,7 @@ th, td {
 	
 	<div id="orderDialogFrm" title="검사예정 목록"></div>
 	<div id="inferCodeDialogFrm" title="불량코드 목록"></div>
+	<div id="empDialogFrm" title="사원 목록"></div>
 
 <script>
 var Grid = tui.Grid;
@@ -67,6 +71,7 @@ let flag;
 //모달에서 선택한 rowKey값 세팅
 let rk = '';
 
+let ig = '';
 
 //검색 조건
 var startDate;
@@ -157,9 +162,17 @@ var rwmatrIstInspList = new Grid({
 				  sortable: true
 				},
 				{
-				  header: '담당자',
+				  header: '담당자ID',
 				  name: 'mngr',
-				  editor: 'text',
+				  sortable: true,
+				  hidden:true,
+			      validation: {
+			          required: true
+			      }
+				},
+				{
+				  header: '담당자',
+				  name: 'mberNm',
 				  sortable: true,
 			      validation: {
 			          required: true
@@ -254,6 +267,21 @@ function callrwmatrInferCodeModal(){
     $("#inferCodeDialogFrm").load("${path}/rwmatr/rwmatrInferCodeModal.do", function(){console.log("원자재 불합격 리스트")})
 }
 
+//사원 모달
+let empDialogFrm = $( "#empDialogFrm" ).dialog({
+	  modal:true,
+	  autoOpen:false,
+      height: 500,
+      width: 430,
+      modal: true
+}); 
+
+function callEmpModal() {
+	
+	empDialogFrm.dialog( "open" );
+    $("#empDialogFrm").load("${path}/com/empModal.do", function(){console.log("사원 리스트")})
+}
+
 	//발주코드 클릭시 모달
 	rwmatrIstInspList.on('click', (ev) => {
 		if(ev.targetType === 'columnHeader'){
@@ -290,6 +318,9 @@ function callrwmatrInferCodeModal(){
 				toastr.clear()
 				toastr.warning( ('합격량 입력시 자동입력됩니다.'),'Gelato',{timeOut:'1500'} );
 			}
+		} else if(ev.columnName === 'mberNm') {
+			ig = 'g';
+			callEmpModal()
 		}
 		
 	});
@@ -351,16 +382,35 @@ function callrwmatrInferCodeModal(){
 	}
 	
 	//자재명 textbox
-	document.getElementById("rwmName").addEventListener("click", function() {
+	document.getElementById("rwmNameM").addEventListener("click", function() {
 		  callRwmatrModal();
+	});
+	
+	//담당자 textbox
+	document.getElementById("mngrM").addEventListener("click", function() {
+		ig = "i";
+		callEmpModal();
 	});
 	
 	//자재리스트 모달에서 받아온 데이터 인풋박스에 세팅
 	function getRwmatrData(rwmatrData) {
 		console.log("Rwmatr정보 기입")
 		document.getElementById("rwmName").value = rwmatrData.nm;
+		document.getElementById("rwmId").value = rwmatrData.rwmatrId;
 		
 		rwmatrDialogFrm.dialog( "close" );
+	}
+	
+	function getEmpModalData(mberNm, esntlId){
+		if(ig == 'g'){
+			rwmatrIstInspList.setValue(rk, "mngr", esntlId, true)
+			rwmatrIstInspList.setValue(rk, "mberNm", mberNm, true)
+		} else if(ig == 'i'){
+			console.log(mberNm);
+			document.getElementById("mngr").value = mberNm;
+		}
+		
+		empDialogFrm.dialog( "close" );
 	}
 	
 	

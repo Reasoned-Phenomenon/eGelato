@@ -32,4 +32,5 @@ public class RwmatrIstInspVO {
 	String qy;
 	String inferId;
 	String deta;
+	String mberNm;
 }

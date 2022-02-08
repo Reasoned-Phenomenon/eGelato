@@ -7,11 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>원자재 불량조회</title> 
-<link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
-<script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
-<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 </head>
 <style>
 th, td {
@@ -28,20 +23,29 @@ th, td {
 		        <tbody>
 		            <tr>
 		                <th>자재명</th>
-		                <td><input type="text" id="rwmName" style="width: 100%;"></td>
+		                <td>
+		                	<input type="text" id="rwmName"><button type="button" id="rwmNameM" class="btn-modal"></button>
+		                	<input type="text" id="rwmId" readOnly>
+		                </td>
+		            </tr>
+		            <tr>
 		                <th>업체명</th>
-		                <td><input type="text" id="vendName"></td>
+		                <td>
+		                	<input type="text" id="vendName"><button type="button" id="vendNameM" class="btn-modal"></button>
+		                	<input type="text" id="vendId" readOnly>
+		                </td>
 		            </tr>
 		            <tr>
 		                <th>불량코드</th>
-		                <td><input type="text" id="inferId" style="width: 100%;"></td>
+		                <td><input type="text" id="inferId"><button type="button" id="inferIdM" class="btn-modal"></button></td>
 		                <th>불량상세내용</th>
 		                <td><input type="text" id="inferContent" readonly="readonly"></td>
 		            </tr>
 		            <tr>
 		                <th>검사일자</th>
 		                <td><input type="date" id="startDate"> ~ <input type="date" id="endDate"></td>
-		                <td><button type="button" id="btnFind">조회</button><button type="reset" style="margin-left: 9px;">초기화</button></td>
+		                <td><button type="button" id="btnFind">조회</button></td>
+		                <td><button type="reset">초기화</button></td>
 		            </tr>
 		        </tbody>
 		    </table>
@@ -200,13 +204,14 @@ function callInferCodeModal(){
 	//불량리스트 모달에서 받아온 데이터를 새로운 행에 넣어줌 or 텍스트박스에
 	function getRwmatrData(rwmatrData) {
 		document.getElementById("rwmName").value = rwmatrData.nm;
+		document.getElementById("rwmId").value = rwmatrData.rwmatrId;
 		
 		rwmatrDialogFrm.dialog( "close" );
 	}
 	
 	
 	//자재명 textbox
-	document.getElementById("rwmName").addEventListener("click", function() {
+	document.getElementById("rwmNameM").addEventListener("click", function() {
 		  ig = 'i';
 		  callRwmatrModal();
 	});
@@ -214,12 +219,13 @@ function callInferCodeModal(){
 	//업체리스트 모달에서 받아온 텍스트박스에 넣어줌
 	function getVendData(vendData) {
 		document.getElementById("vendName").value = vendData.vendName;
+		document.getElementById("vendId").value = vendData.vendId;
 		
 		vendDialogFrm.dialog( "close" );
 	}
 	
 	//업체명 textbox
-	document.getElementById("vendName").addEventListener("click", function() {
+	document.getElementById("vendNameM").addEventListener("click", function() {
 		callVendModal();
 	});
 	
@@ -232,7 +238,7 @@ function callInferCodeModal(){
 	}
 	
 	//불량코드 textbox
-	document.getElementById("inferId").addEventListener("click", function() {
+	document.getElementById("inferIdM").addEventListener("click", function() {
 		callInferCodeModal();
 	});
 	
