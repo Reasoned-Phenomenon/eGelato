@@ -3,9 +3,10 @@
 <mapper namespace="com.gelato.app.eqm.eqmState.dao.EqmStateMapper">
 
 	<select id="temperature" resultType="EqmStateVO">
-		SELECT DISTINCT S.EQM_ID as EQM_ID,
-			   S.LOG_TM as LOG_TM,
-			   S.TEMP_NOW as TEMP_NOW
+		SELECT DISTINCT 
+			   S.EQM_ID AS EQM_ID,
+			   S.LOG_TM AS LOG_TM,
+			   S.TEMP_NOW AS TEMP_NOW
 		FROM EQM_ST_NOW S 
 			 LEFT OUTER JOIN PRCS P
 			 ON(S.EQM_ID = P.EQM_ID)
@@ -18,9 +19,10 @@
 	</select>
 	
 	<select id="output" resultType="EqmStateVO">
-		SELECT S.EQM_ID,
-			   S.LOG_TM,
-			   S.PROD_QY
+		SELECT DISTINCT 
+			   S.EQM_ID AS EQM_ID,
+			   S.LOG_TM AS LOG_TM,
+			   S.PROD_QY AS PROD_QY
 		FROM EQM_ST_NOW S 
 			 LEFT OUTER JOIN PRCS P
 			 ON(S.EQM_ID = P.EQM_ID)

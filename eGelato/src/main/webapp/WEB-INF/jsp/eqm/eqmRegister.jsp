@@ -38,43 +38,43 @@
 									<tr class="height: 37px !important;">
 										<th>설비명*</th>
 										<td><input id="eqmName" name="eqmName" required
-											class="form-control w140"></td>
+											type="text"></td>
 										<th>사용여부</th>
 										<td><input type="radio" id="useYn" name="useYn" value="Y"
 											checked>Y <input type="radio" id="notUse"
 											name="useYn" value="N">N</td>
 										<th>설비구분</th>
 										<td><input id="fg" name="fg" required
-											class="form-control ta-r" style="width: 50px;">
+											style="width: 50px;" type="text">
 											<button id="btnFindFg" type="button"
 												class="btn-modal" data-bs-toggle="modal"
 												aria-label="Close"></button> <input type="text"
-											id="fgName" name="fgName" class="form-control"
-											style="width: 100px;" disabled></td>
+											id="fgName" name="fgName" 
+											style="width: 100px;" readonly></td>
 									</tr>
 									<tr>
 										<th>설비규격</th>
-										<td><input id="spec" name="spec"></td>
+										<td><input id="spec" name="spec" type="text"></td>
 										<th>모델번호</th>
-										<td><input id="modelNo" name="modelNo"></td>
+										<td><input id="modelNo" name="modelNo" type="text"></td>
 										<th>제작업체</th>
-										<td><input id="vendId" name="vendId"></td>
+										<td><input id="vendId" name="vendId" type="text"></td>
 									</tr>
 									<tr>
 										<th>등록자</th>
-										<td><input id="mngr" name="mngr" width="50px"></td>
+										<td><input id="mngr" name="mngr" type="text"></td>
 										<th>설비규격</th>
-										<td><input></td>
+										<td><input type="text"></td>
 
 										<th>구매일자*</th>
 										<td><input type="date" id="pureDt" name="pureDt" required></td>
 									</tr>
 									<tr>
-										<th>온도</th>
-										<td><input placeholder="최저온도" id="tempMin" name="tempMin">~<input
-											placeholder="최고온도" id="tempMax" name="tempMax">°C</td>
 										<th>UPH*</th>
-										<td><input id="uph" name="uph" required></td>
+										<td><input id="uph" name="uph" required type="text"></td>
+										<th>온도</th>
+										<td colspan="3"><input placeholder="최저온도" id="tempMin" name="tempMin" type="text" style="width:80px; margin-right:5px;">~<input
+											placeholder="최고온도" id="tempMax" name="tempMax" type="text" style="width:80px; margin-left:5px; margin-right:5px;">°C</td>
 									</tr>
 								</tbody>
 							</table>

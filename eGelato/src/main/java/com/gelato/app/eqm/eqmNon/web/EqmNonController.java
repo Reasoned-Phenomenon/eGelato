@@ -51,6 +51,7 @@ public class EqmNonController {
 	// 설비비가동관리 - 등록
 	@PostMapping("/eqm/eqmNonInsert.do")
 	public String eqmNonInsert(Model model, EqmNonVO eqmNonVo) {
+		System.out.println(eqmNonVo);
 		 service.insertNonEqm(eqmNonVo);
 		 service.updateEqmNon(eqmNonVo);
 		return "tiles/eqm/eqmNonMoving";
