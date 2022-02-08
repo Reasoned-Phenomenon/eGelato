@@ -13,16 +13,16 @@
 <br>
 <h2>모니터링 관리</h2>
 <br>
-<div class="col-6">
-	<div id="eqmStateGrid" ></div>
-</div>
 
-<div class="col-6">
+
+<div class="col-4">
 	<div id="chart-temp"></div>
 </div>
-
-<div class="col-6">
+<div class="col-4">
 	<div id="chart-prod"></div>
+</div>
+<div class="col-4">
+	<div id="eqmStateGrid" ></div>
 </div>
 
 <script>
@@ -76,7 +76,8 @@ var eqmStateGrid = new Grid({
 			},
 			{
 			  header: '설비 코드',
-			  name: 'eqmId'
+			  name: 'eqmId',
+			  hidden: true
 			}
 		]
 });
@@ -149,7 +150,7 @@ var prodOptions = {
     title: '생산량',
   },
   tooltip: {
-    formatter: (value) => `${value}개`,
+	  formatter: (value) =>  value+`개`,
   },
   legend: {
     align: 'bottom',
@@ -174,8 +175,8 @@ function chartAjax(){
 				console.log('에러',result)
 			}
 		}).done(function (result){
-			console.log(result.data.contents);
 			//result.data.contents
+			console.log(result.data.contents);
 			
 			//초기화
 			var tempDatum = {name:targetEqmId, data:[]};
@@ -185,11 +186,12 @@ function chartAjax(){
 			var prodCategories = [];
 			
 			for(datum of result.data.contents) {
+				
 				tempDatum.data.push(Math.round(Number(datum.tempNow)));
 				prodDatum.data.push(Number(datum.prodQy));
 				
-				tempCategories.push(datum.logTm.substring(11,19).replace(/:/g,''))
-				prodCategories.push(datum.logTm.substring(11,19).replace(/:/g,''))
+				tempCategories.push(datum.logTm.substring(11,19))
+				prodCategories.push(datum.logTm.substring(11,19))
 				
 			}
 			
@@ -211,9 +213,9 @@ function chartAjax(){
 
 /* const intervalId = setInterval(() => {
 		console.log("인터벌---")
-		tempAjax();
-		console.log("인터벌---")
+		chartAjax();
 }, 5000); */
+
 </script>
 
 </body>
