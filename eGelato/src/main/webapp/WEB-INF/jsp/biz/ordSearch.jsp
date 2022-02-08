@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 
 
-<title>주문서 관리 조회</title>
+<title>주문서 조회</title>
 
 </head>
 <body>

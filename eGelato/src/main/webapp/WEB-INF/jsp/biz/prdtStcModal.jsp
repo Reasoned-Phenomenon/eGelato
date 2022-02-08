@@ -27,11 +27,11 @@ var Grid = tui.Grid;
 var iqy;
 
 // 변수 선언.
-let lno;      // 로트번호.
-let ioutd;   // 입출고 날짜.
-let isqy;    // 입고량.
-let oqy;     // 출고량.
-let edate;   // 유통기한.
+var lno;      // 로트번호.
+var ioutd;   // 입출고 날짜.
+var isqy;    // 입고량.
+var oqy;     // 출고량.
+var edate;   // 유통기한.
 
 //그리드 테마
 Grid.applyTheme('striped', {
