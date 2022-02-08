@@ -41,4 +41,8 @@ public class PrdPrcsMngVO {
 	
 	String jobName;
 	String programName;
+	
+	String inptQyT;
+	String inferQyT;
+	String prodQyT;
 }

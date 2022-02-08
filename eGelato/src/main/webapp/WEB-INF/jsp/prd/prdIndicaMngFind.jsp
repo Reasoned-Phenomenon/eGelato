@@ -32,8 +32,8 @@ th, td {
 				<tr>
 					<th>지시 일자</th>
 					<td><input type="date" id="startD" required> ~ <input type="date" id="endD" required></td>
-					<td><button type="button" class="btn cur-p btn-dark" id="btnSer">검색</button></td>
-					<td><button type="button" class="btn cur-p btn-dark" id="btnRes">초기화</button></td>
+					<td><button type="button"  id="btnSer">검색</button></td>
+					<td><button type="button"  id="btnRes">초기화</button></td>
 				</tr>
 			</tbody>
 		</table>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -112,5 +113,14 @@ public class PrdPrcsMngController {
 		}
 		
 		return 0;
+	}
+	
+	// 생산량 가지고오기
+	@PostMapping("/prd/selectQy.do")
+	public String selectQy(PrdPrcsMngVO vo ,Model model) {
+		System.out.println("생산량 가지고옴");
+		System.out.println(vo);
+		model.addAttribute("datas",prdPrcsMngService.selectQy(vo));
+		return "grid";
 	}
 }

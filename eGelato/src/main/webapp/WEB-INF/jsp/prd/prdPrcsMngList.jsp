@@ -39,17 +39,17 @@ th, td {
 							</select>
 						</td>
 						<td>
-							<button type="button" class="btn cur-p btn-dark" id="btnPrcSel">검색</button>
-							<button type="button" class="btn cur-p btn-dark" id="btnClear">초기화</button>
+							<button type="button"  id="btnPrcSel">검색</button>
+							<button type="button"  id="btnClear">초기화</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<div class="col-sm-2">
-			<button type="button" class="btn cur-p btn-dark" id="btnAdd">추가</button>
-			<button type="button" class="btn cur-p btn-dark" id="btnDel">삭제</button>
-			<button type="button" class="btn cur-p btn-dark" id="btnIns">저장</button>
+			<button type="button"  id="btnAdd">추가</button>
+			<button type="button"  id="btnDel">삭제</button>
+			<button type="button"  id="btnIns">저장</button>
 		</div>
 	</div>
 	<br><hr><br>
@@ -117,15 +117,23 @@ th, td {
 		      		},
 		    renderer: {
 		            type: GelatoSelect
-		      }
+		      },
+			validation: {
+				required: true
+			}
 		}, {
 			header : '공정명',
 			name : 'nm',
 			editor : 'text',
+			validation: {
+				required: true
+			}
 		}, {
 			header : '설비코드',
 			name : 'eqmId',
-			editor : 'text',
+			validation: {
+				required: true
+			}
 		}, {
 			header : '설비명',
 			name : 'eqmName',
@@ -162,6 +170,12 @@ th, td {
 			console.log(ev)
 		    if (ev.columnName === 'eqmId') {
 				calleqmId();
+			} else if (ev.columnName === 'eqmName' || ev.columnName === 'modelNo' || ev.columnName === 'mngr') {
+				toastr.clear()
+				toastr.error( ('공정코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+			} else if (ev.columnName === 'prcsId') {
+				toastr.clear()
+				toastr.error( ('공정코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
 			}
 		});
 	

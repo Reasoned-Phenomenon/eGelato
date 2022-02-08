@@ -26,4 +26,7 @@ public interface PrdPrcsMngMapper {
 	
 	// 재시작
 	int prcsStRest (PrdPrcsMngVO vo);
+	
+	// 수량 가지고오기
+	List<PrdPrcsMngVO> selectQy(PrdPrcsMngVO vo);
 }

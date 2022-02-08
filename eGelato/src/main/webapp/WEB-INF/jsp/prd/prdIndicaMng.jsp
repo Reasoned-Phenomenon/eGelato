@@ -20,10 +20,10 @@
 	<br>
 	<div class="row">
 		<div class="col-sm-11">
-			 <button type="button" class="btn cur-p btn-dark" id="btnSearch">미지시 계획 조회</button>
+			 <button type="button" id="btnSearch">미지시 계획 조회</button>
 		</div>
 		<div class="col-sm-1">
-			 <button type="button" class="btn cur-p btn-dark" id="btnIns" >지시 등록</button>
+			 <button type="button" id="btnIns" >지시 등록</button>
 		</div>
 	</div>
 	<hr>
