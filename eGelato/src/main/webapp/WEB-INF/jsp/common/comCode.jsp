@@ -28,23 +28,21 @@
 
 <br>
 <br>
-
-<button onclick="window.open('${path}/com/comCode.do','공정이동표','width=800,height=600,location=no,status=no,scrollbars=no,titlebar=no,left=550,top=200');">새창에서</button>
-
+<button type="button" id="btnModal">모달 테스트</button>
 <hr>
 <br>
 <div class="row">
 
 	<div id="codeIdGrid" class="col-sm-4"></div>
 	
-	<div id="tabs" class="col-sm-8">
+	<div id="tabs" class="col-sm-6">
 	
 	  <ul>
 	    <li><a href="#fragment-1">코드 조회</a></li>
 	    <li><a href="#fragment-2">그룹 코드</a></li>
 	  </ul>
 	  
-  		<div id="fragment-1" class="col-sm-8">
+  		<div id="fragment-1">
   			<div align="right">
 	  			<button type="button" class="btn cur-p btn-outline-primary" id="btnAdd">코드 추가</button>
 	  			<button type="button" class="btn cur-p btn-outline-primary" id="btnSave">저장</button>
@@ -52,7 +50,7 @@
   			<div id="codeGrid"></div>
   		</div>
   		
-  		<div id="fragment-2" class="col-sm-8">
+  		<div id="fragment-2">
   				<iframe src="${path}/sym/ccm/cca/RegistCcmCmmnCodeView.do" 
 				width="800" 
 				height="400" 
@@ -61,6 +59,8 @@
   		
 	</div>
 	
+<div id="dialog-form" title="사원 검색"></div>	
+
 </div>
 
 <script>
@@ -106,6 +106,7 @@ var codeIdGrid = new Grid({
   	data : dataSources,
   	rowHeaders:['rowNum'],
   	selectionUnit: 'row',
+  	bodyHeight:600,
   	columns:[
   			{
 			  header: 'CL 코드',
@@ -166,6 +167,7 @@ const codeGrid = new tui.Grid({
 	},
 	rowHeaders:['checkbox'],
   	selectionUnit: 'row',
+  	bodyHeight:350,
     columns: [
     	{
 		  header: '그룹 코드',
@@ -253,6 +255,38 @@ const codeGrid = new tui.Grid({
 	codeGrid.on('click',function (ev) {
 		console.log(ev)
 	})
+	
+	let empDialog;
+	
+	empDialog = $( "#dialog-form" ).dialog({
+	      autoOpen: false,
+	      height: 500,
+	      width: 700,
+	      modal: true,
+	      buttons: {
+	          Cancel: function() {
+	        	  empDialog.dialog( "close" );
+	          }
+	      }
+	     
+	});
+	
+	btnModal.addEventListener("click", function() { 
+		
+		empDialog.dialog( "open" );
+		$('#dialog-form').load("${path}/com/empModal.do");
+		console.log("오기는함")
+		
+	})
+	
+	function getEmpModalData(mberNm, esntlId) {
+		console.log("-----------------")
+		console.log(mberNm)
+		console.log(esntlId)
+		console.log("-----------------")
+		empDialog.dialog( "close" );
+	}
+	
 	
 </script>
 </body>

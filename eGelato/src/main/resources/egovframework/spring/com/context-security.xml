@@ -29,8 +29,6 @@
  	<security:http pattern="/sec/ram/accessDenied.do" security="none"/>
  	<security:http pattern="/uat/uia/actionLogout.do" security="none"/>
  	
- 	<security:http pattern="/index.do" security="none"/>
-
     <egov-security:config id="securityConfig"
 		loginUrl="/uat/uia/egovLoginUsr.do"
 		logoutSuccessUrl="/"

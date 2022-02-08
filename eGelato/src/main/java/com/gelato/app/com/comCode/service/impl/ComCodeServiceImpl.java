@@ -22,7 +22,6 @@ public class ComCodeServiceImpl implements ComCodeService {
 
 	@Override
 	public int modifyComCode(ModifyVO<ComCodeVO> mvo) {
-		
 		for(ComCodeVO vo : mvo.getCreatedRows()) {
 			mapper.insertComCode(vo);
 		}
@@ -38,5 +37,4 @@ public class ComCodeServiceImpl implements ComCodeService {
 		return 0;
 	}
 
-	
 }

@@ -94,7 +94,7 @@ function fnUpdate(form){
 <input type="hidden" name="selectedId" id="selectedId" value=""/>  
 
 <div class="wTableFrm">
-	<h2>계정 관리 수정 <spring:message code="title.update" /></h2>
+	<h2>계정 <spring:message code="title.update" /></h2>
 			
 	<!-- 수정폼 -->
 	<table class="wTable" summary="<spring:message code="common.summary.list" arguments="${pageTitle}" />">
@@ -251,7 +251,7 @@ function fnUpdate(form){
 		</tr>
 		<!-- 로그인인증제한여부 -->
 		<c:set var="title"><spring:message code="comUssUmt.common.lockAt"/></c:set>
-		<tr>
+		<tr style="display:none;">
 			<th><label for="lockAt">${title}</label></th>
 			<td class="left">
 			<c:if test="${mberManageVO.lockAt eq 'Y'}">예</c:if>
@@ -267,7 +267,6 @@ function fnUpdate(form){
 		<input type="submit" class="s_submit" value="<spring:message code="button.save" />" title="<spring:message code="button.save" /> <spring:message code="input.button" />" />
 		<span class="btn_s"><a href="<c:url value='/uss/umt/EgovMberManage.do' />"  title="<spring:message code="button.list" /> <spring:message code="input.button" />"><spring:message code="button.list" /></a></span>
 		<button class="btn_s2" onClick="fnPasswordMove(); return false;" title="<spring:message code="comUssUmt.userManageModifyBtn.passwordChange" /> <spring:message code="input.button" />"><spring:message code="comUssUmt.userManageModifyBtn.passwordChange" /></button>
-		<button class="btn_s2" onClick="fnLockIncorrect(); return false;" title="<spring:message code="comUssUmt.common.lockAtBtn" /> <spring:message code="input.button" />"><spring:message code="comUssUmt.common.lockAtBtn" /></button>
 		<button class="btn_s2" onClick="document.mberManageVO.reset(); return false;" title="<spring:message code="button.reset" /> <spring:message code="input.button" />"><spring:message code="button.reset" /></button>
 	</div><div style="clear:both;"></div>
 </div>
