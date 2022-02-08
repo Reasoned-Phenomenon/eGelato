@@ -29,7 +29,7 @@
 			<tr>
 				<th>라인코드</th>
 				<td id="lineId"></td>
-				<th>제품코드</th>
+				<th>제품코드</th>  
 				<td id="prdtId"></td>
 			</tr>
 			<tr>
