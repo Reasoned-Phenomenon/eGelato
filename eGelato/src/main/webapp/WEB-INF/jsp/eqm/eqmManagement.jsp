@@ -46,29 +46,30 @@
 					<div id="egovComFileList"></div>
 					<input id="eqmImg" name="eqmImg" hidden>
 				</div>
-					<table>
+				<br>
+					<table class="table table-bbs">
 						<tbody>
 							<tr>
 								<th>설비코드</th>
-								<td><input id="eqmId" name="eqmId" readOnly></td>
+								<td><input id="eqmId" name="eqmId" type="text" readOnly></td>
 								<th>설비명</th>
-								<td><input id="eqmName" name="eqmName" readOnly></td>
+								<td><input id="eqmName" name="eqmName" type="text" readOnly></td>
 							</tr>
 							<tr>
 								<th>공정코드</th>
-								<td><input id="prcsId" name="prcsId" readOnly></td>
+								<td><input id="prcsId" name="prcsId" type="text" readOnly></td>
 								<th>공정명</th>
-								<td><input id="nm" name="nm" readOnly></td>
+								<td><input id="nm" name="nm" type="text" readOnly></td>
 							</tr>
 							<tr>
 								<th>최고온도</th>
-								<td><input id="tempMax" name="tempMax" readOnly></td>
+								<td><input id="tempMax" name="tempMax" type="number" readOnly></td>
 								<th>최저온도</th>
-								<td><input id="tempMin" name="tempMin" readOnly></td>
+								<td><input id="tempMin" name="tempMin" type="number" readOnly></td>
 							</tr>
 							<tr>
 								<th>점검주기</th>
-								<td><input id="chckPerd" name="chckPerd" readOnly></td>
+								<td><input id="chckPerd" name="chckPerd" type="number" readOnly></td>
 								<th>사용여부</th>
 								<td><input type="radio" id="useYn" name="useYn" value="Y">Y
 									<input type="radio" id="notUse" name="useYn" value="N">N</td>

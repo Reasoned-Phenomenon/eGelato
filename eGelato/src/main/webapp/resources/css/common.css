@@ -26,7 +26,7 @@
 	-ms-border-radius: 0 !important;
 }
 
-input[type=text] {
+input[type=text], [type=number], [type=date] {
 	width: 140px;
 	font-size: 13px;
 	height: 26px;
@@ -41,7 +41,93 @@ input[type=text] {
 	background-color: #fff;
 }
 
-th {
-	width: 100px;
+main {
+	padding: 20px 100px 20px;
 }
+
+.table-bbs {
+	width: 100%;
+	border-collapse: collapse;
+	border-top: 2px solid #343a43;
+	border-bottom: 1px solid #8e8e8e;
+}
+
+.table-write>tbody>tr>th {
+	font-size: 13px;
+	font-weight: 700;
+	text-align: left;
+	color: #000;
+	width: 120px;
+}
+
+.search-area-border {
+	border-width: 1px 0;
+	border-style: solid;
+	border-color: #000 #000 #8e8e8e;
+}
+
+.grid-option-area {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-height: 45px;
+    margin-bottom: -10px;
+    margin-top: 10px;
+    color: #444;
+}
+
+.grid-option-area>div {
+	align-items:center;
+}
+
+.col-6{
+	width:50%;
+}
+
+.ta-r{
+	text-align : right;
+}
+
+
+.flex.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.grid-option-area, .grid-option-area>div {
+    -webkit-box-align: center;
+    align-items: center;
+    -ms-flex-align: center;
+}
+.grid-option-area {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    min-height: 45px;
+    margin-bottom: 10px;
+    color: #444;
+}
+.search-area-border {
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: #000 #000 #8e8e8e;
+}
+
+.ml-1 {
+    margin-left: 10px!important;
+}
+
+.mr-1 {
+    margin-right: 10px!important;
+}
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+    color: #ffffff;
+    text-decoration: none;
+    background: #343a43;
+}
+
+
 
