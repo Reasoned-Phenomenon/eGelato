@@ -66,15 +66,25 @@ function tempAjax(){
 				
 			} 
 			
+			let tmArr = Array.from(tmSet);
+			let bodyRows = [];
 			for(let i = 0; i<result.data.contents.length; i++) {
-				if ( tmSet.has(result.data.contents[i].logTm.substring(11,19).replace(/:/g,'')) ) {
-					
+				
+				let bodyRow = [];
+				bodyRow.push(tmArr[i]);
+				
+				for ( let j = 0 ; j < result.data.contents.length ; j++ ) {
+					if ( tmArr[i] == result.data.contents[j].logTm.substring(11,19).replace(/:/g,'') ) {
+						bodyRow.push(parseFloat(result.data.contents[j].tempNow))
+					}
 				}
+				bodyRows.push(bodyRow);
 			}
 			
+			console.log(bodyRows);
 			
-			
-			for(let j = 0 ; j <result.data.contents.length; j++) {
+			 
+			/* for(let j = 0 ; j <result.data.contents.length; j++) {
 				
 				let bodyRow = [];
 				
@@ -92,7 +102,7 @@ function tempAjax(){
 				//console.log(bodyRow);
 				//bodyRows.push(bodyRow);
 				//tempData.addRows([bodyRow]);
-			} 
+			} */ 
 			
 			//tempData.addRows(bodyRows);
 			//tempChart.draw(tempData, google.charts.Line.convertOptions(tempOptions));
