@@ -38,6 +38,7 @@ public class OustController {
 	@RequestMapping("/biz/oustLotList.do")
 	public String oustLotList(Model model, OustVO vo) {
 		
+		System.out.println(vo);
 		System.out.println("출고 list 조회.");
 		System.out.println(oustService.oustLotList(vo));
 		model.addAttribute("datas", oustService.oustLotList(vo));
@@ -47,7 +48,9 @@ public class OustController {
 	// 완제품 재고 modal 조회.
 	@RequestMapping("/biz/prdtStcList.do")
 	public String prdtStcList(Model model, OustVO vo) {
+		System.out.println("=============111111=========11111========111");
 		System.out.println("완제품 재고");
+		System.out.println(vo);
 		model.addAttribute("datas", oustService.prdtStcList(vo));
 		System.out.println(oustService.prdtStcList(vo));
 		return "grid";

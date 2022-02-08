@@ -19,7 +19,7 @@ h1 {
 		
 	</form>
 	
-	<div id="prdtStcGrid" style="width: 120%"></div>
+	<div id="prdtStcGrid" style="width: 140%"></div>
 	
 <script>
 var Grid = tui.Grid;	
@@ -65,12 +65,12 @@ var prdtStcGrid = new Grid({
 		  },
 		  {
 		    header: '완제품 수량',
-		    name: 'prdtQy',
+		    name: 'qy',
 		    align: 'center'
 		  },
 	
 		  {
-		    header: '사용 수량',
+		    header: '출고량',
 		    name: 'oustQy',
 		    align: 'center',
 		    editor: 'text'
@@ -88,20 +88,35 @@ var prdtStcGrid = new Grid({
 		  {
 			header: '구 분',
 			name:'fg',
-			align: 'center'
+			align: 'center',
+			hidden: true
 		  },
+		  {
+			header: '입고량',
+			name:'istQy',
+			align: 'center',
+			hidden: true
+		  },
+		  {
+			header: '일출고 날짜',
+			name:'istOustDttm',
+			align: 'center',
+			hidden: true
+		  },
+		  
 		  {
 			header: '제품 코드',
 			name:'prdtId',
-			align: 'center'
-			  }
+			align: 'center',
+			hidden: true
+		   }
 		]
 });
     //TODO 함수명 변수명 수정하기.
 	function chooseRWI(pid,oqy,pnm) {
 		
 		$.ajax({
-			url : "${path}/biz/oustLotList.do?prdtId=" + pid,
+			url : "${path}/biz/prdtStcList.do?prdtId=" + pid,
 			dataType : 'json',
 			error : function(result) {
 				console.log('에러', result)
@@ -126,6 +141,9 @@ var prdtStcGrid = new Grid({
 			console.log(prdtStcGrid.getCheckedRows());
 			console.log(prdtStcGrid.getCheckedRows()[0].lotNo);
 			console.log(prdtStcGrid.getCheckedRows()[0].istOustDttm);
+			console.log(prdtStcGrid.getCheckedRows()[0].istQy);
+			console.log(prdtStcGrid.getCheckedRows()[0].oustQy);
+			console.log(prdtStcGrid.getCheckedRows()[0].expdate);
 			
 				
 			
