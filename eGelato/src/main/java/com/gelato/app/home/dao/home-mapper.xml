@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelato.app.home.dao.HomeMapper">
+
+	<select id="findProd" resultType="HomeVO">
+		SELECT NVL(sum(qy),0) as prod_qy
+		FROM prod_indica_deta
+		WHERE trunc(indica_dt) = trunc(sysdate)
+		
+		UNION ALL
+		
+		SELECT NVL(sum(prod_qy),0)
+		FROM eqm_st_now
+		WHERE trunc(log_tm) = trunc(sysdate)
+	</select>
+
+</mapper>
