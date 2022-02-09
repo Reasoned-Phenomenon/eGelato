@@ -14,7 +14,7 @@ th, td {
 <body>
 	<div>
 		<br>
-		<h2>공정실적관리</h2>
+		<h2>공정실적조회</h2>
 		<br>
 	</div>
 	<br>
@@ -54,9 +54,9 @@ th, td {
 			</tbody>
 			</table>
 		</div>
-		<div class="col-sm-1">
+		<!-- <div class="col-sm-1">
 			<button type="button"  id="btnIns">등록</button>
-		</div>
+		</div> -->
 	</div>
 	<hr>
 	<div id="prcsList"></div>
@@ -66,7 +66,7 @@ th, td {
 	<!-- 지시 모달-->
 	<div id="indicaDialog" title="생산 지시 목록"></div>
 	<!-- 불량 모달-->
-	<div id="prdtInferCodeDialog" title="불량 상세 목록"></div>
+	<!-- <div id="prdtInferCodeDialog" title="불량 상세 목록"></div> -->
 	
 <script>
 	//계획 조회 그리드 생성
@@ -229,7 +229,7 @@ th, td {
 			})
 			
 	// 불량등록
-	prcsList.on('dblclick', (ev) => {
+	/* prcsList.on('dblclick', (ev) => {
 			rk = ev.rowKey;
 			console.log(ev)
 		    if (ev.columnName === 'inferId') {
@@ -237,7 +237,7 @@ th, td {
 					console.log("1111")
 		    		callprdtInferCode();
 			}
-		});
+		}); */
 	
 	function callprdtInferCode(){
 		prdtInferCodeDialog = $("#prdtInferCodeDialog").dialog({
@@ -272,7 +272,7 @@ th, td {
 		}
 	
 	// 수정 등록
-	btnIns.addEventListener("click", function() {
+	/* btnIns.addEventListener("click", function() {
 		
 		if(confirm("저장하시겠습니까?")) {
 			prcsList.blur()
@@ -281,7 +281,7 @@ th, td {
 		
 		toastr.clear()
 		toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} );
-	})
+	}) */
 </script>
 </body>
 </html>

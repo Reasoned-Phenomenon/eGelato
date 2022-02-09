@@ -229,29 +229,54 @@
 <!-- 원자재 입출고 insert -->	
 	<insert id="insertRwmatrIstOust" parameterType="PrdIndicaMngVO">
 	<selectKey keyProperty="rwmatrOrderDetaId" resultType="string" order="BEFORE">
-		select rwmatr_order_deta_id
-		as rwmatrOrderDetaId
-		from rwmatr_ist_oust
-		where lot_no = #{lotNo}
-		group by rwmatr_order_deta_id
+	select 
+			(select rwmatr_order_deta_id
+			as rwmatrOrderDetaId
+			from rwmatr_ist_oust
+			where lot_no = #{lotNo}
+			group by rwmatr_order_deta_id
+			)
+			from dual
 	</selectKey>
-		insert into rwmatr_ist_oust (rwmatr_id, 
-									 lot_no, 
-									 ist_oust_dttm, 
-									 ist_qy, 
-									 oust_qy, 
-									 expdate, 
-									 rwmatr_order_deta_id)
-		values ((select rwmatr_id
-		            from rwmatr
-		            where nm = #{nm}),
-		        #{lotNo},
-		        sysdate,
-		        '0',
-		        #{oustQy},
-		        to_char(#{expdate}, 'yyyyMMdd'),
-		        #{rwmatrOrderDetaId}
-		        )
+	<choose>
+			<when test = "rwmatrOrderDetaId != null">
+				insert into rwmatr_ist_oust (rwmatr_id, 
+											 lot_no, 
+											 ist_oust_dttm, 
+											 ist_qy, 
+											 oust_qy, 
+											 expdate, 
+											 rwmatr_order_deta_id)
+				values ((select rwmatr_id
+				            from rwmatr
+				            where nm = #{nm}),
+				        #{lotNo},
+				        sysdate,
+				        '0',
+				        #{oustQy},
+				        to_char(#{expdate}, 'yyyyMMdd'),
+				        #{rwmatrOrderDetaId}
+				        )
+			</when>
+			<otherwise>
+				insert into rwmatr_ist_oust (rwmatr_id, 
+											 lot_no, 
+											 ist_oust_dttm, 
+											 ist_qy, 
+											 oust_qy, 
+											 expdate)
+				values ((select rwmatr_id
+				            from rwmatr
+				            where nm = #{nm}),
+				        #{lotNo},
+				        sysdate,
+				        '0',
+				        #{oustQy},
+				        to_char(#{expdate}, 'yyyyMMdd')
+				        )
+			</otherwise>
+			
+	</choose>
 	</insert>
 
 	
