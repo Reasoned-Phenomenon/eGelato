@@ -53,11 +53,11 @@
 	      				<div>
 	      					<label>거래처</label>
 	      					<input type="text" id="vendName" name="vendName" readonly>
-	      					<button type="button" id="BtnVend">찾아보기</button>&ensp;&ensp;&ensp;
+	      					<button type="button" id="BtnVend" class="btn-modal"></button>&ensp;&ensp;&ensp;
 	      					
 	      					<label>제품명</label>
 	      					<input type="text" id="prdtNm" name="prdtNm" readonly>
-	      					<button type="button" id="BtnPrdt">찾아보기</button> &ensp;
+	      					<button type="button" id="BtnPrdt" class="btn-modal"></button> &ensp;
 	      					
 	      			
 	      				<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
@@ -87,17 +87,7 @@ let vendDialog;
 
 var Grid = tui.Grid;
 
-//그리드 테마
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-});
+
 
 
 //그리드 생성

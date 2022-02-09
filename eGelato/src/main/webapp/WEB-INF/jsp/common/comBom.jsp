@@ -20,7 +20,7 @@
 			<br>
 				<label>제품코드</label>
 	      			<input type="text" id="prdtId" name="prdtId">
-	      			<button type="button" id="serachBtn">검색</button>&ensp;&ensp;&ensp;
+	      			<button type="button" id="serachBtn" class="btn-modal"></button>&ensp;&ensp;&ensp;
 	      					
 	      		<label>제품명</label>
 	      			<input type="text" id="prdtNm" name="prdtNm"> &ensp;
@@ -62,17 +62,7 @@ let flag;
 
 var Grid = tui.Grid;
 
-//그리드 테마.
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-});
+
 
 //그리드 생성.
 var bomGrid = new Grid({

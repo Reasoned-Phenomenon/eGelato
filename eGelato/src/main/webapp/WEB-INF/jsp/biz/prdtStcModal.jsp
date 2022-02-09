@@ -14,9 +14,8 @@ h1 {
 <body>
 	<br>
 	<h1>완제품 재고 현황</h1><br>
-	    <form action="">
-		<button type="button" id="updateBtn" class="btn cur-p btn-outline-primary">확인</button>
-		
+	  <form>
+		<button type="button" id="checkBtn" class="btn cur-p btn-outline-primary">확인</button>
 	</form>
 	
 	<div id="prdtStcGrid" style="width: 140%"></div>
@@ -33,8 +32,8 @@ var isqy;    // 입고량.
 var oqy;     // 출고량.
 var edate;   // 유통기한.
 
-//그리드 테마
-Grid.applyTheme('striped', {
+//그리드 테마 삭제.
+/* Grid.applyTheme('striped', {
 	  cell: {
 	    header: {
 	      background: '#eef'
@@ -44,7 +43,7 @@ Grid.applyTheme('striped', {
 	    }
 	  }
 	});
-
+ */
 //그리드 생성
 var prdtStcGrid = new Grid({
 	el: document.getElementById('prdtStcGrid'),
@@ -52,7 +51,8 @@ var prdtStcGrid = new Grid({
 	  api: {
 	    readData: { url:'${path}/biz/prdtStcList.do', method: 'GET'}
 	  },
-	  contentType: 'application/json'
+	  contentType: 'application/json',
+	  initialRequest: false
 	},
   	rowHeaders:[ 'checkbox','rowNum'],
   	selectionUnit: 'row',
@@ -131,11 +131,11 @@ var prdtStcGrid = new Grid({
 			let grc = prdtStcGrid.getRowCount();
 			console.log(grc);
 			
-	  })
+	  }) 
 
 	}
 	
-	$("#updateBtn").on(
+	$("#checkBtn").on(
 			"click", function(){
 			console.log('=============================11');	
 			console.log(prdtStcGrid.getCheckedRows());

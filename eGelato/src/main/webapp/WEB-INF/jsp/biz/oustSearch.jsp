@@ -28,10 +28,14 @@
 		</div>
 		<div class="col-sm-5">
 			<h3>입출고 현황</h3>
+			<div style="float: right;">
+			<button type="button" class="btn cur-p btn-outline-primary" id="SaveBtn">저장</button>
+			</div>
 			<hr>
 			<div id="oustLotGrid"></div>
 			<br>
 			<div class="col-sm-2">
+			
 			</div>
 		</div>
 	</div>
@@ -46,20 +50,7 @@ let dialog;
 // 그리드 생성
 var Grid = tui.Grid;
 
-//그리드 테마
-Grid.applyTheme('striped', {
-	cell : {
-		header : {
-			background : '#eef'
-		},
-		evenRow : {
-			background : '#fee'
-		},
-		selectedHeader : {
-	    	background : '#FFFFFF'
-	    }
-	}
-});
+
 
 
 // 출고 관리 그리드 1. (좌측 생성.)
@@ -218,7 +209,12 @@ const oustLotGrid =  new Grid({
  			
 		}
  	}
-	
+ 	
+ 	// 저장 버튼 이벤트.
+/*  	$("#SaveBtn").on("click",function() {
+ 		
+ 	} */
+ 	
  
 		
 		
