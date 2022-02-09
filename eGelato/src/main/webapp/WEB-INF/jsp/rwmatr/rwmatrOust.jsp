@@ -11,7 +11,7 @@
 <style>
 th, td {
 	padding: 5px;
-}
+}  
 </style>
 <body>
 <h2>원자재 출고관리</h2>
