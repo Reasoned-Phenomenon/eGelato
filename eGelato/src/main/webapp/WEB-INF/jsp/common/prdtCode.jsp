@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,40 +7,47 @@
 <title>완제품 코드 관리 페이지</title>
 </head>
 <body>
-	<div>
-		<br>
-		<h3>완제품 코드 관리</h3>
+	<div class="container">
+		<div class="flex row">
+			<div>
+				<h2>완제품 코드 관리</h2>
+			</div>
+			<div>
+				<div class="col-8">
+					<table class="table table-bbs">
+						<tbody>
+							<tr>
+								<th>완제품 코드*</th>
+								<td><input type="text" id="prdtId" name="prdtId" readonly></td>
+								<th>제품명*</th>
+								<td><input type="text" id="prdtNm" name="prdtNm"></td>
+							</tr>
+							<tr>
+								<th>규격</th>
+								<td><input type="text" id="spec" name="spec"></td>
+								<th>단위</th>
+								<td><input type="text" id="unit" name="unit"></td>
+								<th>안전재고</th>
+								<td><input type="text" id="safStc" name="safStc"></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="col-4" style="float: right;">
+						<button type="button" class="btn cur-p btn-outline-primary"
+							id="reset">초기화</button>
+						<button type="button" class="btn cur-p btn-outline-primary"
+							id="SearchBtn">조회</button>
+						<button type="button" class="btn cur-p btn-outline-primary"
+							id="SaveBtn">저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<form>
-	<div>
-		<br>
-		<label>완제품 코드</label>
-			<input type="text" id="prdtId" name="prdtId" readonly>
-			
-		<label>제품명</label>
-		    <input type="text" id="prdtNm" name="prdtNm" readonly>
-		  
-		<label>규격</label>
-			<input type="text" id="spec" name="spec" readonly>
-			
-		<label>단위</label>
-			<input type="text" id="unit" name="unit" readonly>	
-			
-		<label>안전 재고</label>
-			<input type="text" id="safStc" name="safStc" readonly>	   
-		<br>	 	
-	</div>
-	<div style="float: right;">
-		<button type="button" class="btn cur-p btn-outline-primary" id="SearchBtn">조회</button>
-		<button type="button" class="btn cur-p btn-outline-primary" id="AddBtn">추가</button>
-		<button type="button" class="btn cur-p btn-outline-primary" id="SaveBtn">저장</button>
-		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-	</div>
-</form>
 
-<div id="prdtCodeGrid" ></div>
+	<div id="prdtCodeGrid"></div>
 
-<script>
+	<script>
 let dialog;
 
 //modify구분하기위한 변수
@@ -48,17 +55,6 @@ let flag;
 
 var Grid = tui.Grid;
 
-//그리드 테마.
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-});
 
 
 //그리드 생성.
@@ -67,7 +63,7 @@ var prdtCodeGrid = new Grid({
 	data : {
 	  api: {
 	    readData: 	{ url: '${path}/com/prdtCodeList.do', method: 'GET'},
-	    modifyData : { url: '${path}/com/prdtCodeModifyData.do', method: 'PUT'}
+	   // modifyData : { url: '${path}/com/prdtCodeModifyData.do', method: 'PUT'}
 	  },
 	  contentType: 'application/json',
 	  initialRequest: false
@@ -138,40 +134,91 @@ var prdtCodeGrid = new Grid({
 		prdtCodeGrid.readData(1,{'prdtId':prdtId, 'prdtNm':prdtNm,'spec':spec,'unit':unit,'safStc':safStc},true);
 	});
 	
-	// 행 추가 버튼 이벤트.
-	AddBtn.addEventListener("click", function(){
+	// 행 추가 버튼 이벤트. // 
+	/* AddBtn.addEventListener("click", function(){
 		prdtCodeGrid.prependRow();
-	});
+	}); */
+	
+	// 초기화 버튼.
+		$("#reset").on("click",function(){
+			$("#prdtId").val("");
+			$("#prdtNm").val("");
+			$("#spec").val("");
+			$("#unit").val("");
+			$("#safStc").val("");	
+		});
 	
 	//컨트롤러 응답
-	prdtCodeGrid.on('response', function (ev) {
+/* 	prdtCodeGrid.on('response', function (ev) {
 		console.log(ev)
 		if(flag == 'O') {
 			prdtCodeGrid.readData(1);
 			flag = 'X';
 		}
 		
-	});
+	}); */
 
-	// 저장(등록) 버튼 이벤트. (alert 창 포함.)
-	SaveBtn.addEventListener("click", function() {
-		prdtCodeGrid.request('modifyData');
-		console.log("이거뭐양?" + prdtCodeGrid.getRow(0))
-		
-		if (prdtCodeGrid.getRow(0) != null) {
-			prdtCodeGrid.blur();
-		 if (confirm("저장하시겠습니까?")) {
-			prdtCodeGrid.request('modifyData',{
-				showConfirm : false
-			});
-		  }
-		} else {
-			alert("선택된 데이터가 없습니다.");
-		}
-		
-		
-		flag = 'O'
-	});
+	// 저장(등록과 수정) 버튼 이벤트. (alert 창 포함.)
+		$("#SaveBtn").on("click",function(){
+			
+			var prdtId = $("#prdtId").val();
+			var prdtNm = $("#prdtNm").val();
+			var spec = $("#spec").val();
+			var unit = $("#unit").val();
+			var safStc = $("#safStc").val();
+			
+
+			if (prdtId =='') {
+				$.ajax({
+					url:"${path}/com/insertprdtCode.do",
+					method :"post",
+					data: {
+						prdtId : prdtId ,
+						prdtNm : prdtNm,
+						spec : spec,
+						unit : unit,
+						safStc : safStc
+					
+					},
+					success : function(res) {
+						prdtCodeGrid.readData(1,{},true)
+						console.log(res);
+						alert("등록 되었습니다.");
+						prdtCodeGrid.refreshLayout();
+					},
+					error : function() {
+						alert("등록 실패했습니다.");
+					}	
+				})
+				
+			} else if (prdtId !='') {
+				
+				$.ajax({
+					url:"${path}/com/updateprdtCode.do",
+					method :"post",
+					data: {
+						prdtId : prdtId ,
+						prdtNm : prdtNm,
+						spec : spec,
+						unit : unit,
+						safStc : safStc
+						
+					},
+					success : function(res) {
+						prdtCodeGrid.readData(1,{},true)
+						console.log(res);
+						alert("수정 되었습니다.");
+						prdtCodeGrid.refreshLayout();
+					},
+					error : function() {
+						alert("수정 실패했습니다.");
+					}
+						
+				})
+				
+			}
+			
+		});
 	
 	
 

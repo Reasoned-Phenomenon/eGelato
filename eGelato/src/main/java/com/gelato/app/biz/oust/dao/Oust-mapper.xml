@@ -15,8 +15,8 @@
 	    ORDER BY ORDER_SHT_DETA_ID ASC
 	</select>
 	
-	<!--완제품 입출고 조회. -->
-	<select id="oustLotList" resultType="OustVO">
+	<!--완제품 현재고  modal 조회. -->
+	<select id="prdtStcList" resultType="OustVO">
 		SELECT LOT_NO AS LOT_NO,
 			   IST_OUST_DTTM AS IST_OUST_DTTM,
 			   PRDT_ID AS PRDT_ID,
@@ -27,8 +27,8 @@
 	     WHERE PRDT_ID = #{prdtId}
 	</select>
 	
-	<!-- 완제품 재고 조회 modal. -->
-	<select id="prdtStcList" resultType="OustVO">
+	<!-- 완제품 입출고 테이블.  "oustLotList"-->
+	<!-- <select id="prdtStcList" resultType="OustVO">
 		SELECT A.LOT_NO AS LOT_NO,
 		       A.PRDT_ID AS PRDT_ID,
 		       A.QY AS QY,
@@ -42,7 +42,7 @@
 	        ON A.PRDT_ID = B.PRDT_ID 
 	     WHERE A.PRDT_ID = #{prdtId}
 	    ORDER BY LOT_NO	ASC       
-	</select>
+	</select> -->
 
 	<!-- 현재고 테이블 등록 -->
 

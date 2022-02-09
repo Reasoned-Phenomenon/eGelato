@@ -3,11 +3,11 @@ package com.gelato.app.com.vendCode.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 
 import com.gelato.app.com.vendCode.dao.VendCodeVO;
 import com.gelato.app.com.vendCode.service.VendCodeService;
@@ -35,12 +35,26 @@ public class VendCodeController {
 	}
 	
 	// Modify 등록, 수정.
-	@PutMapping("/com/vendCodeModifyData.do")
-	@ResponseBody
-	public boolean modifyData (@RequestBody ModifyVO<VendCodeVO> mvo) {
-		System.out.println(mvo);
-		vendcodeService.modifyVendCode(mvo);
-		return true;
-	}
+	/*
+	 * @PutMapping("/com/vendCodeModifyData.do")
+	 * 
+	 * @ResponseBody public boolean modifyData (@RequestBody ModifyVO<VendCodeVO>
+	 * mvo) { System.out.println(mvo); vendcodeService.modifyVendCode(mvo); return
+	 * true; }
+	 */
 
+	// 거래처 코드 등록.
+	@PostMapping("/com/insertvendCode.do")
+	public String insertvendCode(VendCodeVO vo) {
+		vendcodeService.insertVendCode(vo);
+		return "tiles/common/vendCode";
+	}
+	
+	// 거래처 코드 수정.
+	@PostMapping("/com/updatevendCode.do")
+	public String updatevendCode(VendCodeVO vo) {
+		vendcodeService.updateVendCode(vo);
+		return "tiles/common/vendCode";
+	}
+	
 }

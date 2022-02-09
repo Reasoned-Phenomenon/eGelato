@@ -15,7 +15,7 @@ public class OustVO {
 	// 주문서 디테일 테이블.
 	String orderId;   // 주문코드.
 	String prdtId;    // 제품코드.
-	String qy;        // 수량.
+	String qy;        // 주문수량.
 	String orderShtDetaId;  // 주문서 디테일 코드.
 	
 	// 완제품 재고 테이블.
@@ -40,7 +40,7 @@ public class OustVO {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	Date istOustDttm; // 입출고 일시.
 	
-	// 날짜 조회할때 필요함.
+	// 날짜 조회할때 필요함. 불필요한거면 삭제.
 	String startDate;
 	String endDate;
 	

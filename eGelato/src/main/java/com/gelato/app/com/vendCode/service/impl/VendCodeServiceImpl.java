@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.gelato.app.com.vendCode.dao.VendCodeMapper;
 import com.gelato.app.com.vendCode.dao.VendCodeVO;
 import com.gelato.app.com.vendCode.service.VendCodeService;
-import com.gelato.app.vr.ModifyVO;
+
 
 @Service
 public class VendCodeServiceImpl implements VendCodeService {
@@ -21,22 +21,33 @@ public class VendCodeServiceImpl implements VendCodeService {
 		
 		return vendcodeMapper.vendCodeList(vo);
 	}
+
+	// VendCode 등록.
+	@Override
+	public int insertVendCode(VendCodeVO vo) {
+		
+		return vendcodeMapper.insertVendCode(vo);
+	}
+
+	//VendCode 수정.
+	@Override
+	public int updateVendCode(VendCodeVO vo) {
+		
+		return vendcodeMapper.updateVendCode(vo);
+	}
 	
 	// modify로 등록, 수정
-	@Override
-	public int modifyVendCode(ModifyVO<VendCodeVO> mvo) {
-		
-		for(VendCodeVO vo : mvo.getCreatedRows()) {
-			System.out.println("등록.");
-			vendcodeMapper.insertVendCode(vo);
-		}
-		
-		for(VendCodeVO vo : mvo.getUpdatedRows()) {
-			System.out.println("수정.");
-			vendcodeMapper.updateVendCode(vo);
-		}
-		
-		return 0;
-	}
+	/*
+	 * @Override public int modifyVendCode(ModifyVO<VendCodeVO> mvo) {
+	 * 
+	 * for(VendCodeVO vo : mvo.getCreatedRows()) { System.out.println("등록.");
+	 * vendcodeMapper.insertVendCode(vo); }
+	 * 
+	 * for(VendCodeVO vo : mvo.getUpdatedRows()) { System.out.println("수정.");
+	 * vendcodeMapper.updateVendCode(vo); }
+	 * 
+	 * return 0; }
+	 */
+	
 
 }

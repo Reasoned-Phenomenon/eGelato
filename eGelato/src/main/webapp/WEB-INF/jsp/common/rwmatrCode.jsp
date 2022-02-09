@@ -22,7 +22,7 @@
          <div class="col-8">
             <br>
             	<br>
-            <table border="1" style="width:100%; height:55%">
+            <table class="table table-bbs">
                <tbody>
                   <tr> 
                      <th>자재코드*</th>
@@ -40,7 +40,7 @@
                   <tr>
                      <th>입고 업체</th>
                      <td><input type="text" id="vendId" name="vendId" style="width:85%; border: 0;">
-                        <button type="button" id="serachVendIdBtn">검색</button></td>
+                        <button type="button" id="serachVendIdBtn" class="btn-modal"></button></td>
                      <th>업체명</th>
                      <td><input type="text" id="vendName" name="vendName" style="width:100%; border: 0;" readonly></td>
                   </tr>
@@ -79,17 +79,6 @@ let dialog;
 var Grid = tui.Grid;	
 
 
-//그리드 테마.
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-});
 
 //그리드 생성.
 var rwmatrGrid = new Grid({

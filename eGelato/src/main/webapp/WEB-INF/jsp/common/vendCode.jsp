@@ -7,33 +7,44 @@
 <title>거래처 코드 관리 페이지</title>
 </head>
 <body>
-	<div>
-		<h3>거래처 코드 관리</h3>	
+	<div class="container">
+		<div class="flex row">
+			<div>
+				<h2>거래처 코드 관리</h2>
+			</div>
+			<div>
+				<div class="col-8">
+					<table class="table table-bbs">
+						<tbody>
+							<tr>
+								<th>거래처 코드*</th>
+								<td><input type="text" id="vendId" name="vendId" readonly></td>
+								<th>거래처 명*</th>
+								<td><input type="text" id="vendName" name="vendName"></td>
+							</tr>
+							<tr>
+								<th>사업자 등록번호</th>
+								<td><input type="text" id="bizno" name="bizno"></td>
+								<th>전화번호</th>
+								<td><input type="text" id="telno" name="telno"></td>
+							</tr>
+							<tr>
+								<th>구분</th>
+								<td><input type="text" id="remk" name="remk"></td>
+								<th>구분</th>
+								<td><input type="text" id="fg" name="fg"></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="col-4" style="float: right;">
+						<button type="button" class="btn cur-p btn-outline-primary" id="reset">초기화</button>
+						<button type="button" class="btn cur-p btn-outline-primary" id="SearchBtn">조회</button>
+						<button type="button" class="btn cur-p btn-outline-primary" id="SaveBtn">저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	
-	<form>
-		<div>
-			<br>
-			<label>거래처 코드</label>
-			<input type="text" id="vendId" name="vendId" readonly>
-			
-			<label>거래처 명</label>
-			<input type="text" id="vendName" name="vendName" readonly>
-			
-			<label>사업자 등록번호</label>
-			<input type="text" id="bizno" name="bizno" readonly>
-			
-			<label>전화 번호</label>
-			<input type="text" id="telno" name="telno" readonly>
-			
-		</div>
-		<div style="float: right;">
-			<button type="button" class="btn cur-p btn-outline-primary" id="SearchBtn">조회</button>
-			<button type="button" class="btn cur-p btn-outline-primary" id="AddBtn">추가</button>
-			<button type="button" class="btn cur-p btn-outline-primary" id="SaveBtn">저장</button>
-			<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-		</div>
-	</form>
 	
 <div id="vendCodeGrid" style="width: 100%"></div>
 
@@ -46,17 +57,6 @@ let flag;
 
 var Grid = tui.Grid;
 
-//그리드 테마.
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-});
 
 
 //그리드 생성.
@@ -65,7 +65,7 @@ var vendCodeGrid = new Grid({
 	data : {
 	  api: {
 	    readData: 	{ url: '${path}/com/vendCodeList.do', method: 'GET'},
-	    modifyData : { url: '${path}/com/vendCodeModifyData.do', method: 'PUT'}
+	   // modifyData : { url: '${path}/com/vendCodeModifyData.do', method: 'PUT'}
 	  },
 	  contentType: 'application/json',
 	  initialRequest: false
@@ -126,6 +126,8 @@ var vendCodeGrid = new Grid({
 		$("#vendName").val(vendCodeGrid.getValue(ev["rowKey"],"vendName"));
 		$("#bizno").val(vendCodeGrid.getValue(ev["rowKey"],"bizno"));
 		$("#telno").val(vendCodeGrid.getValue(ev["rowKey"],"telno"));
+		$("#remk").val(vendCodeGrid.getValue(ev["rowKey"],"remk"));
+		$("#fg").val(vendCodeGrid.getValue(ev["rowKey"],"fg"));
 
 	});
 
@@ -136,44 +138,107 @@ var vendCodeGrid = new Grid({
 		 var vendName = document.getElementById("vendName").value; 
 		 var bizno = document.getElementById("bizno").value;  
 		 var telno = document.getElementById("telno").value;    
+		 var remk = document.getElementById("remk").value;    
+		 var fg = document.getElementById("fg").value;    
 		
-		 vendCodeGrid.readData(1, {'vendId':vendId, 'vendName':vendName,'bizno':bizno,'telno':telno}, true);
+		 vendCodeGrid.readData(1, {'vendId':vendId, 'vendName':vendName,'bizno':bizno,'telno':telno, 'remk':remk, 'fg':fg}, true);
+	});
+ 
+ 
+	// 초기화 버튼.
+	$("#reset").on("click",function(){
+		$("#vendId").val("");
+		$("#vendName").val("");
+		$("#bizno").val("");
+		$("#telno").val("");
+		$("#remk").val("");	
+		$("#fg").val("");	
 	});
  
  // 그리드 행 추가 버튼 이벤트.
- 	AddBtn.addEventListener("click", function(){
+/*  	AddBtn.addEventListener("click", function(){
  		vendCodeGrid.prependRow();
-	});
+	}); */
  
 	//컨트롤러 응답
-	vendCodeGrid.on('response', function (ev) {
+/* 	vendCodeGrid.on('response', function (ev) {
 		console.log(ev)
 		if(flag == 'O') {
 			vendCodeGrid.readData(1);
 			flag = 'X';
 		}
 		
-	});
+	}); */
  
 	
-  // 등록 버튼 이벤트.
-	SaveBtn.addEventListener("click", function() {
-		vendCodeGrid.blur();
-		vendCodeGrid.request('modifyData');
-		flag = 'O'
-	});
+  // 등록 버튼 이벤트.(등록과 수정)
+		$("#SaveBtn").on("click",function(){
+			
+			var vendId = $("#vendId").val();
+			var vendName = $("#vendName").val();
+			var bizno = $("#bizno").val();
+			var telno = $("#telno").val();
+			var remk = $("#remk").val();
+			var fg = $("#fg").val();
+			
+
+			if (vendId =='') {
+				$.ajax({
+					url:"${path}/com/insertvendCode.do",
+					method :"post",
+					data: {
+						vendId : vendId ,
+						vendName : vendName,
+						bizno : bizno,
+						telno : telno,
+						remk : remk,
+						fg : fg
+					
+					},
+					success : function(res) {
+						vendCodeGrid.readData(1,{},true)
+						console.log(res);
+						alert("등록 되었습니다.");
+						vendCodeGrid.refreshLayout();
+					},
+					error : function() {
+						alert("등록 실패했습니다.");
+					}	
+				})
+				
+			} else if (vendId !='') {
+				
+				$.ajax({
+					url:"${path}/com/updatevendCode.do",
+					method :"post",
+					data: {
+						vendId : vendId ,
+						vendName : vendName,
+						bizno : bizno,
+						telno : telno,
+						remk : remk,
+						fg : fg
+						
+					},
+					success : function(res) {
+						vendCodeGrid.readData(1,{},true)
+						console.log(res);
+						alert("수정 되었습니다.");
+						vendCodeGrid.refreshLayout();
+					},
+					error : function() {
+						alert("수정 실패했습니다.");
+					}
+						
+				})
+				
+			}
+			
+		});
 
  
   
 
 </script>
-
-
-
-
-
-
-	
-	
 </body>
 </html>

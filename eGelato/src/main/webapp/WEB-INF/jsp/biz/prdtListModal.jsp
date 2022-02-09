@@ -37,17 +37,7 @@ document.getElementById("prdtSearch").addEventListener("click", function () {
 	prdtListGrid.readData(1,{'prdtNm':prdtNameM}, true);
 });
 
-//그리드 테마
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-	});
+
 	
 // 그리드 생성
 var prdtListGrid = new Grid({
