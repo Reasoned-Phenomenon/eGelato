@@ -51,6 +51,7 @@ public class RwmatrioServiceImpl implements RwmatrioService {
 	@Override
 	public int modifyIst(ModifyVO<RwmatrioVO> mvo) {
 		for(RwmatrioVO vo : mvo.getCreatedRows()) {
+			System.out.println(vo.getLotNo());
 			System.out.println("추가");
 			RwmatrIstInspVO rwmatrIstInspVO = new RwmatrIstInspVO();
 			rwmatrIstInspVO.setRwmatrOrderDetaId(vo.getRwmatrOrderDetaId());
@@ -59,6 +60,9 @@ public class RwmatrioServiceImpl implements RwmatrioService {
 			
 			//입고내역 추가
 			rwmatrioMapper.insertRwmatrIst(vo);
+			System.out.println(vo.getLotNo()); 
+			vo.setQy(vo.getIstQy());
+			rwmatrioMapper.insertRwmatrStc(vo);
 		}
 		
 		for(RwmatrioVO vo : mvo.getUpdatedRows()) {
@@ -70,29 +74,32 @@ public class RwmatrioServiceImpl implements RwmatrioService {
 			System.out.println("삭제");
 			//입고내역 삭제
 			rwmatrioMapper.deleteRwmatrIst(vo);
-		}
-		return 0;
-	}
-
-	@Override
-	public int modifyStc(ModifyVO<RwmatrioVO> mvo) {
-		for(RwmatrioVO vo : mvo.getCreatedRows()) {
-			System.out.println("추가");
-			vo.setQy(vo.getIstQy());
-			rwmatrioMapper.insertRwmatrStc(vo);
-		}
-		
-		for(RwmatrioVO vo : mvo.getUpdatedRows()) {
-			System.out.println("수정");
-			rwmatrioMapper.updateRwmatrStc(vo);
-		}
-		
-		for(RwmatrioVO vo : mvo.getDeletedRows()) {
-			System.out.println("삭제");
+			//현재고 삭제
 			rwmatrioMapper.deleteRwmatrStc(vo);
 		}
 		return 0;
 	}
+
+//	@Override
+//	public int modifyStc(ModifyVO<RwmatrioVO> mvo) {
+//		for(RwmatrioVO vo : mvo.getCreatedRows()) {
+//			System.out.println("추가");
+//			vo.setLotNo(vo.getLotNo());
+//			vo.setQy(vo.getIstQy());
+//			rwmatrioMapper.insertRwmatrStc(vo);
+//		}
+//		
+//		for(RwmatrioVO vo : mvo.getUpdatedRows()) {
+//			System.out.println("수정");
+//			rwmatrioMapper.updateRwmatrStc(vo);
+//		}
+//		
+//		for(RwmatrioVO vo : mvo.getDeletedRows()) {
+//			System.out.println("삭제");
+//			rwmatrioMapper.deleteRwmatrStc(vo);
+//		}
+//		return 0;
+//	}
 
 	@Override
 	public int modifyOust(ModifyVO<RwmatrioVO> mvo) {

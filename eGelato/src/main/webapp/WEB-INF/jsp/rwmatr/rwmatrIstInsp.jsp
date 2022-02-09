@@ -97,7 +97,7 @@ var rwmatrIstInspList = new Grid({
 	  contentType: 'application/json',
 	  initialRequest: false
 	},
-	rowHeaders: ['checkbox'],
+	rowHeaders: ['checkbox','rowNum'],
 	selectionUnit: 'row',
 	bodyHeight: 600,
 	columns:[
@@ -301,11 +301,8 @@ function callEmpModal() {
 				toastr.error( ('발주코드를 선택해주세요.'),'Gelato',{timeOut:'1500'} );
 				return;
 			}
-			if(rwmatrIstInspList.getValue(rk, "qy") > rwmatrIstInspList.getValue(rk, "passQy")) {
-				$( "#dialogFrm" ).attr("title", "불량코드 목록");
-				console.log("불량코드리스트")
-				callrwmatrInferCodeModal();
-			}
+			callrwmatrInferCodeModal();
+			
 		} else if(ev.columnName === 'nm' || ev.columnName === 'rwmatrId' || ev.columnName === 'qy' || ev.columnName === 'passQy') {
 			if(rwmatrIstInspList.getValue(rk, "rwmatrOrderDetaId") == '') {
 				//toastr

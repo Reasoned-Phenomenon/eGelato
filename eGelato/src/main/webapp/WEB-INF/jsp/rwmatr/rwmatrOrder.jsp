@@ -97,7 +97,7 @@ var rwmatrOrderList = new Grid({
 	  contentType: 'application/json',
 	  initialRequest: false
 	},
-	rowHeaders: ['checkbox'],
+	rowHeaders: ['checkbox', 'rowNum'],
 	selectionUnit: 'row',
 	bodyHeight: 600,
 	columns:[
