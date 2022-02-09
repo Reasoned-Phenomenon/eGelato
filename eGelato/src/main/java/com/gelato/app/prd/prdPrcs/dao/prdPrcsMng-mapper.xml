@@ -17,7 +17,6 @@
 			     on pi.plan_deta_id = ppd.plan_deta_id
 			     join prdt p
 			     on ppd.prdt_id = p.prdt_id
-			where pi.fg = 'PROCEE'
 			
 			UNION
 			
@@ -33,7 +32,7 @@
 			     on pi.plan_deta_id = ppd.plan_deta_id
 			     join rwmatr r
 			     on ppd.prdt_id = r.rwmatr_id
-			where pi.fg = 'PROCEE')
+			)
 		<where>
 			<if test="indicaD != null and indicaD != ''">
 	    		<![CDATA[ trunc(indica_dt) = to_date(#{indicaD})]]>
