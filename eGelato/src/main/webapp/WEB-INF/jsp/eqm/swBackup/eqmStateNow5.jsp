@@ -21,8 +21,84 @@
 <div class="col-4">
 	<div id="chart-prod"></div>
 </div>
+<div class="col-4">
+	<div id="eqmStateGrid" ></div>
+</div>
 
 <script>
+//선언
+let tempFlag;
+let prodFlag;
+
+//
+let targetEqmId;
+
+var Grid = tui.Grid;
+
+//그리드 테마
+Grid.applyTheme('striped', {
+	  cell: {
+	    header: {
+	      background: '#eef'
+	    },
+	    evenRow: {
+	      background: '#fee'
+	    },
+	  }
+});
+
+
+let dataSources = {
+	api: {
+		readData:{ url: '${path}/eqm/findNowEqm.do', method: 'GET'},
+	},
+	contentType: 'application/json'
+};
+			
+var eqmStateGrid = new Grid({
+	el: document.getElementById('eqmStateGrid'),
+	data : dataSources,
+	rowHeaders:['rowNum'],
+	selectionUnit: 'row',
+	bodyHeight:600,
+	columns:[
+			{
+			  header: '지시 상세 코드',
+			  name: 'indicaDetaId'
+			},
+			{
+			  header: '진행 공정 코드',
+			  name: 'prcsNowId'
+			},
+			{
+			  header: '공정 코드',
+			  name: 'prcsId'
+			},
+			{
+			  header: '설비 코드',
+			  name: 'eqmId',
+			  hidden: true
+			}
+		]
+});
+
+eqmStateGrid.on('click', (ev) => {	
+	//console.log(ev)
+	//cell 선택시 row 선택됨.
+	eqmStateGrid.setSelectionRange({
+	      start: [ev.rowKey, 0],
+	      end: [ev.rowKey, eqmStateGrid.getColumns().length-1]
+	  });
+
+	targetEqmId = eqmStateGrid.getRow(ev.rowKey).eqmId;
+	console.log(targetEqmId);
+	chartAjax();
+	//토스트
+	toastr.clear();
+	toastr.info(targetEqmId+' 선택','Gelato');
+	
+});
+
 //--------------------------------------온도 차트 시작-------------------------------------------------------//
 //온도 차트 생성
 var tempEl = document.getElementById('chart-temp');
@@ -35,8 +111,7 @@ var tempData = {
 var tempOptions = { 
 		chart: { title: '실시간 설비 온도', width: 400, height: 300 },
 		xAxis: {
-			title: '시간',
-			date: { format: 'hh:mm:ss' }
+			title: '시간'
 		},
 		yAxis: {
 			title: '온도',
@@ -88,63 +163,48 @@ var prodChart = toastui.Chart.lineChart({ el:prodEl, data:prodData, options:prod
 
 //--------------------------------------생산량 차트 끝-------------------------------------------------------//
 
-//선언
-let tmFlag;
-let eqmIdFlag;
-let tempFlag;
-let prodFlag;
-
 //Ajax
 function chartAjax(){
 	$.ajax({
-			url : "${path}/eqm/selectNowEqm.do",
+			url : "${path}/eqm/findEqmTemp.do",
 			dataType : 'json',
 			method : 'GET',
+			data: {eqmId : targetEqmId},
 			error : function(result){
 				console.log('에러',result)
 			}
 		}).done(function (result){
 			//result.data.contents
-			//console.log(result.data.contents);
-			let eqmData = result.data.contents;
+			console.log(result.data.contents);
 			
-			let item = {name:'', data:[]};
-			eqmIdFlag = '';
-			let logSet = new Set();
+			//초기화
+			var tempDatum = {name:targetEqmId, data:[]};
+			var prodDatum = {name:targetEqmId, data:[]};
 			
-			for(let i = 0 ; i < eqmData.length ; i ++ ) {
-				console.log(eqmData[i].logTm)
-				logSet.add(eqmData[i].logTm);
+			var tempCategories = [];
+			var prodCategories = [];
+			
+			for(datum of result.data.contents) {
 				
-				if ( eqmIdFlag != eqmData[i].eqmId) {
-					
-					if( item.name !='') {
-						tempData.series.push(item);
-					}
-					
-					item = {name:'', data:[]};
-					eqmIdFlag = eqmData[i].eqmId;
-					item.name = eqmData[i].eqmId;
-				} 
+				tempDatum.data.push(Math.round(Number(datum.tempNow)));
+				prodDatum.data.push(Number(datum.prodQy));
 				
-					item.data.push({x:eqmData[i].logTm, y:Number(eqmData[i].tempNow)});
-				
-				if (i == eqmData.length-1 ) {
-					tempData.series.push(item);
-				}
+				tempCategories.push(datum.logTm.substring(11,19))
+				prodCategories.push(datum.logTm.substring(11,19))
 				
 			}
-
-			for(oneTm of Array.from(logSet).sort()) {
-				tempData.categories.push(oneTm);
-			}
 			
-			console.log(tempData)
-			console.log(tempData.series)
-			console.log(tempData.categories)
+			tempData.series = [tempDatum];
+			tempData.categories = tempCategories;
+			
+			prodData.series = [prodDatum];
+			prodData.categories = prodCategories;
+			
+			console.log(tempData);
+			console.log(prodData);
 			
 			tempChart.setData(tempData);
-			
+			prodChart.setData(prodData);
 		})
 }
 
@@ -155,7 +215,6 @@ function chartAjax(){
 		chartAjax();
 }, 5000); */
 
-chartAjax();
 </script>
 
 </body>

@@ -29,4 +29,6 @@ public class EqmStateVO {
 	String prcsNowId;
 	String prcsId;
 	
+	String rn;
+	
 }

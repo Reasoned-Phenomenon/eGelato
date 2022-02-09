@@ -34,4 +34,9 @@ public class EqmStateServiceImpl implements EqmStateService{
 		return eqmStateMapper.findNowEqm(eqmStateVo);
 	}
 
+	@Override
+	public List<EqmStateVO> selectNowEqm(EqmStateVO eqmStateVo) {
+		return eqmStateMapper.selectNowEqm(eqmStateVo);
+	}
+
 }
