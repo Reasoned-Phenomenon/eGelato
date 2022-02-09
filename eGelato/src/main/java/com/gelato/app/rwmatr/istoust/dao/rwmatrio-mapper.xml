@@ -140,20 +140,19 @@
 			ON R.VEND_ID = V.VEND_ID
 		JOIN RWMATR_IST_OUST RIO
             ON RS.LOT_NO = RIO.LOT_NO
-		<where>
-			<if test="startDate != ''">
-	    		<![CDATA[TRUNC(RS.EXPDATE) >= to_date(#{startDate})]]>
-	    	</if>
-	    	<if test="endDate != ''">
-	    		AND <![CDATA[TRUNC(RS.EXPDATE) <= to_date(#{endDate})]]>
-	    	</if>
-	       	<if test="rwmName != ''">
-				AND R.NM LIKE '%'||#{rwmName}||'%'
-			</if>
-			<if test="vendName != '' and vendName != null">
-				AND V.VEND_NAME LIKE '%'||#{vendName}||'%'
-			</if>
-        </where>
+		WHERE RS.QY != 0
+		<if test="startDate != ''">
+    		AND <![CDATA[TRUNC(RS.EXPDATE) >= to_date(#{startDate})]]>
+    	</if>
+    	<if test="endDate != ''">
+    		AND <![CDATA[TRUNC(RS.EXPDATE) <= to_date(#{endDate})]]>
+    	</if>
+       	<if test="rwmName != ''">
+			AND R.NM LIKE '%'||#{rwmName}||'%'
+		</if>
+		<if test="vendName != '' and vendName != null">
+			AND V.VEND_NAME LIKE '%'||#{vendName}||'%'
+		</if>
 		ORDER BY EXPDATE
  	</select>
  	
