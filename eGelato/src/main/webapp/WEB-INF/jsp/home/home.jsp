@@ -11,6 +11,7 @@
 	table {
 		background-color: black;
 	}
+	
 	p {
 		font-size: 80px;
 		color: white;
