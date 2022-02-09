@@ -60,10 +60,19 @@ public class EqmStateController {
 
 	//실시간설비상태
 	@GetMapping("/eqm/selectNowEqm.do")
-	public String findTemp(Model model, EqmStateVO eqmStateVo) {
+	public String selectNowEqm(Model model, EqmStateVO eqmStateVo) {
 		System.out.println(eqmStateVo);
 		System.out.println(service.selectNowEqm(eqmStateVo));
 		model.addAttribute("datas", service.selectNowEqm(eqmStateVo));
+		return "grid";
+	}
+	
+	//실시간설비상태
+	@GetMapping("/eqm/selectLastEqm.do")
+	public String selectLastEqm(Model model, EqmStateVO eqmStateVo) {
+		System.out.println(eqmStateVo);
+		System.out.println(service.selectLastEqm(eqmStateVo));
+		model.addAttribute("datas", service.selectLastEqm(eqmStateVo));
 		return "grid";
 	}
 	
