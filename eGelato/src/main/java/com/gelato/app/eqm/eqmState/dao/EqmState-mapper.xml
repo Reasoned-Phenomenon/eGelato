@@ -2,11 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gelato.app.eqm.eqmState.dao.EqmStateMapper">
 
+	<select id="findNowEqm" resultType="EqmStateVO">
+		SELECT 	ps.indica_deta_id, 
+				ps.prcs_now_id,
+				p.prcs_id,
+				p.eqm_id
+		FROM prcs_st ps
+		JOIN prcs_now pn
+		ON ps.prcs_now_id = pn.prcs_now_id
+		AND ps.indica_deta_id = pn.indica_deta_id
+		AND ps.st = 'STATE1'
+		JOIN prcs p
+		ON pn.prcs_id = p.prcs_id
+		ORDER BY 1
+	</select>
+
 	<select id="temperature" resultType="EqmStateVO">
 		SELECT DISTINCT 
 			   S.EQM_ID AS EQM_ID,
 			   S.LOG_TM AS LOG_TM,
-			   S.TEMP_NOW AS TEMP_NOW
+			   S.TEMP_NOW AS TEMP_NOW,
+			   S.PROD_QY AS PROD_QY
 		FROM EQM_ST_NOW S 
 			 LEFT OUTER JOIN PRCS P
 			 ON(S.EQM_ID = P.EQM_ID)
@@ -14,7 +30,12 @@
 			 ON(P.PRCS_ID = PN.PRCS_ID)
 			 LEFT OUTER JOIN PRCS_ST PS
 			 ON(PN.PRCS_NOW_ID = PS.PRCS_NOW_ID)
-		ORDER BY EQM_ID
+		<where>
+			<if test="eqmId != null">
+				s.eqm_id = #{eqmId}
+			</if>
+		</where>
+		ORDER BY EQM_ID,LOG_TM
 	</select>
 	
 	<select id="output" resultType="EqmStateVO">

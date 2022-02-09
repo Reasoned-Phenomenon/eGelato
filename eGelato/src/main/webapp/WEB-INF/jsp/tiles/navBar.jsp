@@ -15,10 +15,12 @@
 				<div class="user_profle_side">
 					<img src="${path}/resources/images/logo/imsiLogo.png" alt="#" style="width:120px;"/>
 					<div class="user_info">
+					<c:if test="${not empty loginVO }">
 						<h6>${loginVO.name }</h6>
 						<p>
 							<span class="online_animation"></span> Online
 						</p>
+					</c:if>	
 					</div>
 				</div>
 			</div>

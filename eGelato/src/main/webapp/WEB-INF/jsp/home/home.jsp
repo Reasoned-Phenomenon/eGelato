@@ -1,53 +1,56 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Home</title>
+<script src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+<script src="${path}/resources/js/sevenSeg.js"></script>	
+<style>
+
+	table {
+		background-color: black;
+	}
+	
+	p {
+		font-size: 80px;
+		color: white;
+	}
+	
+</style>
 </head>
 <body>
+<br>
+<br>
+<br>
+<br>
 <div align="center">
-<br>
-<img src="${path}/resources/images/com/bung1.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/bung2.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/bung3.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/wc1.gif" width="360" height="200">
-<hr>
-<img src="${path}/resources/images/com/wc2.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/wc3.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/wc4.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/wc5.gif" width="360" height="200">
-<hr>
-<img src="${path}/resources/images/com/bar1.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/bar2.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/bar3.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/bar4.gif" width="360" height="200">
-<hr>
-<img src="${path}/resources/images/com/bar5.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/cup1.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/cup2.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/cup3.gif" width="360" height="200">
-<hr>
-<img src="${path}/resources/images/com/cup4.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/cup5.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/cup6.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/cup7.gif" width="360" height="200">
-<hr>
-<img src="${path}/resources/images/com/cup8.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/cup9.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/cup10.gif" width="360" height="200"> &nbsp;
-<img src="${path}/resources/images/com/cup11.gif" width="360" height="200">
-<hr>
-<img src="${path}/resources/images/com/cup12.gif" width="360" height="200">
-
-<br>
-<hr>
-<br>
-<iframe width="1080" height="600" src="https://www.youtube.com/embed/9gqBnTQlyBg" 
-title="YouTube video player" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
+	<table>
+		<tr>
+			<th><p>목표수량 &nbsp;</p></th>
+			<td>
+				<div id="targetProdQy" style="width:500px; height:200px;"></div>
+			</td>
+		</tr>
+		<tr>
+			<th><p>생산수량 &nbsp;</p></th>
+			<td>
+				<div id="prodQy" style="width:500px; height:200px;"></div>
+			</td>
+		</tr>
+		<tr>
+			<th><p>미달수량 &nbsp;</p></th>
+			<td>
+				<div id="unProducedQy" style="width:500px; height:200px;"></div>
+			</td>
+		</tr>
+	</table>
 
 </div>
+<script>
+$("#targetProdQy").sevenSeg({ digits: 5, value: 4000 });
+$("#prodQy").sevenSeg({ digits: 5, value: 3500 });
+$("#unProducedQy").sevenSeg({ digits: 5, value: 500 });
+</script>
 </body>
 </html>
