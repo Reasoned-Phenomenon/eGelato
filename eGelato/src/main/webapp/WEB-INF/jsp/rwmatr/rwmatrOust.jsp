@@ -14,8 +14,8 @@ th, td {
 }
 </style>
 <body>
-<h3>원자재 출고관리</h3>
-<div style="margin: 20px;">
+<h2>원자재 출고관리</h2>
+<div>
 	<div>
 		<form action="">
 		    <table>
@@ -46,7 +46,7 @@ th, td {
 	    </form>
 	</div>
 </div>
-<div style="float: right;">
+<div style="float: right; margin-bottom:10px; margin-top:25px;">
 	<button type="button" id="btnAdd">추가</button>
 	<button type="button" id="btnDel">삭제</button>
 	<button type="button" id="btnSave">저장</button>
@@ -55,7 +55,7 @@ th, td {
 <br>
 
 	<!-- 입고내역 조회 -->
-	<div id="rwmatrOustList" style="width: 80%"></div>
+	<div id="rwmatrOustList" style="width: 100%"></div>
 
 	<!-- 모달창 -->
 	<div id="rwmatrDialogFrm" title="원자재 목록"></div>

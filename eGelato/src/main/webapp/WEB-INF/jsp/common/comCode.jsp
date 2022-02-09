@@ -8,34 +8,21 @@
  
 </head>
 <body>
-<h3>공통 코드 관리</h3>
-  
-<table border="1">
-	<thead>
-		<tr>
-			<th colspan="3">그룹 코드</th>
-		</tr>
-	</thead>
-		 
+<h2>공통 코드 관리</h2>
+<table style="width:30%; margin-bottom:10px;">
 	<tbody>
 		<tr>
-			<td>그룹 코드 이름 검색</td>
+			<th>그룹 코드 이름 검색</th>
 			<td><input type="text" id="inputName" name="inputName"></td>
-			<td><button id="btnSearch">검색</button></td>
+			<td><button id="btnSearch" style="float:right;">검색</button></td>
 		</tr>
 	</tbody>
 </table>
+<div class="flex row" >
 
-<br>
-<br>
-<button type="button" id="btnModal">모달 테스트</button>
-<hr>
-<br>
-<div class="row">
-
-	<div id="codeIdGrid" class="col-sm-4"></div>
+	<div id="codeIdGrid" class="col-sm-5"></div>
 	
-	<div id="tabs" class="col-sm-6">
+	<div id="tabs" class="col-sm-7">
 	
 	  <ul>
 	    <li><a href="#fragment-1">코드 조회</a></li>
@@ -43,7 +30,7 @@
 	  </ul>
 	  
   		<div id="fragment-1">
-  			<div align="right">
+  			<div align="right" style="margin-bottom:10px;">
 	  			<button type="button" class="btn cur-p btn-outline-primary" id="btnAdd">코드 추가</button>
 	  			<button type="button" class="btn cur-p btn-outline-primary" id="btnSave">저장</button>
   			</div>
@@ -74,16 +61,6 @@ let flag;
 var Grid = tui.Grid;
 
 //그리드 테마
-Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    },
-	  }
-});
 
 toastr.options = {
 		positionClass : "toast-top-center",
