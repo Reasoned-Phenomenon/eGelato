@@ -8,4 +8,5 @@ public interface EqmStateMapper {
 	List<EqmStateVO> uph(EqmStateVO eqmStateVo);
 	
 	List<EqmStateVO> findNowEqm(EqmStateVO eqmStateVo);
+	List<EqmStateVO> selectNowEqm(EqmStateVO eqmStateVo);
 }

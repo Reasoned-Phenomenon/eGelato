@@ -48,9 +48,16 @@
 
 </div>
 <script>
-$("#targetProdQy").sevenSeg({ digits: 5, value: 4000 });
-$("#prodQy").sevenSeg({ digits: 5, value: 3500 });
-$("#unProducedQy").sevenSeg({ digits: 5, value: 500 });
+
+let targetProdQy = Number(${prodQy[0].prodQy});
+let prodQy = Number(${prodQy[1].prodQy});
+let unProducedQy = Number(targetProdQy)-Number(prodQy);
+
+
+$("#targetProdQy").sevenSeg({ digits: 5, value: targetProdQy });
+$("#prodQy").sevenSeg({ digits: 5, value: prodQy });
+$("#unProducedQy").sevenSeg({ digits: 5, value: unProducedQy });
+
 </script>
 </body>
 </html>
