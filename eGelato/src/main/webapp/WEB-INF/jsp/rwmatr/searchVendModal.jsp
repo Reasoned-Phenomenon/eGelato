@@ -56,7 +56,7 @@ var vendListGrid = new Grid({
 	  contentType: 'application/json'
 	},
   	rowHeaders:['rowNum'],
-  	bodyHeight: 300,
+  	bodyHeight: 290,
   	selectionUnit: 'row',
   	columns:[
   		  {

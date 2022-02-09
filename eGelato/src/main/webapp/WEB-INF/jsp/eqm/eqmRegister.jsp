@@ -15,10 +15,8 @@
 <body>
 	<!-- 설비구분 모달 -->
 	<div id="dialog-form" title="설비구분"></div>
-	<main>
-		<div class="container" style="margin: 0px;">
-			<div class="container">
-				<br>
+		<div class="container col-sm-12" style="margin: 0px; width:100%;">
+			<div>
 				<h2 id="title">설비 등록</h2>
 				<div class="search-area search-area-border grid-option-area">
 					<div class="col-6 ml-1"></div>
@@ -92,7 +90,7 @@
 							</div>
 							<div class="col-2" style="width: 670px;">
 								<h5>설비 이미지 등록</h5>
-								<div class="image-container">
+								<div>
 									<img style="width: 200px;" id="preview-image"
 										src="../resources/images/img/이미지프리뷰.jpg">
 								</div>
@@ -110,7 +108,6 @@
 				</form>
 			</div>
 		</div>
-	</main>
 
 
 	<script>

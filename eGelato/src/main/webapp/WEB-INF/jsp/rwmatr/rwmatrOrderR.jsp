@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/> 
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>원자재 발주조회</title> 
- <!-- <link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
+<title>원자재 발주조회</title>
+<!-- <link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
 <link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
 <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
@@ -19,56 +19,52 @@ th, td {
 }
 </style>
 <body>
-<h3>원자재 발주조회</h3>
-<div style="margin: 20px;">
-	<div>
-		<form action="">
-		    <table>
-		        <tbody>
-		            <tr>
-		                <th>발주신청일</th>
-		                <td><input type="date" id="startDate"> ~ <input type="date" id="endDate"></td>
-		                <td><button type="button" id="btnFindM">조회</button></td>
-		                <td><button type="reset">초기화</button></td>
-		            </tr>
-		        </tbody>
-		    </table>
-	    </form>
+	<h2>원자재 발주조회</h2>
+	<div class="flex row" style="margin-bottom:10px;">
+		<div class="col-5">
+			<form action="">
+				<table>
+					<tbody>
+						<tr>
+							<th>발주신청일</th>
+							<td><input type="date" id="startDate"> ~ <input
+								type="date" id="endDate"></td>
+							<td><button type="button" id="btnFindM">조회</button></td>
+							<td><button type="reset">초기화</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+		<div class="col-7">
+			<form action="">
+				<table>
+					<tbody>
+						<tr>
+							<th>자재명</th>
+							<td><input type="text" id="rwmName">
+							<button type="button" id="rwmNameM" class="btn-modal"></button> <input
+								type="text" id="rwmId" readOnly></td>
+							<th>업체명</th>
+							<td><input type="text" id="vendName">
+							<button type="button" id="vendNameM" class="btn-modal"></button>
+								<input type="text" id="vendId" readOnly></td>
+							<td><button type="button" id="btnFindS">조회</button></td>
+							<td><button type="reset">초기화</button></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
 	</div>
-	<div>
-		<form action="">
-		    <table>
-		        <tbody>
-		            <tr>
-		                <th>자재명</th>
-		                <td>
-		                	<input type="text" id="rwmName"><button type="button" id="rwmNameM" class="btn-modal"></button>
-		                	<input type="text" id="rwmId" readOnly>
-		                </td>
-		            </tr>
-		            <tr>
-		            	<th>업체명</th>
-		            	<td>
-		                	<input type="text" id="vendName"><button type="button" id="vendNameM" class="btn-modal"></button>
-		                	<input type="text" id="vendId" readOnly>
-		                </td>
-		                <td><button type="button" id="btnFindS">조회</button></td>
-		                <td><button type="reset">초기화</button></td>
-		            </tr>
-		        </tbody>
-		    </table>
-	    </form>
-	</div>
-</div>
-<hr>
-<br>
 
 	<div class="row">
-		<div class="col-sm-4">
+		<div class="col-sm-5">
 			<!-- 발주목록 조회 -->
 			<div id="rwmatrOrderMasterList"></div>
 		</div>
-		<div class="col-sm-8">
+		<div class="col-sm-7">
 			<div id="rwmatrOrderList"></div>
 		</div>
 	</div>
@@ -78,7 +74,7 @@ th, td {
 	<div id="vendDialogFrm" title="업체 목록"></div>
 
 
-<script>
+	<script>
 var Grid = tui.Grid;
 
 //modify구분하기위한 변수
@@ -114,7 +110,7 @@ var rwmatrOrderMasterList = new Grid({
 	},
 	rowHeaders:['rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 400,
+	bodyHeight: 650,
 	columns:[
 				{
 				  header: '발주코드',
@@ -140,7 +136,7 @@ var rwmatrOrderList = new Grid({
 	},
 	rowHeaders:['rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 400,
+	bodyHeight: 650,
 	columns:[
 				{
 				  header: '발주디테일코드',

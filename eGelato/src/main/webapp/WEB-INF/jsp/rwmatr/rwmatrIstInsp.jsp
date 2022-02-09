@@ -14,8 +14,8 @@ th, td {
 }
 </style>
 <body>
-<h3>원자재 입고검사관리</h3>
-<div style="margin: 20px;">
+<h2>원자재 입고검사관리</h2>
+<div>
 	<div>
 		<form action="">
 		    <table>
@@ -43,7 +43,7 @@ th, td {
 	    </form>
 	</div>
 </div>
-<div style="float: right;">
+<div style="float: right; margin-bottom:10px; margin-top:25px;">
 	<button type="button" id="btnAdd">추가</button>
 	<button type="button" id="btnDel">삭제</button>
 	<button type="button" id="btnSave">저장</button>
@@ -52,7 +52,7 @@ th, td {
 <br>
 
 	<!-- 입고검사내역 조회 -->
-	<div id="rwmatrIstInspList" style="width: 90%"></div>
+	<div id="rwmatrIstInspList" style="width: 100%"></div>
 
 	<!-- 모달창 -->
 	<div id="rwmatrDialogFrm" title="원자재 목록"></div>
@@ -99,7 +99,7 @@ var rwmatrIstInspList = new Grid({
 	},
 	rowHeaders: ['checkbox','rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 600,
+	bodyHeight: 550,
 	columns:[
 				{
 				  header: '발주코드',  //발주디테일코드

@@ -24,6 +24,7 @@
 	-ms-border-radius: 0 !important;
 	-o-border-radius: 0 !important;
 	-ms-border-radius: 0 !important;
+	margin-left:4px;
 }
 
 input[type=text], [type=number], [type=date] {
@@ -42,7 +43,7 @@ input[type=text], [type=number], [type=date] {
 }
 
 main {
-	padding: 20px 100px 20px;
+	padding: 20px 20px;
 }
 
 .table-bbs {
@@ -63,7 +64,7 @@ main {
 .search-area-border {
 	border-width: 1px 0;
 	border-style: solid;
-	border-color: #000 #000 #8e8e8e;
+	border-color: #000 #000 #000;
 }
 
 .grid-option-area {
@@ -109,6 +110,16 @@ main {
     margin-bottom: 10px;
     color: #444;
 }
+
+.search-area {
+    position: relative;
+    width: 100%;
+    margin: 0 0 -15px 0;
+    padding: 5px 5px;
+    text-align: center;
+    background-color: #f5f5f5;
+}
+
 .search-area-border {
     border-width: 1px 0;
     border-style: solid;
@@ -128,6 +139,4 @@ main {
     text-decoration: none;
     background: #343a43;
 }
-
-
 

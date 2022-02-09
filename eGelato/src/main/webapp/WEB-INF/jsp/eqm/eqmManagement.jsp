@@ -15,39 +15,49 @@
 <body>
 	<!-- 공정코드 모달 -->
 	<div id="dialog-form" title="공정코드"></div>
-	<div class="container">
+	<div class="container col-sm-12" style="margin: 0px; width: 100%;">
 		<div class="flex row">
 			<div class="col-7">
-			<br>
 				<h2>설비관리</h2>
-				<br>
-				<label>구분</label> <select id="gubun" onchange="selectGubun()">
-					<option value="전체">전체
-					<option value="배합기">배합기
-					<option value="운송기">운송기
-					<option value="측정기">측정기
-					<option value="가공기">가공기
-				</select>
-				<label>사용여부</label>
-				<input type="radio" id="useYnCk" name="useYnCk" value="Y">Y
-				<input type="radio" id="useYnCk" name="useYnCk" value="N">N
+				<div style="margin-bottom: 10px;">
+					<label>구분</label> <select id="gubun" onchange="selectGubun()">
+						<option value="전체">전체
+						<option value="배합기">배합기
+						<option value="운송기">운송기
+						<option value="측정기">측정기
+						<option value="가공기">가공기
+					</select> <label>사용여부</label> <input type="radio" id="useYnCk"
+						name="useYnCk" value="Y">Y <input type="radio"
+						id="useYnCk" name="useYnCk" value="N">N
+				</div>
 				<div id="eqmListGrid"></div>
 			</div>
-			<div class="col-5">
-			<br>
-				<h2 class="detailTitle">상세조회</h2>
-			<form method="post" name="frm" id="frm" enctype="multipart/form-data">
-				<div>설비 이미지</div>
-				<div id="imageView">
-				<!-- 이미지 미리보기 -->
-					<img style="width: 200px;" id="preview-image" src="../resources/images/img/이미지프리뷰.jpg"> 
-						
-					<input name="file_1" id="egovComFileUploader" type="file" title="설비 이미지 업로드" multiple/>
-					<div id="egovComFileList"></div>
-					<input id="eqmImg" name="eqmImg" hidden>
-				</div>
+			<div class="col-5" style="margin-top:30px;">
 				<br>
+				<h4 class="detailTitle" style="margin-top:10px;">상세조회</h4>
+				<form method="post" name="frm" id="frm"
+					enctype="multipart/form-data">
+					<div id="imageView" >
+						<!-- 이미지 미리보기 -->
+						<div class="image-container">
+							<img style="width: 200px;" id="preview-image"
+								src="../resources/images/img/이미지프리뷰.jpg">
+						</div>
+						<input name="file_1" id="egovComFileUploader" type="file"
+							title="설비 이미지 업로드" multiple />
+						<div id="egovComFileList"></div>
+						<input id="eqmImg" name="eqmImg" hidden>
+					</div>
+					<br>
 					<table class="table table-bbs">
+						<colgroup>
+							<col style="width: 90px">
+							<col style="width: 200px">
+							<col style="width: 90px">
+							<col style="width: 200px">
+							<col style="width: 90px">
+							<col style="width: 230px">
+						</colgroup>
 						<tbody>
 							<tr>
 								<th>설비코드</th>
@@ -63,13 +73,16 @@
 							</tr>
 							<tr>
 								<th>최고온도</th>
-								<td><input id="tempMax" name="tempMax" type="number" readOnly></td>
+								<td><input id="tempMax" name="tempMax" type="number"
+									readOnly></td>
 								<th>최저온도</th>
-								<td><input id="tempMin" name="tempMin" type="number" readOnly></td>
+								<td><input id="tempMin" name="tempMin" type="number"
+									readOnly></td>
 							</tr>
 							<tr>
 								<th>점검주기</th>
-								<td><input id="chckPerd" name="chckPerd" type="number" readOnly></td>
+								<td><input id="chckPerd" name="chckPerd" type="number"
+									readOnly></td>
 								<th>사용여부</th>
 								<td><input type="radio" id="useYn" name="useYn" value="Y">Y
 									<input type="radio" id="notUse" name="useYn" value="N">N</td>
