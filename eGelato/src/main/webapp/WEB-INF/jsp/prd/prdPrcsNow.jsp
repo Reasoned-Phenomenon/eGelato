@@ -17,7 +17,6 @@ th, td {
 		<h2>공정실적조회</h2>
 		<br>
 	</div>
-	<br>
 	<div class="row">
 		<div class="col-sm-11">
 			<table>
@@ -46,7 +45,11 @@ th, td {
 							  <option value="PDB-00104">용량 미달</option>
 						</select>
 					</td>
-					<td>
+				</tr>
+				<tr>
+					<th>계획 일자</th>
+                    <td><input type="date" id="startDt" required> ~ <input type="date" id="endDt" required></td>
+                    <td>
 	                    <button type="button"  id="btnSearch">검색</button>
 	                    <button type="button"  id="btnClear">초기화</button>
 	                </td>
@@ -69,6 +72,16 @@ th, td {
 	<!-- <div id="prdtInferCodeDialog" title="불량 상세 목록"></div> -->
 	
 <script>
+//생산계획일자 현재날짜 기본 설정
+	var d = new Date();
+	
+	var year = d.getFullYear(); // 년
+	var month = d.getMonth();   // 월
+	var day = d.getDate();      // 일
+	
+	document.getElementById('startDt').value = new Date(year, month, day - 7).toISOString().substring(0,10);
+	document.getElementById('endDt').value = new Date().toISOString().substring(0, 10);
+
 	//계획 조회 그리드 생성
 		var Grid = tui.Grid;
 	
@@ -96,6 +109,7 @@ th, td {
 				modifyData : { url: '${path}/prd/updPrdtInferCode.do', method: 'PUT'} 
 			},
 			contentType : 'application/json',
+			initialRequest: false
 		},
 		rowHeaders : ['rowNum' ],
 		selectionUnit : 'row',
@@ -211,6 +225,8 @@ th, td {
 			$("#prcsDeta").val('');
 			$("#indicaList").val('');
 			$('#infer').val('');
+			document.getElementById('startDt').value = new Date(year, month, day - 7).toISOString().substring(0,10);
+			document.getElementById('endDt').value = new Date().toISOString().substring(0, 10);
 			prcsList.clear();
 	});
 	
@@ -220,12 +236,14 @@ th, td {
 				nm = document.getElementById("prcsDeta").value;
 				indicaDetaId = document.getElementById("indicaList").value;
 				infer = $("#infer option:selected").val();
+				startDt = document.getElementById("startDt").value;
+				endDt = document.getElementById("endDt").value;
 				
 				console.log(nm);
 				console.log(indicaDetaId);
 				console.log(infer);
 				
-				prcsList.readData(1,{'nm':nm, 'indicaDetaId':indicaDetaId, 'inferId':infer }, true);
+				prcsList.readData(1,{'nm':nm, 'indicaDetaId':indicaDetaId, 'inferId':infer, 'startDt':startDt, 'endDt':endDt }, true);
 			})
 			
 	// 불량등록

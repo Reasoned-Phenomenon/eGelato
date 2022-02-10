@@ -194,11 +194,11 @@ th, td {
 			},{
 				header : 'jobName',
 				name : 'jobName',
-				hidden : true
+				hidden : false
 			},{
 				header : 'programName',
 				name : 'programName',
-				hidden : true
+				hidden : false
 			}]
 		});
 	
@@ -303,6 +303,20 @@ th, td {
 				prcsListGrid.setValue(j,'st','STATE2');
 				prcsListGrid.setValue(j,'ord',ior);
 				prcsListGrid.setValue(j,'indicaDetaId',idi);
+				
+				// jobName 만들기, programName 만들기
+				jobName = 'JOB_' + prcsListGrid.getData()[i].prcsNowId.substr(0,3) 
+							+ prcsListGrid.getData()[i].prcsNowId.substr(4,3)
+							+ prcsListGrid.getData()[i].prcsNowId.substr(8,3);
+				console.log(jobName);
+				
+				programName = prcsListGrid.getData()[i].prcsNowId.substr(0,3) 
+							+ prcsListGrid.getData()[i].prcsNowId.substr(4,3)
+							+ prcsListGrid.getData()[i].prcsNowId.substr(8,3);
+				console.log(programName);
+				
+				prcsListGrid.setValue(i,'jobName',jobName);
+				prcsListGrid.setValue(i,'programName',programName);
 			}
 			
 			ior = IndicaGrid.getData()[0].ord;
@@ -344,6 +358,20 @@ th, td {
 				prcsListGrid.setValue(j,'st','STATE1');
 				prcsListGrid.setValue(j,'ord',ior);
 				prcsListGrid.setValue(j,'indicaDetaId',idi);
+				
+				// jobName 만들기, programName 만들기
+				jobName = 'JOB_' + prcsListGrid.getData()[i].prcsNowId.substr(0,3) 
+							+ prcsListGrid.getData()[i].prcsNowId.substr(4,3)
+							+ prcsListGrid.getData()[i].prcsNowId.substr(8,3);
+				console.log(jobName);
+				
+				programName = prcsListGrid.getData()[i].prcsNowId.substr(0,3) 
+							+ prcsListGrid.getData()[i].prcsNowId.substr(4,3)
+							+ prcsListGrid.getData()[i].prcsNowId.substr(8,3);
+				console.log(programName);
+				
+				prcsListGrid.setValue(i,'jobName',jobName);
+				prcsListGrid.setValue(i,'programName',programName);
 			}
 			
 			ior = IndicaGrid.getData()[0].ord;

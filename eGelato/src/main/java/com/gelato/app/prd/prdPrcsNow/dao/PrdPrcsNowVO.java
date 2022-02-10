@@ -44,4 +44,7 @@ public class PrdPrcsNowVO {
 	// 모달3
 	String name;
 	
+	String startDt;
+	String endDt;
+	
 }
