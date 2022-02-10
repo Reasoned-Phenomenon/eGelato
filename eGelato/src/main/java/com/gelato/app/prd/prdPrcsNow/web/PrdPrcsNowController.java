@@ -19,7 +19,7 @@ public class PrdPrcsNowController {
 	@Autowired PrdPrcsNowService prdPrcsNowService;
 	
 	// 공정실적으로 이동
-	@RequestMapping("/prd/prdPrcsNow.do")
+	@RequestMapping("/prd/inq/prdPrcsNow.do")
 	public String prdPrcsNow() {
 		System.out.println("공정실적 이동");
 		return "tiles/prd/prdPrcsNow";

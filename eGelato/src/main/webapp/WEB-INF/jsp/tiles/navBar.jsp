@@ -177,8 +177,12 @@
 								
 					<li><a href="${path }/prd/prdPrcsMng.do">> <span>생산
 								관리</span></a></li>
-					<li><a href="${path }/prd/prdPrcsNow.do">> <span>공정
-								실적 관리</span></a></li>
+</c:if>
+								
+					<li><a href="${path }/prd/inq/prdPrcsNow.do">> <span>공정
+								실적 조회</span></a></li>
+								
+<c:if test="${role eq 'ROLE_PRD' || role eq 'ROLE_ADMIN'}">							
 					<li><a href="${path }/prd/prdPrcsMngList.do">> <span>공정
 								관리</span></a></li>
 					<li><a href="${path }/prd/prdPlanLine.do">> <span>제품

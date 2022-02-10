@@ -79,6 +79,12 @@
 		    left outer join infer_code ic
 		    on pid.infer_id = ic.infer_id
 		<where>
+			<if test="startDt != null and startDt != ''">
+				<![CDATA[and trunc(pi.indica_dt) >= to_date(#{startDt})]]>
+			</if>
+			<if test="endDt != null and endDt != ''">
+           		<![CDATA[and trunc(pi.indica_dt) <= to_date(#{endDt})]]>
+           	</if>
 			<if test="nm != null and nm != ''">
 				p.nm = #{nm}
 			</if>
