@@ -68,6 +68,16 @@ var endDate;
 var rwmName;
 var vendName;
 
+//날짜기본값
+const d = new Date();
+
+const year = d.getFullYear(); // 년
+const month = d.getMonth();   // 월
+const day = d.getDate();      // 일
+
+document.getElementById('startDate').value = new Date(year, month, day - 5).toISOString().substring(0,10);
+document.getElementById('endDate').value = new Date(year, month, day + 7).toISOString().substring(0,10);
+
 toastr.options = {
 		positionClass : "toast-top-center",
 		progressBar : true,

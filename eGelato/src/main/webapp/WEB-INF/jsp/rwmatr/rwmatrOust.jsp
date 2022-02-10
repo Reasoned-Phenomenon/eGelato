@@ -81,6 +81,16 @@ var endDate;
 var rwmName;
 var vendName;
 
+//날짜기본값
+const d = new Date();
+
+const year = d.getFullYear(); // 년
+const month = d.getMonth();   // 월
+const day = d.getDate();      // 일
+
+document.getElementById('startDate').value = new Date(year, month, day - 5).toISOString().substring(0,10);
+document.getElementById('endDate').value = new Date().toISOString().substring(0, 10);
+
 toastr.options = {
 		positionClass : "toast-top-center",
 		progressBar : true,
@@ -160,7 +170,7 @@ var rwmatrOustList = new Grid({
 				  sortable: true
 				},
 				{
-				  header: '담당자',
+				  header: '출고',
 				  name: 'remk',
 				  editor: 'text',
 				  sortable: true,
