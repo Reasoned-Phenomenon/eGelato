@@ -1,55 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>거래처 코드 관리 페이지</title>
 </head>
+<style>
+th, td {
+	padding: 5px;
+}
+</style>
 <body>
-	<div class="container">
-		<div class="flex row">
-			<div>
-				<h2>거래처 코드 관리</h2>
-			</div>
-			<div>
-				<div class="col-8">
-					<table class="table table-bbs">
-						<tbody>
-							<tr>
-								<th>거래처 코드*</th>
-								<td><input type="text" id="vendId" name="vendId" readonly></td>
-								<th>거래처 명*</th>
-								<td><input type="text" id="vendName" name="vendName"></td>
-							</tr>
-							<tr>
-								<th>사업자 등록번호</th>
-								<td><input type="text" id="bizno" name="bizno"></td>
-								<th>전화번호</th>
-								<td><input type="text" id="telno" name="telno"></td>
-							</tr>
-							<tr>
-								<th>구분</th>
-								<td><input type="text" id="remk" name="remk"></td>
-								<th>구분</th>
-								<td><input type="text" id="fg" name="fg"></td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="col-4" style="float: right;">
-						<button type="button" class="btn cur-p btn-outline-primary" id="reset">초기화</button>
-						<button type="button" class="btn cur-p btn-outline-primary" id="SearchBtn">조회</button>
-						<button type="button" class="btn cur-p btn-outline-primary" id="SaveBtn">저장</button>
-					</div>
-				</div>
-			</div>
-		</div>
+	<h2>거래처 코드 관리</h2>
+	<div>
+		<table>
+			<tbody>
+				<tr>
+					<th>거래처 코드*</th>
+					<td><input type="text" id="vendId" name="vendId" readonly></td>
+					<th>거래처 명*</th>
+					<td><input type="text" id="vendName" name="vendName"></td>
+				</tr>
+				<tr>
+					<th>사업자 등록번호</th>
+					<td><input type="text" id="bizno" name="bizno"></td>
+					<th>전화번호</th>
+					<td><input type="text" id="telno" name="telno"></td>
+				</tr>
+				<tr>
+					<th>구분</th>
+					<td><input type="text" id="remk" name="remk"></td>
+					<th>구분</th>
+					<td><input type="text" id="fg" name="fg"></td>
+					<td><button type="button" id="reset">초기화</button>
+						<button type="button" id="SearchBtn">조회</button>
+						<button type="button" id="SaveBtn">저장</button></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
-	
-<div id="vendCodeGrid" style="width: 100%"></div>
 
+	<div id="vendCodeGrid" style="width: 100%"></div>
 
-<script>
+	<script>
 let dialog;
 
 //modify구분하기위한 변수

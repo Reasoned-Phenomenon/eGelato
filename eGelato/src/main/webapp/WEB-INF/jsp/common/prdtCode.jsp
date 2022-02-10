@@ -13,39 +13,28 @@ th, td {
 </style>
 <body>
 	<h2>완제품 코드 관리</h2>
-	<div class="container">
-		<div class="flex row">
-			<div>
-				<div class="col-8">
-					<table>
-						<tbody>
-							<tr>
-								<th>완제품 코드*</th>
-								<td><input type="text" id="prdtId" name="prdtId" readonly></td>
-								<th>제품명*</th>
-								<td><input type="text" id="prdtNm" name="prdtNm"></td>
-							</tr>
-							<tr>
-								<th>규격</th>
-								<td><input type="text" id="spec" name="spec"></td>
-								<th>단위</th>
-								<td><input type="text" id="unit" name="unit"></td>
-								<th>안전재고</th>
-								<td><input type="text" id="safStc" name="safStc"></td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="col-4" style="float: right;">
-						<button type="button" class="btn cur-p btn-outline-primary"
-							id="reset">초기화</button>
-						<button type="button" class="btn cur-p btn-outline-primary"
-							id="SearchBtn">조회</button>
-						<button type="button" class="btn cur-p btn-outline-primary"
-							id="SaveBtn">저장</button>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div>
+		<table style="margin-bottom: 10px;">
+			<tbody>
+				<tr>
+					<th>완제품 코드*</th>
+					<td><input type="text" id="prdtId" name="prdtId" readonly></td>
+					<th>제품명*</th>
+					<td><input type="text" id="prdtNm" name="prdtNm"></td>
+				</tr>
+				<tr>
+					<th>규격</th>
+					<td><input type="text" id="spec" name="spec"></td>
+					<th>단위</th>
+					<td><input type="text" id="unit" name="unit"></td>
+					<th>안전재고</th>
+					<td><input type="text" id="safStc" name="safStc"></td>
+					<td><button type="button" id="reset">초기화</button>
+						<button type="button" id="SearchBtn">조회</button>
+						<button type="button" id="SaveBtn">저장</button></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 
 	<div id="prdtCodeGrid"></div>
@@ -75,7 +64,7 @@ var prdtCodeGrid = new Grid({
 	
 	rowHeaders: ['rowNum'],
 	selectionUnit: 'row',
-	bodyHeight : 500,
+	bodyHeight : 550,
 	columns:[
 			{
 			  header: '완제품 코드',

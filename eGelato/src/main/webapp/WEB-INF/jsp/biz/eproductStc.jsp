@@ -19,8 +19,8 @@ th, td {
 }
 </style>
 <body>
-<h3>완제품 재고조회</h3>
-<div style="margin: 20px;">
+<h2>완제품 재고조회</h2>
+<div>
 	<div>
 		<form action="">
 		    <table>
@@ -34,7 +34,7 @@ th, td {
 		            </tr>
 		            <tr>
 		                <th>제조일자</th>
-		                <td><input type="date" id="startDate"> ~ <input type="date" id="endDate"></td>
+		                <td><input type="date" id="startDate" style="margin-right: 8px;"> ~ <input type="date" id="endDate" style="margin-left: 8px;"></td>
 		                <td><button type="button" id="btnFind">조회</button></td>
 		                <td><button type="reset">초기화</button></td>
 		            </tr>
@@ -47,7 +47,7 @@ th, td {
 <br>
 
 	<!-- 입고내역 조회 -->
-	<div id="eproductStcList" style="width: 80%"></div>
+	<div id="eproductStcList" style="width: 100%"></div>
 
 	<!-- 모달창 -->
 	<div id="eprdtDialogFrm" title="제품 목록"></div>

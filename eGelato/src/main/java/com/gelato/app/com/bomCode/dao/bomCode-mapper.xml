@@ -73,8 +73,7 @@
         ON b.vend_id = c.vend_id 
         JOIN prdt d
         ON a.prdt_id = d.prdt_id
-        JOIN prdt d
-        ON a.prdt_id = d.prdt_id
+       
 		
 	</select>
 	
