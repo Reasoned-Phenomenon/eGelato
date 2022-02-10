@@ -14,8 +14,8 @@ th, td {
 }
 </style>
 <body>
-<h3>원자재LOT 재고조회</h3>
-<div style="margin: 20px;">
+<h2>원자재 LOT 재고조회</h2>
+<div>
 	<div>
 		<form action="">
 		    <table>
@@ -36,7 +36,7 @@ th, td {
 		            </tr>
 		            <tr>
 		                <th>유통기한</th>
-		                <td><input type="date" id="startDate"> ~ <input type="date" id="endDate"></td>
+		                <td><input type="date" id="startDate" style="margin-right:8px;"> ~ <input type="date" id="endDate" style="margin-left:8px;"></td>
 		                <td><button type="button" id="btnFind">조회</button></td>
 		                <td><button type="reset">초기화</button></td>
 		            </tr>
@@ -49,7 +49,7 @@ th, td {
 <br>
 
 	<!-- 입고내역 조회 -->
-	<div id="rwmatrLotList" style="width: 80%"></div>
+	<div id="rwmatrLotList" style="width: 100%"></div>
 	
 	<!-- 모달창 -->
 	<div id="rwmatrDialogFrm" title="원자재 목록"></div>
@@ -85,7 +85,7 @@ var rwmatrLotList = new Grid({
 	  initialRequest: false
 	},
   	rowHeaders:['rowNum'],
-  	bodyHeight: 600,
+  	bodyHeight: 550,
   	selectionUnit: 'row',
   	columns:[
  		  {

@@ -21,9 +21,7 @@ th, td {
 <body>
 
 <div>
-	<br>
-	<h2 id="title">원자재 입/출고조회</h2>
-	<br>
+	<h2>원자재 입/출고조회</h2>
 </div>
 
 <div id="tabs">
@@ -32,8 +30,6 @@ th, td {
 		<li><a href="#rwmatrIst">입고 조회</a></li>
 		<li><a href="#rwmatrOust">출고 조회</a></li>
 	</ul>
-	
-	
 	<div id="rwmatrIst">
 		<div style="margin: 20px;">
 			<div>
@@ -56,7 +52,7 @@ th, td {
 				            </tr>
 				            <tr>
 				                <th>입고일자</th>
-				                <td><input type="date" id="startDateI"> ~ <input type="date" id="endDateI"></td>
+				                <td><input type="date" id="startDateI" style="margin-right:7px;"> ~ <input type="date" id="endDateI" style="margin-left:7px;"></td>
 				                <td><button type="button" id="btnFindI">조회</button></td>
 				                <td><button type="reset">초기화</button></td>
 				            </tr>
@@ -65,7 +61,7 @@ th, td {
 			    </form>
 			</div>
 		</div>
-		<div id="rwmatrIstGrid"></div> <br>
+		<div id="rwmatrIstGrid" style="width:100%;"></div> <br>
 	</div>
 	
 	<div id="rwmatrOust">
@@ -90,7 +86,7 @@ th, td {
 				            </tr>
 				            <tr>
 				                <th>출고일자</th>
-				                <td><input type="date" id="startDateO"> ~ <input type="date" id="endDateO"></td>
+				                <td><input type="date" id="startDateO" style="margin-right:7px;"> ~ <input type="date" id="endDateO" style="margin-left:7px;"></td>
 				                <td><button type="button" id="btnFindO">조회</button></td>
 				                <td><button type="reset">초기화</button></td>
 				            </tr>
@@ -99,7 +95,7 @@ th, td {
 			    </form>
 			</div>
 		</div>
-		<div id="rwmatrOustGrid"></div> <br>
+		<div id="rwmatrOustGrid" style="width:100%;"></div> <br>
 	</div>
 </div>
 
@@ -153,7 +149,7 @@ var rwmatrIstGrid = new Grid({
 	},
 	rowHeaders:['rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 550,
+	bodyHeight: 500,
 	width:1500,
 	columns:[
 				{

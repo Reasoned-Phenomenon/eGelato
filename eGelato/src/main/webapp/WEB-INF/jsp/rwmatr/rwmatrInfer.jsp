@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/> 
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>원자재 불량조회</title> 
+<title>원자재 불량조회</title>
 </head>
 <style>
 th, td {
@@ -14,57 +14,57 @@ th, td {
 }
 </style>
 <body>
-<h3>원자재 불량조회</h3>
-<div style="margin: 20px;">
-
+	<h2>원자재 불량조회</h2>
 	<div>
-		<form action="">
-		    <table>
-		        <tbody>
-		            <tr>
-		                <th>자재명</th>
-		                <td>
-		                	<input type="text" id="rwmName"><button type="button" id="rwmNameM" class="btn-modal"></button>
-		                	<input type="text" id="rwmId" readOnly>
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>업체명</th>
-		                <td>
-		                	<input type="text" id="vendName"><button type="button" id="vendNameM" class="btn-modal"></button>
-		                	<input type="text" id="vendId" readOnly>
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>불량코드</th>
-		                <td><input type="text" id="inferId"><button type="button" id="inferIdM" class="btn-modal"></button></td>
-		                <th>불량상세내용</th>
-		                <td><input type="text" id="inferContent" readonly="readonly"></td>
-		            </tr>
-		            <tr>
-		                <th>검사일자</th>
-		                <td><input type="date" id="startDate"> ~ <input type="date" id="endDate"></td>
-		                <td><button type="button" id="btnFind">조회</button></td>
-		                <td><button type="reset">초기화</button></td>
-		            </tr>
-		        </tbody>
-		    </table>
-	    </form>
+		<div>
+			<form action="">
+				<table>
+					<tbody>
+						<tr>
+							<th>자재명</th>
+							<td><input type="text" id="rwmName">
+							<button type="button" id="rwmNameM" class="btn-modal" style="margin-left:0px;"></button> <input
+								type="text" id="rwmId" readOnly></td>
+						</tr>
+						<tr>
+							<th>업체명</th>
+							<td><input type="text" id="vendName">
+							<button type="button" id="vendNameM" class="btn-modal" style="margin-left:0px;"></button>
+								<input type="text" id="vendId" readOnly></td>
+						</tr>
+						<tr>
+							<th>불량코드</th>
+							<td><input type="text" id="inferId">
+							<button type="button" id="inferIdM" class="btn-modal" style="margin-left:0px;"></button>
+								<input type="text" id="inferContent" placeholder="불량상세내용"
+								readonly="readonly"></td>
+						</tr>
+						<tr>
+							<th>검사일자</th>
+							<td><input type="date" id="startDate"
+								style="margin-right: 8px;"> ~ <input type="date"
+								id="endDate" style="margin-left: 8px;"></td>
+							<td><button type="button" id="btnFind">조회</button></td>
+							<td><button type="reset">초기화</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
 	</div>
-</div>
- <hr>
-<br>
+	<hr>
+	<br>
 
 	<!-- 불량내역 조회 -->
-	<div id="rwmatrInferList" style="width: 80%"></div>
+	<div id="rwmatrInferList" style="width: 100%"></div>
 
 	<!-- 모달창 -->
 	<div id="rwmatrDialogFrm" title="원자재 목록"></div>
 	<div id="vendDialogFrm" title="업체 목록"></div>
 	<div id="inferCodeDialogFrm" title="불량코드 목록"></div>
-	
 
-<script>
+
+	<script>
 var Grid = tui.Grid;
 let dialog;
 

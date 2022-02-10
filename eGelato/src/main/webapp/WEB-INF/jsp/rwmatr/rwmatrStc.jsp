@@ -14,8 +14,8 @@ th, td {
 }
 </style>
 <body>
-<h3>원자재 재고조회</h3>
-<div style="margin: 20px;">
+<h2>원자재 재고조회</h2>
+<div>
 	<div>
 		<form action="">
 		    <table>
@@ -45,7 +45,7 @@ th, td {
 <br>
 
 	<!-- 입고내역 조회 -->
-	<div id="rwmatrStcList" style="width: 80%"></div>
+	<div id="rwmatrStcList" style="width: 100%"></div>
 
 	<!-- 모달창 -->
 	<div id="rwmatrDialogFrm" title="원자재 목록"></div>

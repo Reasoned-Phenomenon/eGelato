@@ -6,15 +6,18 @@
 <meta charset="UTF-8">
 <title>완제품 코드 관리 페이지</title>
 </head>
+<style>
+th, td {
+	padding: 5px;
+}
+</style>
 <body>
+	<h2>완제품 코드 관리</h2>
 	<div class="container">
 		<div class="flex row">
 			<div>
-				<h2>완제품 코드 관리</h2>
-			</div>
-			<div>
 				<div class="col-8">
-					<table class="table table-bbs">
+					<table>
 						<tbody>
 							<tr>
 								<th>완제품 코드*</th>

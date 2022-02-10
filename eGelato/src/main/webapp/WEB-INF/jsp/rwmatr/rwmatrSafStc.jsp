@@ -14,7 +14,7 @@ th, td {
 }
 </style>
 <body>
-<h3>안전재고 관리</h3>
+<h2>안전재고 관리</h2>
 <div style="margin: 20px;">
 	<div>
 		<form action="">
@@ -49,23 +49,23 @@ th, td {
 		<div id="rwmatrSafStcGrid"></div>
 	</div>
 	<div class="col-8">
-		<div id="rwmatrUphGrid"></div><br>
-		<h2 class="detailTitle">상세조회</h2><br>
+		<div id="rwmatrUphGrid"></div>
+		<h2>상세조회</h2>
 			<form>
 				<table>
 					<tbody>
 						<tr>
 							<th>자재코드</th>
-							<td><input id="rwmatrId" name="rwmatrId" readOnly></td>
+							<td><input id="rwmatrId" name="rwmatrId" type="text" readOnly></td>
 							
 						</tr>
 						<tr>
 							<th>자재명</th>
-							<td><input id="nm" name="nm" readOnly></td>
+							<td><input id="nm" name="nm" type="text" readOnly></td>
 						</tr>
 						<tr>
 							<th>안전재고</th>
-							<td><input id="safStc" name="safStc"></td>
+							<td><input id="safStc" name="safStc" type="text"></td>
 						</tr>
 						<tr>
 							<td><button type="button" id="btnUpd">수정</button></td>
