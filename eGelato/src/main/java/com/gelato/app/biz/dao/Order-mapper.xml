@@ -4,9 +4,18 @@
 
 <!--주문서 전체 조회. -->
 <select id="findOrderList" resultType="OrderVO">
-	SELECT 
-	 	 a.order_id, a.vend_id, a.order_dt, a.oust_dt, a.st_fg, a.remk,
-		 b.order_sht_deta_id, b.prdt_id, b.qy, c.vend_name, d.prdt_nm
+	SELECT f_com_code_to_nm(a.st_fg) AS st_fg,
+	 	 a.order_id AS order_id, 
+	 	 a.vend_id AS vend_id, 
+	 	 a.order_dt AS order_dt,  
+	 	 a.oust_dt AS oust_dt,  
+	 	 a.remk AS remk,
+		 b.order_sht_deta_id AS order_sht_deta_id, 
+		 b.prdt_id AS prdt_id, 
+		 b.qy AS qy, 
+		 c.vend_name AS vend_name, 
+		 d.prdt_nm AS prdt_nm
+		 
      FROM order_sht a JOIN order_sht_deta b
      ON a.order_id = b.order_id
      JOIN vend c

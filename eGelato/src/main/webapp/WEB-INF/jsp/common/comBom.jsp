@@ -69,47 +69,37 @@ var bomGrid = new Grid({
 	selectionUnit: 'row',
 	bodyHeight: 600,
 	columns:[
+		    {
+			  header: '사용 공정명',
+			  name: 'prcsNm'
+			},
+		
 			{
 			  header: 'BOM코드',
-			  name: 'bomId',
-			  align: 'center'
-		      
+			  name: 'bomId'
 			},
 			{
 			  header: '제품코드',
-			  name: 'prdtId',
-			  align: 'center'
-	          
+			  name: 'prdtId'
 			},
 			{
 			  header: '자재코드',
-			  name: 'rwmatrId',
-			  align: 'center'
-		      
+			  name: 'rwmatrId'
 			},
 			{
 			  header: '자재명',
-			  name: 'nm',
-			  align: 'center'
-			      
+			  name: 'nm'
 			},
 			{
 			  header: '소모량',
 			  name: 'qy',
 			  editor:'text',
-			  align: 'center'
+			  align: 'right'
 			  
-			},
-			{
-			  header: '사용 공정명',
-			  name: 'prcsNm',
-			  align: 'center'
-		     
 			},
 			{
 			  header: '공정 코드',
 			  name: 'prcsId',
-			  align: 'center',
 			  hidden: true
 			  
 			},
@@ -118,7 +108,7 @@ var bomGrid = new Grid({
 			  header: '단계구분',
 			  name: 'fg',
 			  editor: {
-				  type : 'select',
+				  type : GelatoSelectEditor,
 				  options : {
 					  listItems: [
 						  {text : '원자재', value :'STEP01'},

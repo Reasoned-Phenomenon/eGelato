@@ -18,7 +18,7 @@ h1 {
 	<br>
 	<h1>업체 검색</h1><br>
 	    <form action="">
-		제품명 : <input type="text" id="vendNameM">
+		업체명 : <input type="text" id="vendNameM">
 		<button type="button" id="vendSearch" class="btn cur-p btn-outline-primary">조회</button>
 		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
 	</form>
