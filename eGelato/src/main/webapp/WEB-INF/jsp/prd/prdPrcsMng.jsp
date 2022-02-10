@@ -34,16 +34,16 @@ th, td {
 	</div>
 	<br>
 	<div class="row">
-		<div class="col-sm-7">
+		<div class="col-sm-9">
 			<h3>공정목록</h3>
 			<hr>
 			<div id="prcsListGrid"></div>
 		</div>
-		<div class="col-sm-5">
+		<div class="col-sm-3">
 			<h3>공정상세사항</h3>
 			<hr>
 			<table>
-				<tbody>
+				<!-- <tbody>
 					<tr>
 						<th>시작시간</th>
 						<td><input type="time" id="startT" readonly></td>
@@ -52,7 +52,7 @@ th, td {
 						<th>종료예정시간</th>
 						<td><input type="time" id="endT" readonly></td>
 					</tr>
-				</tbody>
+				</tbody> -->
 			</table>
 			<br><br>
 			<button type="button"  id="btnPrcs">생산시작</button>&nbsp;
@@ -65,7 +65,8 @@ th, td {
 	<div id="nonPrcsDialog" title="생산 지시 목록"></div>
 	
 <script>
-
+	let idi;
+	
 	// 생산 시작 버튼 
 	//document.getElementById('btnPrcs').innerText = '생산 시작';
 	
@@ -194,15 +195,26 @@ th, td {
 			},{
 				header : 'jobName',
 				name : 'jobName',
-				hidden : false
+				hidden : true
 			},{
 				header : 'programName',
 				name : 'programName',
+				hidden : true
+			},{
+				header : '시작시간',
+				name : 'startTm',
+				hidden : false
+			},{
+				header : '종료시간',
+				name : 'endTm',
+				hidden : false
+			},{
+				header : '상태',
+				name : 'psSt',
 				hidden : false
 			}]
 		});
-	
-	
+		
 	// 모달창
 	var nonPrcsDialog = $("#nonPrcsDialog").dialog({
 			modal : true,
@@ -233,7 +245,9 @@ th, td {
 		prcsListGrid.readData(1, {'prdtNm':cpn, 'indicaDetaId':cid}, true);
 		
 		nonPrcsDialog.dialog("close");
-		
+		idi = cid;
+		console.log(idi);
+		getQyData();
 	}
 	
 	// 공정시작버튼 누름
@@ -298,27 +312,6 @@ th, td {
 			ior = IndicaGrid.getData()[0].ord;
 			idi = IndicaGrid.getData()[0].indicaDetaId;
 			
-			var j
-			for (j = 0 ; j < grc ; j++) {
-				prcsListGrid.setValue(j,'st','STATE2');
-				prcsListGrid.setValue(j,'ord',ior);
-				prcsListGrid.setValue(j,'indicaDetaId',idi);
-				
-				// jobName 만들기, programName 만들기
-				jobName = 'JOB_' + prcsListGrid.getData()[i].prcsNowId.substr(0,3) 
-							+ prcsListGrid.getData()[i].prcsNowId.substr(4,3)
-							+ prcsListGrid.getData()[i].prcsNowId.substr(8,3);
-				console.log(jobName);
-				
-				programName = prcsListGrid.getData()[i].prcsNowId.substr(0,3) 
-							+ prcsListGrid.getData()[i].prcsNowId.substr(4,3)
-							+ prcsListGrid.getData()[i].prcsNowId.substr(8,3);
-				console.log(programName);
-				
-				prcsListGrid.setValue(i,'jobName',jobName);
-				prcsListGrid.setValue(i,'programName',programName);
-			}
-			
 			ior = IndicaGrid.getData()[0].ord;
 			
 			list1 = prcsListGrid.getData();
@@ -352,29 +345,6 @@ th, td {
 			grc = prcsListGrid.getRowCount();
 			ior = IndicaGrid.getData()[0].ord;
 			idi = IndicaGrid.getData()[0].indicaDetaId;
-			
-			var j
-			for (j = 0 ; j < grc ; j++) {
-				prcsListGrid.setValue(j,'st','STATE1');
-				prcsListGrid.setValue(j,'ord',ior);
-				prcsListGrid.setValue(j,'indicaDetaId',idi);
-				
-				// jobName 만들기, programName 만들기
-				jobName = 'JOB_' + prcsListGrid.getData()[i].prcsNowId.substr(0,3) 
-							+ prcsListGrid.getData()[i].prcsNowId.substr(4,3)
-							+ prcsListGrid.getData()[i].prcsNowId.substr(8,3);
-				console.log(jobName);
-				
-				programName = prcsListGrid.getData()[i].prcsNowId.substr(0,3) 
-							+ prcsListGrid.getData()[i].prcsNowId.substr(4,3)
-							+ prcsListGrid.getData()[i].prcsNowId.substr(8,3);
-				console.log(programName);
-				
-				prcsListGrid.setValue(i,'jobName',jobName);
-				prcsListGrid.setValue(i,'programName',programName);
-			}
-			
-			ior = IndicaGrid.getData()[0].ord;
 			
 			list2 = prcsListGrid.getData();
 			console.log(list2);
@@ -414,14 +384,11 @@ th, td {
 	let inferQyV;
 	let prodQyV;
 	
+	// 값 가지고오기
 	function getQyData() {
-		//console.log(111);
+		console.log("getQyData");
 		
-		irc = IndicaGrid.getRowCount()
-		
-		if(irc != 0) {
-			idi = IndicaGrid.getData()[0].indicaDetaId
-			//console.log(idi);
+		if(idi != '') {
 		
 			$.ajax({
 				url : "${path}/prd/selectQy.do",
@@ -437,25 +404,25 @@ th, td {
 				console.log(result.data.contents[0].inferQyT);
 				console.log(result.data.contents[0].prodQyT); */
 				
-				console.log(111);
+				console.log(result);
 				
 				for(let i=0 ; i<result.data.contents.length ; i++) {
 					
 					inptQyV = result.data.contents[i].inptQyT
 					inferQyV = result.data.contents[i].inferQyT
 					prodQyV = result.data.contents[i].prodQyT
+					psSt = result.data.contents[i].psSt
 					
 					prcsListGrid.setValue(i,'inptQyT',inptQyV);			
 					prcsListGrid.setValue(i,'inferQyT',inferQyV);	
 					prcsListGrid.setValue(i,'prodQyT',prodQyV);	
+					prcsListGrid.setValue(i,'psSt',psSt);	
 				}
 			})
 		}
 	}
 	
-	// 
 	$(document).ready ( function getData() {
-		getQyData();
 		timerld = setInterval(getQyData, 5000);
 	});
 	

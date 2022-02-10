@@ -391,14 +391,37 @@ th, td {
 			toastr.clear()
 			toastr.success( ('생산 계획명을 입력해주세요.'),'Gelato',{timeOut:'1000'});
 			
-		 } /* else if (true) {
-			 // 계획량, 생산일수, 작업우선순위 없을 때 toast
-			 for let j = 0 ; j < PlanDetaInsGrid.getRowCount() ; j++) {
+		 } else if (true) {
+			 // 제품 없을 때 toast
+			 for ( let j = 0 ; j < PlanDetaInsGrid.getRowCount() ; j++) {
+				 console.log(PlanDetaInsGrid.getData()[j].prdtNm);
 			 	PlanDetaInsGrid.getData()[j].prdtNm = '';
 			 }
 			toastr.clear()
 			toastr.success( ('제품을 선택해주세요.'),'Gelato',{timeOut:'1000'});
-		 } */ else {
+		 } else if (true) {
+			 // 계획량 없을 때 toast
+			 for ( let j = 0 ; j < PlanDetaInsGrid.getRowCount() ; j++) {
+				console.log(PlanDetaInsGrid.getData()[j].qy);
+			 	PlanDetaInsGrid.getData()[j].qy = '';
+			 }
+			toastr.clear()
+			toastr.success( ('계획량을 입력해주세요.'),'Gelato',{timeOut:'1000'});
+		 } else if (true) {
+			 // 생산일수 없을 때 toast
+			 for ( let j = 0 ; j < PlanDetaInsGrid.getRowCount() ; j++) {
+			 	PlanDetaInsGrid.getData()[j].prodDcnt = '';
+			 }
+			toastr.clear()
+			toastr.success( ('생산일수를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+		 } else if (true) {
+			 // 작업우선순위 없을 때 toast
+			 for ( let j = 0 ; j < PlanDetaInsGrid.getRowCount() ; j++) {
+			 	PlanDetaInsGrid.getData()[j].priort = '';
+			 }
+			toastr.clear()
+			toastr.success( ('작업우선순위를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+		 } else {
 			 
 			console.log(planName);
 			

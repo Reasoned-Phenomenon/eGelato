@@ -79,20 +79,25 @@
 	<!-- 그리드2 -->
 	<select id="prcsList" resultType="PrdPrcsMngVO">
 		select pn_id(#{indicaDetaId}) as prcs_now_id,
-		       l.prcs_id as prcs_id, 
-		       p.nm as nm, 
-		       p.eqm_id as eqm_id, 
-		       e.eqm_name as eqm_name,
-		       e.mngr as mngr,
-		       l.ord as ord
+             l.prcs_id as prcs_id, 
+             p.nm as nm, 
+             p.eqm_id as eqm_id, 
+             e.eqm_name as eqm_name,
+             e.mngr as mngr,
+             l.ord as ord,
+             TO_CHAR(pn.fr_tm,'HH24:MI:SS') as startTm,
+             TO_CHAR(pn.to_tm,'HH24:MI:SS') as endTm
 		from line l join prcs p
 		    on l.prcs_id = p.prcs_id
 		    join eqm e
 		    on p.eqm_id = e.eqm_id
 		    join prdt pr
 		    on l.prdt_id = pr.prdt_id
-		where pr.prdt_nm = #{prdtNm}
-		        
+			JOIN prcs_now pn
+			ON l.prcs_id = pn.prcs_id
+		WHERE pr.prdt_nm = #{prdtNm}
+		AND pn.indica_deta_id = #{indicaDetaId}
+
 		union
 		
 		select pn_id(#{indicaDetaId}) as prcs_now_id,
@@ -101,14 +106,19 @@
 		       p.eqm_id as eqm_id, 
 		       e.eqm_name as eqm_name,
 		       e.mngr as mngr,
-		       l.ord as ord
+		       l.ord as ord,
+			   TO_CHAR(pn.fr_tm,'HH24:MI:SS') as startTm,
+			   TO_CHAR(pn.to_tm,'HH24:MI:SS') as endTm
 		from line l join prcs p
 		    on l.prcs_id = p.prcs_id
 		    join eqm e
 		    on p.eqm_id = e.eqm_id
 		    join rwmatr r
 		    on l.prdt_id = r.rwmatr_id
+		    JOIN prcs_now pn
+	        ON l.prcs_id = pn.prcs_id
 		where r.nm = #{prdtNm}
+		AND pn.indica_deta_id = #{indicaDetaId}
 		
 		order by ord
 	</select>
@@ -181,16 +191,19 @@
 	<select id="selectQy" resultType="PrdPrcsMngVO">
 		SELECT pn.inpt_qy as inpt_qy_t, 
 		       SUM(esn.prod_qy) as prod_qy_t, 
-		       SUM(esn.infer_qy) as infer_qy_t
+		       SUM(esn.infer_qy) as infer_qy_t,
+               f_com_code_to_nm(ps.st) as ps_st
 		FROM prcs_now pn
 		JOIN prcs p 
 		ON pn.prcs_id = p.prcs_id
 		JOIN eqm_st_now esn
 		ON p.eqm_id = esn.eqm_id
+        JOIN prcs_st ps
+        on pn.prcs_now_id = ps.prcs_now_id 
 		where pn.indica_deta_id = #{indicaDetaId}
 		AND trunc(esn.log_tm) = TO_DATE(SUBSTR(#{indicaDetaId}, 5,8))
-		GROUP BY pn.prcs_now_id,pn.inpt_qy
-		order by 1
+		GROUP BY pn.prcs_now_id,pn.inpt_qy, ps.st
+		order by pn.prcs_now_id
 	</select>
 	
 	

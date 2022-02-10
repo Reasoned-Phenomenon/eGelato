@@ -45,4 +45,9 @@ public class PrdPrcsMngVO {
 	String inptQyT;
 	String inferQyT;
 	String prodQyT;
+	
+	String startTm;
+	String endTm;
+	
+	String psSt;
 }
