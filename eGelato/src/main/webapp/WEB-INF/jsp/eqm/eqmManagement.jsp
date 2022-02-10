@@ -20,16 +20,25 @@
 			<div class="col-7">
 				<h2>설비관리</h2>
 				<div style="margin-bottom: 10px;">
-					<label>구분</label> <select id="gubun" onchange="selectGubun()">
-						<option value="전체">전체
-						<option value="배합기">배합기
-						<option value="운송기">운송기
-						<option value="측정기">측정기
-						<option value="가공기">가공기
-					</select> <label>사용여부</label> <input type="radio" id="useYnCk"
-						name="useYnCk" value="Y">Y <input type="radio"
-						id="useYnCk" name="useYnCk" value="N">N<input type="radio"
-						id="useYnCk" name="useYnCk" value="" checked>전체
+					<table>
+						<tbody>
+							<tr>
+								<th>구분</th>
+								<td><select id="gubun" onchange="selectGubun()">
+										<option value="전체">전체
+										<option value="배합기">배합기
+										<option value="운송기">운송기
+										<option value="측정기">측정기
+										<option value="가공기">가공기
+								</select></td>
+								<th>사용여부</th>
+								<td><input type="radio" id="useYnCk" name="useYnCk"
+									value="" checked>전체 <input type="radio" id="useYnCk"
+									name="useYnCk" value="Y">Y <input type="radio"
+									id="useYnCk" name="useYnCk" value="N">N</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				<div id="eqmListGrid"></div>
 			</div>
@@ -65,6 +74,7 @@
 								<td><input id="eqmId" name="eqmId" type="text" readOnly></td>
 								<th>설비명</th>
 								<td><input id="eqmName" name="eqmName" type="text" readOnly></td>
+
 							</tr>
 							<tr>
 								<th>공정코드</th>
@@ -97,6 +107,7 @@
 						</tbody>
 					</table>
 				</form>
+
 			</div>
 		</div>
 	</div>
