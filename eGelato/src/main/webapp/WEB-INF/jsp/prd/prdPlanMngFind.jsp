@@ -68,7 +68,7 @@ th, td {
 	const month = d.getMonth();   // 월
 	const day = d.getDate();      // 일
 	
-	document.getElementById('startD').value = new Date(year, month, day - 7).toISOString().substring(0,10);
+	document.getElementById('startD').value = new Date(year, month, day -5 ).toISOString().substring(0,10);
 	document.getElementById('endD').value = new Date().toISOString().substring(0, 10);
 	
     //
