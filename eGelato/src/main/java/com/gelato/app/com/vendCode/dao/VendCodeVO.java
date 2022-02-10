@@ -10,7 +10,7 @@ public class VendCodeVO {
 	String bizno;    // 사업자 등록번호.
 	String telno;    // 거래처(업체) 전화번호.
 	String remk;     // 비고.
-	String fg;       // 구분.
+	String fg;       // 구분.(거래처 구분.)
 	
-	
+
 }
