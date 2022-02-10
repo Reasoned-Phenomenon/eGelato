@@ -12,110 +12,128 @@
 	href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 </head>
+<style>
+th, td {
+	padding: 5px;
+}
+</style>
 <body>
 	<!-- 설비검색 모달 -->
 	<div id="dialog-form" title="설비검색"></div>
 
-	<div class="container">
+	<div class="container col-sm-12" style="margin: 0px; width: 100%;">
 		<div class="flex row">
-			<div class="col-4">
-				<br>
+			<div class="col-5">
 				<h2>설비목록</h2>
-				<br> <label>설비구분</label> <select id="gubun"
-					onchange="selectGubun()">
-					<option value="선택">선택
-					<option value="배합기">배합기
-					<option value="운송기">운송기
-					<option value="측정기">측정기
-					<option value="가공기">가공기
-				</select> 가동설비<input type="radio" name="eqmNonYn" value="Y"> 비가동설비<input
-					type="radio" name="eqmNonYn" value="N"> 전체<input
-					type="radio" name="eqmNonYn" value="" checked>
+				<table style="margin-bottom:15px;">
+					<tbody>
+						<tr>
+							<th>설비구분</th>
+							<td><select id="gubun" onchange="selectGubun()">
+									<option value="선택">선택
+									<option value="배합기">배합기
+									<option value="운송기">운송기
+									<option value="측정기">측정기
+									<option value="가공기">가공기
+							</select></td>
+							<td>전체<input type="radio" name="eqmNonYn" value="" checked>
+								가동설비<input type="radio" name="eqmNonYn" value="Y"> 비가동설비<input
+								type="radio" name="eqmNonYn" value="N">
+							</td>
+						</tr>
+					</tbody>
+				</table>
 				<div id="eqmListGrid" style="width: 100%;"></div>
 			</div>
-			<div class="col-8">
-
-				<div class="container">
+			<div class="col-7">
+				<div>
 					<h2>비가동 내역 조회</h2>
-					<form id="dataForm" name="dataForm" method="post"
-						autocomplete="off">
-						<div>
-							<ul>
-								<li>
-									<div class="col-8">
-										<label>해당일자</label> <input id="fromDate" name="fromDate"
-											type="date"><label>~</label><input id="toDate"
-											name="toDate" type="date">
-									</div>
-								</li>
-								<li>
-									<div class="col-8">
-										<label>설비코드</label> <input id="searchId" required>
-										<button type="button" id="btnEqmSearch"
-											class="btn-modal">🔍</button>
-										<input id="searchNm" readonly>
-
-									</div>
-								</li>
-							</ul>
-							<div class="grid-option-area">
-								<div class="col-6"></div>
-								<div class="col-6">
-									<button type="reset" class="btn btn-reset" id="resetBtn">초기화</button>
-									<button type="button" class="btn btn-search" id="searchBtn">조회</button>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-				<div id="eqmNonList" style="width: 100%;"></div>
-				<div id="eqmNonInsert" style="display: none;">
-					<br>
-					<h2>비가동 등록</h2>
-					<br>
-					<form
-						action="${pageContext.request.contextPath}/eqm/eqmNonInsert.do"
-						method="post" name="frm">
+					<form id="dataForm" name="dataForm" method="post">
 						<table>
 							<tbody>
 								<tr>
+									<th>해당일자</th>
+									<td><input id="fromDate" name="fromDate" type="date"
+										style="margin-right: 11px;"><label>~</label><input
+										id="toDate" name="toDate" type="date"
+										style="margin-left: 11px;"></td>
+								</tr>
+								<tr>
 									<th>설비코드</th>
-									<td><input name="eqmId" id="eqmId" readonly></td>
-									<th>설비명</th>
-									<td><input name="eqmName" id="eqmName" readonly></td>
-								</tr>
-								<tr>
-									<th>등록자</th>
-									<td><input></td>
-								</tr>
-								<tr>
-									<th>비가동시간</th>
-									<td><input name="workSttmH" id="workSttmH" type="time"></td>
-									<td><button type="button" id="workStart">시작</button></td>
-									<td><input name="workEntmH" id="workEntmH" type="time"></td>
-									<td><button type="button" id="workStop" disabled>종료</button></td>
-								</tr>
-								<tr>
-									<th>비가동사유</th>
-									<td><select name="resnId" id="resnId">
-											<option value="EQMR-001">수리</option>
-											<option value="EQMR-002">점검</option>
-											<option value="EQMR-003">청소</option>
-									</select></td>
-									<th>비고</th>
-									<td><input type="text" name="remk"></td>
-								</tr>
-								<tr>
-									<td><button id="insertEqmNon" onclick="msg()">비가동등록</button></td>
+									<td><input id="searchId" type="text" required>
+										<button type="button" id="btnEqmSearch" class="btn-modal"
+											style="margin-left: 0px;">🔍</button> <input id="searchNm"
+										type="text" readonly></td>
+									<td><button type="reset" class="btn" id="resetBtn">초기화</button>
+										<button type="button" class="btn" id="searchBtn">조회</button></td>
 								</tr>
 							</tbody>
 						</table>
 					</form>
+					<div id="eqmNonList" style="width: 100%;"></div>
+					<div id="eqmNonInsert" style="display: none;">
+						<h2>비가동 등록</h2>
+						<form
+							action="${pageContext.request.contextPath}/eqm/eqmNonInsert.do"
+							method="post" name="frm">
+							<table class="table table-bbs" style="width: 100%;">
+								<tbody>
+									<tr>
+										<th>설비코드</th>
+										<td><input name="eqmId" id="eqmId" type="text" readonly></td>
+										<th>설비명</th>
+										<td><input name="eqmName" id="eqmName" type="text"
+											readonly></td>
+									</tr>
+									<tr>
+										<th>등록자</th>
+										<td><input value="${loginVO.name }" type="text"></td>
+									</tr>
+									<tr>
+										<th>비가동시간</th>
+										<td><input name="workSttmH" id="workSttmH" type="time">
+											<button type="button" id="workStart" style="float: right;">시작</button></td>
+
+										<td><input name="workEntmH" id="workEntmH" type="time"></td>
+										<td><button type="button" id="workStop" disabled>종료</button></td>
+									</tr>
+									<tr>
+										<th>비가동사유</th>
+										<td><select name="resnId" id="resnId">
+												<option value="EQMR-001">수리</option>
+												<option value="EQMR-002">점검</option>
+												<option value="EQMR-003">청소</option>
+										</select></td>
+										<th>비고</th>
+										<td><input type="text" name="remk"></td>
+									</tr>
+									<tr>
+										<td><button id="insertEqmNon" onclick="msg()">비가동등록</button></td>
+									</tr>
+								</tbody>
+							</table>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script>
+	//토스트옵션
+	toastr.options = {
+			positionClass : "toast-top-center",
+			progressBar : true,
+			timeOut: 1500 // null 입력시 무제한.
+		}
+	
+	//인풋태그(우측) 일주일 단위로 설정하기
+	var d = new Date();
+	var nd = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7);
+	document.getElementById('fromDate').value = nd.toISOString().slice(0,
+			10);
+	document.getElementById('toDate').value = d.toISOString()
+			.slice(0, 10);
+	
 	//등록 버튼 클릭시 얼럿창
 	function msg(){
 		alert("등록됨");
@@ -182,7 +200,7 @@
 			},
 			contentType : 'application/json'
 		},
-		bodyHeight : 500,
+		bodyHeight : 600,
 		columns : [ {
 			header : '설비코드',
 			name : 'eqmId'
@@ -197,9 +215,11 @@
 		}, {
 			header : '점검주기',
 			name : 'chckPerd',
+			align: 'right'
 		},{
 			header : '사용여부',
-			name : 'useYn'
+			name : 'useYn',
+			align: 'center'
 		},
 		]
 	});
@@ -213,6 +233,9 @@
 		$("#eqmName").val(eqmListGrid.getValue(ev["rowKey"],"eqmName"));
 		}else{
 			$("#eqmNonInsert").css("display","none");
+			toastr.clear()
+			toastr.warning( ('비가동 설비입니다.'),'Gelato',{timeOut:'1500'} );
+			return;
 		}
 	}) 
 	
@@ -264,11 +287,6 @@
 		workEntmH.value = ("00"+date2.getHours()).slice(-2)+":"+("00"+date2.getMinutes()).slice(-2);			
 		console.log(workEntmH.value)
 		$("#workStop").attr("disabled",true);
-	})
-	
-	//비가동등록 버튼 이벤트
-	$("#insertEqmNon").on("click", function(){
-		
 	})
 	
 	//설비코드 모달

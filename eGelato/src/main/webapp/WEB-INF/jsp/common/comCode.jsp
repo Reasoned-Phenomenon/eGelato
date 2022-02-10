@@ -1,56 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- 
+
 </head>
 <body>
-<h2>공통 코드 관리</h2>
-<table style="width:30%; margin-bottom:10px;">
-	<tbody>
-		<tr>
-			<th>그룹 코드 이름 검색</th>
-			<td><input type="text" id="inputName" name="inputName"></td>
-			<td><button id="btnSearch" style="float:right;">검색</button></td>
-		</tr>
-	</tbody>
-</table>
-<div class="flex row" >
+	<h2>공통 코드 관리</h2>
+	<table style="margin-bottom: 10px;">
+		<tbody>
+			<tr>
+				<th>그룹코드 이름 검색</th>
+				<td><input type="text" id="inputName" name="inputName">
+				<button id="btnSearch" style="float: right;">검색</button></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="flex row">
 
-	<div id="codeIdGrid" class="col-sm-5"></div>
-	
-	<div id="tabs" class="col-sm-7">
-	
-	  <ul>
-	    <li><a href="#fragment-1">코드 조회</a></li>
-	    <li><a href="#fragment-2">그룹 코드</a></li>
-	  </ul>
-	  
-  		<div id="fragment-1">
-  			<div align="right" style="margin-bottom:10px;">
-	  			<button type="button" class="btn cur-p btn-outline-primary" id="btnAdd">코드 추가</button>
-	  			<button type="button" class="btn cur-p btn-outline-primary" id="btnSave">저장</button>
-  			</div>
-  			<div id="codeGrid"></div>
-  		</div>
-  		
-  		<div id="fragment-2">
-  				<iframe src="${path}/sym/ccm/cca/RegistCcmCmmnCodeView.do" 
-				width="800" 
-				height="400" 
-				frameborder="0"></iframe>
-  		</div>
-  		
+		<div id="codeIdGrid" class="col-sm-5"></div>
+
+		<div id="tabs" class="col-sm-7">
+
+			<ul>
+				<li><a href="#fragment-1">코드 조회</a></li>
+				<li><a href="#fragment-2">그룹 코드</a></li>
+			</ul>
+
+			<div id="fragment-1">
+				<div align="right" style="margin-bottom: 10px;">
+					<button type="button" class="btn cur-p btn-outline-primary"
+						id="btnAdd">코드 추가</button>
+					<button type="button" class="btn cur-p btn-outline-primary"
+						id="btnSave">저장</button>
+				</div>
+				<div id="codeGrid"></div>
+			</div>
+
+			<div id="fragment-2">
+				<iframe src="${path}/sym/ccm/cca/RegistCcmCmmnCodeView.do"
+					width="800" height="400" frameborder="0"></iframe>
+			</div>
+
+		</div>
+
+		<div id="dialog-form" title="사원 검색"></div>
+
 	</div>
-	
-<div id="dialog-form" title="사원 검색"></div>	
 
-</div>
-
-<script>
+	<script>
 //전역변수 선언
 //클릭한 Row의 CodeId를 담기위한 전역변수
 let codeParam;

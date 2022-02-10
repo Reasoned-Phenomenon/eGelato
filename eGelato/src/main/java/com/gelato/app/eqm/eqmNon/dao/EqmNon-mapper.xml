@@ -22,6 +22,7 @@
 				AND USE_YN = #{eqmNonYn}
 			</if>
 		</where>
+		ORDER BY E.EQM_ID
 	</select>
 	<!-- 비가동 내역 전체조회 -->
 	<select id="eqmNonSelectAll" resultType="EqmNonVO">
