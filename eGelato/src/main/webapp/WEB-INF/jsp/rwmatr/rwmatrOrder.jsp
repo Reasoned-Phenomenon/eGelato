@@ -36,7 +36,7 @@ th, td {
 		            </tr>
 		            <tr>
 		                <th>발주신청일</th>
-		                <td><input type="date" id="startDate"> ~ <input type="date" id="endDate"></td>
+		                <td><input type="date" id="startDate" style="margin-right:8px;"> ~ <input type="date" id="endDate" style="margin-left:8px;"></td>
 		                <td><button type="button" id="btnFind">조회</button></td>
 		                <td><button type="reset">초기화</button></td>
 		            </tr>
