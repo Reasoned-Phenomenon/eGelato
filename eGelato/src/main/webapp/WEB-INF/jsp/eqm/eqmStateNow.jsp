@@ -146,7 +146,7 @@ function chartAjax(){
 					tempItem.name = eqmData[i].eqmId;
 					prodItem.name = eqmData[i].eqmId;
 				} 
-				
+				 
 				if(numFlag > 9) {
 					continue;
 				}
