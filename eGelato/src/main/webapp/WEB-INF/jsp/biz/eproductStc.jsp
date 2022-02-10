@@ -84,14 +84,14 @@ var eproductStcList = new Grid({
 	el: document.getElementById('eproductStcList'),
 	data : {
 	  api: {
-	    readData: 	{ url: '${path}/biz/eproductStcList.do', method: 'GET'},
+	    readData: 	{ url: '${path}/biz/inq/eproductStcList.do', method: 'GET'},
 	  },
 	  contentType: 'application/json',
 	  initialRequest: false
 	},
 	rowHeaders:['rowNum'],
   	selectionUnit: 'row',
-	bodyHeight: 600,
+	bodyHeight: 580,
 	columns:[
   		  {
 		    header: '제품코드',
@@ -182,9 +182,13 @@ function getModal(prdtParam) {
 
 	//조회
 	btnFind.addEventListener("click", function(){
+		console.log("13432442fdsf")
 		prdtNm = document.getElementById("prdtNm").value;
 		startDate = document.getElementById("startDate").value;
 		endDate = document.getElementById("endDate").value;
+		console.log(prdtNm)
+		console.log(startDate)
+		console.log(endDate)
 		
 		eproductStcList.readData(1,{'prdtNm':prdtNm,
 								    'startDate': startDate,

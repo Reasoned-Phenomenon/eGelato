@@ -26,6 +26,10 @@ h1 {
 		            <tr>
 		                <th>자재명</th>
 		                <td><input type="text" id="rwmNameM"></td>
+		            </tr>
+		            <tr>
+		            	<th>자재코드</th>
+		                <td><input type="text" id="rwmatrId"></td>
 		                <td><button type="button" id="rwmatrSearch" class="btn cur-p btn-dark">조회</button></td>
 		                <td><button type="reset" class="btn cur-p btn-dark">초기화</button></td>
 		            </tr>
@@ -41,11 +45,14 @@ var Grid = tui.Grid;
 
 //검색조건
 var rwmNameM;
+var rwmatrId;
 
 document.getElementById("rwmatrSearch").addEventListener("click", function () {
 	rwmNameM = document.getElementById("rwmNameM").value;
+	rwmatrId = document.getElementById("rwmatrId").value;
 	
-	rwmatrListGrid.readData(1,{'rwmName':rwmNameM}, true);
+	rwmatrListGrid.readData(1,{'rwmName':rwmNameM,
+							   'rwmatrId':rwmatrId}, true);
 });
 
 // 그리드 생성

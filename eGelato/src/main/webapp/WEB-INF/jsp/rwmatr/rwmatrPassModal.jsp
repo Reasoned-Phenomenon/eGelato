@@ -19,7 +19,10 @@ h1 {
 	<br>
 	<div id="rwmatrPassListGrid" style="width: 100%"></div>
 	<br>
-	<button type="button" class="btn btn-secondary" id="btnchoose">확인</button>
+	<div style="text-align: center;">
+		<button type="button" class="btn btn-secondary" id="btnchoose">확인</button>
+		<button type="button" class="btn btn-secondary" id="btnExit">취소</button>
+	</div>
 	
 <script>
 var Grid = tui.Grid;
@@ -33,7 +36,7 @@ var rwmatrPassListGrid = new Grid({
 	  },
 	  contentType: 'application/json'
 	},
-	rowHeaders: ['checkbox'],
+	rowHeaders: ['rowNum','checkbox'],
   	bodyHeight: 235,
   	selectionUnit: 'row',
   	columns:[
@@ -77,33 +80,6 @@ var rwmatrPassListGrid = new Grid({
 });
 
 
-/* //커스텀 이벤트
-rwmatrPassListGrid.on('dblclick', (ev) => {	
-	
-	//cell 선택시 row 선택됨.
-	rwmatrPassListGrid.setSelectionRange({
-	      start: [ev.rowKey, 0],
-	      end: [ev.rowKey, rwmatrPassListGrid.getColumns().length-1]
-	  });
-	
-	//입고할 자재주문 중복선택 방지
-	let rowLength = rwmatrIstList.findRows({
-		rwmatrOrderDetaId: rwmatrPassListGrid.getRow(ev.rowKey).rwmatrOrderDetaId
-	}).length;
-	
-	if(rowLength > 0) {
-		console.log("중복체크1111")
-		//toastr
-		toastr.clear()
-		toastr.success( ('이미 선택한 자재입니다.'),'Gelato',{timeOut:'1800'} );
-		return;
-		
-	} 
-	
-	
-	getRwmatrData(rwmatrPassListGrid.getRow(ev.rowKey));
-}); */
-
 $("#btnchoose").on("click", function(){
 			
 	console.log(rwmatrPassListGrid.getCheckedRows());
@@ -123,32 +99,12 @@ $("#btnchoose").on("click", function(){
 	
 	rwmatrPassDialogFrm.dialog( "close" );
 	
-	/* //입고할 자재주문 중복선택 방지
-	let flag = rwmatrIstList.findRows(() => {
-		console.log(1234)
-		for(let i = 0; i < rwmatrIst.length; i++) {
-			for(let j = 0; j < oust.length; i++) {
-				if(rwmatrIst[i].rwmatrOrderDetaId == oust[j].rwmatrOrderDetaId) {
-					console.log(1111);
-					//toastr
-					toastr.clear()
-					toastr.success( ('이미 선택된 자재가 있습니다.'),'Gelato',{timeOut:'1800'} );
-					return false;
-				}
-			}
-		}
-		for(let i=0; i < oust.length; i++) {
-			console.log(1234)
-			rwmatrIstList.prependRow({'rwmatrOrderDetaId':oust[i].rwmatrOrderDetaId, 
-									 'rwmatrId':oust[i].rwmatrId, 
-									 'nm':oust[i].nm,
-									 'vendName':oust[i].vendName,
-									 'istQy':oust[i].passQy})
-		}
-		
-		rwmatrPassDialogFrm.dialog( "close" );
-		return true;
-	}); */
+});
+
+$("#btnExit").on("click", function(){
+	
+	rwmatrPassDialogFrm.dialog( "close" );
+	
 });
 
 </script>

@@ -80,7 +80,7 @@ var rwmatrStcList = new Grid({
 	},
 	rowHeaders:['rowNum'],
   	selectionUnit: 'row',
-	bodyHeight: 600,
+	bodyHeight: 580,
 	columns:[
   		  {
 		    header: '자재코드',
@@ -140,7 +140,7 @@ var rwmatrStcList = new Grid({
 let rwmatrDialogFrm = $( "#rwmatrDialogFrm" ).dialog({
 	  modal:true,
 	  autoOpen:false,
-      height: 500,
+      height: 550,
       width: 600,
       modal: true
 });
