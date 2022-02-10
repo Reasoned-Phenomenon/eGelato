@@ -22,15 +22,15 @@ th, td {
 			<table>
 			<tbody>
 				<tr>
-					<th>공정명</th>
-					<td>
-						<input type="text" id="prcsDeta" readonly>
-					</td>
-				</tr>
-				<tr>
 					<th>생산 지시 코드</th>
 					<td>
 						<input type="text" id="indicaList" readonly>
+					</td>
+				</tr>
+				<tr>
+					<th>공정명</th>
+					<td>
+						<input type="text" id="prcsDeta" readonly>
 					</td>
 				</tr>
 				<tr>
