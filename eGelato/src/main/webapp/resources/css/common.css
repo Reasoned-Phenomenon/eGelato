@@ -42,6 +42,10 @@ input[type=text], [type=number], [type=date] {
 	background-color: #fff;
 }
 
+input[type=radio]{
+	padding: 4px;
+}
+
 main {
 	padding: 20px 20px;
 }

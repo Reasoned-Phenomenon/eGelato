@@ -28,16 +28,17 @@
 						<option value="가공기">가공기
 					</select> <label>사용여부</label> <input type="radio" id="useYnCk"
 						name="useYnCk" value="Y">Y <input type="radio"
-						id="useYnCk" name="useYnCk" value="N">N
+						id="useYnCk" name="useYnCk" value="N">N<input type="radio"
+						id="useYnCk" name="useYnCk" value="" checked>전체
 				</div>
 				<div id="eqmListGrid"></div>
 			</div>
-			<div class="col-5" style="margin-top:30px;">
+			<div class="col-5" style="margin-top: 30px;">
 				<br>
-				<h4 class="detailTitle" style="margin-top:10px;">상세조회</h4>
+				<h4 class="detailTitle" style="margin-top: 10px;">상세조회</h4>
 				<form method="post" name="frm" id="frm"
 					enctype="multipart/form-data">
-					<div id="imageView" >
+					<div id="imageView">
 						<!-- 이미지 미리보기 -->
 						<div class="image-container">
 							<img style="width: 200px;" id="preview-image"
