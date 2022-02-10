@@ -137,7 +137,7 @@ function chartAjax(){
 						tempData.series.push(tempItem);
 						prodData.series.push(prodItem);
 					}
-					
+					 
 					eqmIdFlag = eqmData[i].eqmId;
 					
 					tempItem = {name:'', data:[]};
