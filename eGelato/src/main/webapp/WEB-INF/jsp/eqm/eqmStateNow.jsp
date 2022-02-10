@@ -31,7 +31,7 @@ var tempData = {
 	categories: [],
 	series: [],
 };
-
+ 
 var tempOptions = { 
 		chart: { title: '실시간 설비 온도', width: 1200, height: 300 },
 		xAxis: {
