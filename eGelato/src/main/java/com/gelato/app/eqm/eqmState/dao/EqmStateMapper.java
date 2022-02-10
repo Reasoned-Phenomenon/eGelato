@@ -9,4 +9,5 @@ public interface EqmStateMapper {
 	
 	List<EqmStateVO> findNowEqm(EqmStateVO eqmStateVo);
 	List<EqmStateVO> selectNowEqm(EqmStateVO eqmStateVo);
+	List<EqmStateVO> selectLastEqm(EqmStateVO eqmStateVo);
 }

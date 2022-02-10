@@ -69,6 +69,7 @@ var prodOptions = {
   chart: { title: '실시간 설비 생산량', width: 400, height: 300 },
   xAxis: {
     title: '시간',
+    date: { format: 'hh:mm:ss' }
   },
   yAxis: {
     title: '생산량',
@@ -91,8 +92,8 @@ var prodChart = toastui.Chart.lineChart({ el:prodEl, data:prodData, options:prod
 //선언
 let tmFlag;
 let eqmIdFlag;
-let tempFlag;
-let prodFlag;
+let numFlag;
+let lastLogTm;
 
 //Ajax
 function chartAjax(){
@@ -104,58 +105,102 @@ function chartAjax(){
 				console.log('에러',result)
 			}
 		}).done(function (result){
-			//result.data.contents
-			//console.log(result.data.contents);
+			console.log(result.data.contents);
 			let eqmData = result.data.contents;
 			
-			let item = {name:'', data:[]};
+			prodData = {categories: [],series: [],};
+			tempData = {categories: [],series: [],};
+			
+			let tempItem = {name:'', data:[]};
+			let prodItem = {name:'', data:[]};
+			
 			eqmIdFlag = '';
+			numFlag = 0;
+			
 			let logSet = new Set();
 			
 			for(let i = 0 ; i < eqmData.length ; i ++ ) {
-				console.log(eqmData[i].logTm)
-				logSet.add(eqmData[i].logTm);
+				//console.log(eqmData[i].logTm)
+				
+				if (i == eqmData.length-1 ) {
+					tempData.series.push(tempItem);
+					prodData.series.push(prodItem);
+				}
+				
+				console.log(numFlag,eqmData[i].eqmId);
 				
 				if ( eqmIdFlag != eqmData[i].eqmId) {
 					
-					if( item.name !='') {
-						tempData.series.push(item);
+					numFlag = 0;
+					
+					if( tempItem.name !='') {
+						tempData.series.push(tempItem);
+						prodData.series.push(prodItem);
 					}
 					
-					item = {name:'', data:[]};
 					eqmIdFlag = eqmData[i].eqmId;
-					item.name = eqmData[i].eqmId;
+					
+					tempItem = {name:'', data:[]};
+					prodItem = {name:'', data:[]};
+					
+					tempItem.name = eqmData[i].eqmId;
+					prodItem.name = eqmData[i].eqmId;
 				} 
 				
-					item.data.push({x:eqmData[i].logTm, y:Number(eqmData[i].tempNow)});
-				
-				if (i == eqmData.length-1 ) {
-					tempData.series.push(item);
+				if(numFlag > 9) {
+					continue;
 				}
 				
-			}
-
-			for(oneTm of Array.from(logSet).sort()) {
-				tempData.categories.push(oneTm);
+				logSet.add(eqmData[i].logTm);
+				
+				tempItem.data.push({x:eqmData[i].logTm, y:Number(eqmData[i].tempNow)});
+				prodItem.data.push({x:eqmData[i].logTm, y:Number(eqmData[i].prodQy)});
+				
+				numFlag++;
+				
 			}
 			
-			console.log(tempData)
-			console.log(tempData.series)
-			console.log(tempData.categories)
+			let tmArr = Array.from(logSet).sort();
 			
+			for(let i=0; i < tmArr.length ; i ++ ) {
+				tempData.categories.push(tmArr[i]);
+				prodData.categories.push(tmArr[i]);
+			}
+			
+			lastLogTm = tmArr[tmArr.length-1];
+			console.log(lastLogTm)
 			tempChart.setData(tempData);
+			prodChart.setData(prodData);
 			
 		})
 }
 
-//setInterval
-
-/* const intervalId = setInterval(() => {
-		console.log("인터벌---")
-		chartAjax();
-}, 5000); */
+/* function updateDataAjax() {
+	$.ajax({
+		url : "${path}/eqm/selectLastEqm.do",
+		dataType : 'json',
+		method : 'GET',
+		data:{lastLogTm:lastLogTm},
+		error : function(result){
+			console.log('에러',result)
+		}
+	}).done(function (result){
+		console.log(result.data.contents);
+		let eqmData = result.data.contents;
+		
+	})
+} */
 
 chartAjax();
+
+//setInterval
+const intervalId = setInterval(() => {
+		console.log("인터벌---")
+		//updateDataAjax();
+		chartAjax();
+}, 5000);
+
+
 </script>
 
 </body>

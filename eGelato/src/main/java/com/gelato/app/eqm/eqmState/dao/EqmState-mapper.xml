@@ -40,6 +40,36 @@
 		     LEFT OUTER JOIN PRCS_ST PS
 		     ON(PN.PRCS_NOW_ID = PS.PRCS_NOW_ID)
 		WHERE PS.st = 'STATE1'
+		AND trunc(S.LOG_TM) = trunc(sysdate)
+		ORDER BY EQM_ID,LOG_TM) a)
+		ORDER BY rn desc
+		
+	</select>
+	
+	<select id="selectLastEqm" resultType="EqmStateVO">
+	
+		SELECT 	EQM_ID,
+				LOG_TM,
+				TEMP_NOW,
+				PROD_QY,
+				RN
+		FROM
+		(SELECT a.* , rownum AS rn
+		FROM 
+		(SELECT DISTINCT
+		       S.EQM_ID AS EQM_ID,
+		       TO_CHAR(S.LOG_TM,'MM/DD/YYYY HH24:MI:SS') AS LOG_TM,
+		       S.TEMP_NOW AS TEMP_NOW,
+		       S.PROD_QY AS PROD_QY
+		FROM EQM_ST_NOW S 
+		     LEFT OUTER JOIN PRCS P
+		     ON(S.EQM_ID = P.EQM_ID)
+		     LEFT OUTER JOIN PRCS_NOW PN
+		     ON(P.PRCS_ID = PN.PRCS_ID)
+		     LEFT OUTER JOIN PRCS_ST PS
+		     ON(PN.PRCS_NOW_ID = PS.PRCS_NOW_ID)
+		WHERE PS.st = 'STATE1'
+		AND TO_CHAR(S.LOG_TM,'MM/DD/YYYY HH24:MI:SS') > #{lastLogTm}
 		ORDER BY EQM_ID,LOG_TM) a)
 		ORDER BY rn desc
 		

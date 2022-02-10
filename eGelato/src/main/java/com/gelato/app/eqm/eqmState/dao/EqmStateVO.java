@@ -30,5 +30,6 @@ public class EqmStateVO {
 	String prcsId;
 	
 	String rn;
+	String lastLogTm;
 	
 }

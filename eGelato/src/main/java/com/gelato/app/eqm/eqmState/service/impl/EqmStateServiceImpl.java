@@ -39,4 +39,9 @@ public class EqmStateServiceImpl implements EqmStateService{
 		return eqmStateMapper.selectNowEqm(eqmStateVo);
 	}
 
+	@Override
+	public List<EqmStateVO> selectLastEqm(EqmStateVO eqmStateVo) {
+		return eqmStateMapper.selectLastEqm(eqmStateVo);
+	}
+
 }
