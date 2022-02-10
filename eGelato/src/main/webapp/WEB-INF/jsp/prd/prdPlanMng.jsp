@@ -187,24 +187,39 @@ th, td {
 				header : '제품명',
 				name : 'prdtNm',
 				//editor : 'text',
+				validation: {
+					required: true
+		        }
 			}, {
 				header : '제품코드',
 				name : 'prdtId',
+				validation: {
+					required: true
+		        }
 			}, {
 				header : '계획량',
 				name : 'qy',
 				editor : 'text',
 				align: 'right',
+				validation: {
+					required: true
+		        }
 			}, {
 				header : '생산일수',
 				name : 'prodDcnt',
 				editor : 'text',
 				align: 'right',
+				validation: {
+					required: true
+		        }
 			}, {
 				header : '작업우선순위',
 				name : 'priort',
 				editor : 'text',
 				align: 'right',
+				validation: {
+					required: true
+		        }
 			}, {
 				header : '비고',
 				name : 'remk',
@@ -376,7 +391,14 @@ th, td {
 			toastr.clear()
 			toastr.success( ('생산 계획명을 입력해주세요.'),'Gelato',{timeOut:'1000'});
 			
-		 } else {
+		 } /* else if (true) {
+			 // 계획량, 생산일수, 작업우선순위 없을 때 toast
+			 for let j = 0 ; j < PlanDetaInsGrid.getRowCount() ; j++) {
+			 	PlanDetaInsGrid.getData()[j].prdtNm = '';
+			 }
+			toastr.clear()
+			toastr.success( ('제품을 선택해주세요.'),'Gelato',{timeOut:'1000'});
+		 } */ else {
 			 
 			console.log(planName);
 			
@@ -387,14 +409,15 @@ th, td {
 			
 			if(confirm("저장하시겠습니까?")) {
 				PlanDetaInsGrid.blur()
-				PlanDetaInsGrid.request('modifyData',{showConfirm:false})
+				//PlanDetaInsGrid.request('modifyData',{showConfirm:false})
 				
+				// 등록 후 토스트 띄우기
 					toastr.clear()
 					toastr.success( ('계획이 등록되었습니다.'),'Gelato',{timeOut:'1000'} );
 			}
 			
-			// 등록 후 토스트 띄우기
 			
+			$("#planName").val('');
 			PlanDetaInsGrid.clear();
 		 } 
 		
