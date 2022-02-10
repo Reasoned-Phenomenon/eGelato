@@ -50,6 +50,7 @@ th, td {
 	</div>
 	<div class="col-8">
 		<div id="rwmatrUphGrid"></div>
+		<div id="totalQy" style="float: right; font-size: 24px;"></div>
 		<h2>상세조회</h2>
 			<form>
 				<table>
@@ -116,7 +117,7 @@ var rwmatrSafStcGrid = new Grid({
 	  contentType: 'application/json'
 	},
   	rowHeaders:['rowNum'],
-  	bodyHeight: 600,
+  	bodyHeight: 580,
   	selectionUnit: 'row',
   	columns:[
   		  {
@@ -174,7 +175,7 @@ var rwmatrUphGrid = new Grid({
 	  },
 	  contentType: 'application/json'
 	},
-  	rowHeaders:['rowNum'],
+  	rowHeaders:['rowNum','checkbox'],
   	bodyHeight: 300,
   	selectionUnit: 'row',
   	columns:[
@@ -280,11 +281,37 @@ rwmatrSafStcGrid.on('click', (ev) => {
 	
 });
 
+rwmatrUphGrid.on('check', (ev) => {
+	
+	let sumQy = 0;
+	let stc = rwmatrUphGrid.getCheckedRows();
+	
+	for(s of stc){
+		sumQy += parseInt(s.total);
+	}
+	
+	$("#totalQy").html("총 소모량 : " + sumQy)
+	
+});
+
+rwmatrUphGrid.on('uncheck', (ev) => {
+	
+	let sumQy = 0;
+	let stc = rwmatrUphGrid.getCheckedRows();
+	
+	for(s of stc){
+		sumQy += parseInt(s.total);
+	}
+	
+	$("#totalQy").html("총 소모량 : " + sumQy)
+	
+});
+
 //자재모달
 let rwmatrDialogFrm = $( "#rwmatrDialogFrm" ).dialog({
 	  modal:true,
 	  autoOpen:false,
-      height: 500,
+      height: 550,
       width: 600,
       modal: true
 });

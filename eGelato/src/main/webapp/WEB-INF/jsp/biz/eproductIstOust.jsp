@@ -139,14 +139,14 @@ var eprdtIstGrid = new Grid({
 	el: document.getElementById('eprdtIstGrid'),
 	data : {
 	  api: {
-	    readData: 	{ url: '${path}/biz/rwmatrIstList.do', method: 'GET'},
+	    readData: 	{ url: '${path}/biz/inq/prdtIstList.do', method: 'GET'},
 	  },
 	  contentType: 'application/json',
 	  initialRequest: false
 	},
 	rowHeaders:['rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 550,
+	bodyHeight: 470,
 	width:1500,
 	columns:[
 				{
@@ -195,14 +195,14 @@ var eprdtOustGrid = new Grid({
 	el: document.getElementById('eprdtOustGrid'),
 	data : {
 	  api: {
-	    readData: 	{ url: '${path}/biz/rwmatrOustList.do', method: 'GET'},
+	    readData: 	{ url: '${path}/biz/inq/prdtOustList.do', method: 'GET'},
 	  },
 	  contentType: 'application/json',
 	  initialRequest: false
 	},
 	rowHeaders:['rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 550,
+	bodyHeight: 470,
 	width:1500,
 	columns:[
 				{

@@ -7,11 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>원자재 발주조회</title>
-<!-- <link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
-<script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
-<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script> -->
 </head>
 <style>
 th, td {
@@ -249,6 +244,7 @@ var rwmatrOrderList = new Grid({
 
 
 rwmatrOrderMasterList.on('click', (ev) => {	
+	rk = ev.rowKey;
 	console.log(ev)
 	//cell 선택시 row 선택됨.
 	rwmatrOrderMasterList.setSelectionRange({
@@ -266,7 +262,7 @@ rwmatrOrderMasterList.on('click', (ev) => {
 let rwmatrDialogFrm = $( "#rwmatrDialogFrm" ).dialog({
 	  modal:true,
 	  autoOpen:false,
-      height: 500,
+      height: 550,
       width: 600,
       modal: true
 });
@@ -342,6 +338,11 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 	
 	//발주디테일 조회
 	btnFindS.addEventListener("click", function(){
+		if(rk == '') {
+			toastr.clear()
+			toastr.warning( ("발주를 선택해주세요."),'Gelato',{timeOut:'1500'} );
+		}
+		
 		rwmName = document.getElementById("rwmName").value;
 		vendName = document.getElementById("vendName").value;
 		console.log(startDate);

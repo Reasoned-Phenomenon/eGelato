@@ -122,6 +122,9 @@
 	       	<if test="rwmName != ''">
 				R.NM LIKE '%'||#{rwmName}||'%'
 			</if>
+			<if test="rwmatrId != ''">
+				AND RS.RWMATR_ID LIKE '%'||#{rwmatrId}||'%'
+			</if>
         </where>
 		ORDER BY EXPDATE
  	</select>

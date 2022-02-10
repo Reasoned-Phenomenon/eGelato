@@ -20,6 +20,10 @@ th, td {
 		<form action="">
 		    <table>
 		        <tbody>
+		        	<tr>
+		                <th>발주코드</th>
+		                <td><input type="text" id="orderId"></td>
+		            </tr>
 		            <tr>
 		                <th>자재명</th>
 		                <td>
@@ -73,11 +77,12 @@ let ig;
 //모달에서 선택한 rowKey값 세팅
 let rk = '';
 
-//날짜검색 조건
+//검색 조건
 var startDate;
 var endDate;
 var rwmName;
 var vendName;
+var orderId;
 
 //날짜기본값
 const d = new Date();
@@ -109,7 +114,7 @@ var rwmatrOrderList = new Grid({
 	},
 	rowHeaders: ['checkbox', 'rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 580,
+	bodyHeight: 505,
 	columns:[
 				{
 				  header: '발주디테일코드',
@@ -217,7 +222,7 @@ var rwmatrOrderList = new Grid({
 let rwmatrDialogFrm = $( "#rwmatrDialogFrm" ).dialog({
 	  modal:true,
 	  autoOpen:false,
-      height: 500,
+      height: 550,
       width: 600,
       modal: true
 });
@@ -364,13 +369,15 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 		endDate = document.getElementById("endDate").value;
 		rwmName = document.getElementById("rwmName").value;
 		vendName = document.getElementById("vendName").value;
+		orderId = document.getElementById("orderId").value;
 		console.log(startDate);
 		console.log(endDate);
 		
 		rwmatrOrderList.readData(1,{'startDate':startDate,
 									'endDate':endDate, 
 									'rwmName':rwmName,
-									'vendName': vendName}, true);
+									'vendName': vendName,
+									'orderId': orderId}, true);
 	});
 	
 	//추가

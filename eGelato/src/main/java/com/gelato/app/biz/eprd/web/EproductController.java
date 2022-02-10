@@ -21,7 +21,7 @@ public class EproductController {
 	}
 	
 	//완제품 현재고 조회
-	@RequestMapping("/biz/eproductStcList.do")
+	@RequestMapping("/biz/inq/eproductStcList.do")
 	public String eproductStcList(EproductVO vo, Model model) {
 		System.out.println("완제품 현재고 조회");
 		model.addAttribute("datas", eproductService.EproductStcList(vo));
@@ -36,8 +36,8 @@ public class EproductController {
 	}
 	
 	//완제품 입고내역 조회
-	@RequestMapping("/biz/rwmatrIstList.do")
-	public String rwmatrIstList(EproductVO vo, Model model) {
+	@RequestMapping("/biz/inq/prdtIstList.do")
+	public String prdtIstList(EproductVO vo, Model model) {
 		System.out.println("완제품 입고내역 조회");
 		model.addAttribute("datas", eproductService.EproductIstList(vo));
 		System.out.println(eproductService.EproductIstList(vo));
@@ -45,8 +45,8 @@ public class EproductController {
 	}
 	
 	//완제품 출고내역 조회
-	@RequestMapping("/biz/rwmatrOustList.do")
-	public String rwmatrOustList(EproductVO vo, Model model) {
+	@RequestMapping("/biz/inq/prdtOustList.do")
+	public String prdtOustList(EproductVO vo, Model model) {
 		System.out.println("완제품 출고내역 조회");
 		model.addAttribute("datas", eproductService.EproductOustList(vo));
 		System.out.println(eproductService.EproductOustList(vo));

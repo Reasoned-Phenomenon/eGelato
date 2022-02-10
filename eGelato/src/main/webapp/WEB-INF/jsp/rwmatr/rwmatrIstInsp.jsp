@@ -109,7 +109,7 @@ var rwmatrIstInspList = new Grid({
 	},
 	rowHeaders: ['checkbox','rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 550,
+	bodyHeight: 540,
 	columns:[
 				{
 				  header: '발주코드',  //발주디테일코드
@@ -236,7 +236,7 @@ function callModal(){
 let rwmatrDialogFrm = $( "#rwmatrDialogFrm" ).dialog({
 	  modal:true,
 	  autoOpen:false,
-      height: 500,
+      height: 550,
       width: 600,
       modal: true
 });
