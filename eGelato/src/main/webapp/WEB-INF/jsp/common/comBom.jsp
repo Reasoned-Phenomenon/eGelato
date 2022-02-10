@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/>    
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,48 +9,38 @@
 <title>BOM 코드 관리 페이지</title>
 </head>
 <body>
-		<div>
-			<br>
-			<h3>BOM 코드 관리</h3>
+	<h2>BOM 코드 관리</h2>
+
+	<form>
+		<table>
+			<tbody>
+				<tr>
+					<th>제품코드</th>
+					<td style="margin-right: 10px;"><input type="text" id="prdtId"
+						name="prdtId">
+						<button type="button" id="serachBtn" class="btn-modal"></button> <input
+						type="text" id="prdtNm" name="prdtNm" placeholder=" 제품명" readonly></td>
+					<th>사용여부</th>
+					<td><input type="checkBox" id="useYn" name="useYn" checked></td>
+				</tr>
+			</tbody>
+		</table>
+		<div style="float: right; margin-bottom: 10px; margin-top: 25px;">
+			<button type="button" id="FindBtn">조회</button>
+			<button type="button" id="AddBtn">추가</button>
+			<button type="button" id="SaveBtn">저장</button>
+			<button type="reset">초기화</button>
 		</div>
-		
-		<form>
+	</form>
+	<hr>
+	<br>
 
-			<div>
-			<br>
-				<label>제품코드</label>
-	      			<input type="text" id="prdtId" name="prdtId">
-	      			<button type="button" id="serachBtn" class="btn-modal"></button>&ensp;&ensp;&ensp;
-	      					
-	      		<label>제품명</label>
-	      			<input type="text" id="prdtNm" name="prdtNm"> &ensp;
-	      			
-	      		<label>소모량</label>
-	      			<input type="text" id="qy" name="qy"> &ensp;
-	      		
-	      		<label>업체명</label>
-	      			<input type="text" id="vendName" name="vendName"> &ensp;		
-	      		
-	      		<label>사용여부</label>
-	      			<input type="checkBox" id="useYn" name="useYn" checked> &ensp;		
-			    <br>
-	      	 </div>
-				<div style="float: right;">
-					<button type="button" class="btn cur-p btn-outline-primary" id="FindBtn">조회</button>
-					<button type="button" class="btn cur-p btn-outline-primary" id="AddBtn">추가</button>
-					<button type="button" class="btn cur-p btn-outline-primary" id="SaveBtn">저장</button>
-					<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-				
-				</div>
-		</form>
-		
+	<div id="bomGrid" style="width: 100%"></div>
+	<div id="bomModal" title="제품 코드 목록"></div>
+	<div id="rwmatrCodeModal" title="자재 코드 목록"></div>
+	<div id="prcsCodeModal" title="공정 코드 목록"></div>
 
-<div id="bomGrid" style="width: 100%"></div>
-<div id="bomModal" title="제품 코드 목록"></div>
-<div id="rwmatrCodeModal" title="자재 코드 목록"></div>
-<div id="prcsCodeModal"  title="공정 코드 목록"></div>
-		
-<script>
+	<script>
 let dialog;
 
 let rowkey = '';
@@ -235,8 +225,6 @@ var bomGrid = new Grid({
 		console.log(Param);
 		$("#prdtId").val(Param.prdtId);
 		$("#prdtNm").val(Param.prdtNm);
-		$("#qy").val(Param.qy);
-		$("#vendName").val(Param.vendName);
 		$("#useYn").val(Param.useYn);
 		
 		dialog.dialog("close");
@@ -248,9 +236,6 @@ var bomGrid = new Grid({
 		    var prdtId = document.getElementById("prdtId").value;
 			var prdtNm = document.getElementById("prdtNm").value;
 			
-			var qy = document.getElementById("qy").value;
-			var vendName = document.getElementById("vendName").value;
-			//var useYn = document.getElementById("useYn").value;
 			
 			var useYn = $('input:checkbox[id="useYn"]').is(":checked") == true
 
@@ -262,12 +247,10 @@ var bomGrid = new Grid({
 			
 			console.log(prdtId);
 			console.log(prdtNm);
-			console.log(qy);
-			console.log(vendName);
 		
 			
 			
-			bomGrid.readData(1, {'prdtId':prdtId, 'prdtNm':prdtNm, 'qy':qy, 'vendName':vendName, 'useYn':useYn }, true);
+			bomGrid.readData(1, {'prdtId':prdtId, 'prdtNm':prdtNm, 'useYn':useYn }, true);
 	});
 	
 	 // 그리드 셀 클릭하면 모달창 띄우기.
@@ -345,8 +328,8 @@ var bomGrid = new Grid({
 	}
 	
 
-</script>		
-		
-		
+</script>
+
+
 </body>
 </html>
