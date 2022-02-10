@@ -238,7 +238,7 @@
  									IST_QY, 
  									OUST_QY, 
  									EXPDATE, 
- 									RWMATR_ORDER_DETA_ID
+ 									RWMATR_ORDER_DETA_ID,
  									REMK
  									) 
 							 VALUES(
@@ -248,7 +248,7 @@
 							 		'0',
 							 		#{oustQy},
 							 		#{expdate},
-							 		#{rwmatrOrderDetaId}
+							 		#{rwmatrOrderDetaId},
 							 		#{remk}
 							 		)
  	</insert>
