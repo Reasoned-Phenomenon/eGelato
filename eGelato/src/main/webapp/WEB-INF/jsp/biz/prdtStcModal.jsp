@@ -137,11 +137,13 @@ var prdtStcGrid = new Grid({
 	
 	$("#checkBtn").on(
 			"click", function(){
+			prdtStcGrid.blur();	
+			
 			console.log('=============================11');	
 			console.log(prdtStcGrid.getCheckedRows());
 			console.log(prdtStcGrid.getCheckedRows()[0].lotNo);
-			console.log(prdtStcGrid.getCheckedRows()[0].istOustDttm);
-			console.log(prdtStcGrid.getCheckedRows()[0].istQy);
+			console.log(prdtStcGrid.getCheckedRows()[0].istOustDttm); //
+			console.log(prdtStcGrid.getCheckedRows()[0].istQy);  // 
 			console.log(prdtStcGrid.getCheckedRows()[0].oustQy);
 			console.log(prdtStcGrid.getCheckedRows()[0].expdate);
 			
@@ -158,7 +160,7 @@ var prdtStcGrid = new Grid({
 				oqy = prdtStcGrid.getCheckedRows()[i].oustQy;
 				edate = prdtStcGrid.getCheckedRows()[i].expdate;
 				
-				oustLotGrid.appendRow({'prdtId':pid, 'lotNo':lno, 
+				prdtInstOustGrid.appendRow({'prdtId':pid, 'lotNo':lno, 
 					                   'istOustDttm':ioutd,
 					                    'istQy':isqy, 'oustQy':oqy,
 					                    'expdate':edate})

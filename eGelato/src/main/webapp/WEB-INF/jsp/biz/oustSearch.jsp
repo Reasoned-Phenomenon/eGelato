@@ -32,7 +32,7 @@
 			<button type="button" class="btn cur-p btn-outline-primary" id="SaveBtn">저장</button>
 			</div>
 			<hr>
-			<div id="oustLotGrid"></div>
+			<div id="prdtInstOustGrid"></div>
 			<br>
 			<div class="col-sm-2">
 			
@@ -46,6 +46,9 @@
 <script>
 
 let dialog;
+
+//modify구분하기위한 변수
+let flag;
 
 // 그리드 생성
 var Grid = tui.Grid;
@@ -96,11 +99,12 @@ var Grid = tui.Grid;
 });
 
 // 출고 관리 그리드 2. (우측에 생성.)
-const oustLotGrid =  new Grid({
-	el: document.getElementById('oustLotGrid'),
+const prdtInstOustGrid =  new Grid({
+	el: document.getElementById('prdtInstOustGrid'),
 	data : {
 	  api: {
-		  readData: { url: '${path}/biz/oustLotList.do', method: 'GET'},
+		  readData: { url: '${path}/biz/prdtInstOust.do', method: 'GET'},
+		  modifyData : { url: '${path}/biz/modifyPrdtInstOust.do', method: 'PUT'} 
 	  },
 	  contentType: 'application/json',
 	  initialRequest: false
@@ -119,7 +123,7 @@ const oustLotGrid =  new Grid({
 	}, 
 	{
 		header : '일출고 날짜',
-		name : 'istOustDttm',
+		name : 'istOustDttm'
 	},
 	{
 		header : '입고량',
@@ -137,6 +141,8 @@ const oustLotGrid =  new Grid({
 	]
 	
 });
+
+
 
 // 출고 관리드(주문서 현황 그리드) 1에서 더블클릭시 완제품 현재고 modal창 실헹.
  oustGrid.on("dblclick", (ev) => {
@@ -183,7 +189,7 @@ const oustLotGrid =  new Grid({
  		// 값이 들어온거 확인. 모달창에서 넘겨온 값.
  		console.log(gcr);
  		
- 		let rrc = oustLotGrid.getRowCount();
+ 		let rrc = prdtInstOustGrid.getRowCount();
 		console.log(rrc);
 		for( let i=(rrc-gcr.length) ; i<rrc ; i++){
 			//appendRow 한 다음에 setValue 시키기
@@ -191,36 +197,58 @@ const oustLotGrid =  new Grid({
 			console.log(787878787878);
 			
 			// modal창에서 그리드2(입출고 테이블)에서 값 넘겨주기.
-			oustLotGrid.setValue(i, 'prdtId', pid);
-			oustLotGrid.setValue(i, 'lotNo', lno);
-			oustLotGrid.setValue(i, 'istOustDttm', ioutd);
-			oustLotGrid.setValue(i, 'istQy', isqy);
-			oustLotGrid.setValue(i, 'oustQy', oqy);
-			oustLotGrid.setValue(i, 'expdate', edate);
+			prdtInstOustGrid.setValue(i, 'prdtId', pid);
+			prdtInstOustGrid.setValue(i, 'lotNo', lno);
+			prdtInstOustGrid.setValue(i, 'istOustDttm', ioutd);
+			prdtInstOustGrid.setValue(i, 'istQy', isqy);
+			prdtInstOustGrid.setValue(i, 'oustQy', oqy);
+			prdtInstOustGrid.setValue(i, 'expdate', edate);
 		
 			
 			console.log(pid); // 제품 코드 번호 값 확인.
 			console.log(lno); // 로트번호 값 확인.
-			console.log(ioutd); // 입출고 날짜 값 확인.
-			console.log(isqy);  // 입고량 값 확인.
-			console.log(oqy);  // 출고량은 값 값 확인.
+			console.log(ioutd); // 입출고 날짜 값 확인.//
+			console.log(isqy);  // 입고량 값 확인. //
+			console.log(oqy);  // 출고량은 값 값 확인.//
 			console.log(edate); // 유통기한 값 확인.
 
  			
 		}
  	}
  	
+ 	
+ 	// 도움 청하기....
  	// 저장 버튼 이벤트.
-/*  	$("#SaveBtn").on("click",function() {
- 		
- 	} */
+	SaveBtn.addEventListener("click", function(){	
+		prdtInstOustGrid.request('modifyData');
+		console.log("이거뭐양?" + prdtInstOustGrid.getRow(0))
+		
+		if (prdtInstOustGrid.getRow(0) != null) {
+			prdtInstOustGrid.blur();
+		 if (confirm("저장하시겠습니까?")) {
+			 prdtInstOustGrid.request('modifyData',{
+				showConfirm : false
+			});
+		  }
+		} else {
+			alert("선택된 데이터가 없습니다.");
+		}
+		
+		flag = 'O'
+	});
  	
  
 		
-		
+ 	//컨트롤러 응답
+ 	prdtInstOustGrid.on('response', function (ev) {
+ 		console.log(ev)
+ 		if(flag == 'O') {
+ 			prdtInstOustGrid.readData(1);
+ 			flag = 'X';
+ 		}
+ 		
+ 	});	
 	
-	
-
 </script>
 </body>
 </html>

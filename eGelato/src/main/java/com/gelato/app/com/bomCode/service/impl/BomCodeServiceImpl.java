@@ -22,7 +22,7 @@ public class BomCodeServiceImpl implements BomCodeService {
 		return bomcodeMapper.findBomList(vo);
 	}
 	
-	// modify로 등록 수정 삭제 
+	// modify로 등록 수정.
 	@Override
 	public int modifyBomCode(ModifyVO<BomCodeVO> mvo) {
 			

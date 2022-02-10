@@ -17,50 +17,44 @@
 	
 	<!--완제품 현재고  modal 조회. -->
 	<select id="prdtStcList" resultType="OustVO">
-		SELECT LOT_NO AS LOT_NO,
-			   IST_OUST_DTTM AS IST_OUST_DTTM,
-			   PRDT_ID AS PRDT_ID,
-			   IST_QY AS IST_QY,
-			   OUST_QY AS OUST_QY,
-			   EXPDATE AS EXPDATE
-		  FROM PRDT_INST_OUST	   
-	     WHERE PRDT_ID = #{prdtId}
+		  SELECT A.LOT_NO AS LOT_NO,
+                 A.PRDT_ID AS PRDT_ID,
+                 A.QY AS QY,
+                 A.PROD_DT AS PROD_DT,
+                 A.EXPDATE AS EXPDATE,
+                 B.IST_OUST_DTTM AS IST_OUST_DTTM,
+                 B.IST_QY AS IST_QY,
+                 B.OUST_QY AS OUST_QY
+                 
+          FROM   PRDT_STC A JOIN PRDT_INST_OUST B
+            ON   A.LOT_NO = B.LOT_NO
+         WHERE   A.PRDT_ID = #{prdtId}
+     ORDER BY    EXPDATE ASC 
 	</select>
 	
-	<!-- 완제품 입출고 테이블.  "oustLotList"-->
-	<!-- <select id="prdtStcList" resultType="OustVO">
-		SELECT A.LOT_NO AS LOT_NO,
-		       A.PRDT_ID AS PRDT_ID,
-		       A.QY AS QY,
-		       A.PROD_DT AS PROD_DT,
-		       A.EXPDATE AS EXPDATE,
-		       A.FG AS FG,
-		       B.OUST_QY AS OUST_QY,
-		       B.IST_OUST_DTTM AS IST_OUST_DTTM,
-               B.IST_QY AS IST_QY
-	      FROM PRDT_STC	A JOIN PRDT_INST_OUST B
-	        ON A.PRDT_ID = B.PRDT_ID 
-	     WHERE A.PRDT_ID = #{prdtId}
-	    ORDER BY LOT_NO	ASC       
-	</select> -->
+	<!-- 완제품 입출고 테이블. -->
+	 <select id="prdtInstOust" resultType="OustVO">
+		SELECT LOT_NO AS LOT_NO,
+		       IST_OUST_DTTM AS IST_OUST_DTTM,
+		       PRDT_ID AS PRDT_ID,
+		       IST_QY AS IST_QY,
+		       OUST_QY AS OUST_QY,
+		       EXPDATE AS EXPDATE
+		       
+	      FROM PRDT_INST_OUST
+	     WHERE PRDT_ID = #{prdtId}
+	  ORDER BY EXPDATE	ASC     
+	</select> 
 
-	<!-- 현재고 테이블 등록 -->
-
-	<!-- <insert id="insertPrdtStc" parameterType="OustVO">
-		INSERT INTO PRDT_STC (
-		
-		)
-	         VALUES (
-	         
-	         )
-	</insert> -->
-
-	<!--입출고 테이블 수정  -->
-<!-- 	<update id="updatePrdtInstOust" parameterType="OustVO">
-		UPDATE PRDT_INST_OUST
-		 
-		   SET 
-			
-	</update>  -->
-
+	<!-- 주문서 테이블 상태 수정, 입출고 테이블 등록, 완제품 재고 테이블 수량 수정, 출고테이블 등록 하는 프로시저 -->
+	<parameterMap type="OustVO" id="OustParam">
+		<parameter property="orderShtDetaId" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+		<parameter property="lotNo" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+		<parameter property="oustQy" mode="IN" jdbcType="VARCHAR" javaType="string"/>
+	</parameterMap>
+	
+	<insert id="insertOust" statementType="CALLABLE" parameterMap="OustParam">
+		{ call oust_output(?,?,?)}
+	</insert>
+	
 </mapper>
