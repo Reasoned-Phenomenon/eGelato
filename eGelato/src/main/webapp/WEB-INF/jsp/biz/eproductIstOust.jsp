@@ -111,6 +111,19 @@ var prdtNmO;
 //텍스트박스 구분자
 let flag;
 
+//날짜기본값
+const d = new Date();
+
+const year = d.getFullYear(); // 년
+const month = d.getMonth();   // 월
+const day = d.getDate();      // 일
+
+document.getElementById('startDateI').value = new Date(year, month, day - 5).toISOString().substring(0,10);
+document.getElementById('endDateI').value = new Date().toISOString().substring(0, 10);
+
+document.getElementById('startDateO').value = new Date(year, month, day - 5).toISOString().substring(0,10);
+document.getElementById('endDateO').value = new Date().toISOString().substring(0, 10);
+
 //토스트옵션
 toastr.options = {
 	positionClass : "toast-top-center",

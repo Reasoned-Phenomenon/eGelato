@@ -84,6 +84,16 @@ var rwmName;
 var vendName;
 var inferId;
 
+//날짜기본값
+const d = new Date();
+
+const year = d.getFullYear(); // 년
+const month = d.getMonth();   // 월
+const day = d.getDate();      // 일
+
+document.getElementById('startDate').value = new Date(year, month, day - 5).toISOString().substring(0,10);
+document.getElementById('endDate').value = new Date().toISOString().substring(0, 10);
+
 //그리드 생성
 var rwmatrInferList = new Grid({
 	el: document.getElementById('rwmatrInferList'),
