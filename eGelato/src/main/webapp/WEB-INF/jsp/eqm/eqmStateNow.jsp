@@ -33,7 +33,7 @@ var tempData = {
 };
 
 var tempOptions = { 
-		chart: { title: '실시간 설비 온도', width: 400, height: 300 },
+		chart: { title: '실시간 설비 온도', width: 1200, height: 300 },
 		xAxis: {
 			title: '시간',
 			date: { format: 'hh:mm:ss' }
@@ -66,7 +66,7 @@ var prodData = {
 };
 
 var prodOptions = {
-  chart: { title: '실시간 설비 생산량', width: 400, height: 300 },
+  chart: { title: '실시간 설비 생산량', width: 1200, height: 300 },
   xAxis: {
     title: '시간',
     date: { format: 'hh:mm:ss' }

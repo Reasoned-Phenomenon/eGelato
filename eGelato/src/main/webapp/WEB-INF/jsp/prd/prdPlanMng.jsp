@@ -409,7 +409,7 @@ th, td {
 			
 			if(confirm("저장하시겠습니까?")) {
 				PlanDetaInsGrid.blur()
-				//PlanDetaInsGrid.request('modifyData',{showConfirm:false})
+				PlanDetaInsGrid.request('modifyData',{showConfirm:false})
 				
 				// 등록 후 토스트 띄우기
 					toastr.clear()
