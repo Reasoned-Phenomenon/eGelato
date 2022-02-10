@@ -16,6 +16,8 @@ h1 {
 	<h1>완제품 재고 현황</h1><br>
 	  <form>
 		<button type="button" id="checkBtn" class="btn cur-p btn-outline-primary">확인</button>
+	  	주문 수량 : <input readonly="true" id="targetQyInput">
+	  	선택된 수량: <input readonly="true" id="selectedQyInput">
 	</form>
 	
 	<div id="prdtStcGrid" style="width: 140%"></div>
@@ -23,27 +25,9 @@ h1 {
 <script>
 var Grid = tui.Grid;	
 
-var iqy;
-
 // 변수 선언.
-var lno;      // 로트번호.
-var ioutd;   // 입출고 날짜.
-var isqy;    // 입고량.
-var oqy;     // 출고량.
-var edate;   // 유통기한.
+var targetQy;
 
-//그리드 테마 삭제.
-/* Grid.applyTheme('striped', {
-	  cell: {
-	    header: {
-	      background: '#eef'
-	    },
-	    evenRow: {
-	      background: '#fee'
-	    }
-	  }
-	});
- */
 //그리드 생성
 var prdtStcGrid = new Grid({
 	el: document.getElementById('prdtStcGrid'),
@@ -109,69 +93,131 @@ var prdtStcGrid = new Grid({
 			name:'prdtId',
 			align: 'center',
 			hidden: true
-		   }
-		]
+		   },
+		   {
+			header: '주문 상세 코드',
+			name:'orderShtDetaId',
+			align: 'center',
+			hidden: true
+		   },
+		],
+		summary: {
+	        height: 40,
+	        position: 'bottom',
+	        columnContent: {
+          		oustQy: {
+	            template: function(valueMap) {
+	              return `합계: \${valueMap.sum}`;
+	            }
+	          }
+	        }
+	  }
 });
-    //TODO 함수명 변수명 수정하기.
-	function chooseRWI(pid,oqy,pnm) {
+ 
+function chooseRWI(row) {
+   	
+	targetQyInput.value = row.qy;
+	
+	$.ajax({
+		url : "${path}/biz/prdtStcList.do?prdtId=" + row.prdtId,
+		dataType : 'json',
+		error : function(result) {
+			console.log('에러', result)
+		}
+	}).done(function (result) {
 		
-		$.ajax({
-			url : "${path}/biz/prdtStcList.do?prdtId=" + pid,
-			dataType : 'json',
-			error : function(result) {
-				console.log('에러', result)
+		prdtStcGrid.resetData(result.data.contents);
+		prdtStcGrid.resetOriginData();
+		
+		let grc = prdtStcGrid.getRowCount();
+		
+		let calcQy = targetQy = row.qy;
+		
+		//자동계산
+		for(let i = 0 ; i < grc ; i ++ ) {
+			
+			if (calcQy == 0) {
+				break;
 			}
-		}).done(function (result) {
-			console.log("확인.");
-			console.log(result);
 			
-			prdtStcGrid.resetData(result.data.contents);
-			prdtStcGrid.resetOriginData();
+			let item = prdtStcGrid.getRow(i).qy;
 			
-			let grc = prdtStcGrid.getRowCount();
-			console.log(grc);
+			if( calcQy <= item ) {
+				prdtStcGrid.setValue(i,'oustQy',calcQy)
+				prdtStcGrid.check(i);
+				calcQy = 0;
+				break;
+			} else {
+				prdtStcGrid.setValue(i,'oustQy',item);
+				prdtStcGrid.check(i);
+				calcQy = calcQy - item;
+			}
 			
-	  }) 
+		}
+		
+		//수량 계산
+		calcOustQy ();
+		
+  }) 
 
+}
+	
+//모달창의 확인버튼
+$("#checkBtn").on("click", function(){
+	
+	prdtStcGrid.blur();	
+	
+	let gcr = prdtStcGrid.getCheckedRows();
+	
+	//총합이 맞는지 체크
+	let sumQy =0;
+	for ( let i = 0 ; i < gcr.length ; i++ ) {
+		sumQy += Number(gcr[i].oustQy);
 	}
 	
-	$("#checkBtn").on(
-			"click", function(){
-			prdtStcGrid.blur();	
-			
-			console.log('=============================11');	
-			console.log(prdtStcGrid.getCheckedRows());
-			console.log(prdtStcGrid.getCheckedRows()[0].lotNo);
-			console.log(prdtStcGrid.getCheckedRows()[0].istOustDttm); //
-			console.log(prdtStcGrid.getCheckedRows()[0].istQy);  // 
-			console.log(prdtStcGrid.getCheckedRows()[0].oustQy);
-			console.log(prdtStcGrid.getCheckedRows()[0].expdate);
-			
-				
-			
-			let gcr = prdtStcGrid.getCheckedRows();
-			console.log(gcr);
-				
-			for( let i=0 ; i<gcr.length ; i++) {
-				
-				lno = prdtStcGrid.getCheckedRows()[i].lotNo;
-				ioutd = prdtStcGrid.getCheckedRows()[i].istOustDttm;
-				isqy = prdtStcGrid.getCheckedRows()[i].istQy;
-				oqy = prdtStcGrid.getCheckedRows()[i].oustQy;
-				edate = prdtStcGrid.getCheckedRows()[i].expdate;
-				
-				prdtInstOustGrid.appendRow({'prdtId':pid, 'lotNo':lno, 
-					                   'istOustDttm':ioutd,
-					                    'istQy':isqy, 'oustQy':oqy,
-					                    'expdate':edate})
-			   		         
-			console.log();		                    
-			}
-                       
-			moveCR(gcr);
+	if (targetQy != sumQy) {
+		//토스트
+		toastr.clear();
+		toastr.error('수량이 맞지 않습니다','Gelato');
+		return;
+	}
 	
-			});
+	//체크만하고 값 안 넣은 로우 체크해제	
+	for( let i=0 ; i<gcr.length ; i++) {
+			
+		if (!gcr[i].oustQy > 0 ) {
+			prdtStcGrid.uncheck(i)
+		}
+		
+	}
+	
+	moveCR(prdtStcGrid.getCheckedRows());
 
+});
+	
+function calcOustQy () {
+	let calcQy = 0 ;
+	
+	for(item of prdtStcGrid.getCheckedRows()) {
+		calcQy += Number(item.oustQy);
+	}
+	
+	selectedQyInput.value = calcQy;
+	
+}
+	
+prdtStcGrid.on('editingFinish',function () {
+	calcOustQy ();
+})
+
+prdtStcGrid.on('check',function () {
+	calcOustQy ();
+})
+
+prdtStcGrid.on('uncheck',function () {
+	calcOustQy ();
+})	
+	
 </script> 
 </body>
 </html>
