@@ -207,10 +207,8 @@ function moveCR(gcr) {
 	} 
 	
 }
- 	
- 	
- 	// 도움 청하기....
- 	// 저장 버튼 이벤트.
+
+ 	//저장 버튼
 	SaveBtn.addEventListener("click", function(){	
 		console.log(prdtInstOustGrid.getRow(0))
 		if (prdtInstOustGrid.getRow(0) != null) {
@@ -234,6 +232,7 @@ function moveCR(gcr) {
 		
 	});
  	
+ 	//삭제버튼
 	delBtn.addEventListener("click", function(){
 		if(confirm('삭제하시겠습니까?')) {
 			prdtInstOustGrid.removeCheckedRows(false);
