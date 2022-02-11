@@ -416,7 +416,6 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 			toastr.warning( ('저장할 데이터가 없습니다.'),'Gelato',{timeOut:'1000'} );
 		}
 	});
-
 </script>
 </body>
 </html>
