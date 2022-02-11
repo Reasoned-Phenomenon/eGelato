@@ -416,6 +416,7 @@ th, td {
 			 }  else {
 				 
 				console.log(planName);
+
 				
 				for ( i =0 ; i <= PlanDetaInsGrid.getRowCount(); i++) {
 					PlanDetaInsGrid.setValue(i,'name',planName);

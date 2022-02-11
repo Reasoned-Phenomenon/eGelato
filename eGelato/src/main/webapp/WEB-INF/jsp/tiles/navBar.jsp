@@ -60,7 +60,10 @@
 				<ul class="collapse list-unstyled" id="common">
 					<li><a href="${path }/com/comCode.do">> <span>공통 코드
 								관리</span></a></li>
-
+								
+					<li><a href="${path}/com/vendCode.do">> <span>거래처
+								코드 관리</span></a></li>
+								
 					<li><a href="${path}/com/rwmatrCode.do">> <span>자재
 								코드 관리</span></a></li>
 
@@ -70,8 +73,7 @@
 					<li><a href="${path}/com/comBom.do">> <span>BOM 코드
 								관리</span></a></li>
 
-					<li><a href="${path}/com/vendCode.do">> <span>거래처
-								코드 관리</span></a></li>
+
 
 				</ul></li>
 </c:if>
