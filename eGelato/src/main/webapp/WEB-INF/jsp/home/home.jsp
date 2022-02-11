@@ -9,9 +9,7 @@
 </head>
 <body>
    <div style="text-align: center;">
-      <img src="${path}/resources/images/main.jpg"
-         style="width:1700px; height: 877px;">
+      <img src="${path}/resources/images/main.jpg">
    </div>
-
 </body>
 </html>

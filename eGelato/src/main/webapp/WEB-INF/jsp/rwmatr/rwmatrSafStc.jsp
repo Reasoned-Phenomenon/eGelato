@@ -15,7 +15,7 @@ th, td {
 </style>
 <body>
 <h2>안전재고 관리</h2>
-<div style="margin: 20px;">
+<div>
 	<div>
 		<form action="">
 		    <table>

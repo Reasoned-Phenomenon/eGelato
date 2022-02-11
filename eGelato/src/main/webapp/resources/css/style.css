@@ -974,7 +974,8 @@ a[data-toggle="collapse"] {
 
 .user_info {
     margin: 0 0 0 15px;
-    padding-top: 15px;
+    padding-top: 0px;
+    
 }
 
 .online_animation {
@@ -1061,7 +1062,7 @@ a[data-toggle="collapse"] {
 #sidebar h4 {
     background: #343A40;
     margin: 0;
-    padding: 21px 25px 19px;
+    padding: 21px 15px 19px;
     font-weight: 500;
     font-size: 18px;
     color: #fff;
