@@ -2,6 +2,8 @@ package com.gelato.app.prd.prdLine.dao;
 
 import java.util.List;
 
+import com.gelato.app.prd.prdPrcs.dao.PrdPrcsMngVO;
+
 public interface PrdLineMngMapper {
 
 	// 그리드1
@@ -19,4 +21,5 @@ public interface PrdLineMngMapper {
 	
 	// 공정이동표
 	List<PrdLineMngVO> prdtMoveInfo(PrdLineMngVO vo);
+ 	List<PrdPrcsMngVO> prdtPrcsMoveInfo(PrdPrcsMngVO vo);
 }
