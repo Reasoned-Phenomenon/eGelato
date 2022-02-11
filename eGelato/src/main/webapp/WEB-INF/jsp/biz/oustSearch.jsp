@@ -157,7 +157,6 @@ const prdtInstOustGrid =  new Grid({
 		    end: [ev.rowKey, oustGrid.getColumns().length-1]
 		});
 	 	orderShtDetaIdFlag = oustGrid.getValue(ev.rowKey,'orderShtDetaId');
-	 	console.log("save - ",orderShtDetaIdFlag)
 	 	// 완제품 현재고 modal창 띄우면서 필요로 하는 값 들고 감. 
 		chooseRI(oustGrid.getRow(ev.rowKey));
 	});
@@ -202,6 +201,7 @@ function moveCR(gcr) {
 	for( let i=0 ; i<gcr.length ; i++){
 		
 		gcr[i].orderShtDetaId = orderShtDetaIdFlag;
+		gcr[i].rowKey = 1+rrc+i;
 		prdtInstOustGrid.appendRow(gcr[i],{at:1+rrc+i});
 		
 	} 
@@ -248,6 +248,10 @@ function moveCR(gcr) {
  		}
  		
  	});	
+ 	
+	prdtInstOustGrid.on('click',function (ev) {
+		console.log(ev)
+	})
 	
 </script>
 </body>

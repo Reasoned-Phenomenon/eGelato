@@ -108,7 +108,7 @@
 			<tiles:insertAttribute name="navBar" />
 
 			<!-- right content -->
-			<div id="content">
+			<div id="content" style="padding-left: 280px; padding-bottom: 0px; margin-bottom: 0px;">
 
 				<!-- 헤더 시작 -->
 				<tiles:insertAttribute name="header" />

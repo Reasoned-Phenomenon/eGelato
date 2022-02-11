@@ -13,5 +13,15 @@
 	<definition name="tiles/*/*" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/{1}/{2}.jsp" /> 
 	</definition>
+	
+	<definition name="homeTemplate" template="/WEB-INF/jsp/tiles/homeLayout.jsp">
+		<put-attribute name="header" value="/WEB-INF/jsp/tiles/header.jsp" />
+		<put-attribute name="navBar" value="/WEB-INF/jsp/tiles/navBar.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/tiles/content.jsp" />
+	</definition>
+	
+	<definition name="tiles/home/home" extends="homeTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/home/home.jsp" /> 
+	</definition>
 
 </tiles-definitions>
