@@ -220,6 +220,12 @@
 			$("#tempMin").attr("readOnly",false);
 			$("#chckPerd").attr("readOnly",false);
 			
+			$("#prcsId").css("backgroundColor", "white");
+			$("#nm").css("backgroundColor", "white");
+			$("#tempMax").css("backgroundColor", "white");
+			$("#tempMin").css("backgroundColor", "white");
+			$("#chckPerd").css("backgroundColor", "white");
+			
 			//이미지 미리보기
 			console.log(eqmListGrid.getValue(ev["rowKey"],"eqmImg"))
 			if(eqmListGrid.getValue(ev["rowKey"],"eqmImg")) {
@@ -271,9 +277,34 @@
 					
 					if(yn == 'N'){
 						if(confirm("비가동관리 페이지로 이동하시겠습니까?")){
+							$("#prcsId").attr("readOnly",true);
+							$("#nm").attr("readOnly",true);
+							$("#tempMax").attr("readOnly",true);
+							$("#tempMin").attr("readOnly",true);
+							$("#chckPerd").attr("readOnly",true);
+							
+							$("#prcsId").css("backgroundColor", "rgb(230 230 230)");
+							$("#nm").css("backgroundColor", "rgb(230 230 230)");
+							$("#tempMax").css("backgroundColor", "rgb(230 230 230)");
+							$("#tempMin").css("backgroundColor", "rgb(230 230 230)");
+							$("#chckPerd").css("backgroundColor", "rgb(230 230 230)");
+							
 							location.href= "${path}/eqm/eqmNonMoving.do?eqmId="+eqmId+"&eqmName="+eqmName;
 						}
 					}else{
+						
+						$("#prcsId").attr("readOnly",true);
+						$("#nm").attr("readOnly",true);
+						$("#tempMax").attr("readOnly",true);
+						$("#tempMin").attr("readOnly",true);
+						$("#chckPerd").attr("readOnly",true);
+						
+						$("#prcsId").css("backgroundColor", "rgb(230 230 230)");
+						$("#nm").css("backgroundColor", "rgb(230 230 230)");
+						$("#tempMax").css("backgroundColor", "rgb(230 230 230)");
+						$("#tempMin").css("backgroundColor", "rgb(230 230 230)");
+						$("#chckPerd").css("backgroundColor", "rgb(230 230 230)");
+						
 						toastr.options.positionClass = "toast-top-center";
 						toastr.options.progressBar = true;
 						toastr.success('수정성공','설비관리',{timeOut:'1500'});

@@ -68,7 +68,6 @@ th, td {
 	<div id="rwmatrDialogFrm" title="원자재 목록"></div>
 	<div id="vendDialogFrm" title="업체 목록"></div>
 
-
 	<script>
 var Grid = tui.Grid;
 
@@ -79,7 +78,7 @@ let flag;
 let ig;
 
 //모달에서 선택한 rowKey값 세팅
-let rk = '';
+let rk = '-1';
 
 //검색 조건
 var orderId;
@@ -245,7 +244,7 @@ var rwmatrOrderList = new Grid({
 
 rwmatrOrderMasterList.on('click', (ev) => {	
 	rk = ev.rowKey;
-	console.log(ev)
+	console.log(rk)
 	//cell 선택시 row 선택됨.
 	rwmatrOrderMasterList.setSelectionRange({
 	      start: [ev.rowKey, 0],
@@ -338,9 +337,11 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 	
 	//발주디테일 조회
 	btnFindS.addEventListener("click", function(){
-		if(rk == '') {
+		console.log(rk);
+		if(rk === '-1') {
 			toastr.clear()
 			toastr.warning( ("발주를 선택해주세요."),'Gelato',{timeOut:'1500'} );
+			return;
 		}
 		
 		rwmName = document.getElementById("rwmName").value;
