@@ -5,33 +5,33 @@
 	<!-- BOM 전체 조회.-->
 	
 	<select id="findBomList" resultType="BomCodeVO">
-		SELECT  f_com_code_to_nm(a.fg) AS fg,
-		        a.bom_id AS bom_id, 
-		        a.prdt_id AS prdt_id, 
-		        a.rwmatr_id AS rwmatr_id, 
-		        a.qy AS qy, 
-		        a.prcs_id AS prcs_id,  
-		        a.remk AS remk, 
-		        a.use_yn AS use_yn,
-                b.nm AS nm,
-                c.nm AS prcsNm
-		FROM bom a 
-		JOIN rwmatr b
-		ON a.rwmatr_id = b.rwmatr_id
-		JOIN prcs c
-		ON  a.prcs_id = c.prcs_id
+		SELECT  f_com_code_to_nm(A.FG) AS FG,
+		        A.BOM_ID AS BOM_ID, 
+		        A.PRDT_ID AS PRDT_ID, 
+		        A.RWMATR_ID AS RWMATR_ID, 
+		        A.QY AS QY, 
+		        A.PRCS_ID AS PRCS_ID,  
+		        A.REMK AS REMK, 
+		        A.USE_YN AS USE_YN,
+                B.NM AS NM,
+                C.NM AS PRCSNM
+		FROM BOM A 
+		JOIN RWMATR B
+		ON A.RWMATR_ID = B.RWMATR_ID
+		JOIN PRCS C
+		ON  A.PRCS_ID = C.PRCS_ID
 		<where>
 			<if test="prdtId !=null and prdtId !=''">
-				and a.prdt_id = #{prdtId}
+				AND A.PRDT_ID = #{prdtId}
 			</if>
 			<if test="nm !=null and nm !=''">
-			 	and b.nm = #{nm}
+			 	AND B.NM = #{nm}
 			</if>
 		    <if test="useYn !=null and useYn !=''">
-				and a.use_yn = #{useYn}
+				AND A.USE_YN = #{useYn}
 			</if>
 		</where>   
-		ORDER BY  prcs_id
+		ORDER BY  PRCS_ID
 	</select>
 
 	<!-- BOM 등록 -->
@@ -59,7 +59,7 @@
 			     			#{rwmatrId},
 			     			#{qy},
 			     			#{prcsId},
-			     			f_com_nm_to_code(#{fg}),
+			     			#{fg},
 			     			#{remk},
 			     			#{useYn}			     			
 			     )      
@@ -111,7 +111,7 @@
 	     SET   RWMATR_ID = #{rwmatrId},
 	     	   QY = #{qy},
 	     	   PRCS_ID = #{prcsId},
-	     	   FG = f_com_nm_to_code(#{fg}),
+	     	   FG = #{fg},
 	     	   REMK = #{remk}, 
 	           USE_YN = #{useYn}
 	          

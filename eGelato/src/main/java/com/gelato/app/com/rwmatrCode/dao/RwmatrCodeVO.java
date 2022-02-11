@@ -18,5 +18,9 @@ public class RwmatrCodeVO {
 	String vendName;  // 업체 명.
 	String bizno;     // 사업자 등록번호.
 	String telno;     // 전화번호.
- 	 
+ 	
+	// 
+	String fgCode;  // 제품구분코드.
+	String specCode; // 규격구분코드.
+	String wkUnitCode; // 작업단위코드.
 }

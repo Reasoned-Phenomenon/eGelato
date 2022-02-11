@@ -4,11 +4,13 @@
 
 <!-- prdtCode 전체 조회. -->
 <select id="PrditCodeList" resultType="PrdtCodeVO">
-	SELECT PRDT_ID,
-		   PRDT_NM,
-		   SPEC,
-		   UNIT,
-		   SAF_STC
+	SELECT f_com_code_to_nm(SPEC) AS SPEC,
+		   f_com_code_to_nm(UNIT) AS UNIT,
+	       PRDT_ID AS PRDT_ID,
+		   PRDT_NM AS PRDT_NM,
+		   SPEC AS SPEC_CODE,
+		   UNIT AS UNIT_CODE,
+		   SAF_STC AS SAF_STC
 	FROM   PRDT
 	<where>
 		<if test="prdtId !=null and prdtId !=''">

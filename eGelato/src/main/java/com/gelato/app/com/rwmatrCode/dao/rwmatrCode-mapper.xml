@@ -6,10 +6,13 @@
 	<select id="findRwmatrList" resultType="RwmatrCodeVO">
 		SELECT f_com_code_to_nm(FG) AS FG,
 			   f_com_code_to_nm(SPEC) AS SPEC,
+			   f_com_code_to_nm(WK_UNIT) AS WK_UNIT,
 		       RWMATR_ID AS RWMATR_ID,
                VEND_ID AS VEND_ID,
                NM AS NM,
-               WK_UNIT AS WK_UNIT,
+               FG AS FG_CODE,
+               SPEC AS SPEC_CODE,
+               WK_UNIT AS WK_UNIT_CODE,
                SAF_STC AS SAF_STC
                
 		FROM   RWMATR 
@@ -20,7 +23,7 @@
 	<select id="vendModalList" resultType="RwmatrCodeVO">
 		SELECT  VEND_ID, VEND_NAME, BIZNO, TELNO
  	    FROM    VEND
-	
+		ORDER BY VEND_ID
 	</select>
 
 	
@@ -45,10 +48,10 @@
 			     	#{rwmatrId},
 			     	#{vendId},
 			     	#{nm},
-			     	f_com_nm_to_code(#{spec}),
+			     	#{spec},
 			     	#{wkUnit},
 			     	#{safStc},
-			     	f_com_nm_to_code(#{fg})		     			
+			     	#{fg}		     			
 			     )      		
 	</insert>
 	
@@ -57,10 +60,10 @@
 	    SET 
 	    	VEND_ID = #{vendId},
 	    	NM = #{nm},
-	    	SPEC = f_com_nm_to_code(#{spec}),
+	    	SPEC = #{spec},
 	    	WK_UNIT = #{wkUnit},
 	    	SAF_STC = #{safStc},
-	    	FG = f_com_nm_to_code(#{fg})
+	    	FG = #{fg}
 	    	
 	  WHERE RWMATR_ID = #{rwmatrId}
 	

@@ -12,6 +12,7 @@ public class PrdtCodeVO {
 	String safStc;   // 안전 재고.
 	
 	
-	
 	// join할 때 필요한거. 
+	String specCode;  // 규격코드.
+	String unitCode;  //단위코드.
 }

@@ -53,6 +53,7 @@ public class VendCodeController {
 	// 거래처 코드 수정.
 	@PostMapping("/com/updatevendCode.do")
 	public String updatevendCode(VendCodeVO vo) {
+		System.out.println(vo);
 		vendcodeService.updateVendCode(vo);
 		return "tiles/common/vendCode";
 	}
