@@ -12,5 +12,5 @@ public class VendCodeVO {
 	String remk;     // 비고.
 	String fg;       // 구분.(거래처 구분.)
 	
-
+	String fgCode;   // 
 }

@@ -42,8 +42,13 @@ var Grid = tui.Grid;
 			    header: '공정 명',
 			    name: 'prcsNm',
 			    align: 'center'
+			  },
+			  {
+				header: '제품 코드',
+				name: 'prdtId',
+				align: 'center',
+				hidden : true
 			  }
-			 
 			]
 	});
 	
@@ -59,6 +64,10 @@ var Grid = tui.Grid;
 	 prcsCodeData(prcsCodeGrid.getRow(ev.rowKey))
 		
 	});	
+	
+	/* $(document).ready ( function getData() {
+		prcsCodeGrid.readData(1, {}, true);
+	}); */
 	
 	</script>
 	

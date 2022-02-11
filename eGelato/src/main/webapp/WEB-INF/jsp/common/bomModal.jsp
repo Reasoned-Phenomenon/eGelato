@@ -18,10 +18,6 @@
 	console.log("11111115");
 	var Grid = tui.Grid;
 
-	
-	
-	
-	
 	// 그리드 생성
 	var findGrid = new Grid({
 		el: document.getElementById('findGrid'),
@@ -83,8 +79,6 @@
 		getModal(Param);
 		console.log(Param);
 	}); 
-	
-	
 	
 	
 </script>

@@ -28,4 +28,7 @@ public class BomCodeVO {
 		String lineId; 
 		String ord;
 		
+		//
+		String fgCode; // 구분 코드
+		
 }

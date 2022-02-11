@@ -33,6 +33,7 @@ public class BomCodeServiceImpl implements BomCodeService {
 			
 			for(BomCodeVO vo : mvo.getUpdatedRows()) {
 				System.out.println("수정");
+				System.out.println(vo);
 				bomcodeMapper.updateBomCode(vo);
 			}
 			
@@ -53,10 +54,11 @@ public class BomCodeServiceImpl implements BomCodeService {
 		return bomcodeMapper.rwmatrCodeList();
 	}
 
+	// 모달창으로 공정코드 조회.
 	@Override
-	public List<BomCodeVO> prcsCodeList() {
+	public List<BomCodeVO> prcsCodeList(BomCodeVO vo) {
 		
-		return bomcodeMapper.prcsCodeList();
+		return bomcodeMapper.prcsCodeList(vo);
 	}
 
 }

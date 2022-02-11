@@ -99,6 +99,11 @@ var vendCodeGrid = new Grid({
 			{
 			  header: '구 분',
 			  name: 'fg'
+			},
+			{
+			header: '거래처 코드',
+			name: 'fgCode',
+			hidden: true
 			}
 
 		]
@@ -112,8 +117,9 @@ var vendCodeGrid = new Grid({
 		$("#bizno").val(vendCodeGrid.getValue(ev["rowKey"],"bizno"));
 		$("#telno").val(vendCodeGrid.getValue(ev["rowKey"],"telno"));
 		$("#remk").val(vendCodeGrid.getValue(ev["rowKey"],"remk"));
-		$("#fg").val(vendCodeGrid.getValue(ev["rowKey"],"fg"));
-
+		
+		fg.value = vendCodeGrid.getValue(ev.rowKey,"fgCode");
+		
 	});
 
  // 조회 버튼 이벤트.
@@ -164,8 +170,8 @@ var vendCodeGrid = new Grid({
 			var bizno = $("#bizno").val();
 			var telno = $("#telno").val();
 			var remk = $("#remk").val();
-			var fg = $("#fg").val();
-			
+			var fg = $("#fg option:selected").val();
+			console.log(fg);
 
 			if (vendId =='') {
 				$.ajax({
@@ -177,12 +183,12 @@ var vendCodeGrid = new Grid({
 						bizno : bizno,
 						telno : telno,
 						remk : remk,
-						fg : fg
+						fg : $("#fg option:selected").val()
 					
 					},
 					success : function(res) {
 						vendCodeGrid.readData(1,{},true)
-						console.log(res);
+						//console.log(res);
 						alert("등록 되었습니다.");
 						vendCodeGrid.refreshLayout();
 					},
@@ -202,12 +208,12 @@ var vendCodeGrid = new Grid({
 						bizno : bizno,
 						telno : telno,
 						remk : remk,
-						fg : fg
+						fg : $("#fg option:selected").val()
 						
 					},
 					success : function(res) {
 						vendCodeGrid.readData(1,{},true)
-						console.log(res);
+						//console.log(res);
 						alert("수정 되었습니다.");
 						vendCodeGrid.refreshLayout();
 					},

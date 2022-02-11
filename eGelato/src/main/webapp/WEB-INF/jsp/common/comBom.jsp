@@ -121,6 +121,9 @@ var bomGrid = new Grid({
 				  }
 			  },
 			  
+			  renderer : {
+					type : GelatoSelect
+			 },
 			  align: 'center'
 
 			},
@@ -145,12 +148,13 @@ var bomGrid = new Grid({
 		            }
 		      },
 			  renderer: {
-		            type: GelatoSelect,
+		            type: GelatoSelect
 		      }
 			  
 			}
 		]
 });
+
 	
 	// 추가 버튼 이벤트. 추가 버튼을 누르면 제품코드가 자동적으로 값이 들어가게 함.
 	AddBtn.addEventListener("click", function(ev){
@@ -163,6 +167,7 @@ var bomGrid = new Grid({
 	
 	// 저장(등록) 버튼 이벤트. (alert 창 포함.)
 	SaveBtn.addEventListener("click", function(){	
+		console.log(bomGrid.getValue(rowkey,'fg'));
 		bomGrid.request('modifyData');
 		console.log("이거뭐양?" + bomGrid.getRow(0))
 		
@@ -317,10 +322,29 @@ var bomGrid = new Grid({
 		
 		bomGrid.setValue(rowkey, "prcsNm", prcsData.prcsNm, true)
 		bomGrid.setValue(rowkey, "prcsId", prcsData.prcsId, true)
+		//bomGrid.setValue(rowkey, "prdtId", prcsData.prdtId, true)
 		
 		dialog.dialog("close");
 	}
 	
+	let evFlag = 'o';
+	   
+	bomGrid.on('click',function (ev) {
+	      
+	      if(evFlag == 'o' && ev.columnName =='fg') {
+	    	  bomGrid.startEditing(ev.rowKey, 'fg', false)
+	         evFlag = 'x'
+	      }
+	      if(evFlag == 'o' && ev.columnName =='useYn') {
+	    	  bomGrid.startEditing(ev.rowKey, 'useYn', false)
+	         evFlag = 'x'
+	      }
+	      
+	   })   
+	   
+	   bomGrid.on('editingFinish',function (ev) { 
+	      evFlag = 'o'
+	   })
 
 </script>
 
