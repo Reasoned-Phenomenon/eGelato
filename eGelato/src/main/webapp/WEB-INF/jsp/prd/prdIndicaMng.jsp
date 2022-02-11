@@ -13,16 +13,14 @@
 </head>
 <body>
 	<div>
-		<br>
 		<h2>생산지시관리</h2>
-		<br>  
 	</div>
 	<br>
 	<div class="row">
 		<div class="col-sm-11">
 			 <button type="button" id="btnSearch">미지시 계획 조회</button>
 		</div>
-		<div class="col-sm-1">
+		<div class="col-sm-1" style="float=right;">
 			 <button type="button" id="btnIns" >지시 등록</button>
 		</div>
 	</div>

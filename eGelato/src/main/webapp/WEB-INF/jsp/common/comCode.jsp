@@ -7,17 +7,26 @@
 <title>Insert title here</title>
 
 </head>
+<style>
+th, td {
+	padding: 5px;
+}
+</style>
 <body>
 	<h2>공통 코드 관리</h2>
 	<table style="margin-bottom: 10px;">
 		<tbody>
 			<tr>
 				<th>그룹코드 이름 검색</th>
-				<td><input type="text" id="inputName" name="inputName">
-				<button id="btnSearch" style="float: right;">검색</button></td>
+				<td><input type="text" id="inputName" name="inputName"></td>
+				<td>
+					<button id="btnSearch" style="float: right;">검색</button>
+				</td>
 			</tr>
 		</tbody>
 	</table>
+	<hr>	
+	<br>
 	<div class="flex row">
 
 		<div id="codeIdGrid" class="col-sm-5"></div>

@@ -45,7 +45,8 @@ th, td {
 			</tbody>
 		</table>
 	</div>
-
+	<hr>
+	<br>
 	<div id="vendCodeGrid" style="width: 100%"></div>
 
 	<script>
@@ -71,7 +72,7 @@ var vendCodeGrid = new Grid({
 	},
 	rowHeaders: ['rowNum'],
 	selectionUnit: 'row',
-	bodyHeight : 500,
+	bodyHeight : 550,
 	columns:[
 			{
 			  header: '거래처 코드',

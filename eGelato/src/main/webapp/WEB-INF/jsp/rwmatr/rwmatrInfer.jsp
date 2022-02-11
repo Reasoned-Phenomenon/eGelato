@@ -36,8 +36,7 @@ th, td {
 							<th>불량코드</th>
 							<td><input type="text" id="inferId">
 							<button type="button" id="inferIdM" class="btn-modal" style="margin-left:0px;"></button>
-								<input type="text" id="inferContent" placeholder="불량상세내용"
-								readonly="readonly"></td>
+								<input type="text" id="inferContent" readonly></td>
 						</tr>
 						<tr>
 							<th>검사일자</th>
@@ -149,7 +148,6 @@ var rwmatrInferList = new Grid({
 		  {
 		    header: '검사일자',
 		    name: 'dt',
-			editor: 'datePicker',
 		    sortable: true
 		  },
 		  {

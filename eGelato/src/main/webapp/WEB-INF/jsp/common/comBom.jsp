@@ -8,9 +8,13 @@
 <meta charset="UTF-8">
 <title>BOM 코드 관리 페이지</title>
 </head>
+<style>
+th, td {
+	padding: 5px;
+}
+</style>
 <body>
 	<h2>BOM 코드 관리</h2>
-
 	<form>
 		<table>
 			<tbody>

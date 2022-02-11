@@ -12,90 +12,91 @@
 th, td {
 	padding: 5px;
 }
-.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
-    color: #ffffff;
-    text-decoration: none;
-    background: black;
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited
+	{
+	color: #ffffff;
+	text-decoration: none;
+	background: black;
 }
 </style>
 <body>
 
-<div>
-	<br>
-	<h2 id="title">완제품 입/출고조회</h2>
-	<br>
-</div>
-
-<div id="tabs">
-
-	<ul>
-		<li><a href="#eprdtIst">입고 조회</a></li>
-		<li><a href="#eprdtOust">출고 조회</a></li>
-	</ul>
-	
-	
-	<div id="eprdtIst">
-		<div style="margin: 20px;">
-		
-			<div>
-				<form id="eprdtI">
-				    <table>
-				        <tbody>
-				            <tr>
-				                <th>제품명</th>
-				                <td><input type="text" id="prdtNmI"></td>
-				            </tr>
-				            <tr>
-				                <th>입고일자</th>
-				                <td><input type="date" id="startDateI"> ~ <input type="date" id="endDateI"></td>
-				                <td><button type="button" id="btnFindI">조회</button></td>
-				                <td><button type="reset">초기화</button></td>
-				            </tr>
-				        </tbody>
-				    </table>
-			    </form>
-			</div>
-		
-		</div>
-		<div id="eprdtIstGrid"></div> <br>
+	<div>
+		<h2 id="title">완제품 입/출고조회</h2>
 	</div>
-	
-	<div id="eprdtOust">
-		<div style="margin: 20px;">
-			<div>
-				<form id="eprdtO">
-				    <table>
-				        <tbody>
-				            <tr>
-				                <th>제품명</th>
-				                <td><input type="text" id="prdtNmO"></td>
-				            </tr>
-				            <tr>
-				                <th>출고일자</th>
-				                <td><input type="date" id="startDateO"> ~ <input type="date" id="endDateO"></td>
-				                <td><button type="button" id="btnFindO">조회</button></td>
-				                <td><button type="reset">초기화</button></td>
-				            </tr>
-				        </tbody>
-				    </table>
-			    </form>
+
+	<div id="tabs">
+
+		<ul>
+			<li><a href="#eprdtIst">입고 조회</a></li>
+			<li><a href="#eprdtOust">출고 조회</a></li>
+		</ul>
+
+
+		<div id="eprdtIst">
+			<div style="margin: 20px;">
+				<div>
+					<form id="eprdtI">
+						<table>
+							<tbody>
+								<tr>
+									<th>제품명</th>
+									<td><input type="text" id="prdtNmI"></td>
+								</tr>
+								<tr>
+									<th>입고일자</th>
+									<td><input type="date" id="startDateI"> ~ <input
+										type="date" id="endDateI"></td>
+									<td><button type="button" id="btnFindI">조회</button></td>
+									<td><button type="reset">초기화</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
 			</div>
+			<div id="eprdtIstGrid"></div>
+			<br>
 		</div>
-		<div id="eprdtOustGrid"></div> <br>
+
+		<div id="eprdtOust">
+			<div style="margin: 20px;">
+				<div>
+					<form id="eprdtO">
+						<table>
+							<tbody>
+								<tr>
+									<th>제품명</th>
+									<td><input type="text" id="prdtNmO"></td>
+								</tr>
+								<tr>
+									<th>출고일자</th>
+									<td><input type="date" id="startDateO"> ~ <input
+										type="date" id="endDateO"></td>
+									<td><button type="button" id="btnFindO">조회</button></td>
+									<td><button type="reset">초기화</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+			<div id="eprdtOustGrid"></div>
+		</div>
+
 	</div>
-	
-</div>
 
-<!-- 모달창 -->
-<div id="eprdtDialogFrm" title="제품 목록"></div>
+	<!-- 모달창 -->
+	<div id="eprdtDialogFrm" title="제품 목록"></div>
 
-<!-- 제품 입고 -->
-<div id="eprdtIstGrid"></div>
+	<!-- 제품 입고 -->
+	<div id="eprdtIstGrid"></div>
 
-<!-- 제품 출고 -->
-<div id="eprdtOustGrid"></div>
+	<!-- 제품 출고 -->
+	<div id="eprdtOustGrid"></div>
 
-<script>
+	<script>
 //탭 생성
 $( "#tabs" ).tabs();
 

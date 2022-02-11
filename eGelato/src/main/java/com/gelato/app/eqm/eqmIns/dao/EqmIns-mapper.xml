@@ -9,7 +9,7 @@
 			    E.CHCK_PERD ||'일' AS CHCK_PERD,
 			    F_COM_CODE_TO_NM(E.FG) AS FG,
 			    C.CHCK_DT AS CHCK_DT,
-			    f_com_code_to_nm(upper(C.JUDT)) AS JUDT,
+			    F_COM_CODE_TO_NM(upper(C.JUDT)) AS JUDT,
 			    C.CHCK_DETA AS CHCK_DETA,
 			    (C.CHCK_DT+E.CHCK_PERD) AS NM_CK_DT,
 			    C.INSPR
@@ -29,7 +29,7 @@
 				 	OR TRUNC(C.CHCK_DT) IS NULL
 				 </if>
 			 </where>
-			 order by C.CHCK_DT asc
+			 ORDER BY C.CHCK_DT 
 	</select>
 	
 	<select id="eqmInsList" resultType="EqmInsVO">

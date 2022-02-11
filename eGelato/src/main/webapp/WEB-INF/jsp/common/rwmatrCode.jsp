@@ -18,11 +18,13 @@ th, td {
 		<div class="flex row">
 			<div class="col-7">
 				<h2>자재 코드 관리</h2>
+				<hr>
+				<br>
 				<div align="right"></div>
 				<div id="rwmatrGrid" style="width: 100%"></div>
 			</div>
 			<div class="col-5">
-				<table class="table table-bbs" style="margin-top: 70%;">
+				<table class="table table-bbs" style="margin-top: 75%;">
 					<tbody>
 						<tr>
 							<th>자재코드</th>
@@ -34,8 +36,8 @@ th, td {
 						<tr>
 							<th>규격*</th>
 							<td><select id="spec" name="spec">
-								<option value="SPEC01">10KG</option>
-								<option value="SPEC02">30KG</option>
+									<option value="SPEC01">10KG</option>
+									<option value="SPEC02">30KG</option>
 							</select></td>
 
 							<th>작업 단위*</th>
@@ -48,10 +50,11 @@ th, td {
 						</tr>
 						<tr>
 							<th>입고 업체*</th>
-							<td colspan="3"><input type="text" id="vendId" name="vendId" readonly>
+							<td colspan="3"><input type="text" id="vendId" name="vendId"
+								readonly>
 								<button type="button" id="serachVendIdBtn" class="btn-modal"></button>
 								<input type="text" id="vendName" name="vendName"
-								placeholder="업체명" style="width:70px;" readonly></td>
+								placeholder="업체명" style="width: 70px;" readonly></td>
 						</tr>
 						<tr>
 							<th>제품 구분*</th>
@@ -77,6 +80,7 @@ th, td {
 			</div>
 		</div>
 	</div>
+
 	<div id="vendModal" title="거래처 코드 목록"></div>
 
 

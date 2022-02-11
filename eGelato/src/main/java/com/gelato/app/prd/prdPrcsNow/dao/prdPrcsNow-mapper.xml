@@ -95,7 +95,7 @@
 				and ic.infer_id = #{inferId}
 			</if>
 		</where>
-		order by pi.indica_deta_id, prcs_now_id
+		order by pn.fr_tm, pi.indica_deta_id, prcs_now_id
 	</select>
 	
 <!-- 불량 출력 모달 -->

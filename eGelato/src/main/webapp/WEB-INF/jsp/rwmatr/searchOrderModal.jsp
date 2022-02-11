@@ -18,6 +18,11 @@ h1 {
 	<h1>검사예정 목록</h1>
 	<br>
 	<div id="orderDetailListGrid" style="width: 100%"></div>
+	<br>
+	<div style="text-align: center;">
+		<button type="button" class="btn btn-secondary" id="btnchoose">확인</button>
+		<button type="button" class="btn btn-secondary" id="btnExit">취소</button>
+	</div>
 	
 <script>
 var Grid = tui.Grid;
@@ -38,7 +43,7 @@ var orderDetailListGrid = new Grid({
 	  },
 	  contentType: 'application/json'
 	},
-  	rowHeaders:['rowNum'],
+  	rowHeaders:['rowNum','checkbox'],
   	bodyHeight: 235,
   	selectionUnit: 'row',
   	columns:[
@@ -77,35 +82,25 @@ var orderDetailListGrid = new Grid({
 });
 
 
-//커스텀 이벤트
-orderDetailListGrid.on('dblclick', (ev) => {	
+$("#btnchoose").on("click", (ev) => {	
 	
-	//cell 선택시 row 선택됨.
-	orderDetailListGrid.setSelectionRange({
-	      start: [ev.rowKey, 0],
-	      end: [ev.rowKey, orderDetailListGrid.getColumns().length-1]
-	  });
+	let oList = orderDetailListGrid.getCheckedRows();
 	
-	//검사할 자재주문 중복선택 방지
-	let rowLength = rwmatrIstInspList.findRows({
-		rwmatrOrderDetaId: orderDetailListGrid.getRow(ev.rowKey).rwmatrOrderDetaId
-	}).length;
+	for(let i=0; i < oList.length; i++) {
+		rwmatrIstInspList.prependRow({'rwmatrOrderDetaId':oList[i].rwmatrOrderDetaId, 
+									  'rwmatrId':oList[i].rwmatrId, 
+									  'nm':oList[i].nm,
+									  'qy':oList[i].qy});
+	}
 	
-	if(rowLength > 0) {
-		console.log("중복체크")
-		//toastr
-		toastr.clear()
-		toastr.success( ('이미 선택한 주문입니다.'),'Gelato',{timeOut:'1800'} );
-		return;
-		
-	} /* else {
-		selectList.push(orderDetailListGrid.getRow(ev.rowKey).rwmatrOrderDetaId);
-	} */
+	orderDialogFrm.dialog( "close" );
 	
-	
-	getOrderData(orderDetailListGrid.getRow(ev.rowKey));
 });
 
+$("#btnExit").on("click", function(){
+	orderDialogFrm.dialog( "close" );
+	
+});
 </script>
 </body>
 </html>

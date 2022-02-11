@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.gelato.app.prd.prdLine.dao.PrdLineMngMapper;
 import com.gelato.app.prd.prdLine.dao.PrdLineMngVO;
 import com.gelato.app.prd.prdLine.service.PrdLineMngService;
+import com.gelato.app.prd.prdPrcs.dao.PrdPrcsMngVO;
 import com.gelato.app.vr.ModifyVO;
 
 @Service
@@ -74,5 +75,11 @@ public class PrdLineMngServiceImpl implements PrdLineMngService{
 	public List<PrdLineMngVO> prdtMoveInfo(PrdLineMngVO vo) {
 		System.out.println("공정이동표");
 		return plMapper.prdtMoveInfo(vo);
+	}
+
+	@Override
+	public List<PrdPrcsMngVO> prdtPrcsMoveInfo(PrdPrcsMngVO vo) {
+		System.out.println("공정정보");
+		return plMapper.prdtPrcsMoveInfo(vo);
 	}
 }

@@ -84,8 +84,6 @@ $("#btnchoose").on("click", function(){
 			
 	console.log(rwmatrPassListGrid.getCheckedRows());
 	
-	let rwmatrIst = rwmatrIstList.getData();
-	
 	let oust = rwmatrPassListGrid.getCheckedRows();
 	console.log(oust);
 	

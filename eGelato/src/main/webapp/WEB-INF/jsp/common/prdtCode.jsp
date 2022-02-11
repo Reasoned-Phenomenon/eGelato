@@ -24,15 +24,18 @@ th, td {
 				</tr>
 				<tr>
 					<th>규격*</th>
-					<td><select  id="spec" name="spec">
-						<option value="SPEC01">10KG</option>
-						<option value="SPEC02">30KG</option>
+					<td><select id="spec" name="spec">
+							<option value="SPEC01">10KG</option>
+							<option value="SPEC02">30KG</option>
 					</select></td>
 					<th>단위*</th>
 					<td><select id="unit" name="unit">
+
 						<option value="UNIT01">EA</option>
 						<option value="UNIT02">BOX</option>
 						<option value="UNIT03">BUNDEL</option>
+
+
 					</select></td>
 					<th>안전재고*</th>
 					<td><input type="text" id="safStc" name="safStc"></td>
@@ -43,6 +46,8 @@ th, td {
 			</tbody>
 		</table>
 	</div>
+	<hr>
+	<br>
 
 	<div id="prdtCodeGrid"></div>
 
