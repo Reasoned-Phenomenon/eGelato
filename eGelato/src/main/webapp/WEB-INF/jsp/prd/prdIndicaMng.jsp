@@ -85,7 +85,7 @@
 	let rwn;
 	let rwq;
 	
-	let idi;
+	let idi, leftQy;
 	
 	let list1 = [];
 	let list2 = [];
@@ -399,6 +399,8 @@
 		console.log(pdq);
 		countDi = planDetaGrid.getRow(ev.rowKey).countDi;
 		console.log(countDi);
+		leftQy = parseInt(planDetaGrid.getRow(ev.rowKey).leftQy);
+		console.log(leftQy);
 		
 		var obj = {};
 		obj["planDetaId"] = pdi;
@@ -476,9 +478,21 @@
 		idi = planIndicaGrid.getRow(ev3.rowKey).indicaDetaId;
 		console.log(idi);
 		
-		if(piq == '') {
+		if(pid == '') {
+			toastr.clear()
+			toastr.success( ('지시일자를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+		} else if (piq == '') {
 			toastr.clear()
 			toastr.success( ('작업수량을 입력해주세요.'),'Gelato',{timeOut:'1000'});
+		} else if (parseInt(piq) > parseInt()) {
+			toastr.clear()
+			toastr.warning( ('작업수량이 너무 많습니다.'),'Gelato',{timeOut:'1000'});
+		} else if (parseInt(piq) > leftQy) {
+			toastr.clear()
+			toastr.warning( ('작업수량이 너무 많습니다.'),'Gelato',{timeOut:'1000'});
+		} else if (pio == '') {
+			toastr.clear()
+			toastr.success( ('일자별 우선순위를 입력해주세요.'),'Gelato',{timeOut:'1000'});
 		} else {
 			RwmatrGrid.readData(1,{'lineId':pil, 'qy':piq , 'planDetaId':pdi }, true);
 			
