@@ -20,6 +20,7 @@
 </style>
 </head>
 <body>
+<img src="${path}/resources/images/main.jpg" style="width:100%; height:670px; padding:-15px;">
 <br>
 <br>
 <br>
