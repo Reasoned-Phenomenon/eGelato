@@ -182,7 +182,6 @@ th, td {
 				header : '비고',
 				name : 'remk',
 				align : 'center'
-
 			} ]
 		});
 

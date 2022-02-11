@@ -83,11 +83,13 @@ var vendCodeGrid = new Grid({
 			},
 			{
 			  header: '사업자 등록번호',
-			  name: 'bizno'
+			  name: 'bizno',
+			  align: 'right'
 			},
 			{
 			  header: '전화 번호',
-			  name: 'telno'    
+			  name: 'telno',
+			  align: 'right'
 			},
 			{
 			  header: '비 고',
