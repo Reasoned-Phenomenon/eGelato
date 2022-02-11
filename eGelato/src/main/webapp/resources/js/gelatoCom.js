@@ -78,10 +78,6 @@ class GelatoSelect {
 		el.append(opt);
 	}
 	
-	el.addEventListener('click',function (ev) {
-		ev.stopPropagation();
-	})
-	
     this.el = el;
   }
 
@@ -117,10 +113,6 @@ class GelatoSelectEditor {
 	}
 	
 	el.append(select);
-	
-	select.addEventListener('click',function (ev) {
-		ev.stopPropagation();
-	})
 	
 	el.align = 'center'
 	

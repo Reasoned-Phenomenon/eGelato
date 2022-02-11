@@ -241,6 +241,23 @@
 								console.log("일 관리점검 모달 로드됨");
 							})
 				})
+		
+	let evFlag = 'o';
+	
+	eqmInsGrid.on('click',function (ev) {
+		
+		if(evFlag == 'o' && ev.columnName =='judt') {
+			eqmInsGrid.startEditing(ev.rowKey, 'judt', false)
+			evFlag = 'x'
+		}
+		
+	})	
+	
+	eqmInsGrid.on('editingFinish',function (ev) { 
+		evFlag = 'o'
+	})
+	
+		
 	</script>
 </body>
 </html>
