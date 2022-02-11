@@ -222,7 +222,7 @@ var rwmatrIstInspList = new Grid({
 let orderDialogFrm = $( "#orderDialogFrm" ).dialog({
 	  modal:true,
 	  autoOpen:false,
-      height: 400,
+      height: 470,
       width: 600,
       modal: true
 }); 
@@ -301,10 +301,7 @@ function callEmpModal() {
 		console.log(ev)
 		console.log(ev.columnName)
 		console.log(ev.rowKey)
-	    if (ev.columnName === 'rwmatrOrderDetaId') {
-			console.log("발주디테일리스트")
-    		callModal();
-		} else if(ev.columnName === 'inferId') {
+	    if(ev.columnName === 'inferId') {
 			if(rwmatrIstInspList.getValue(rk, "rwmatrOrderDetaId") == '') {
 				//toastr
 				toastr.clear()
@@ -447,7 +444,7 @@ function callEmpModal() {
 	
 	//추가
 	btnAdd.addEventListener("click", function(){
-		rwmatrIstInspList.prependRow();
+		callModal();
 	});
 	
 	//삭제
