@@ -7,11 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>원자재 발주조회</title>
-<!-- <link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
-<script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
-<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script> -->
 </head>
 <style>
 th, td {
@@ -73,7 +68,6 @@ th, td {
 	<div id="rwmatrDialogFrm" title="원자재 목록"></div>
 	<div id="vendDialogFrm" title="업체 목록"></div>
 
-
 	<script>
 var Grid = tui.Grid;
 
@@ -84,7 +78,7 @@ let flag;
 let ig;
 
 //모달에서 선택한 rowKey값 세팅
-let rk = '';
+let rk = '-1';
 
 //검색 조건
 var orderId;
@@ -249,7 +243,8 @@ var rwmatrOrderList = new Grid({
 
 
 rwmatrOrderMasterList.on('click', (ev) => {	
-	console.log(ev)
+	rk = ev.rowKey;
+	console.log(rk)
 	//cell 선택시 row 선택됨.
 	rwmatrOrderMasterList.setSelectionRange({
 	      start: [ev.rowKey, 0],
@@ -266,7 +261,7 @@ rwmatrOrderMasterList.on('click', (ev) => {
 let rwmatrDialogFrm = $( "#rwmatrDialogFrm" ).dialog({
 	  modal:true,
 	  autoOpen:false,
-      height: 500,
+      height: 550,
       width: 600,
       modal: true
 });
@@ -342,6 +337,13 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 	
 	//발주디테일 조회
 	btnFindS.addEventListener("click", function(){
+		console.log(rk);
+		if(rk === '-1') {
+			toastr.clear()
+			toastr.warning( ("발주를 선택해주세요."),'Gelato',{timeOut:'1500'} );
+			return;
+		}
+		
 		rwmName = document.getElementById("rwmName").value;
 		vendName = document.getElementById("vendName").value;
 		console.log(startDate);

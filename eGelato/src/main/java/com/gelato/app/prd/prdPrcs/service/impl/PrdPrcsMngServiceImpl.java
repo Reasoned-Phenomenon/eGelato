@@ -103,8 +103,13 @@ public class PrdPrcsMngServiceImpl implements PrdPrcsMngService{
 		
 		//정지 시킬 잡 FOR문 + prcs_st
 		//
+		String jname = "JOB_" + vo.getPrcsNowId().substring(0,3) 
+						+ vo.getPrcsNowId().substring(4,7)
+						+ vo.getPrcsNowId().substring(8);
+		
+		
+		vo.setJobName(jname);
 		mapper.stopJob(vo);
-		//
 		
 		return null;
 	}
@@ -113,9 +118,14 @@ public class PrdPrcsMngServiceImpl implements PrdPrcsMngService{
 	public String restartSche(PrdPrcsMngVO vo) {
 		
 		//시작시킬 잡 FOR문
-		mapper.startJob(vo);
+		
 		//
+		String jname = "JOB_" + vo.getPrcsNowId().substring(0,3) 
+				+ vo.getPrcsNowId().substring(4,7)
+				+ vo.getPrcsNowId().substring(8);
+		vo.setJobName(jname);
 				
+		mapper.startJob(vo);
 		return null;
 	}
 

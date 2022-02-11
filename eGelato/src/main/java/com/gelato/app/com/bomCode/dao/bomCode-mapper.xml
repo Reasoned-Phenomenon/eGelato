@@ -5,9 +5,16 @@
 	<!-- BOM 전체 조회.-->
 	
 	<select id="findBomList" resultType="BomCodeVO">
-		SELECT  a.bom_id, a.prdt_id, a.rwmatr_id, a.qy, a.prcs_id, a.fg, a.remk, a.use_yn,
-                b.nm,
-                c.nm as prcsNm
+		SELECT  f_com_code_to_nm(a.fg) AS fg,
+		        a.bom_id AS bom_id, 
+		        a.prdt_id AS prdt_id, 
+		        a.rwmatr_id AS rwmatr_id, 
+		        a.qy AS qy, 
+		        a.prcs_id AS prcs_id,  
+		        a.remk AS remk, 
+		        a.use_yn AS use_yn,
+                b.nm AS nm,
+                c.nm AS prcsNm
 		FROM bom a 
 		JOIN rwmatr b
 		ON a.rwmatr_id = b.rwmatr_id
@@ -23,8 +30,8 @@
 		    <if test="useYn !=null and useYn !=''">
 				and a.use_yn = #{useYn}
 			</if>
-			
-		</where>    
+		</where>   
+		ORDER BY  prcs_id
 	</select>
 
 	<!-- BOM 등록 -->
@@ -52,7 +59,7 @@
 			     			#{rwmatrId},
 			     			#{qy},
 			     			#{prcsId},
-			     			#{fg},
+			     			f_com_nm_to_code(#{fg}),
 			     			#{remk},
 			     			#{useYn}			     			
 			     )      
@@ -69,26 +76,34 @@
         FROM   bom a
         JOIN   rwmatr b
         ON     a.rwmatr_id = b.rwmatr_id
-        JOIN vend c 
-        ON b.vend_id = c.vend_id 
-        JOIN prdt d
-        ON a.prdt_id = d.prdt_id
-       
+        JOIN   vend c 
+        ON     b.vend_id = c.vend_id 
+        JOIN   prdt d
+        ON     a.prdt_id = d.prdt_id
+  ORDER BY     prdt_id ASC
 		
 	</select>
 	
 	<!-- 그리드 셀에서 클릭시 조회되는 원자재 코드 검색 modal. -->
 	<select id="rwmatrCodeList" resultType="BomCodeVO">
-		SELECT rwmatr_id, nm
-		FROM   rwmatr
-	
+		SELECT   rwmatr_id, nm
+		FROM     rwmatr
+	    ORDER BY rwmatr_id
 	</select>
 	
 	<!-- 그리드셀에서 클릭시 조회되는 공정코드 검색 modal. -->
+	<!-- 제품공정흐름도에 맞는 공정만 선택할 수 있도록-->
 	<select id ="prcsCodeList" resultType="BomCodeVO">
-		SELECT prcs_id, nm as prcsNm
-		FROM prcs
-	
+		SELECT  A.PRCS_ID AS PRCS_ID,
+		        A.NM AS NM,
+		        B.LINE_ID AS LINE_ID,
+		        B.ORD AS ORD,
+		        B.PRDT_ID AS PRDT_ID
+		FROM PRCS A
+		JOIN  LINE B
+		ON    A.PRCS_ID = B.PRCS_ID
+		WHERE B.PRDT_ID =#{prdtId}
+	ORDER BY ORD
 	</select>
 	
 	<update id="updateBomCode" parameterType="BomCodeVO" >
@@ -96,7 +111,7 @@
 	     SET   RWMATR_ID = #{rwmatrId},
 	     	   QY = #{qy},
 	     	   PRCS_ID = #{prcsId},
-	     	   FG = #{fg},
+	     	   FG = f_com_nm_to_code(#{fg}),
 	     	   REMK = #{remk}, 
 	           USE_YN = #{useYn}
 	          

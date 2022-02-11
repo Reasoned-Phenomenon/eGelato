@@ -26,7 +26,7 @@ th, td {
 						<th>공정구분</th>
 						<td>
 							<select name="prcsSelDeta" id="prcsSelDeta">
-								<option value="" selected>선택</option>
+								<option value="" selected>전체</option>
 								<option value="FREZ">냉동공정</option>
 								<option value="SHAP">성형공정</option>
 								<option value="BLEN">혼합공정</option>
@@ -61,6 +61,9 @@ th, td {
 	<div id="eqmDialog" title="미사용 설비 목록"></div>
 	
 <script>
+	//modify구분하기위한 변수
+	let flag;
+
 	//계획 조회 그리드 생성
 		var Grid = tui.Grid;
 	
@@ -222,6 +225,16 @@ th, td {
 			timeOut: 1500 // null 입력시 무제한.
 		}
 	
+	// 컨트롤러 응답
+	prcsMngList.on('response', function (ev2) {
+		console.log(ev2)
+		if(flag == 'O') {
+			prcsMngList.readData(1);
+			flag = 'X';
+		}
+		//rwmatrOrderList.resetOriginData();
+	});
+	
 	// 행삭제
 	btnDel.addEventListener("click", function() {
 		if(confirm("삭제하시겠습니까?")){ 
@@ -230,6 +243,8 @@ th, td {
 			
 			toastr.clear()
 			toastr.success( ('삭제되었습니다.'),'Gelato',{timeOut:'1000'} );
+			
+			flag == 'O';
 		}
 	});
 	
@@ -241,6 +256,7 @@ th, td {
 			
 			toastr.clear()
 			toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} )
+			
 		}
 	})
 	

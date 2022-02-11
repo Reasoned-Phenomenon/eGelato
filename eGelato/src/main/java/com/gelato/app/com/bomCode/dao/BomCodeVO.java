@@ -23,4 +23,9 @@ public class BomCodeVO {
 		String vendName;       // 업체명.
 		String prdtNm;		  // 완제품 명.
 		String prcsNm;		  // 공정 명.
+		
+		// 
+		String lineId; 
+		String ord;
+		
 }

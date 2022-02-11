@@ -17,17 +17,24 @@ th, td {
 		<table style="margin-bottom: 10px;">
 			<tbody>
 				<tr>
-					<th>완제품 코드*</th>
+					<th>완제품 코드</th>
 					<td><input type="text" id="prdtId" name="prdtId" readonly></td>
 					<th>제품명*</th>
 					<td><input type="text" id="prdtNm" name="prdtNm"></td>
 				</tr>
 				<tr>
-					<th>규격</th>
-					<td><input type="text" id="spec" name="spec"></td>
-					<th>단위</th>
-					<td><input type="text" id="unit" name="unit"></td>
-					<th>안전재고</th>
+					<th>규격*</th>
+					<td><select  id="spec" name="spec">
+						<option value="SPEC01">10KG</option>
+						<option value="SPEC02">30KG</option>
+					</select></td>
+					<th>단위*</th>
+					<td><select id="unit" name="unit">
+						<option value="EA">EA</option>
+						<option value="BOX">BOX</option>
+						<option value="BUNDEL">BUNDEL</option>
+					</select></td>
+					<th>안전재고*</th>
 					<td><input type="text" id="safStc" name="safStc"></td>
 					<td><button type="button" id="reset">초기화</button>
 						<button type="button" id="SearchBtn">조회</button>
@@ -57,9 +64,7 @@ var prdtCodeGrid = new Grid({
 	    readData: 	{ url: '${path}/com/prdtCodeList.do', method: 'GET'},
 	   // modifyData : { url: '${path}/com/prdtCodeModifyData.do', method: 'PUT'}
 	  },
-	  contentType: 'application/json',
-	  initialRequest: false
-
+	  contentType: 'application/json'
 	},
 	
 	rowHeaders: ['rowNum'],
@@ -68,37 +73,24 @@ var prdtCodeGrid = new Grid({
 	columns:[
 			{
 			  header: '완제품 코드',
-			  name: 'prdtId',
-			  align: 'center'
-		      
+			  name: 'prdtId'
 			},
 			{
 			  header: '제품명',
-			  name: 'prdtNm',
-			  align: 'center',
-		      editor:'text'
-	          
+			  name: 'prdtNm'
 			},
 			{
 			  header: '규격',
-			  name: 'spec',
-			  align: 'center',
-		      editor:'text'
-		      
+			  name: 'spec'
 			},
 			{
 			  header: '단위',
-			  name: 'unit',
-			  align: 'center',
-		      editor:'text'
-			      
+			  name: 'unit'
 			},
 			{
 			  header: '안전 재고',
 			  name: 'safStc',
-			  align: 'center',
-		      editor:'text'
-				      
+			  align: 'right'
 			}
 
 		]

@@ -162,7 +162,7 @@ var rwmatrIstGrid = new Grid({
 	},
 	rowHeaders:['rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 500,
+	bodyHeight: 470,
 	width:1500,
 	columns:[
 				{
@@ -231,7 +231,7 @@ var rwmatrOustGrid = new Grid({
 	},
 	rowHeaders:['rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 550,
+	bodyHeight: 470,
 	width:1500,
 	columns:[
 			    {
@@ -313,7 +313,7 @@ var rwmatrOustGrid = new Grid({
 let rwmatrDialogFrm = $( "#rwmatrDialogFrm" ).dialog({
 	  modal:true,
 	  autoOpen:false,
-      height: 500,
+      height: 550,
       width: 600,
       modal: true
 });

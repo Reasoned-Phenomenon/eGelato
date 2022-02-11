@@ -5,12 +5,13 @@
 <!-- vend 전체 조회. -->
 
 <select id="vendCodeList" resultType="VendCodeVO">
-	SELECT   VEND_ID,
-	         VEND_NAME,
-	         BIZNO, 
-             TELNO,
-             REMK,
-             FG
+	SELECT   f_com_code_to_nm(FG) AS FG,
+	         VEND_ID AS VEND_ID,
+	         VEND_NAME AS VEND_NAME,
+	         BIZNO AS BIZNO, 
+             TELNO AS TELNO,
+             REMK AS REMK 
+             
 	  FROM  VEND
 	   <where>
 	  	<if test="vendId !=null and vendId != ''">
@@ -40,7 +41,7 @@
 	           			#{bizno},
 	           			#{telno},
 	           			#{remk},
-	           			#{fg}
+	           			f_com_nm_to_code(#{fg})
 	           )        
  
 </insert>
@@ -53,10 +54,9 @@
  	   	   BIZNO = #{bizno},
  	   	   TELNO = #{telno},
  	   	   REMK = #{remk},
- 	   	   FG = #{fg}
+ 	   	   FG = f_com_nm_to_code(#{fg})
  	   	   
  	   WHERE VEND_ID = #{vendId}	   
 </update>
-
 
 </mapper>

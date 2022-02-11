@@ -32,36 +32,38 @@ th, td {
 							<td><input type="text" id="nm" name="nm"></td>
 						</tr>
 						<tr>
-							<th>규격</th>
-							<td><input type="text" id="spec" name="spec"></td>
+							<th>규격*</th>
+							<td><select id="spec" name="spec">
+								<option value="SPEC01">10KG</option>
+								<option value="SPEC02">30KG</option>
+							</select></td>
 
-							<th>작업 단위</th>
+							<th>작업 단위*</th>
 							<td><select id="wkUnit" name="wkUnit">
-									<option value=""></option>
-									<option value=""></option>
-									<option value=""></option>
+									<option value="EA">EA</option>
+									<option value="BOX">BOX</option>
+									<option value="BUNDEL">BUNDEL</option>
 							</select></td>
 
 						</tr>
 						<tr>
-							<th>입고 업체</th>
-							<td colspan="3"><input type="text" id="vendId" name="vendId">
+							<th>입고 업체*</th>
+							<td colspan="3"><input type="text" id="vendId" name="vendId" readonly>
 								<button type="button" id="serachVendIdBtn" class="btn-modal"></button>
 								<input type="text" id="vendName" name="vendName"
 								placeholder="업체명" style="width:70px;" readonly></td>
 						</tr>
 						<tr>
-							<th>제품 구분</th>
+							<th>제품 구분*</th>
 							<td><select id="fg" name="fg">
-
 									<option value="STEP01" selected>원자재</option>
 									<option value="STEP02">반제품</option>
-							</select>
-							<th>안전 재고</th>
+							</select></td>
+							<th>안전 재고*</th>
 							<td><input type="text" id="safStc" name="safStc"></td>
 						</tr>
 						<tr>
-							<th>사용유무</th>
+							<th>사용유무*</th>
 							<td><input type="checkbox" id="useYn" name="useYn" checked></td>
 						</tr>
 					</tbody>
@@ -124,9 +126,7 @@ var rwmatrGrid = new Grid({
 		   },
 		   {
 			  header: '작업 단위',
-			  name: 'wkUnit',
-			  hidden: true
-				      
+			  name: 'wkUnit'
 	       },
 	       {
 			  header: '안전 재고',
@@ -136,9 +136,7 @@ var rwmatrGrid = new Grid({
 		   },
 		   {
 			  header: '제품 구분',
-			  name: 'fg',
-			  hidden: true
-						      
+			  name: 'fg'    
 			},
 		   
 		]

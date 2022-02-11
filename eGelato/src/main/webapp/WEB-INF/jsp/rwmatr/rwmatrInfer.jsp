@@ -107,7 +107,7 @@ var rwmatrInferList = new Grid({
 	},
 	rowHeaders:['rowNum'],
   	selectionUnit: 'row',
-	bodyHeight: 600,
+	bodyHeight: 505,
 	columns:[
 		{
 		    header: '발주코드',
@@ -169,7 +169,7 @@ var rwmatrInferList = new Grid({
 let rwmatrDialogFrm = $( "#rwmatrDialogFrm" ).dialog({
 	  modal:true,
 	  autoOpen:false,
-      height: 500,
+      height: 550,
       width: 600,
       modal: true
 });

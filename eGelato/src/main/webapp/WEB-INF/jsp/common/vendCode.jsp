@@ -17,22 +17,27 @@ th, td {
 		<table>
 			<tbody>
 				<tr>
-					<th>거래처 코드*</th>
+					<th>거래처 코드</th>
 					<td><input type="text" id="vendId" name="vendId" readonly></td>
 					<th>거래처 명*</th>
 					<td><input type="text" id="vendName" name="vendName"></td>
 				</tr>
 				<tr>
-					<th>사업자 등록번호</th>
+					<th>사업자 등록번호*</th>
 					<td><input type="text" id="bizno" name="bizno"></td>
-					<th>전화번호</th>
+					<th>전화번호*</th>
 					<td><input type="text" id="telno" name="telno"></td>
 				</tr>
 				<tr>
-					<th>구분</th>
+					<th>비 고*</th>
 					<td><input type="text" id="remk" name="remk"></td>
-					<th>구분</th>
-					<td><input type="text" id="fg" name="fg"></td>
+					<th>구 분*</th>
+					<td><select id="fg" name="fg">
+						<option value="VEND01">구매처</option>
+						<option value="VEND02">판매처</option>
+						<option value="VEND03">거래처</option>
+						<option value="VEND04">설비구매처</option>
+					</select></td>
 					<td><button type="button" id="reset">초기화</button>
 						<button type="button" id="SearchBtn">조회</button>
 						<button type="button" id="SaveBtn">저장</button></td>
@@ -61,8 +66,8 @@ var vendCodeGrid = new Grid({
 	    readData: 	{ url: '${path}/com/vendCodeList.do', method: 'GET'},
 	   // modifyData : { url: '${path}/com/vendCodeModifyData.do', method: 'PUT'}
 	  },
-	  contentType: 'application/json',
-	  initialRequest: false
+	  contentType: 'application/json'
+	  
 	},
 	rowHeaders: ['rowNum'],
 	selectionUnit: 'row',
@@ -70,44 +75,29 @@ var vendCodeGrid = new Grid({
 	columns:[
 			{
 			  header: '거래처 코드',
-			  name: 'vendId',
-			  align: 'center'
-		      
+			  name: 'vendId'
 			},
 			{
 			  header: '거래처 명',
-			  name: 'vendName',
-			  align: 'center',
-		      editor:'text'
-	          
+			  name: 'vendName'
 			},
 			{
 			  header: '사업자 등록번호',
 			  name: 'bizno',
-			  align: 'center',
-		      editor:'text'
-		      
+			  align: 'right'
 			},
 			{
 			  header: '전화 번호',
 			  name: 'telno',
-			  align: 'center',
-		      editor:'text'
-			      
+			  align: 'right'
 			},
 			{
 			  header: '비 고',
-			  name: 'remk',
-			  align: 'center',
-		      editor:'text'
-				      
+			  name: 'remk'
 			},
 			{
 			  header: '구 분',
-			  name: 'fg',
-			  align: 'center',
-			  editor:'text'
-					      
+			  name: 'fg'
 			}
 
 		]

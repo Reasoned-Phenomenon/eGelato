@@ -33,6 +33,9 @@
 			<if test="vendName != '' and vendName != null">
 				AND V.VEND_NAME LIKE '%'||#{vendName}||'%'
 			</if>
+			<if test="orderId != '' and orderId != null">
+				AND RD.ORDER_ID LIKE '%'||#{orderId}||'%'
+			</if>
 		</where>
 		ORDER BY 1 DESC
 	</select>

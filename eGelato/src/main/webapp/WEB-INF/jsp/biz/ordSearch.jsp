@@ -40,8 +40,8 @@ th, td {
 					<tr>
 						<th>주문 일자</th>
 						<td><input type="date" id="startDt"
-							style="margin-right: 8px;"> ~ <input type="date"
-							id="endDt" style="margin-left: 8px;"></td>
+							style="margin-right: 8px;" required> ~ <input type="date"
+							id="endDt" style="margin-left: 8px;" required></td>
 					</tr>
 					<tr>
 						<th>납기 일자</th>
@@ -104,6 +104,20 @@ th, td {
 
 		let vendDialog;
 
+		// 주문서 관리 조회페이지에서 현재 날짜 기본 설정.
+		const d = new Date();
+		
+		const year = d.getFullYear(); // 년
+		const month = d.getMonth();   // 월
+		const day = d.getDate();      // 일
+		
+		document.getElementById('startDt').value = new Date(year, month, day -5 ).toISOString().substring(0,10);
+		document.getElementById('endDt').value = new Date().toISOString().substring(0, 10);
+		
+		document.getElementById('startedDt').value = new Date(year, month, day -5 ).toISOString().substring(0,10);
+		document.getElementById('endedDt').value = new Date().toISOString().substring(0, 10);
+		
+		
 		var Grid = tui.Grid;
 
 		//그리드 생성
@@ -168,10 +182,10 @@ th, td {
 				header : '비고',
 				name : 'remk',
 				align : 'center'
-
 			} ]
 		});
 
+		
 		// 조회 버튼. // 해당날짜 조회 // 거래처 조회 // 제품코드 조회// 진행구분 라디오로 조회 =>  mapper-xml에서 if로 조건으로 나눔.
 		$("#btnFind").on("click", function choicDate() {
 			var startDt = document.getElementById("startDt").value;

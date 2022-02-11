@@ -108,9 +108,9 @@ var rwmatrOustList = new Grid({
 	  contentType: 'application/json',
 	  initialRequest: false
 	},
-	rowHeaders: ['checkbox'],
+	rowHeaders: ['checkbox', 'rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 600,
+	bodyHeight: 540,
 	columns:[
 			    {
 			      header: '발주디테일코드',
@@ -170,7 +170,7 @@ var rwmatrOustList = new Grid({
 				  sortable: true
 				},
 				{
-				  header: '출고',
+				  header: '사유',
 				  name: 'remk',
 				  editor: 'text',
 				  sortable: true,
@@ -189,7 +189,7 @@ var rwmatrOustList = new Grid({
 let rwmatrDialogFrm = $( "#rwmatrDialogFrm" ).dialog({
 	  modal:true,
 	  autoOpen:false,
-      height: 500,
+      height: 550,
       width: 600,
       modal: true
 });
@@ -219,7 +219,7 @@ function callVendModal(){
 let rwmatrStcDialogFrm = $( "#rwmatrStcDialogFrm" ).dialog({
 	  modal:true,
 	  autoOpen:false,
-      height: 600,
+      height: 720,
       width: 1000,
       modal: true
 }); 
@@ -239,11 +239,7 @@ function callrwmatrStcModal(){
 		console.log(ev)
 		console.log(ev.columnName)
 		console.log(ev.rowKey)
-	    if (ev.columnName === 'lotNo') {
-			console.log("검수완료리스트")
-			ig = 'g';
-			callrwmatrStcModal();
-		} else if(ev.columnName === 'oustQy') {
+	    if(ev.columnName === 'oustQy') {
 			if(rwmatrOustList.getValue(rk, "lotNo") == '') {
 				//toastr
 				toastr.clear()
@@ -358,7 +354,7 @@ function callrwmatrStcModal(){
 	
 	//추가
 	btnAdd.addEventListener("click", function(){
-		rwmatrOustList.prependRow();
+		callrwmatrStcModal();
 	});
 	
 	//삭제
