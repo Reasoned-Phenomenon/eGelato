@@ -67,6 +67,7 @@ $("#selectDate").on(
 		  contentType: 'application/json',
 		},
 	  	rowHeaders:['rowNum'],
+	  	bodyHeight: 330,
 	  	selectionUnit: 'row',
 	  	columns:[
 	  		  {

@@ -15,7 +15,7 @@ th, td {
 </style>
 <body>
 	<h2>원자재 발주조회</h2>
-	<div class="flex row" style="margin-bottom:10px;">
+	<div class="flex row" style="margin-bottom: 10px;">
 		<div class="col-5">
 			<form action="">
 				<table>
@@ -38,11 +38,11 @@ th, td {
 						<tr>
 							<th>자재명</th>
 							<td><input type="text" id="rwmName">
-							<button type="button" id="rwmNameM" class="btn-modal"></button> <input
-								type="text" id="rwmId" readOnly></td>
+								<button type="button" id="rwmNameM" class="btn-modal"></button>
+								<input type="text" id="rwmId" readOnly></td>
 							<th>업체명</th>
 							<td><input type="text" id="vendName">
-							<button type="button" id="vendNameM" class="btn-modal"></button>
+								<button type="button" id="vendNameM" class="btn-modal"></button>
 								<input type="text" id="vendId" readOnly></td>
 							<td><button type="button" id="btnFindS">조회</button></td>
 							<td><button type="reset">초기화</button></td>
@@ -53,6 +53,8 @@ th, td {
 			</form>
 		</div>
 	</div>
+	<hr>
+	<br>
 
 	<div class="row">
 		<div class="col-sm-5">
@@ -114,7 +116,7 @@ var rwmatrOrderMasterList = new Grid({
 	},
 	rowHeaders:['rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 650,
+	bodyHeight: 600,
 	columns:[
 				{
 				  header: '발주코드',
@@ -140,7 +142,7 @@ var rwmatrOrderList = new Grid({
 	},
 	rowHeaders:['rowNum'],
 	selectionUnit: 'row',
-	bodyHeight: 650,
+	bodyHeight: 600,
 	columns:[
 				{
 				  header: '발주디테일코드',

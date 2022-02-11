@@ -13,11 +13,8 @@ th, td {
 
 </style>
 <body>
-
 	<div>
-		<br>
 		<h2 id="title">생산계획관리</h2>
-		<br>
 	</div>
 	<br>
 	<div id="tabs">
@@ -48,7 +45,7 @@ th, td {
 					</tr>
 				</tbody>
 			</table>
-			<div id="PlanDetaInsGrid"></div> <br>
+			<div id="PlanDetaInsGrid"></div>
 			<button type="button"  id="btnOrderSht">주문서조회</button>
 			<button type="button"  id="btnPlanIns">계획등록</button>
 			<button type="button"  id="btnAdd">행 추가</button>
