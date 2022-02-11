@@ -86,16 +86,24 @@
 	
 	<!-- 그리드 셀에서 클릭시 조회되는 원자재 코드 검색 modal. -->
 	<select id="rwmatrCodeList" resultType="BomCodeVO">
-		SELECT rwmatr_id, nm
-		FROM   rwmatr
+		SELECT   rwmatr_id, nm
+		FROM     rwmatr
 	    ORDER BY rwmatr_id
 	</select>
 	
 	<!-- 그리드셀에서 클릭시 조회되는 공정코드 검색 modal. -->
+	<!-- 제품공정흐름도에 맞는 공정만 선택할 수 있도록-->
 	<select id ="prcsCodeList" resultType="BomCodeVO">
-		SELECT prcs_id, nm as prcsNm
-		FROM prcs
-	ORDER BY prcs_id
+		SELECT  A.PRCS_ID AS PRCS_ID,
+		        A.NM AS NM,
+		        B.LINE_ID AS LINE_ID,
+		        B.ORD AS ORD,
+		        B.PRDT_ID AS PRDT_ID
+		FROM PRCS A
+		JOIN  LINE B
+		ON    A.PRCS_ID = B.PRCS_ID
+		WHERE B.PRDT_ID =#{prdtId}
+	ORDER BY ORD
 	</select>
 	
 	<update id="updateBomCode" parameterType="BomCodeVO" >

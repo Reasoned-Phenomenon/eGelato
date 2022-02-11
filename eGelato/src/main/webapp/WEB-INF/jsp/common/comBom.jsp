@@ -17,7 +17,7 @@
 				<tr>
 					<th>제품코드</th>
 					<td style="margin-right: 10px;"><input type="text" id="prdtId"
-						name="prdtId">
+						name="prdtId" readonly>
 						<button type="button" id="serachBtn" class="btn-modal"></button> <input
 						type="text" id="prdtNm" name="prdtNm" placeholder=" 제품명" readonly></td>
 					<th>사용여부</th>

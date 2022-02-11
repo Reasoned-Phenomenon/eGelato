@@ -56,10 +56,9 @@ th, td {
 						<tr>
 							<th>제품 구분*</th>
 							<td><select id="fg" name="fg">
-
 									<option value="STEP01" selected>원자재</option>
 									<option value="STEP02">반제품</option>
-							</select>
+							</select></td>
 							<th>안전 재고*</th>
 							<td><input type="text" id="safStc" name="safStc"></td>
 						</tr>
@@ -127,9 +126,7 @@ var rwmatrGrid = new Grid({
 		   },
 		   {
 			  header: '작업 단위',
-			  name: 'wkUnit',
-			  hidden: true
-				      
+			  name: 'wkUnit'
 	       },
 	       {
 			  header: '안전 재고',
@@ -139,9 +136,7 @@ var rwmatrGrid = new Grid({
 		   },
 		   {
 			  header: '제품 구분',
-			  name: 'fg',
-			  hidden: true
-						      
+			  name: 'fg'    
 			},
 		   
 		]

@@ -4,13 +4,14 @@
 	
 	<!-- rwmatr 전체 조회 -->
 	<select id="findRwmatrList" resultType="RwmatrCodeVO">
-		SELECT RWMATR_ID,
-               VEND_ID,
-               NM,
-               SPEC,
-               WK_UNIT,
-               SAF_STC,
-               FG
+		SELECT f_com_code_to_nm(FG) AS FG,
+			   f_com_code_to_nm(SPEC) AS SPEC,
+		       RWMATR_ID AS RWMATR_ID,
+               VEND_ID AS VEND_ID,
+               NM AS NM,
+               WK_UNIT AS WK_UNIT,
+               SAF_STC AS SAF_STC
+               
 		FROM   RWMATR 
         ORDER BY RWMATR_ID desc
 	</select>
@@ -44,10 +45,10 @@
 			     	#{rwmatrId},
 			     	#{vendId},
 			     	#{nm},
-			     	#{spec},
+			     	f_com_nm_to_code(#{spec}),
 			     	#{wkUnit},
 			     	#{safStc},
-			     	#{fg}		     			
+			     	f_com_nm_to_code(#{fg})		     			
 			     )      		
 	</insert>
 	
@@ -56,10 +57,11 @@
 	    SET 
 	    	VEND_ID = #{vendId},
 	    	NM = #{nm},
-	    	SPEC = #{spec},
+	    	SPEC = f_com_nm_to_code(#{spec}),
 	    	WK_UNIT = #{wkUnit},
 	    	SAF_STC = #{safStc},
-	    	FG = #{fg}
+	    	FG = f_com_nm_to_code(#{fg})
+	    	
 	  WHERE RWMATR_ID = #{rwmatrId}
 	
 	
