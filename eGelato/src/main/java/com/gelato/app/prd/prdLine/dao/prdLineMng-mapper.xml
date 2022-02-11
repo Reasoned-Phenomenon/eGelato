@@ -123,4 +123,31 @@
 		group by pid.indica_deta_id, pid.line_id, l.prdt_id, r.nm, pid.qy
 	</select>
 	
+<!-- 공정이동표에 공정정보 보내기 -->
+	<select id="prdtPrcsMoveInfo" resultType="com.gelato.app.prd.prdPrcs.dao.PrdPrcsMngVO">
+		select pn.prcs_now_id as prcs_now_id,
+		       pn.prcs_id as prcs_id,
+		       pr.nm as nm,
+		       e.eqm_id as eqm_id,
+		       e.eqm_name as eqm_name,
+		       e.mngr as mngr,
+		       pn.inpt_qy as inptQyT,
+		       sum(esn.infer_qy) as inferQyT,
+		       sum(esn.prod_qy) as prodQyT
+		from prod_indica_deta pid join PRCS_NOW PN
+		    ON pid.indica_deta_id = pn.indica_deta_id
+		    left outer JOIN PRCS PR
+		    ON pn.prcs_id = pr.prcs_id
+		    left outer JOIN EQM E
+		    ON pr.eqm_id = e.eqm_id
+		    JOIN eqm_st_now esn
+		    ON pr.eqm_id = esn.eqm_id
+		where pid.indica_deta_id = #{indicaDetaId}
+		    AND trunc(esn.log_tm) = (select indica_dt from prod_indica_deta
+                                    where indica_deta_id = #{indicaDetaId})
+		group by pid.indica_deta_id, pid.line_id, pid.qy,pn.prcs_now_id,pn.prcs_id,pr.nm,
+		        e.eqm_id,
+		       e.eqm_name,e.mngr,pn.inpt_qy
+		order by pn.prcs_now_id
+	</select> 
 </mapper>
