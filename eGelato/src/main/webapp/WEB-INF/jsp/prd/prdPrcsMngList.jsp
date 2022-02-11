@@ -168,9 +168,27 @@ th, td {
 			})
 
 	// 그리드 클릭
+	/* let evFlag = 'o';
+	
+	prcsMngList.on('click',function (ev2) {
+	      console.log(1212121212121212)
+	      if(evFlag == 'o' && ev2.columnName =='prcsSelDeta') {
+	    	  prcsMngList.startEditing(ev2.rowKey, 'prcsSelDeta', false)
+	         evFlag = 'x'
+	      }
+	      
+	   })   
+	   
+	prcsMngList.on('editingFinish',function (ev2) { 
+      evFlag = 'o'
+   }) */
+   
 	prcsMngList.on('dblclick', (ev) => {
+		
 			rk = ev.rowKey;
 			console.log(ev)
+			
+			
 		    if (ev.columnName === 'eqmId') {
 				calleqmId();
 			} else if (ev.columnName === 'eqmName' || ev.columnName === 'modelNo' || ev.columnName === 'mngr') {
@@ -179,6 +197,9 @@ th, td {
 			} else if (ev.columnName === 'prcsId') {
 				toastr.clear()
 				toastr.error( ('공정코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+			} else if (evFlag == 'o' && ev.columnName =='prcsSelDeta') {
+				prcsMngList.startEditing(ev.rowKey, 'prcsSelDeta', false)
+				evFlag = 'x'
 			}
 		});
 	
@@ -225,16 +246,6 @@ th, td {
 			timeOut: 1500 // null 입력시 무제한.
 		}
 	
-	// 컨트롤러 응답
-	prcsMngList.on('response', function (ev2) {
-		console.log(ev2)
-		if(flag == 'O') {
-			prcsMngList.readData(1);
-			flag = 'X';
-		}
-		//rwmatrOrderList.resetOriginData();
-	});
-	
 	// 행삭제
 	btnDel.addEventListener("click", function() {
 		if(confirm("삭제하시겠습니까?")){ 
@@ -259,8 +270,6 @@ th, td {
 			
 		}
 	})
-	
-	
 	
 </script>
 </body>

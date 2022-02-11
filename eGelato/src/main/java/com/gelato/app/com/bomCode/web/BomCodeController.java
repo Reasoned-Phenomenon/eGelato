@@ -83,9 +83,10 @@ public class BomCodeController {
 	// 공정코드 조회.
 	
 	@RequestMapping("/com/prcsCodeModal.do")
-	public String prcsModal(Model model) {
+	public String prcsModal(Model model, BomCodeVO vo) {
 		System.out.println("공정코드 조회 확인");
-		model.addAttribute("datas", bomcodeService.prcsCodeList());
+		System.out.println(vo);
+		model.addAttribute("datas", bomcodeService.prcsCodeList(vo));
 		return "grid";
 	}
 	

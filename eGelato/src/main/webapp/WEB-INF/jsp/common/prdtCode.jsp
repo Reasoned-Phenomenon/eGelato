@@ -24,15 +24,18 @@ th, td {
 				</tr>
 				<tr>
 					<th>규격*</th>
-					<td><select  id="spec" name="spec">
-						<option value="SPEC01">10KG</option>
-						<option value="SPEC02">30KG</option>
+					<td><select id="spec" name="spec">
+							<option value="SPEC01">10KG</option>
+							<option value="SPEC02">30KG</option>
 					</select></td>
 					<th>단위*</th>
 					<td><select id="unit" name="unit">
-						<option value="EA">EA</option>
-						<option value="BOX">BOX</option>
-						<option value="BUNDEL">BUNDEL</option>
+
+						<option value="UNIT01">EA</option>
+						<option value="UNIT02">BOX</option>
+						<option value="UNIT03">BUNDEL</option>
+
+
 					</select></td>
 					<th>안전재고*</th>
 					<td><input type="text" id="safStc" name="safStc"></td>
@@ -43,6 +46,8 @@ th, td {
 			</tbody>
 		</table>
 	</div>
+	<hr>
+	<br>
 
 	<div id="prdtCodeGrid"></div>
 
@@ -91,6 +96,17 @@ var prdtCodeGrid = new Grid({
 			  header: '안전 재고',
 			  name: 'safStc',
 			  align: 'right'
+			},
+			
+			{
+			  header: '규격 코드',
+			  name: 'specCode',
+			  hidden: true
+			},
+			{
+			  header: '단위 코드',
+			  name: 'unitCode',
+			  hidden: true
 			}
 
 		]
@@ -100,9 +116,12 @@ var prdtCodeGrid = new Grid({
 	prdtCodeGrid.on("dblclick", (ev) => {
 		$("#prdtId").val(prdtCodeGrid.getValue(ev["rowKey"],"prdtId"));
 		$("#prdtNm").val(prdtCodeGrid.getValue(ev["rowKey"],"prdtNm"));
-		$("#spec").val(prdtCodeGrid.getValue(ev["rowKey"],"spec"));
-		$("#unit").val(prdtCodeGrid.getValue(ev["rowKey"],"unit"));
+		//$("#spec").val(prdtCodeGrid.getValue(ev["rowKey"],"spec"));
+		//$("#unit").val(prdtCodeGrid.getValue(ev["rowKey"],"unit"));
 		$("#safStc").val(prdtCodeGrid.getValue(ev["rowKey"],"safStc"));
+		
+		spec.value = prdtCodeGrid.getValue(ev.rowKey,"specCode");
+		unit.value = prdtCodeGrid.getValue(ev.rowKey,"unitCode");
 		
 	});
 	

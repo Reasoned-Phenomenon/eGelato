@@ -22,7 +22,9 @@
 		'fromCkDate' : fromCkDate,
 		'toCkDate' : toCkDate
 		}
+		
 		console.log(params)
+		
 		var Grid = tui.Grid;
 		
 		var eqmCkGrid = new Grid({

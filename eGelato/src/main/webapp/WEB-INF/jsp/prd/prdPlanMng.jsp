@@ -13,11 +13,8 @@ th, td {
 
 </style>
 <body>
-
 	<div>
-		<br>
 		<h2 id="title">생산계획관리</h2>
-		<br>
 	</div>
 	<br>
 	<div id="tabs">
@@ -48,7 +45,7 @@ th, td {
 					</tr>
 				</tbody>
 			</table>
-			<div id="PlanDetaInsGrid"></div> <br>
+			<div id="PlanDetaInsGrid"></div>
 			<button type="button"  id="btnOrderSht">주문서조회</button>
 			<button type="button"  id="btnPlanIns">계획등록</button>
 			<button type="button"  id="btnAdd">행 추가</button>
@@ -385,39 +382,41 @@ th, td {
 		let planName = document.getElementById('planName').value;
 		console.log(planName);
 		
-		for ( j = 0 ; j < PlanDetaInsGrid.getRowCount() ; j++) {
+		if (true) {
+			for ( j = 0 ; j < PlanDetaInsGrid.getRowCount() ; j++) {
+				if (PlanDetaInsGrid.getData()[j].prdtNm == '') {
+					 
+					toastr.clear()
+					toastr.success( ('제품을 선택해주세요.'),'Gelato',{timeOut:'1000'});
+					
+				 }  else if (PlanDetaInsGrid.getData()[j].qy == '') {
+	
+					 toastr.clear()
+					toastr.success( ('계획량을 입력해주세요.'),'Gelato',{timeOut:'1000'});
+					
+				 } else if (PlanDetaInsGrid.getData()[j].prodDcnt == '') {
+	
+					 toastr.clear()
+					toastr.success( ('생산일수를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+				 
+				 } else if (PlanDetaInsGrid.getData()[j].priort == '') {
+					 
+					toastr.clear()
+					toastr.success( ('작업우선순위를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+				 	
+				 }  
+			}
+		}
+		else if(planName.trim() == ''){
+			 
+			//입력값 없을 때,제목 입력안했을 때 toast 띄우기.
+			toastr.clear()
+			toastr.success( ('생산 계획명을 입력해주세요.'),'Gelato',{timeOut:'1000'});
 			
-			if(planName.trim() == ''){
-				 
-				//입력값 없을 때,제목 입력안했을 때 toast 띄우기.
-				toastr.clear()
-				toastr.success( ('생산 계획명을 입력해주세요.'),'Gelato',{timeOut:'1000'});
-				
-			 } else if (PlanDetaInsGrid.getData()[j].prdtNm == '') {
-				 
-				toastr.clear()
-				toastr.success( ('제품을 선택해주세요.'),'Gelato',{timeOut:'1000'});
-				
-			 }  else if (PlanDetaInsGrid.getData()[j].qy == '') {
-
-				 toastr.clear()
-				toastr.success( ('계획량을 입력해주세요.'),'Gelato',{timeOut:'1000'});
-				
-			 } else if (PlanDetaInsGrid.getData()[j].prodDcnt == '') {
-
-				 toastr.clear()
-				toastr.success( ('생산일수를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+		 } else {
 			 
-			 } else if (PlanDetaInsGrid.getData()[j].priort == '') {
-				 
-				toastr.clear()
-				toastr.success( ('작업우선순위를 입력해주세요.'),'Gelato',{timeOut:'1000'});
-			 
-			 }  else {
-				 
 				console.log(planName);
 
-				
 				for ( i =0 ; i <= PlanDetaInsGrid.getRowCount(); i++) {
 					PlanDetaInsGrid.setValue(i,'name',planName);
 				}
@@ -435,9 +434,8 @@ th, td {
 					PlanDetaInsGrid.clear();
 				}			
 				
-			 } 
-		};
-		
+		} 
+			
 	});
 	
 	//계획 취소

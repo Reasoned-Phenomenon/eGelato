@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,6 +59,8 @@ th, td {
 			<button type="button"  id="btnPrcs">생산시작</button>&nbsp;
 			<button type="button"  id="btnStop">긴급중지</button>&nbsp;
 			<button type="button"  id="btnRest">재시작</button>&nbsp;
+			
+			
 		</div>
 	</div>	
 	
@@ -66,6 +69,12 @@ th, td {
 	
 <script>
 	let idi;
+	
+	//버튼 숨김
+	/* $("#btnPrcs").hide();
+	$("#btnStop").hide();
+	$("#btnRest").hide();
+	$("#btnPrcsMove").hide(); */
 	
 	// 생산 시작 버튼 
 	//document.getElementById('btnPrcs').innerText = '생산 시작';
@@ -248,18 +257,45 @@ th, td {
 		idi = cid;
 		console.log(idi);
 		getQyData();
+
+		/* // 버튼 정리
+		if( prcsListGrid.getValue(0,'prcsNowId') != null && prcsListGrid.getValue(0,'startTm') == null) {
+			$("#btnPrcs").show();
+		} else if ( prcsListGrid.getValue(0,'startTm') != null && prcsListGrid.getValue(gLength-1,'startTm') == null) {
+			$("#btnPrcs").hide();
+			$("#btnStop").show();
+			$("#btnRest").show();
+			$("#btnPrcsMove").show();
+		} else if ( prcsListGrid.getValue(0,'startTm') != null && prcsListGrid.getValue(gLength-1,'startTm') != null) {
+			console.log("언제끝나냐");
+			$("#btnPrcs").hide();
+			$("#btnStop").hide();
+			$("#btnRest").hide();
+			$("#btnPrcsMove").show();
+		} */
+		
 	}
 	
 	// 공정시작버튼 누름
 	btnPrcs.addEventListener('click', function () {
+		gLength = prcsListGrid.getData().length;
 		
-		if(confirm("시작하시겠습니까?")){
+		if(prcsListGrid.getValue(0,'startTm') != null && prcsListGrid.getValue(gLength-1,'endTm') == null) {
+			toastr.clear()
+			toastr.warning( ('공정이 진행중입니다.'),'Gelato',{timeOut:'1000'} );
 			
+		} else if (prcsListGrid.getValue(0,'startTm') != null && prcsListGrid.getValue(gLength-1,'endTm') != null) {
+			toastr.clear()
+			toastr.error( ('공정이 완료되었습니다.'),'Gelato',{timeOut:'1000'} );
+			
+		} else {
+			if(confirm("시작하시겠습니까?")) {
+				
 			// 시간입력
 			let now = new Date();
 			let stT = ("00"+now.getHours()).slice(-2)+":"+("00"+now.getMinutes()).slice(-2);
-			startT.value = stT
-			console.log(stT);
+			/* startT.value = stT
+			console.log(stT); */
 			
 			// 행에 값 넣기
 			grc = prcsListGrid.getRowCount();
@@ -299,73 +335,105 @@ th, td {
 			toastr.clear()
 			toastr.success( ('공정을 시작합니다.'),'Gelato',{timeOut:'1000'} );
 			
+			}
 		} 
 	})
 	
 	// 긴급정지버튼 누름
 	btnStop.addEventListener('click', function () {
+		gLength = prcsListGrid.getData().length;
 		
-		if(confirm("공정을 정지하시겠습니까?")){
-			
-			// 전체행 update
-			grc = prcsListGrid.getRowCount();
-			ior = IndicaGrid.getData()[0].ord;
-			idi = IndicaGrid.getData()[0].indicaDetaId;
-			
-			ior = IndicaGrid.getData()[0].ord;
-			
-			list1 = prcsListGrid.getData();
-			console.log(list1);
-			
-			$.ajax({
-				url : "${path}/prd/prcsStStop.do?ord=" + ior,
-				data : JSON.stringify(list1),
-				type:'POST',
-				dataType:'json',
-				contentType: 'application/json; charset=utf-8',
-				error : function(result) {
-					console.log('에러', result)
+		if (prcsListGrid.getValue(0,'startTm') == null && prcsListGrid.getValue(gLength-1,'endTm') == null) {
+			toastr.clear()
+			toastr.warning( ('공정이 시작하지 않았습니다.'),'Gelato',{timeOut:'1000'} );
+		} else if (prcsListGrid.getValue(0,'startTm') != null && prcsListGrid.getValue(gLength-1,'endTm') != null) {
+			toastr.clear()
+			toastr.warning( ('공정이 완료되었습니다.'),'Gelato',{timeOut:'1000'} );
+		} else {
+			if(confirm("공정을 정지하시겠습니까?")){
+				
+				// 전체행 update
+				grc = prcsListGrid.getRowCount();
+				ior = IndicaGrid.getData()[0].ord;
+				idi = IndicaGrid.getData()[0].indicaDetaId;
+				
+				ior = IndicaGrid.getData()[0].ord;
+				
+				for (i = 0 ; i < grc ; i++) {
+					prcsListGrid.setValue(i,'ord',ior);
+					prcsListGrid.setValue(i,'indicaDetaId',idi);
+					prcsListGrid.setValue(i,'lineOrd',i+1);
 				}
-			}).done(function (result) {
 				
-				toastr.clear()
-				toastr.success( ('공정을 일시정지합니다.'),'Gelato',{timeOut:'1000'} );
+				list1 = prcsListGrid.getData();
+				console.log(list1);
 				
-			})
+				
+				$.ajax({
+					url : "${path}/prd/prcsStStop.do?ord=" + ior,
+					data : JSON.stringify(list1),
+					type:'POST',
+					dataType:'json',
+					contentType: 'application/json; charset=utf-8',
+					error : function(result) {
+						console.log('에러', result)
+					}
+				}).done(function (result) {
+					
+					toastr.clear()
+					toastr.success( ('공정을 일시정지합니다.'),'Gelato',{timeOut:'1000'} );
+					
+				})
+			}
 		}
-		
 	})
 	
 	// 공정재시작 누름
 	btnRest.addEventListener('click', function () {
+		gLength = prcsListGrid.getData().length;
 		
-		if(confirm("공정을 재시작하시겠습니까?")){
+		if (prcsListGrid.getValue(0,'startTm') == null && prcsListGrid.getValue(gLength-1,'endTm') == null) {
+			toastr.clear()
+			toastr.warning( ('공정이 시작하지 않았습니다.'),'Gelato',{timeOut:'1000'} );
+		} else if (prcsListGrid.getValue(0,'startTm') != null && prcsListGrid.getValue(gLength-1,'endTm') != null) {
+			toastr.clear()
+			toastr.warning( ('공정이 완료되었습니다.'),'Gelato',{timeOut:'1000'} );
+		} else {
 			
-			// 전체행 update
-			grc = prcsListGrid.getRowCount();
-			ior = IndicaGrid.getData()[0].ord;
-			idi = IndicaGrid.getData()[0].indicaDetaId;
-			
-			list2 = prcsListGrid.getData();
-			console.log(list2);
-			
-			$.ajax({
-				url : "${path}/prd/prcsStRest.do?ord=" + ior,
-				data : JSON.stringify(list2),
-				type:'POST',
-				dataType:'json',
-				contentType: 'application/json; charset=utf-8',
-				error : function(result) {
-					console.log('에러', result)
+			if(confirm("공정을 재시작하시겠습니까?")){
+				
+				// 전체행 update
+				grc = prcsListGrid.getRowCount();
+				ior = IndicaGrid.getData()[0].ord;
+				idi = IndicaGrid.getData()[0].indicaDetaId;
+				
+				for (i = 0 ; i < grc ; i++) {
+					prcsListGrid.setValue(i,'ord',ior);
+					prcsListGrid.setValue(i,'indicaDetaId',idi);
+					prcsListGrid.setValue(i,'lineOrd',i+1);
 				}
-			}).done(function (result) {
 				
-				toastr.clear()
-				toastr.success( ('공정을 재가동합니다.'),'Gelato',{timeOut:'1000'} );
+				list2 = prcsListGrid.getData();
+				console.log(list2);
 				
-			})
-		}
+				$.ajax({
+					url : "${path}/prd/prcsStRest.do?ord=" + ior,
+					data : JSON.stringify(list2),
+					type:'POST',
+					dataType:'json',
+					contentType: 'application/json; charset=utf-8',
+					error : function(result) {
+						console.log('에러', result)
+					}
+				}).done(function (result) {
+					
+					toastr.clear()
+					toastr.success( ('공정을 재가동합니다.'),'Gelato',{timeOut:'1000'} );
+					
+				})
+			}
 		
+		}
 	})
 	
 	// 공정이동표
@@ -376,7 +444,7 @@ th, td {
 		console.log(mid);
 		window.open('${path}/prd/prcsMoveDialog.do?mid='+ mid, 
 					'공정이동표',
-					'width=800,height=600,location=no,status=no,scrollbars=no,titlebar=no,left=550,top=200');
+					'width=1000,height=650,location=no,status=no,scrollbars=no,titlebar=no,,top=300');
 	}
 	
 	// 시작 이후 setInterval로 쿼리 새로 조회해오기
@@ -386,8 +454,6 @@ th, td {
 	
 	// 값 가지고오기
 	function getQyData() {
-		console.log("getQyData");
-		
 		if(idi != '') {
 		
 			$.ajax({
@@ -405,21 +471,27 @@ th, td {
 				console.log(result.data.contents[0].prodQyT); */
 				
 				console.log(result);
-				
 				for(let i=0 ; i<result.data.contents.length ; i++) {
 					
 					inptQyV = result.data.contents[i].inptQyT
 					inferQyV = result.data.contents[i].inferQyT
 					prodQyV = result.data.contents[i].prodQyT
 					psSt = result.data.contents[i].psSt
+					startTm = result.data.contents[i].startTm
+					endTm = result.data.contents[i].endTm
 					
 					prcsListGrid.setValue(i,'inptQyT',inptQyV);			
 					prcsListGrid.setValue(i,'inferQyT',inferQyV);	
 					prcsListGrid.setValue(i,'prodQyT',prodQyV);	
 					prcsListGrid.setValue(i,'psSt',psSt);	
+					prcsListGrid.setValue(i,'startTm',startTm);	
+					prcsListGrid.setValue(i,'endTm',endTm);	
+					
 				}
+				
 			})
 		}
+		
 	}
 	
 	$(document).ready ( function getData() {

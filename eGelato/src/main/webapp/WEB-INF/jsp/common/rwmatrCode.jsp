@@ -18,11 +18,13 @@ th, td {
 		<div class="flex row">
 			<div class="col-7">
 				<h2>자재 코드 관리</h2>
+				<hr>
+				<br>
 				<div align="right"></div>
 				<div id="rwmatrGrid" style="width: 100%"></div>
 			</div>
 			<div class="col-5">
-				<table class="table table-bbs" style="margin-top: 70%;">
+				<table class="table table-bbs" style="margin-top: 75%;">
 					<tbody>
 						<tr>
 							<th>자재코드</th>
@@ -34,24 +36,25 @@ th, td {
 						<tr>
 							<th>규격*</th>
 							<td><select id="spec" name="spec">
-								<option value="SPEC01">10KG</option>
-								<option value="SPEC02">30KG</option>
+									<option value="SPEC01">10KG</option>
+									<option value="SPEC02">30KG</option>
 							</select></td>
 
 							<th>작업 단위*</th>
 							<td><select id="wkUnit" name="wkUnit">
-									<option value="EA">EA</option>
-									<option value="BOX">BOX</option>
-									<option value="BUNDEL">BUNDEL</option>
+									<option value="UNIT01">EA</option>
+									<option value="UNIT02">BOX</option>
+									<option value="UNIT03">BUNDEL</option>
 							</select></td>
 
 						</tr>
 						<tr>
 							<th>입고 업체*</th>
-							<td colspan="3"><input type="text" id="vendId" name="vendId" readonly>
+							<td colspan="3"><input type="text" id="vendId" name="vendId"
+								readonly>
 								<button type="button" id="serachVendIdBtn" class="btn-modal"></button>
 								<input type="text" id="vendName" name="vendName"
-								placeholder="업체명" style="width:70px;" readonly></td>
+								placeholder="업체명" style="width: 70px;" readonly></td>
 						</tr>
 						<tr>
 							<th>제품 구분*</th>
@@ -77,6 +80,7 @@ th, td {
 			</div>
 		</div>
 	</div>
+
 	<div id="vendModal" title="거래처 코드 목록"></div>
 
 
@@ -138,6 +142,21 @@ var rwmatrGrid = new Grid({
 			  header: '제품 구분',
 			  name: 'fg'    
 			},
+			{
+			  header: '제품구분코드 ',
+			  name: 'fgCode',
+			  hidden: true
+			},
+			{
+			  header: '규격구분코드 ',
+			  name: 'specCode',
+			  hidden: true
+			},
+			{
+			  header: '작업단위코드 ',
+			  name: 'wkUnitCode',
+			  hidden: true
+			}
 		   
 		]
 });
@@ -147,9 +166,15 @@ var rwmatrGrid = new Grid({
 			
 			$("#rwmatrId").val(rwmatrGrid.getValue(ev["rowKey"],"rwmatrId"));
 			$("#nm").val(rwmatrGrid.getValue(ev["rowKey"],"nm"));
-			$("#spec").val(rwmatrGrid.getValue(ev["rowKey"],"spec"));
-			$("#wkUnit").val(rwmatrGrid.getValue(ev["rowKey"],"wkUnit"));
+			//$("#spec").val(rwmatrGrid.getValue(ev["rowKey"],"spec"));
+			//$("#wkUnit").val(rwmatrGrid.getValue(ev["rowKey"],"wkUnit"));
 			$("#safStc").val(rwmatrGrid.getValue(ev["rowKey"],"safStc"));
+			
+			spec.value = rwmatrGrid.getValue(ev.rowKey,"specCode");
+			wkUnit.value = rwmatrGrid.getValue(ev.rowKey,"wkUnitCode");
+			fg.value = rwmatrGrid.getValue(ev.rowKey,"fgCode");
+			
+			
 		//	$("#vendName").val(rwmatrGrid.getValue(ev["rowKey"],"vendName"));
 		//	$("#fg").val(rwmatrGrid.getValue(ev["rowKey"],"fg"));
 		/* 	var useYn = $('input:checkbox[id="useYn"]').is(":checked") == true
@@ -171,12 +196,12 @@ var rwmatrGrid = new Grid({
 			
 			var rwmatrId = $("#rwmatrId").val();
 			var nm = $("#nm").val();
-			var spec = $("#spec").val();
-			var wkUnit = $("#wkUnit").val();
+			var spec = $("#spec option:selected").val();
+			var wkUnit =  $("#wkUnit option:selected").val();
 			var safStc = $("#safStc").val();
 			var vendId = $("#vendId").val();
 			var vendName = $("#vendName").val();
-			var fg = $("#fg").val();
+			var fg = $("#fg option:selected").val();
 			var useYn =$("#useYn").val();
 
 			if (rwmatrId =='') {
@@ -186,17 +211,17 @@ var rwmatrGrid = new Grid({
 					data: {
 						rwmatrId : rwmatrId ,
 						nm : nm,
-						spec : spec,
-						wkUnit : wkUnit,
+						spec : $("#spec option:selected").val(),
+						wkUnit : $("#wkUnit option:selected").val(),
 						safStc : safStc,
 						vendId : vendId,
 						vendName : vendName,
-						fg : fg,
+						fg : $("#fg option:selected").val(),
 						useYn : useYn
 					},
 					success : function(res) {
 						rwmatrGrid.readData(1,{},true)
-						console.log(res);
+						//console.log(res);
 						alert("등록 되었습니다.");
 						rwmatrGrid.refreshLayout();
 					},
@@ -213,17 +238,17 @@ var rwmatrGrid = new Grid({
 					data: {
 						rwmatrId : rwmatrId ,
 						nm : nm,
-						spec : spec,
-						wkUnit : wkUnit,
+						spec : $("#spec option:selected").val(),
+						wkUnit : $("#wkUnit option:selected").val(),
 						safStc : safStc,
 						vendId : vendId,
 						vendName : vendName,
-						fg : fg,
+						fg : $("#fg option:selected").val(),
 						useYn : useYn
 					},
 					success : function(res) {
 						rwmatrGrid.readData(1,{},true)
-						console.log(res);
+						//console.log(res);
 						alert("수정 되었습니다.");
 						rwmatrGrid.refreshLayout();
 					},

@@ -18,7 +18,7 @@ th, td {
 	<h2>주문서 관리 조회</h2>
 	<div>
 		<form>
-			<table style="margin-bottom:10px;">
+			<table style="margin-bottom: 10px;">
 				<tbody>
 					<tr>
 						<th>진행 구분</th>
@@ -52,46 +52,12 @@ th, td {
 								class="btn cur-p btn-outline-primary" id="btnFind">조회</button>
 							<button type="reset" class="btn cur-p btn-outline-primary">초기화</button></td>
 					</tr>
-
 				</tbody>
 			</table>
-			<!-- <div>
-				<div>
-					<label>진행 구분</label> <label for="radio-1"> <input
-						type="radio" name="stFgRadio" id="stFg" value="ACCEPT"> <span>진행</span>
-					</label> <label for="radio-2"> <input type="radio" name="stFgRadio"
-						id="stFgR" value="OUTSTC"> <span>완료</span>
-					</label> <label for="radio-3"> <input type="radio" name="stFgRadio"
-						id="stFgRi" value="전체" checked> <span>전체</span>
-					</label>
-
-				</div>
-				<div>
-					<label>주문 일자</label> <input type="date" id="startDt"> ~ <input
-						type="date" id="endDt">
-				</div>
-				<div>
-					<label>납기 일자</label> <input type="date" id="startedDt"> ~ <input
-						type="date" id="endedDt">
-				</div>
-				<div>
-					<label>거래처</label> <input type="text" id="vendName" name="vendName"
-						readonly>
-					<button type="button" id="BtnVend" class="btn-modal"></button>
-					&ensp;&ensp;&ensp; <label>제품명</label> <input type="text"
-						id="prdtNm" name="prdtNm" readonly>
-					<button type="button" id="BtnPrdt" class="btn-modal"></button>
-					&ensp;
-
-
-					<button type="button" class="btn cur-p btn-outline-primary"
-						id="btnFind">조회</button>
-					<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-
-				</div>
-			</div> -->
 		</form>
 	</div>
+	<hr>
+	<br>
 
 	<div id="ordGrid" style="width: 100%"></div>
 	<div id="prdtListmodal" title="제품 목록"></div>
@@ -106,18 +72,21 @@ th, td {
 
 		// 주문서 관리 조회페이지에서 현재 날짜 기본 설정.
 		const d = new Date();
-		
+
 		const year = d.getFullYear(); // 년
-		const month = d.getMonth();   // 월
-		const day = d.getDate();      // 일
-		
-		document.getElementById('startDt').value = new Date(year, month, day -5 ).toISOString().substring(0,10);
-		document.getElementById('endDt').value = new Date().toISOString().substring(0, 10);
-		
-		document.getElementById('startedDt').value = new Date(year, month, day -5 ).toISOString().substring(0,10);
-		document.getElementById('endedDt').value = new Date().toISOString().substring(0, 10);
-		
-		
+		const month = d.getMonth(); // 월
+		const day = d.getDate(); // 일
+
+		document.getElementById('startDt').value = new Date(year, month,
+				day - 5).toISOString().substring(0, 10);
+		document.getElementById('endDt').value = new Date().toISOString()
+				.substring(0, 10);
+
+		document.getElementById('startedDt').value = new Date(year, month,
+				day - 5).toISOString().substring(0, 10);
+		document.getElementById('endedDt').value = new Date().toISOString()
+				.substring(0, 10);
+
 		var Grid = tui.Grid;
 
 		//그리드 생성
@@ -185,7 +154,6 @@ th, td {
 			} ]
 		});
 
-		
 		// 조회 버튼. // 해당날짜 조회 // 거래처 조회 // 제품코드 조회// 진행구분 라디오로 조회 =>  mapper-xml에서 if로 조건으로 나눔.
 		$("#btnFind").on("click", function choicDate() {
 			var startDt = document.getElementById("startDt").value;

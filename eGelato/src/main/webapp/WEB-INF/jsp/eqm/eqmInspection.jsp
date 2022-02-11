@@ -11,67 +11,58 @@
 .tui-grid-btn-filter {
 	display: none
 }
+th, td {
+	padding: 5px;
+}
 </style>
 </head>
-<body class="desktop">
+<body>
 	<!-- 설비검색 모달 -->
 	<div id="dialog-form" title="설비검색"></div>
+	
 	<!-- 해당일자 점검내역 모달 -->
 	<div id="chckDialog-form" title="일 점검자료 관리"></div>
-	<div class="container">
-		<div class="row">
-			<h2 class="title">설비 정기점검 관리</h2>
-			<div class="search-area search-area-border grid-option-area">
-				<div class="col-6 ml-1"></div>
-				<div class="col-6 ta-r mr-1">
-					<button type="reset" id="resetBtn" class="btn">초기화</button>
-					<button type="button" id="searchBtn" class="btn">조회</button>
-					<button type="button" id="searchAllBtn" class="btn">전체조회</button>
-					<button type="button" id="saveBtn" class="btn">저장</button>
-					<button type="button" id="removeBtn" class="btn">삭제</button>
-				</div>
-			</div>
-		</div>
-		<form id="dataForm" name="dataForm" method="post">
-			<div class="grid-option-area row">
-				<div class="col-6">
-					<div>
-						<label>점검일자</label><input type="date" id="chckDate">
-					</div>
-					<div>
-						<label>설비구분</label> <select id="gubun" onchange="selectGubun()">
+
+	<h2>설비 정기점검 관리</h2>
+	<form id="dataForm" name="dataForm" method="post">
+		<table>
+			<tbody>
+				<tr>
+					<th>설비구분</th>
+					<td><select id="gubun" onchange="selectGubun()">
 							<option value="전체">전체
 							<option value="배합기">배합기
 							<option value="운송기">운송기
 							<option value="측정기">측정기
 							<option value="가공기">가공기
-						</select>
-					</div>
-				</div>
-				<div class="col-6 border">
-					<div>
-						<ul>
-							<li>
-								<h5>설비 점검대상기간</h5>
-							</li>
-							<li>
-								<div>
-									<label>점검일자</label> <input id="fromCkDate" name="fromCkDate"
-										type="date"><label>~</label><input id="toCkDate"
-										name="toCkDate" type="date">
-									<button class="btn btn-print float-right" id="eqmChck"
-										type="button">설비조회</button>
-								</div>
-							<li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</form>
-		<div>
-			<div id="eqmInsGrid"></div>
-		</div>
+					</select></td>
+				</tr>
+				<tr>
+					<th>점검일자</th>
+					<td><input id="fromCkDate" name="fromCkDate" type="date"
+						style="margin-right: 8px;">~<input id="toCkDate"
+						name="toCkDate" type="date" style="margin-left: 8px;">
+						<button class="btn" id="eqmChck" type="button">설비조회</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	
+	<div style="float: right; margin-bottom: 10px; margin-top: 25px;">
+		<button type="reset" id="resetBtn" class="btn">초기화</button>
+		<button type="button" id="searchBtn" class="btn">조회</button>
+		<button type="button" id="searchAllBtn" class="btn">전체조회</button>
+		<button type="button" id="saveBtn" class="btn">저장</button>
+		<button type="button" id="removeBtn" class="btn">삭제</button>
 	</div>
+	
+	<hr>
+	<br>
+
+	<div>
+		<div id="eqmInsGrid"></div>
+	</div>
+
 	<script>
 		//인풋태그(우측) 일주일 단위로 설정하기
 		var d = new Date();
@@ -177,8 +168,8 @@
 		}
 
 		//점검일자 input태그에 현재날짜 띄우기
-		document.getElementById('chckDate').value = new Date().toISOString()
-				.substring(0, 10);
+		/* document.getElementById('chckDate').value = new Date().toISOString()
+				.substring(0, 10); */
 
 		//(점검일자별)설비조회 검색 모달(우측)
 		let dialog = $("#dialog-form").dialog({
@@ -225,6 +216,7 @@
 
 		//전체조회버튼
 		$("#searchAllBtn").on("click", function() {
+			console.log("!11111111111111111111")
 			eqmInsGrid.readData(1, {
 				'gubun' : '전체',
 				'chckAll' : 'Y'

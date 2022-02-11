@@ -10,14 +10,16 @@
 	         VEND_NAME AS VEND_NAME,
 	         BIZNO AS BIZNO, 
              TELNO AS TELNO,
-             REMK AS REMK 
+             REMK AS REMK,
+             FG AS FG_CODE
              
 	  FROM  VEND
 	   <where>
 	  	<if test="vendId !=null and vendId != ''">
 	  			AND VEND_ID = #{vendId}
 	  	</if>
-	  </where>  
+	  </where>
+	  ORDER BY VEND_ID  
 </select>
 
 <insert id="insertVendCode" parameterType="VendCodeVO">
@@ -41,7 +43,7 @@
 	           			#{bizno},
 	           			#{telno},
 	           			#{remk},
-	           			f_com_nm_to_code(#{fg})
+	           			#{fg}
 	           )        
  
 </insert>
@@ -54,7 +56,7 @@
  	   	   BIZNO = #{bizno},
  	   	   TELNO = #{telno},
  	   	   REMK = #{remk},
- 	   	   FG = f_com_nm_to_code(#{fg})
+ 	   	   FG = #{fg}
  	   	   
  	   WHERE VEND_ID = #{vendId}	   
 </update>

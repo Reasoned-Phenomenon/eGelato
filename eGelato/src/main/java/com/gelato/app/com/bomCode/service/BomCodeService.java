@@ -17,7 +17,7 @@ public interface BomCodeService {
 		List<BomCodeVO> rwmatrCodeList();	
 		
 	// bom코드관리에서 그리드 공정코드 셀 클릭하면 공정코드 조회.
-		List<BomCodeVO> prcsCodeList();
+	  List<BomCodeVO> prcsCodeList(BomCodeVO vo);
 		
 		
     // 등록, 수정, 삭제는 modify.

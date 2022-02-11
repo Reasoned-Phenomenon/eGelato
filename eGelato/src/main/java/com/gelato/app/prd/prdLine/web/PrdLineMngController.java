@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gelato.app.prd.prdLine.dao.PrdLineMngVO;
 import com.gelato.app.prd.prdLine.service.PrdLineMngService;
+import com.gelato.app.prd.prdPrcs.dao.PrdPrcsMngVO;
 import com.gelato.app.vr.ModifyVO;
 
 @Controller
@@ -56,6 +57,14 @@ public class PrdLineMngController {
 		System.out.println("공정이동표");
 		System.out.println(vo);
 		model.addAttribute("datas", prdLineMngService.prdtMoveInfo(vo));
+		return "grid";
+	}
+	
+	@RequestMapping("/prd/prdtPrcsMoveInfo.do")
+	public String prdtPrcsMoveInfo(Model model, PrdPrcsMngVO vo) {
+		System.out.println("공정정보");
+		System.out.println(vo);
+		model.addAttribute("datas", prdLineMngService.prdtPrcsMoveInfo(vo));
 		return "grid";
 	}
 }
