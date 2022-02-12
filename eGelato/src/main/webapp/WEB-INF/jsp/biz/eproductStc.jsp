@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>완제품 재고조회</title> 
+<title>제품 재고조회</title> 
 <link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
 <link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
@@ -19,7 +19,7 @@ th, td {
 }
 </style>
 <body>
-<h2>완제품 재고조회</h2>
+<h2>제품 재고조회</h2>
 <div>
 	<div>
 		<form action="">
@@ -128,18 +128,6 @@ var eproductStcList = new Grid({
 			 header: '유통기한',
 			 name: 'expdate',
 			 sortable: true
-		  },
-		  {
-			 header: '비고',
-			 name: 'remk',
-			 sortable: true,
-			 formatter({value}) { 
-				 let a = `\${value}`
-			  	 if(a == 'null' || a == 'undefined'){
-			  	     a = '';
-			  	 }
-			     return a;
-			 }
 		  }
 		]
 });

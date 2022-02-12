@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>완제품 입/출고조회</title>
+<title>제품 입/출고조회</title>
 </head>
 <style>
 th, td {
@@ -23,7 +23,7 @@ th, td {
 <body>
 
 	<div>
-		<h2 id="title">완제품 입/출고조회</h2>
+		<h2 id="title">제품 입/출고조회</h2>
 	</div>
 
 	<div id="tabs">
@@ -177,7 +177,7 @@ var eprdtIstGrid = new Grid({
 				  sortable: true
 				},
 				{
-				  header: '입고일시',
+				  header: '입고일자',
 				  name: 'istOustDttm',
 				  sortable: true
 				},
@@ -238,7 +238,7 @@ var eprdtOustGrid = new Grid({
 				  sortable: true
 				},
 				{
-				  header: '출고일시',
+				  header: '출고일자',
 				  name: 'istOustDttm',
 				  sortable: true
 				},
