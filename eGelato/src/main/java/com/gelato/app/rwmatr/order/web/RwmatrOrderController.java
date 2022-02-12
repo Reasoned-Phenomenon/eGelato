@@ -30,10 +30,8 @@ public class RwmatrOrderController {
 	@RequestMapping("/rwmatr/rwmatrOrderMasterList.do")
 	public String rwmatrOrderMasterList(RwmatroVO vo, Model model) {
 		System.out.println("발주리스트 조회");
-		System.out.println(vo);
 		model.addAttribute("datas",rwmatroService.rwmatrOrderMasterList(vo));
-		//System.out.println(rwmatroService.rwmatrOrderMasterList(vo));
-		
+		System.out.println(rwmatroService.rwmatrOrderMasterList(vo));
 		return "grid";
 	}
 	
@@ -50,6 +48,7 @@ public class RwmatrOrderController {
 	@RequestMapping("/rwmatr/rwmatrOrderList.do")
 	public String rwmatrOrderList(RwmatroVO vo, Model model) {
 		System.out.println("발주리스트디테일 조회");
+		System.out.println(vo);
 		model.addAttribute("datas",rwmatroService.rwmatrOrderList(vo));
 		return "grid";
 	}
