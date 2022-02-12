@@ -227,14 +227,15 @@ function fnShowLogin(stat) {
 	<input type="hidden" id="message" name="message" value="<c:out value='${message}'/>">
 	
 	<fieldset>
-		Gelato 이미지 들어갈 곳
-		<%-- <img src="<c:url value='/images/egovframework/com/uat/uia/login_tit.png'/>" style="margin:30px 0 0px 60px" alt="login title image"  title="login title image"> --%>
-		<div class="login_type">
+		<div class="login_type" style="visibility:hidden;display:none;">
 			<ul id="ulLoginType">
 				<li><a href="javascript:fnLoginTypeSelect('typeGnr');" id="typeGnr" title=""><spring:message code="comUatUia.loginForm.GNR"/></a></li> <!-- 일반 -->
 			</ul>
 		</div>
-	
+		
+		<div align="center">
+		<img src="<c:url value='/resources/images/main.jpg'/>" style="width:800px; height:300px;" alt="login title image"  title="login title image">
+		</div>
 		<div class="login_input">
 			<ul>
 				<!-- 아이디 -->
