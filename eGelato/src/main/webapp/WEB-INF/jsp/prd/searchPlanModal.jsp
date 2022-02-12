@@ -25,11 +25,22 @@ h1 {
 	
 <script>
 
-//기간 검색
-var startD;
-var endD;
-    
-$("#selectDate").on(
+	//기간 검색
+	var startD;
+	var endD;
+	
+	//생산계획일자 현재날짜 기본 설정
+	var d = new Date();
+	
+	var year = d.getFullYear(); // 년
+	var month = d.getMonth(); // 월
+	var day = d.getDate(); // 일
+	
+	var nd = new Date(year, month, day - 6);
+	document.getElementById('startD').value = nd.toISOString().substring(0, 10);
+	document.getElementById('endD').value = new Date().toISOString().substring(0, 10);
+
+	$("#selectDate").on(
 		"click", function chooseDate() {
 			startD = document.getElementById("startD").value;
 			endD = document.getElementById("endD").value; 

@@ -26,7 +26,7 @@ h1 {
 <script>
 //생산계획일자 현재날짜 기본 설정
 	document.getElementById('indicaD').value = new Date().toISOString()
-			.substring(0, 10);
+			.slice(0, 10);
 		
 //그리드 생성
 var Grid = tui.Grid;

@@ -25,8 +25,8 @@ th, td {
 				</tr>
 				<tr>
 					<th>지시 일자</th>
-					<td><input type="date" id="startD" required> ~ <input
-						type="date" id="endD" required></td>
+					<td><input type="date" id="startD"> ~ <input
+						type="date" id="endD"></td>
 					<td><button type="button" id="btnSer">검색</button></td>
 					<td><button type="button" id="btnRes">초기화</button></td>
 				</tr>
@@ -41,26 +41,23 @@ th, td {
 
 <script>
 	//생산계획일자 현재날짜 기본 설정
-	const d = new Date();
-
-	const year = d.getFullYear(); // 년
-	const month = d.getMonth(); // 월
-	const day = d.getDate(); // 일
-
-	document.getElementById('startD').value = new Date(year, month, day - 7)
-			.toISOString().substring(0, 10);
-	document.getElementById('endD').value = new Date().toISOString().substring(
-			0, 10);
+	var d = new Date();
+	
+	var year = d.getFullYear(); // 년
+	var month = d.getMonth(); // 월
+	var day = d.getDate(); // 일
+	
+	var nd = new Date(year, month, day - 6);
+	document.getElementById('startD').value = nd.toISOString().substring(0, 10);
+	document.getElementById('endD').value = new Date().toISOString().substring(0, 10);
 
 	//초기화버튼
 	$("#btnRes").on(
 			"click",
 			function() {
 				$("#indicaD").val('');
-				document.getElementById('startD').value = new Date(year, month,
-						day - 7).toISOString().substring(0, 10);
-				document.getElementById('endD').value = new Date()
-						.toISOString().substring(0, 10);
+				document.getElementById('startD').value = nd.toISOString().substring(0, 10);
+				document.getElementById('endD').value = new Date().toISOString().substring(0, 10);
 				IndicaGrid.clear();
 			});
 
