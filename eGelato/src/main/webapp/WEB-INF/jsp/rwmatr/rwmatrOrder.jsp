@@ -273,11 +273,18 @@ let vendDialogFrm = $( "#vendDialogFrm" ).dialog({
 			toastr.clear()
 			toastr.warning( ('저장시 자동으로 기입되는 값입니다.'),'Gelato',{timeOut:'1500'} );
 			return;
-		} else if(ev.columnName === 'rwmatrId' || ev.columnName === 'vendName') {
+		} else if(ev.columnName === 'rwmatrId') {
 			//toastr
 			toastr.clear()
 			toastr.error( ('자재를 선택해주세요.'),'Gelato',{timeOut:'1500'} );
 			return;
+		} else if(ev.columnName === 'vendName') {
+			if(rwmatrOrderList.getValue(rk, "nm") == '') {
+				//toastr
+				toastr.clear()
+				toastr.error( ('자재를 선택해주세요.'),'Gelato',{timeOut:'1500'} );
+				return;
+			}
 		}
 		
 	});

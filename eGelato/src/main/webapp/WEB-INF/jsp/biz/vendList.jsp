@@ -16,12 +16,26 @@ h1 {
 <body>
 	
 	<br>
-	<h1>업체 검색</h1><br>
+	<h1>거래처 목록</h1><br>
 	    <form action="">
-		업체명 : <input type="text" id="vendNameM">
-		<button type="button" id="vendSearch" class="btn cur-p btn-outline-primary">조회</button>
-		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
-	</form>
+	    
+	    	<table>
+		        <tbody>
+		            <tr>
+		                <th>업체명</th>
+		                <td>
+		                	<input type="text" id="vendNameM">
+		                	<button type="button" id="vendSearch" class="btn cur-p btn-dark">조회</button>
+		                </td>
+		                <td><button type="reset" class="btn cur-p btn-dark">초기화</button></td>
+		            </tr>
+		        </tbody>
+		    </table>
+	    
+			<!-- 업체명 : <input type="text" id="vendNameM">
+			<button type="button" id="vendSearch" class="btn cur-p btn-outline-primary">조회</button>
+			<button type="reset" class="btn cur-p btn-outline-primary">초기화</button> -->
+		</form>
 	
 	<div id="vendListGrid" style="width: 100%"></div>
 	
@@ -51,7 +65,7 @@ var vendListGrid = new Grid({
 	},
   	rowHeaders:[ 'rowNum'],
   	selectionUnit: 'row',
-  	bodyHeight: 400,
+  	bodyHeight: 295,
   	columns:[
   		  {
 		    header: '업체 코드',
@@ -76,24 +90,6 @@ var vendListGrid = new Grid({
 		]
 });
 
-// 그리드 이벤트.
-/*  vendListGrid.on("dblclick", (ev) => {
-	console.log("777777777");
-	vendListGrid.setSelectionRange({
-		start : [ev.rowkey, 0],
-		end : [ev.rowKey, vendListGrid.getColumns().length-1]
-	});
-	console.log("88888888");
-	/* var vlg = vendListGrid.getRow(ev2.rowKey).vendId;
-	console.log(vlg);
-	chooseVI(vlg); */
-	
-	// 클릭한 row의 vendId에 해당하는 코드를 읽어옴.
-//	var vendParam = vendListGrid.getRow(ev.rowKey).vendId;
-//	console.log(vendParam);
-//	getModalData(vendParam);
-	
-//});  */
 	
 // 모달창에서 더블클릭하면 거래처 인풋태그에 넣어주기.
 vendListGrid.on("dblclick", (ev) => {
@@ -105,7 +101,7 @@ vendListGrid.on("dblclick", (ev) => {
 	
 	
 	
-	var vendParam = vendListGrid.getRow(ev.rowKey).vendName;
+	var vendParam = vendListGrid.getRow(ev.rowKey);
 	getModalData(vendParam);
 	console.log(vendParam);
 });

@@ -155,7 +155,6 @@ let eprdtDialogFrm = $( "#eprdtDialogFrm" ).dialog({
 	  autoOpen:false,
       height: 500,
       width: 600,
-      modal: true
 });
 
 function calleprdtModal(){

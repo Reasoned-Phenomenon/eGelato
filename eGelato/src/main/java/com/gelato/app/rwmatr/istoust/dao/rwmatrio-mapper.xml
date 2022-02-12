@@ -119,11 +119,12 @@
 		JOIN RWMATR_IST_OUST RIO
             ON RS.LOT_NO = RIO.LOT_NO
 		<where>
+			RS.QY != 0
 	       	<if test="rwmName != ''">
-				R.NM LIKE '%'||#{rwmName}||'%'
+				AND R.NM LIKE '%'||#{rwmName}||'%'
 			</if>
 			<if test="rwmatrId != ''">
-				AND RS.RWMATR_ID LIKE '%'||#{rwmatrId}||'%'
+				AND RS.RWMATR_ID LIKE '%'||UPPER(#{rwmatrId})||'%'
 			</if>
         </where>
 		ORDER BY EXPDATE

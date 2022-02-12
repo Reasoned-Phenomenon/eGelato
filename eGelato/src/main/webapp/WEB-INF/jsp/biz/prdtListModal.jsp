@@ -26,14 +26,10 @@ h1 {
 	                	<input type="text" id="prdtNameM">
 	                	<button type="button" id="prdtSearch" class="btn cur-p btn-dark">조회</button>
 	                </td>
+	                <td><button type="reset" class="btn cur-p btn-dark">초기화</button></td>
 	            </tr>
 	        </tbody>
 	    </table>
-	    
-		<!-- 제품명 : <input type="text" id="prdtNameM">
-		<button type="button" id="prdtSearch" class="btn cur-p btn-outline-primary">조회</button>
-		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button> -->
-		
 	</form>
 	
 	<div id="prdtListGrid" style="width: 100%"></div>
