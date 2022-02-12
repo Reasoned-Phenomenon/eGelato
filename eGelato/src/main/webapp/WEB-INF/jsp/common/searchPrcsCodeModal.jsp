@@ -51,7 +51,7 @@ var Grid = tui.Grid;
 			  }
 			]
 	});
-	
+
 	// 모달에서 클릭 이벤트
 	prcsCodeGrid.on('dblclick', (ev) => {
 		
@@ -60,7 +60,15 @@ var Grid = tui.Grid;
 		      start: [ev.rowKey, 0],
 		      end: [ev.rowKey, prcsCodeGrid.getColumns().length-1]
 	});
-		// 해당 행의 모든값 객체형태로 매개값으로 담음.
+		// 
+		 function choosePi(pid) {
+			console.log(pid);
+			prcsCodeGrid.clear();
+			prcsCodeGrid.readData(1,{'prdtId':pid},true);
+			
+		}
+	
+	// 해당 행의 모든값 객체형태로 매개값으로 담음.
 	 prcsCodeData(prcsCodeGrid.getRow(ev.rowKey))
 		
 	});	
@@ -69,7 +77,7 @@ var Grid = tui.Grid;
 		prcsCodeGrid.readData(1, {}, true);
 	}); */
 	
-	</script>
+</script>
 	
 </body>
 </html>
