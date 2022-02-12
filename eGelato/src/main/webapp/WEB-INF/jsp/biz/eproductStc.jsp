@@ -166,7 +166,8 @@ function calleprdtModal(){
 
 function getModal(prdtParam) {
 	console.log(prdtParam);
-	$("#prdtNm").val(prdtParam);
+	$("#prdtNm").val(prdtParam.prdtNm);
+	$("#prdtId").val(prdtParam.prdtId);
 	eprdtDialogFrm.dialog("close");
 }
 	
