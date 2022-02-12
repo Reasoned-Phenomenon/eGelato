@@ -58,7 +58,7 @@ th, td {
 <br>
 
 	<!-- 발주목록 조회 -->
-	<div id="rwmatrOrderList" style="width: 100%;"></div>
+	<div id="rwmatrOrderList" style="width: 94%;"></div>
 
 	<!-- 모달창 -->
 	<div id="rwmatrDialogFrm" title="원자재 목록"></div>
