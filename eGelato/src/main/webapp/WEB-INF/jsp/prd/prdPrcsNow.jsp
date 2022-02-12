@@ -66,7 +66,7 @@ th, td {
 	<script>
 		//생산계획일자 현재날짜 기본 설정
 		var d = new Date();
-	
+	  
 		var year = d.getFullYear(); // 년
 		var month = d.getMonth(); // 월
 		var day = d.getDate(); // 일
