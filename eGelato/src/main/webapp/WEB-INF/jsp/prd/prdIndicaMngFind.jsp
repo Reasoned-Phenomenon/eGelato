@@ -34,6 +34,7 @@ th, td {
 		</table>
 	</div>
 	<hr>
+	<br>
 	<!-- 지시 그리드 -->
 	<div id="IndicaGrid"></div>
 </body>

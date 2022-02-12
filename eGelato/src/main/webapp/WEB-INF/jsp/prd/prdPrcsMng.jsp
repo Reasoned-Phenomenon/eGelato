@@ -14,16 +14,14 @@ th, td {
 </style>
 <body>
 	<div>
-		<br>
 		<h2>생산관리</h2>
-		<br>
 	</div>
 	<br>
 	<div class="row">
-		<div class="col-sm-10">
+		<div class="col-sm-11">
 			<button type="button"  id="btnSearchPlan">생산지시목록</button>
 		</div>
-		<div class="col-sm-2">
+		<div class="col-sm-1">
 			<button id="btnPrcsMove" onclick="moveURL()"> 공정이동표</button>
 		</div>
 	</div>

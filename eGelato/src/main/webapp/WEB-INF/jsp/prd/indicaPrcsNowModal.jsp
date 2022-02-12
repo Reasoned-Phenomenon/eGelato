@@ -73,6 +73,7 @@ var Grid = tui.Grid;
 		},
 	  	rowHeaders:['rowNum'],
 	  	selectionUnit: 'row',
+	  	bodyHeight:350,
 	  	columns:[
 	  		  {
 			    header: '생산지시코드',

@@ -196,8 +196,18 @@ th, td {
 
 		//저장버튼
 		$("#saveBtn").on("click", function() {
-			eqmInsGrid.request('modifyData');
-		})
+			if(confirm("저장하시겠습니까?")){
+			eqmInsGrid.request('modifyData', {
+				showConfirm : false
+			});			
+			flag = 'O';
+			toastr.clear()
+			toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} );
+			}else {
+				toastr.clear()
+				toastr.warning( ('저장할 데이터가 없습니다.'),'Gelato',{timeOut:'1000'} );
+			}
+		});
 
 		//삭제버튼
 		$("#removeBtn").on("click", function() {

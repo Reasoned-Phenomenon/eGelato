@@ -8,9 +8,9 @@
 </head>
 <body>
 	<div id="eqmCkGrid"></div>
-	<div>
-		<button id="btnOk" class="btn btn-print">확인</button>
-		<button id="btnCn" class="btn btn-print">취소</button>
+	<div style="text-align:center; margin-top:10px;">
+		<button id="btnOk" class="btn btn-print" style="margin-right:5px;">확인</button>
+		<button id="btnCn" class="btn btn-print" style="margin-left:5px;">취소</button>
 	</div>
 	<script>
 

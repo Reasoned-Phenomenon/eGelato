@@ -67,22 +67,24 @@
 										<td><input id="vendId" name="vendId" type="text"></td>
 									</tr>
 									<tr>
-										<th>등록자</th>
-										<td><input id="mngr" name="mngr" type="text"
-											value="${loginVO.name }" disabled></td>
-										<th>구매일자 *</th>
-										<td><input type="date" id="pureDt" name="pureDt" required></td>
-									</tr>
-									<tr>
 										<th>UPH *</th>
 										<td><input id="uph" name="uph" required type="number"></td>
 										<th>온도</th>
-										<td colspan="3"><input placeholder="최저온도" id="tempMin"
+										<td><input placeholder="최저온도" id="tempMin"
 											name="tempMin" style="width: 80px; margin-right: 5px;"
 											type="number">~<input placeholder="최고온도" id="tempMax"
 											name="tempMax"
 											style="width: 80px; margin-left: 5px; margin-right: 5px;"
 											type="number">°C</td>
+										<th>점검주기</th>
+										<td><input id="chckPerd" name="chckPerd" required type="number"></td>
+									</tr>
+									<tr>
+										<th>등록자</th>
+										<td><input id="mngr" name="mngr" type="text"
+											value="${loginVO.name }" disabled></td>
+										<th>구매일자 *</th>
+										<td><input type="date" id="pureDt" name="pureDt" required></td>
 									</tr>
 								</tbody>
 							</table>
