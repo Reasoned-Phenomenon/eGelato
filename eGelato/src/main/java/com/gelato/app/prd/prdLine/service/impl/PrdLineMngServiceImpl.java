@@ -43,14 +43,9 @@ public class PrdLineMngServiceImpl implements PrdLineMngService{
 					System.out.println("단건추가");
 					plMapper.insertPrcsDeta(vo);
 				}
-				System.out.println("ord업데이트");
-				plMapper.updateLineOrd(vo);
 			} else {
 				System.out.println("다중추가");
 				plMapper.insertLineDeta(pvo);
-				
-				System.out.println("ord업데이트");
-				plMapper.updateLineOrd(vo);
 			}
 		}
 		
@@ -58,8 +53,6 @@ public class PrdLineMngServiceImpl implements PrdLineMngService{
 			System.out.println(vo);
 			System.out.println("행삭제");
 			plMapper.deleteLineDeta(vo);
-			System.out.println("ord업데이트");
-			plMapper.updateLineOrd(vo);
 		}
 		
 		for(PrdLineMngVO vo : mvo.getUpdatedRows()) {

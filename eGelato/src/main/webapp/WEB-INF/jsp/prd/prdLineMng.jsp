@@ -136,7 +136,7 @@
 		},{
 			header : '순번',
 			name : 'ord',
-			hidden : true
+			hidden : false
 		},{
 			header : '제품구분',
 			name : 'prcsDeta',
@@ -164,7 +164,12 @@
 			
 			toastr.clear()
 			toastr.success( ('삭제되었습니다.'),'Gelato',{timeOut:'1000'} );
+			
+			for ( j = 0 ; j< lrc ; j++) {
+				linePrcsGrid.setValue(i,'ord','');
+			}
 		}
+		
 	});
 	
 	// 그리드1 클릭시 해당 공정 출력
@@ -253,12 +258,17 @@
 				linePrcsGrid.setValue(i,'ord',i+1);
 				linePrcsGrid.setValue(i,'lineId',lli);
 			}
+			
+			linePrcsGrid.request('modifyData',{showConfirm:false})
+			
+			toastr.clear()
+			toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} );
+			
+			for ( i = 0 ; i< lrc ; i++) {
+				linePrcsGrid.setValue(i,'ord','');
+			}
 		}
 		
-		linePrcsGrid.request('modifyData',{showConfirm:false})
-		
-		toastr.clear()
-		toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} );
 	})
 </script>
 </body>
