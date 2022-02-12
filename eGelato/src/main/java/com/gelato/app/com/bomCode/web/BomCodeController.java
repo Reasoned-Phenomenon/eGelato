@@ -76,12 +76,11 @@ public class BomCodeController {
 	// 그리드 공정코드 셀 클릭시 공정코드 Modal 조회. 
 	@RequestMapping("/com/searchPrcsCode.do") 
 	public String searchPrcsCode() {
-		System.out.println("제품코드명 모달");
+		System.out.println();
 		return "/common/searchPrcsCodeModal";
 	}
 	
 	// 공정코드 조회.
-	
 	@RequestMapping("/com/prcsCodeModal.do")
 	public String prcsModal(Model model, BomCodeVO vo) {
 		System.out.println("공정코드 조회 확인");

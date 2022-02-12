@@ -54,6 +54,15 @@ let useYn = '';
 //modify구분하기위한 변수
 let flag;
 
+
+
+//토스트옵션
+toastr.options = {
+		positionClass : "toast-top-center",
+		progressBar : true,
+		timeOut: 1500 // null 입력시 무제한.
+	}
+
 var Grid = tui.Grid;
 
 
@@ -252,7 +261,7 @@ var bomGrid = new Grid({
 			bomGrid.readData(1, {'prdtId':prdtId, 'prdtNm':prdtNm, 'useYn':useYn }, true);
 	});
 	
-	 // 그리드 셀 클릭하면 모달창 띄우기.
+	 // 그리드 자재코드 셀 클릭하면 자재코드 모달창 띄우기.
 	function callRwmartCodeModal () {
 		dialog = $("#rwmatrCodeModal").dialog({
 			modal:true,
@@ -261,9 +270,9 @@ var bomGrid = new Grid({
 			width:600,
 			modal:true
 		});
-		console.log("ppppp");
+		
 		dialog.dialog( "open" );
-		console.log("dialog open확인");
+		
 		$("#rwmatrCodeModal").load("${path}/com/searchRwmatrCode.do", function(){console.log("자재코드 목록")})
 	} 
 	
@@ -298,12 +307,14 @@ var bomGrid = new Grid({
 			width:600,
 			modal:true
 		});
-		console.log("iii");
 		dialog.dialog( "open" );
-		console.log("dialog open확인");
+		
 		$("#prcsCodeModal").load("${path}/com/searchPrcsCode.do", function(){console.log("공정코드 목록")})
 	} 
-	
+
+	var pid = bomGrid.getRow(ev.rowKey).prdtId;
+	choosePi(pid);
+	 
 	// 사용공정 셀 클릭시 모달 
 	bomGrid.on('click',(ev) => {
 		rowkey = ev.rowKey;
@@ -316,14 +327,16 @@ var bomGrid = new Grid({
 		}
 	})
 	
+	
+
+	
 	// 모달창에서 공정코드를 선택하면 자재코드랑 자재 명 새로운 그리드 행에 들어가게 하기.
 	function prcsCodeData(prcsData) {
 		console.log("사용공정 코드 모달 행 입력");
 		
 		bomGrid.setValue(rowkey, "prcsNm", prcsData.prcsNm, true)
 		bomGrid.setValue(rowkey, "prcsId", prcsData.prcsId, true)
-		//bomGrid.setValue(rowkey, "prdtId", prcsData.prdtId, true)
-		
+
 		dialog.dialog("close");
 	}
 	

@@ -20,6 +20,7 @@
 		ON A.RWMATR_ID = B.RWMATR_ID
 		JOIN PRCS C
 		ON  A.PRCS_ID = C.PRCS_ID
+		
 		<where>
 			<if test="prdtId !=null and prdtId !=''">
 				AND A.PRDT_ID = #{prdtId}
@@ -31,7 +32,7 @@
 				AND A.USE_YN = #{useYn}
 			</if>
 		</where>   
-		ORDER BY  PRCS_ID
+		ORDER BY  BOM_ID
 	</select>
 
 	<!-- BOM 등록 -->
@@ -99,7 +100,7 @@
 		        B.LINE_ID AS LINE_ID,
 		        B.ORD AS ORD,
 		        B.PRDT_ID AS PRDT_ID
-		FROM PRCS A
+		FROM  PRCS A
 		JOIN  LINE B
 		ON    A.PRCS_ID = B.PRCS_ID
 		WHERE B.PRDT_ID =#{prdtId}
