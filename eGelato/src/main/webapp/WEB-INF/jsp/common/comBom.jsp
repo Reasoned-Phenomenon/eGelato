@@ -139,7 +139,7 @@ var bomGrid = new Grid({
          },
          {
 
-              header: '사용여부',
+           header: '사용여부',
            name: 'useYn',
            align: 'center',
            editor: {
@@ -174,7 +174,7 @@ var bomGrid = new Grid({
    SaveBtn.addEventListener("click", function(){   
       console.log(bomGrid.getValue(rowkey,'fg'));
       /* bomGrid.request('modifyData'); */
-      console.log("이거뭐양?" + bomGrid.getRow(0))
+      console.log("이거 확인" + bomGrid.getRow(0))
       
       if (bomGrid.getRow(0) != null) {
          bomGrid.blur();
@@ -182,10 +182,12 @@ var bomGrid = new Grid({
         /*   bomGrid.request('modifyData',{
             showConfirm : false
          }); */
+         toastr.success('등록 되었습니다.','Gelato');
          console.log(bomGrid.store.data.rawData[6].useYn);
         }
       } else {
-         alert("선택된 데이터가 없습니다.");
+         //alert("선택된 데이터가 없습니다.");
+    	  toastr.error('등록 실패' ,'Gelato');
       }
       
       flag = 'O'
@@ -340,7 +342,7 @@ var bomGrid = new Grid({
    
    let evFlag = 'o';
       
-   /* bomGrid.on('click',function (ev) {
+    bomGrid.on('click',function (ev) {
          
          if(evFlag == 'o' && ev.columnName =='fg') {
             bomGrid.startEditing(ev.rowKey, 'fg', false)
@@ -355,199 +357,11 @@ var bomGrid = new Grid({
       
       bomGrid.on('editingFinish',function (ev) { 
          evFlag = 'o'
-      }) */
+      }) 
 
-=======
+
 	
-	// 추가 버튼 이벤트. 추가 버튼을 누르면 제품코드가 자동적으로 값이 들어가게 함.
-	AddBtn.addEventListener("click", function(ev){
-		 
-		 console.log($('#prdtId').val());
-		 
-		 bomGrid.appendRow({prdtId:$('#prdtId').val()})
-		
-	});
-	
-	// 저장(등록) 버튼 이벤트. (alert 창 포함.)
-	SaveBtn.addEventListener("click", function(){	
-		console.log(bomGrid.getValue(rowkey,'fg'));
-		bomGrid.request('modifyData');
-		console.log("이거뭐양?" + bomGrid.getRow(0))
-		
-		if (bomGrid.getRow(0) != null) {
-			bomGrid.blur();
-		 if (confirm("저장하시겠습니까?")) {
-			 bomGrid.request('modifyData',{
-				showConfirm : false
-			});
-		  }
-		} else {
-			alert("선택된 데이터가 없습니다.");
-		}
-		
-		flag = 'O'
-	});
-	
-	//컨트롤러 응답
-	bomGrid.on('response', function (ev) {
-		console.log(ev)
-		if(flag == 'O') {
-			bomGrid.readData(1);
-			flag = 'X';
-		}
-		
-	});
-	
-	// 모달창 생성 함수.
-	$(function () {
-		dialog = $( "#bomModal" ).dialog({
-			autoOpen: false,
-			height: 500,
-			width: 700,
-			modal: true
-			
-		})
-	});
-	
-	// 제품 검색 버튼 이벤트.
-	serachBtn.addEventListener("click", function() {
-		
-		console.log("제품검색 Modal")
-		dialog.dialog( "open" );
-		
-		 // 컨트롤러에 보내주고 따로 모달은 jsp 만들 필요가 없으니깐  
-		 $('#bomModal').load("${path}/com/bomModal.do",function () {
-			 console.log('제품검색')
-		})
-		
-	})
-	
-	// 제품코드 인풋 태그에 값들어가게 함.
-	function getModal(Param) {
-		console.log(Param);
-		$("#prdtId").val(Param.prdtId);
-		$("#prdtNm").val(Param.prdtNm);
-		$("#useYn").val(Param.useYn);
-		
-		dialog.dialog("close");
-	}
-	
-	// 조회 버튼 이벤트.
-	FindBtn.addEventListener("click", function(){
-		    console.log("조회버튼 클릭");
-		    var prdtId = document.getElementById("prdtId").value;
-			var prdtNm = document.getElementById("prdtNm").value;
-			
-			
-			var useYn = $('input:checkbox[id="useYn"]').is(":checked") == true
-			if (useYn == true) {
-				useYn = "Y";
-			} else {
-				useYn = "N";
-			} 
-			
-			console.log(prdtId);
-			console.log(prdtNm);
-		
-			
-			
-			bomGrid.readData(1, {'prdtId':prdtId, 'prdtNm':prdtNm, 'useYn':useYn }, true);
-	});
-	
-	 // 그리드 자재코드 셀 클릭하면 자재코드 모달창 띄우기.
-	function callRwmartCodeModal () {
-		dialog = $("#rwmatrCodeModal").dialog({
-			modal:true,
-			autoOpen:false,
-			height:400,
-			width:600,
-			modal:true
-		});
-		
-		dialog.dialog( "open" );
-		
-		$("#rwmatrCodeModal").load("${path}/com/searchRwmatrCode.do", function(){console.log("자재코드 목록")})
-	} 
-	
-	// 자재코드 셀 클릭시 모달
-	bomGrid.on('click',(ev) => {
-		rowkey = ev.rowKey;
-		console.log(ev)
-		console.log(ev.columnName)
-		console.log(ev.rowKey)
-		if (ev.columnName =='rwmatrId') {
-			console.log('자재코드')
-			callRwmartCodeModal ();
-		}
-	})
-	// 모달창에서 자재코드를 선택하면 자재코드랑 자재 명 새로운 그리드 행에 들어가게 하기.
-	function getRwmatrData(rwmatrData) {
-		console.log("자재코드 모달 행 입력");
-		
-		bomGrid.setValue(rowkey, "rwmatrId", rwmatrData.rwmatrId, true)
-		bomGrid.setValue(rowkey, "nm", rwmatrData.nm, true)
-		
-		dialog.dialog("close");
-	}
-	
-	
-	 // 그리드 사용공정 셀 클릭하면 모달창 띄우기.
-	function callPrcsCodeModal () {
-		dialog = $("#prcsCodeModal").dialog({
-			modal:true,
-			autoOpen:false,
-			height:400,
-			width:600,
-			modal:true
-		});
-		dialog.dialog( "open" );
-		
-		$("#prcsCodeModal").load("${path}/com/searchPrcsCode.do", function(){console.log("공정코드 목록")})
-	} 
-	var pid = bomGrid.getRow(ev.rowKey).prdtId;
-	choosePi(pid);
-	 
-	// 사용공정 셀 클릭시 모달 
-	bomGrid.on('click',(ev) => {
-		rowkey = ev.rowKey;
-		console.log(ev)
-		console.log(ev.columnName)
-		console.log(ev.rowKey)
-		if (ev.columnName == 'prcsNm') {
-			console.log('공정명')
-			callPrcsCodeModal ();
-		}
-	})
-	
-	
-	
-	// 모달창에서 공정코드를 선택하면 자재코드랑 자재 명 새로운 그리드 행에 들어가게 하기.
-	function prcsCodeData(prcsData) {
-		console.log("사용공정 코드 모달 행 입력");
-		
-		bomGrid.setValue(rowkey, "prcsNm", prcsData.prcsNm, true)
-		bomGrid.setValue(rowkey, "prcsId", prcsData.prcsId, true)
-		dialog.dialog("close");
-	}
-	
-	let evFlag = 'o';
-	   
-	bomGrid.on('click',function (ev) {
-	      
-	      if(evFlag == 'o' && ev.columnName =='fg') {
-	    	  bomGrid.startEditing(ev.rowKey, 'fg', false)
-	         evFlag = 'x'
-	      }
-	      if(evFlag == 'o' && ev.columnName =='useYn') {
-	    	  bomGrid.startEditing(ev.rowKey, 'useYn', false)
-	         evFlag = 'x'
-	      }
-	      
-	   })   
-	   
-	   bomGrid.on('editingFinish',function (ev) { 
-	      evFlag = 'o'
-	   })
+
 
 </script>
 

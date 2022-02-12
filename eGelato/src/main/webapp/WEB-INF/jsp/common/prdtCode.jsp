@@ -62,6 +62,11 @@ let flag;
 var Grid = tui.Grid;
 
 
+toastr.options = {
+		positionClass : "toast-top-center",
+		progressBar : true,
+		timeOut: 1500 
+		}
 
 //그리드 생성.
 var prdtCodeGrid = new Grid({
@@ -174,6 +179,10 @@ var prdtCodeGrid = new Grid({
 			
 
 			if (prdtId =='') {
+				if (safStc=='') {
+				toastr.info('필수사항을 입력해주세요.','Gelato');
+				return;
+				}
 				$.ajax({
 					url:"${path}/com/insertprdtCode.do",
 					method :"post",
@@ -187,12 +196,14 @@ var prdtCodeGrid = new Grid({
 					},
 					success : function(res) {
 						prdtCodeGrid.readData(1,{},true)
-						console.log(res);
-						alert("등록 되었습니다.");
+						//console.log(res);
+						//alert("등록 되었습니다.");
+						toastr.success('등록 되었습니다.','Gelato');
 						prdtCodeGrid.refreshLayout();
 					},
 					error : function() {
-						alert("등록 실패했습니다.");
+						//alert("등록 실패했습니다.");
+						toastr.error('등록 실패' ,'Gelato');
 					}	
 				})
 				
@@ -211,12 +222,14 @@ var prdtCodeGrid = new Grid({
 					},
 					success : function(res) {
 						prdtCodeGrid.readData(1,{},true)
-						console.log(res);
-						alert("수정 되었습니다.");
+						//console.log(res);
+						//alert("수정 되었습니다.");
+						toastr.success('수정 되었습니다.','Gelato');
 						prdtCodeGrid.refreshLayout();
 					},
 					error : function() {
-						alert("수정 실패했습니다.");
+						//alert("수정 실패했습니다.");
+						toastr.error('수정 실패' ,'Gelato');
 					}
 						
 				})
