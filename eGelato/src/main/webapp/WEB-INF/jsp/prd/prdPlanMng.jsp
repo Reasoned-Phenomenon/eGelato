@@ -73,7 +73,7 @@ th, td {
 	
 	//생산계획일자 현재날짜 기본 설정
 	document.getElementById('planDt').value = new Date().toISOString()
-			.substring(0, 10);
+			.slice(0, 10);
 	
 	//탭 생성
 	$( "#tabs" ).tabs();
@@ -381,22 +381,22 @@ th, td {
 		console.log(PlanDetaInsGrid.getRowCount());
 		
 		for ( let j = 0 ; j < PlanDetaInsGrid.getRowCount() ; j++) {
-			if (PlanDetaInsGrid.getData()[j].prdtNm == '') {
+			if (PlanDetaInsGrid.getData()[j].prdtNm == '' || PlanDetaInsGrid.getData()[j].prdtNm == null) {
 				 console.log(1111)
 				toastr.clear()
 				toastr.success( ('제품을 선택해주세요.'),'Gelato',{timeOut:'1000'});
 				return false
-			 }  else if (PlanDetaInsGrid.getData()[j].qy == '') {
+			 }  else if (PlanDetaInsGrid.getData()[j].qy == '' || PlanDetaInsGrid.getData()[j].qy == null) {
 				 console.log(2222)
 				 toastr.clear()
 				toastr.success( ('계획량을 입력해주세요.'),'Gelato',{timeOut:'1000'});
 				 return false
-			 } else if (PlanDetaInsGrid.getData()[j].prodDcnt == '') {
+			 } else if (PlanDetaInsGrid.getData()[j].prodDcnt == '' || PlanDetaInsGrid.getData()[j].prodDcnt == null) {
 				console.log(3333)
 				 toastr.clear()
 				toastr.success( ('생산일수를 입력해주세요.'),'Gelato',{timeOut:'1000'});
 				 return false
-			 } else if (PlanDetaInsGrid.getData()[j].priort == '') {
+			 } else if (PlanDetaInsGrid.getData()[j].priort == '' || PlanDetaInsGrid.getData()[j].priort == null) {
 				 console.log(4444)
 				toastr.clear()
 				toastr.success( ('작업우선순위를 입력해주세요.'),'Gelato',{timeOut:'1000'});

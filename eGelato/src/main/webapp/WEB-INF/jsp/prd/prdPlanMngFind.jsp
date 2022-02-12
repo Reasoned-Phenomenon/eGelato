@@ -33,8 +33,8 @@ th, td {
 				</tr>
 				<tr>
 					<th>계획 일자</th>
-					<td><input type="date" id="startD" required> ~ <input
-						type="date" id="endD" required></td>
+					<td><input type="date" id="startD"> ~ <input
+						type="date" id="endD"></td>
 					<td>
 						<button type="button" id="btnSearch">검색</button>
 						<button type="button" id="btnClear">초기화</button>
@@ -59,18 +59,16 @@ th, td {
 		var fg;
 
 		//생산계획일자 현재날짜 기본 설정
-		const d = new Date();
+		var d = new Date();
 
-		const year = d.getFullYear(); // 년
-		const month = d.getMonth(); // 월
-		const day = d.getDate(); // 일
+		var year = d.getFullYear(); // 년
+		var month = d.getMonth(); // 월
+		var day = d.getDate(); // 일
 
-		document.getElementById('startD').value = new Date(year, month, day - 5)
-				.toISOString().substring(0, 10);
-		document.getElementById('endD').value = new Date().toISOString()
-				.substring(0, 10);
+		var nd = new Date(year, month, day - 6);
+		document.getElementById('startD').value = nd.toISOString().substring(0, 10);
+		document.getElementById('endD').value = new Date().toISOString().substring(0, 10);
 
-		//
 		// 계획 조회 그리드 생성
 		var Grid = tui.Grid;
 
@@ -143,6 +141,8 @@ th, td {
 
 		$("#btnClear").on("click", function() {
 			$("#prdtNm").val('');
+			document.getElementById('startD').value = nd.toISOString().substring(0, 10);
+			document.getElementById('endD').value = new Date().toISOString().substring(0, 10);
 			PlanSearchGrid.clear();
 		});
 
