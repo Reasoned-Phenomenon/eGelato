@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>완제품 입/출고조회</title>
+<title>제품 입/출고조회</title>
 </head>
 <style>
 th, td {
@@ -23,7 +23,7 @@ th, td {
 <body>
 
 	<div>
-		<h2 id="title">완제품 입/출고조회</h2>
+		<h2 id="title">제품 입/출고조회</h2>
 	</div>
 
 	<div id="tabs">
@@ -42,7 +42,10 @@ th, td {
 							<tbody>
 								<tr>
 									<th>제품명</th>
-									<td><input type="text" id="prdtNmI"></td>
+									<td>
+										<input type="text" id="prdtNmI"><button type="button" id="prdtNmIM" class="btn-modal"></button>
+										<input type="text" id="prdtIdI" readonly>
+									</td>
 								</tr>
 								<tr>
 									<th>입고일자</th>
@@ -68,7 +71,10 @@ th, td {
 							<tbody>
 								<tr>
 									<th>제품명</th>
-									<td><input type="text" id="prdtNmO"></td>
+									<td>
+										<input type="text" id="prdtNmO"><button type="button" id="prdtNmOM" class="btn-modal"></button>
+										<input type="text" id="prdtIdO" readonly>	
+									</td>
 								</tr>
 								<tr>
 									<th>출고일자</th>
@@ -171,7 +177,7 @@ var eprdtIstGrid = new Grid({
 				  sortable: true
 				},
 				{
-				  header: '입고일시',
+				  header: '입고일자',
 				  name: 'istOustDttm',
 				  sortable: true
 				},
@@ -232,7 +238,7 @@ var eprdtOustGrid = new Grid({
 				  sortable: true
 				},
 				{
-				  header: '출고일시',
+				  header: '출고일자',
 				  name: 'istOustDttm',
 				  sortable: true
 				},
@@ -243,6 +249,18 @@ var eprdtOustGrid = new Grid({
 			      validation: {
 			          required: true
 			      }
+				},
+				{
+				  header: '비고',
+				  name: 'remk',
+				  sortable: true ,
+				  formatter({value}) { // 추가
+					  let a = `\${value}`
+				  	  if(a == 'null'){
+				  		  a = '';
+				  	  }
+				      return a;
+				  }
 				}
 		]
 });
@@ -264,14 +282,14 @@ function calleprdtModal(){
  
 
 
-$("#prdtNmI, #prdtNmO").click(function() {
+$("#prdtNmIM, #prdtNmOM").click(function() {
 	calleprdtModal();
 	
-	if( $(this).is("#prdtNmI") ) {
-		console.log($(this).is("#prdtNmI"))
+	if( $(this).is("#prdtNmIM") ) {
+		console.log($(this).is("#prdtNmIM"))
 		flag = 'I';
-	} else if( $(this).is("#prdtNmO") ) {
-		console.log($(this).is("#prdtNmO"))
+	} else if( $(this).is("#prdtNmOM") ) {
+		console.log($(this).is("#prdtNmOM"))
 		flag = 'O';
 	}
 	
@@ -280,9 +298,11 @@ $("#prdtNmI, #prdtNmO").click(function() {
 //모달에서 텍스트박스로
 function getModal(prdtParam) {
 	if(flag == 'I') {
-		document.getElementById("prdtNmI").value = prdtParam;
+		document.getElementById("prdtNmI").value = prdtParam.prdtNm;
+		document.getElementById("prdtIdI").value = prdtParam.prdtId;
 	} else if(flag == 'O') {
-		document.getElementById("prdtNmO").value = prdtParam;
+		document.getElementById("prdtNmO").value = prdtParam.prdtNm;
+		document.getElementById("prdtIdO").value = prdtParam.prdtId;
 	}
 	eprdtDialogFrm.dialog( "close" );
 }

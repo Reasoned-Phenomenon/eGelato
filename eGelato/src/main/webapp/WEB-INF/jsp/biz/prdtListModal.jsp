@@ -16,11 +16,20 @@ h1 {
 <body>
 	
 	<br>
-	<h1>제품 검색</h1><br>
+	<h1>제품 목록</h1><br>
     <form action="">
-		제품명 : <input type="text" id="prdtNameM">
-		<button type="button" id="prdtSearch" class="btn cur-p btn-outline-primary">조회</button>
-		<button type="reset" class="btn cur-p btn-outline-primary">초기화</button>
+    	<table>
+	        <tbody>
+	            <tr>
+	                <th>제품명</th>
+	                <td>
+	                	<input type="text" id="prdtNameM">
+	                	<button type="button" id="prdtSearch" class="btn cur-p btn-dark">조회</button>
+	                </td>
+	                <td><button type="reset" class="btn cur-p btn-dark">초기화</button></td>
+	            </tr>
+	        </tbody>
+	    </table>
 	</form>
 	
 	<div id="prdtListGrid" style="width: 100%"></div>
@@ -50,7 +59,7 @@ var prdtListGrid = new Grid({
 	},
   	rowHeaders:[ 'rowNum'],
   	selectionUnit: 'row',
-  	bodyHeight: 400,
+  	bodyHeight: 295,
   	columns:[
   		  {
 		    header: '제품 코드',
@@ -77,7 +86,7 @@ prdtListGrid.on("dblclick", (ev) => {
 	    end: [ev.rowKey, prdtListGrid.getColumns().length-1]
 });
 	
-	var prdtParam = prdtListGrid.getRow(ev.rowKey).prdtNm;
+	var prdtParam = prdtListGrid.getRow(ev.rowKey);
 	getModal(prdtParam);
 	console.log(prdtParam);
 });
