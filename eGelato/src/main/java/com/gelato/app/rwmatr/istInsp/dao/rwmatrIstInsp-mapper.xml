@@ -31,10 +31,10 @@
             ON RII.MNGR = CM.ESNTL_ID
         <where>
 	    	<if test="startDate != ''">
-	    		<![CDATA[TRUNC(RII.DT) >= to_date(#{startDate})]]>
+	    		<![CDATA[TRUNC(RII.DT) >= to_date(#{startDate},'YYYY-MM-DD')]]>
 	    	</if>
 	    	<if test="endDate != ''">
-	    		AND <![CDATA[TRUNC(RII.DT) <= to_date(#{endDate})]]>
+	    		AND <![CDATA[TRUNC(RII.DT) <= to_date(#{endDate},'YYYY-MM-DD')]]>
 	    	</if>
 			<if test="rwmName != '' and rwmName != null">
 				AND R.NM LIKE '%'||#{rwmName}||'%'
