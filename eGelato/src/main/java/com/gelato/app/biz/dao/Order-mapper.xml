@@ -33,16 +33,16 @@
      		 and a.st_fg = #{stFg}
      	</if>
      	<if test="startDt !=null and startDt != ''">
-     		 <![CDATA[and trunc(a.order_dt) >= to_date(#{startDt},'YYYY-MM-DD']]> 
+     		 <![CDATA[and trunc(a.order_dt) >= to_date(#{startDt},'YYYY-MM-DD')]]> 
      	</if>
      	<if test="endDt !=null and endDt != ''">
-     		 <![CDATA[and trunc(a.order_dt) <= to_date(#{endDt}),'YYYY-MM-DD']]> 
+     		 <![CDATA[and trunc(a.order_dt) <= to_date(#{endDt},'YYYY-MM-DD')]]> 
      	</if>
      	<if test="startedDt !=null and startedDt != ''">
-     		 <![CDATA[and trunc(a.oust_dt) >= to_date(#{startedDt}),'YYYY-MM-DD']]> 
+     		 <![CDATA[and trunc(a.oust_dt) >= to_date(#{startedDt},'YYYY-MM-DD')]]> 
      	</if>
      	<if test="endedDt !=null and endedDt != ''">
-     		 <![CDATA[and trunc(a.oust_dt) <= to_date(#{endedDt}),'YYYY-MM-DD']]> 
+     		 <![CDATA[and trunc(a.oust_dt) <= to_date(#{endedDt},'YYYY-MM-DD')]]> 
      	</if>
      </where>
     	
