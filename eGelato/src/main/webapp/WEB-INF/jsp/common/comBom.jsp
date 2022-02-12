@@ -46,27 +46,17 @@ th, td {
 
 	<script>
 let dialog;
-
 let rowkey = '';
-
 let useYn = '';
-
 //modify구분하기위한 변수
 let flag;
-
-
-
 //토스트옵션
 toastr.options = {
 		positionClass : "toast-top-center",
 		progressBar : true,
 		timeOut: 1500 // null 입력시 무제한.
 	}
-
 var Grid = tui.Grid;
-
-
-
 //그리드 생성.
 var bomGrid = new Grid({
 	el: document.getElementById('bomGrid'),
@@ -134,7 +124,6 @@ var bomGrid = new Grid({
 					type : GelatoSelect
 			 },
 			  align: 'center'
-
 			},
 			{
         	  header: '비고',
@@ -163,7 +152,6 @@ var bomGrid = new Grid({
 			}
 		]
 });
-
 	
 	// 추가 버튼 이벤트. 추가 버튼을 누르면 제품코드가 자동적으로 값이 들어가게 함.
 	AddBtn.addEventListener("click", function(ev){
@@ -246,7 +234,6 @@ var bomGrid = new Grid({
 			
 			
 			var useYn = $('input:checkbox[id="useYn"]').is(":checked") == true
-
 			if (useYn == true) {
 				useYn = "Y";
 			} else {
@@ -311,7 +298,6 @@ var bomGrid = new Grid({
 		
 		$("#prcsCodeModal").load("${path}/com/searchPrcsCode.do", function(){console.log("공정코드 목록")})
 	} 
-
 	var pid = bomGrid.getRow(ev.rowKey).prdtId;
 	choosePi(pid);
 	 
@@ -328,7 +314,6 @@ var bomGrid = new Grid({
 	})
 	
 	
-
 	
 	// 모달창에서 공정코드를 선택하면 자재코드랑 자재 명 새로운 그리드 행에 들어가게 하기.
 	function prcsCodeData(prcsData) {
@@ -336,7 +321,6 @@ var bomGrid = new Grid({
 		
 		bomGrid.setValue(rowkey, "prcsNm", prcsData.prcsNm, true)
 		bomGrid.setValue(rowkey, "prcsId", prcsData.prcsId, true)
-
 		dialog.dialog("close");
 	}
 	
@@ -358,7 +342,6 @@ var bomGrid = new Grid({
 	   bomGrid.on('editingFinish',function (ev) { 
 	      evFlag = 'o'
 	   })
-
 </script>
 
 

@@ -69,7 +69,7 @@
 <!-- 공정 삭제시 순번 업데이트 -->
 	<select id="updateLineOrd" resultType="PrdLineMngVO">
 		update line
-		set ORD = ROWNUM
+		set ORD = #{ord}
 		where prdt_id = #{prdtId}
 	</select>
 	
