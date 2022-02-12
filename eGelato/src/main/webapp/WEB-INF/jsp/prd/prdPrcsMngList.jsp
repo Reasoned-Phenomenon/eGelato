@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,55 +12,45 @@ th, td {
 }
 </style>
 <body>
-	<div>
-		<br>
-		<h2>공정관리</h2>
-		<br>
+	<h2>공정관리</h2>
+	<table>
+		<tbody>
+			<tr>
+				<th>공정구분</th>
+				<td><select name="prcsSelDeta" id="prcsSelDeta">
+						<option value="" selected>전체</option>
+						<option value="FREZ">냉동공정</option>
+						<option value="SHAP">성형공정</option>
+						<option value="BLEN">혼합공정</option>
+						<option value="CRSH">분쇄공정</option>
+						<option value="COAT">코팅공정</option>
+						<option value="UNIT">개별포장공정</option>
+						<option value="BOXI">박스포장공정</option>
+						<option value="FORE">품질검사공정</option>
+						<option value="WIGH">무게검사공정</option>
+				</select></td>
+				<td>
+					<button type="button" id="btnPrcSel">검색</button>
+					<button type="button" id="btnClear">초기화</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div style="float: right; margin-bottom: 10px; margin-top: 25px;">
+		<button type="button" id="btnAdd">추가</button>
+		<button type="button" id="btnDel">삭제</button>
+		<button type="button" id="btnIns">저장</button>
 	</div>
+	<hr>
 	<br>
-	<div class="row">
-		<div class="col-sm-10">
-			<table>
-				<tbody>
-					<tr>
-						<th>공정구분</th>
-						<td>
-							<select name="prcsSelDeta" id="prcsSelDeta">
-								<option value="" selected>전체</option>
-								<option value="FREZ">냉동공정</option>
-								<option value="SHAP">성형공정</option>
-								<option value="BLEN">혼합공정</option>
-								<option value="CRSH">분쇄공정</option>
-								<option value="COAT">코팅공정</option>
-								<option value="UNIT">개별포장공정</option>
-								<option value="BOXI">박스포장공정</option>
-								<option value="FORE">품질검사공정</option>
-								<option value="WIGH">무게검사공정</option>
-							</select>
-						</td>
-						<td>
-							<button type="button"  id="btnPrcSel">검색</button>
-							<button type="button"  id="btnClear">초기화</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="col-sm-2">
-			<button type="button"  id="btnAdd">추가</button>
-			<button type="button"  id="btnDel">삭제</button>
-			<button type="button"  id="btnIns">저장</button>
-		</div>
-	</div>
-	<br><hr><br>
-	<div id="prcsMngList"></div> 
-	
+	<div id="prcsMngList"></div>
+
 	<!-- 공정 모달-->
 	<div id="prcsDetaDialog" title="상세 공정 코드 목록"></div>
 	<!-- 설비 모달-->
 	<div id="eqmDialog" title="미사용 설비 목록"></div>
-	
-<script>
+
+	<script>
 	//modify구분하기위한 변수
 	let flag;
 
@@ -168,20 +158,26 @@ th, td {
 			})
 
 	// 그리드 클릭
-	/* let evFlag = 'o';
+	let evFlag = 'o';
 	
-	prcsMngList.on('click',function (ev2) {
-	      console.log(1212121212121212)
-	      if(evFlag == 'o' && ev2.columnName =='prcsSelDeta') {
-	    	  prcsMngList.startEditing(ev2.rowKey, 'prcsSelDeta', false)
-	         evFlag = 'x'
-	      }
+	prcsMngList.on('click',function (ev) {
+		
+	    if(evFlag == 'o' && ev.columnName =='prcsSelDeta') {
+	    	
+		  	  prcsMngList.startEditing(ev.rowKey, 'prcsSelDeta', false)
+		      evFlag = 'x';
+	  	  
+	    }
 	      
-	   })   
+	})   
 	   
-	prcsMngList.on('editingFinish',function (ev2) { 
-      evFlag = 'o'
-   }) */
+	prcsMngList.on('editingFinish',function (ev) {
+		
+		if(evFlag == 'x' && ev.columnName =='prcsSelDeta') {
+			evFlag = 'o';
+   		}
+		
+   })
    
 	prcsMngList.on('dblclick', (ev) => {
 		
@@ -197,10 +193,8 @@ th, td {
 			} else if (ev.columnName === 'prcsId') {
 				toastr.clear()
 				toastr.error( ('공정코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
-			} else if (evFlag == 'o' && ev.columnName =='prcsSelDeta') {
-				prcsMngList.startEditing(ev.rowKey, 'prcsSelDeta', false)
-				evFlag = 'x'
-			}
+			} 
+			
 		});
 	
 	function calleqmId(){

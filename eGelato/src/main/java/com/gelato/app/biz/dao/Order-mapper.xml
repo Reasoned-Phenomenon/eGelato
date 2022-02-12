@@ -24,10 +24,10 @@
      ON b.prdt_id = d.prdt_id
      <where>
      	<if test="vendName !=null and vendName != ''">
-     		and c.vend_name = #{vendName}
+     		and c.vend_name like '%'||#{vendName}||'%'
      	</if>
      	<if test="prdtNm !=null and prdtNm != ''">
-     		and d.prdt_nm = #{prdtNm}
+     		and d.prdt_nm like '%'||#{prdtNm}||'%'
      	</if>
      	<if test="stFg !='전체'">
      		 and a.st_fg = #{stFg}

@@ -5,23 +5,22 @@
 <head>
 <meta charset="UTF-8">
 
-<title>실시간 설비 상태(온도/UPH/생산량)</title>
+<title>실시간 설비 상태(온도/생산량)</title>
 
 </head>
 <body>
+<h2>실시간 설비 상태</h2>
 
-<br>
-<h2>모니터링 관리</h2>
-<br>
-
-
-<div class="col-4">
-	<div id="chart-temp"></div>
-</div>
-<div class="col-4">
-	<div id="chart-prod"></div>
-</div>
-
+	<div align="center">
+		<div id="chart-temp"></div>
+	</div>
+	
+	<hr>
+	
+	<div align="center">
+		<div id="chart-prod"></div>
+	</div>
+	
 <script>
 //--------------------------------------온도 차트 시작-------------------------------------------------------//
 //온도 차트 생성
@@ -33,7 +32,7 @@ var tempData = {
 };
  
 var tempOptions = { 
-		chart: { title: '실시간 설비 온도', width: 1200, height: 300 },
+		chart: { title: '실시간 설비 온도', width: 1400, height: 350 },
 		xAxis: {
 			title: '시간',
 			date: { format: 'hh:mm:ss' }
@@ -66,7 +65,7 @@ var prodData = {
 };
 
 var prodOptions = {
-  chart: { title: '실시간 설비 생산량', width: 1200, height: 300 },
+  chart: { title: '실시간 설비 생산량', width: 1400, height: 350 },
   xAxis: {
     title: '시간',
     date: { format: 'hh:mm:ss' }
@@ -120,7 +119,6 @@ function chartAjax(){
 			let logSet = new Set();
 			
 			for(let i = 0 ; i < eqmData.length ; i ++ ) {
-				//console.log(eqmData[i].logTm)
 				
 				if (i == eqmData.length-1 ) {
 					tempData.series.push(tempItem);
@@ -174,22 +172,6 @@ function chartAjax(){
 			
 		})
 }
-
-/* function updateDataAjax() {
-	$.ajax({
-		url : "${path}/eqm/selectLastEqm.do",
-		dataType : 'json',
-		method : 'GET',
-		data:{lastLogTm:lastLogTm},
-		error : function(result){
-			console.log('에러',result)
-		}
-	}).done(function (result){
-		console.log(result.data.contents);
-		let eqmData = result.data.contents;
-		
-	})
-} */
 
 chartAjax();
 

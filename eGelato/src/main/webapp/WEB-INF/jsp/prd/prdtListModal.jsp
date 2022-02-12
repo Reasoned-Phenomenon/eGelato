@@ -47,6 +47,7 @@ var prdtListGrid = new Grid({
   	rowHeaders:['rowNum'],
   	selectionUnit: 'row',
   	width: 450,
+  	bodyHeight:400,
   	columns:[
   		  {
 		    header: '제품코드',

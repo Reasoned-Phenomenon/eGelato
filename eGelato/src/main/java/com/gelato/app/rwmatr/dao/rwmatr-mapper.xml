@@ -17,7 +17,7 @@
 				AND R.NM LIKE '%'||#{rwmName}||'%'
 			</if>
 			<if test="rwmatrId != ''">
-				AND R.RWMATR_ID LIKE '%'||#{rwmatrId}||'%'
+				AND R.RWMATR_ID LIKE '%'||UPPER(#{rwmatrId})||'%'
 			</if>
         </where>
         ORDER BY 1

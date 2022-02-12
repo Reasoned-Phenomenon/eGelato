@@ -23,7 +23,7 @@ h1 {
 		        <tbody>
 		            <tr>
 		                <th>업체명</th>
-		                <td><input type="text" id="vendNameM"></td>
+		                <td><input type="text" id="vendNameMM"></td>
 		                <td><button type="button" id="vendSearch" class="btn cur-p btn-dark">조회</button></td>
 		                <td><button type="reset" class="btn cur-p btn-dark">초기화</button></td>
 		            </tr>
@@ -38,12 +38,12 @@ h1 {
 var Grid = tui.Grid;
 
 //검색조건
-var vendNameM;
+var vendNameMM;
 
 document.getElementById("vendSearch").addEventListener("click", function () {
-	vendNameM = document.getElementById("vendNameM").value;
-	
-	vendListGrid.readData(1,{'vendName':vendNameM}, true);
+	vendNameMM = document.getElementById("vendNameMM").value;
+	console.log(vendNameMM);
+	vendListGrid.readData(1,{'vendName':vendNameMM}, true);
 });
 
 // 그리드 생성
@@ -74,14 +74,6 @@ var vendListGrid = new Grid({
 		]
 });
 
-/* rwmatrListGrid.on("click", (ev) => {
-	console.log(rwmatrListGrid.getRow(ev.rowKey).rwmatrId);
-	console.log(rwmatrListGrid.getRow(ev.rowKey).nm);
-	let rmId = rwmatrListGrid.getRow(ev.rowKey).rwmatrId;
-	let rmnm = rwmatrListGrid.getRow(ev.rowKey).nm;
-	
-	
-}); */
 
 //커스텀 이벤트
 vendListGrid.on('dblclick', (ev) => {	

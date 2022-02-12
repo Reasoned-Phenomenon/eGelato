@@ -29,13 +29,19 @@ th, td {
 					</tr>
 					<tr>
 						<th>거래처</th>
-						<td><input type="text" id="vendName" name="vendName" readonly>
-							<button type="button" id="BtnVend" class="btn-modal"></button></td>
+						<td>
+							<input type="text" id="vendName" name="vendName">
+							<button type="button" id="BtnVend" class="btn-modal"></button>
+							<input type="text" id="vendId" name="vendId" readonly>
+						</td>
 					</tr>
 					<tr>
 						<th>제품명</th>
-						<td><input type="text" id="prdtNm" name="prdtNm" readonly>
-							<button type="button" id="BtnPrdt" class="btn-modal"></button></td>
+						<td>
+							<input type="text" id="prdtNm" name="prdtNm">
+							<button type="button" id="BtnPrdt" class="btn-modal"></button>
+							<input type="text" id="prdtId" name="prdtId" readonly>
+						</td>
 					</tr>
 					<tr>
 						<th>주문 일자</th>
@@ -193,13 +199,7 @@ th, td {
 				autoOpen : false,
 				height : 500,
 				width : 700,
-				modal : true,
-				buttons : {
-					// 선택하는 버튼 넣어두기!. 옵션? 어떤거 잇는 지 찾아보기.
-					Cancel : function() {
-
-					}
-				}
+				modal : true
 
 			})
 		});
@@ -209,14 +209,8 @@ th, td {
 			prdtDialog = $("#prdtListmodal").dialog({
 				autoOpen : false,
 				height : 500,
-				width : 700,
-				modal : true,
-				buttons : {
-					// 선택하는 버튼 넣어두기!. 옵션? 어떤거 잇는 지 찾아보기.
-					Cancel : function() {
-
-					}
-				}
+				width : 600,
+				modal : true
 			})
 		});
 
@@ -249,13 +243,15 @@ th, td {
 		//  거래처 인풋 태그에 값들어가게 함.	
 		function getModalData(vendParam) {
 			console.log(vendParam);
-			$("#vendName").val(vendParam);
+			$("#vendName").val(vendParam.vendName);
+			$("#vendId").val(vendParam.vendId);
 			vendDialog.dialog("close");
 		}
 		// 제품코드 인풋 태그에 값들어가게 함.
 		function getModal(prdtParam) {
 			console.log(prdtParam);
-			$("#prdtNm").val(prdtParam);
+			$("#prdtNm").val(prdtParam.prdtNm);
+			$("#prdtId").val(prdtParam.prdtId);
 			prdtDialog.dialog("close");
 		}
 	</script>

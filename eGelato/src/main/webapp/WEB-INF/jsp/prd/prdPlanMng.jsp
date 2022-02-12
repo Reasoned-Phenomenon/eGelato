@@ -376,65 +376,75 @@ th, td {
 		}
 	});
 	
+	function vali() {
+		console.log(9999999);
+		console.log(PlanDetaInsGrid.getRowCount());
+		
+		for ( let j = 0 ; j < PlanDetaInsGrid.getRowCount() ; j++) {
+			if (PlanDetaInsGrid.getData()[j].prdtNm == '') {
+				 console.log(1111)
+				toastr.clear()
+				toastr.success( ('제품을 선택해주세요.'),'Gelato',{timeOut:'1000'});
+				return false
+			 }  else if (PlanDetaInsGrid.getData()[j].qy == '') {
+				 console.log(2222)
+				 toastr.clear()
+				toastr.success( ('계획량을 입력해주세요.'),'Gelato',{timeOut:'1000'});
+				 return false
+			 } else if (PlanDetaInsGrid.getData()[j].prodDcnt == '') {
+				console.log(3333)
+				 toastr.clear()
+				toastr.success( ('생산일수를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+				 return false
+			 } else if (PlanDetaInsGrid.getData()[j].priort == '') {
+				 console.log(4444)
+				toastr.clear()
+				toastr.success( ('작업우선순위를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+				return false
+			 }  
+		}
+		return true
+
+	}
+	
 	//계획 등록
 	btnPlanIns.addEventListener("click", function() {
 		PlanDetaInsGrid.blur();
 		let planName = document.getElementById('planName').value;
-		console.log(planName);
+		console.log(PlanDetaInsGrid.getRowCount());
 		
-		if (true) {
-			for ( j = 0 ; j < PlanDetaInsGrid.getRowCount() ; j++) {
-				if (PlanDetaInsGrid.getData()[j].prdtNm == '') {
-					 
-					toastr.clear()
-					toastr.success( ('제품을 선택해주세요.'),'Gelato',{timeOut:'1000'});
-					
-				 }  else if (PlanDetaInsGrid.getData()[j].qy == '') {
-	
-					 toastr.clear()
-					toastr.success( ('계획량을 입력해주세요.'),'Gelato',{timeOut:'1000'});
-					
-				 } else if (PlanDetaInsGrid.getData()[j].prodDcnt == '') {
-	
-					 toastr.clear()
-					toastr.success( ('생산일수를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+		if (vali()) {
+			console.log(1212121212);
+			if(planName.trim() == ''){
 				 
-				 } else if (PlanDetaInsGrid.getData()[j].priort == '') {
-					 
-					toastr.clear()
-					toastr.success( ('작업우선순위를 입력해주세요.'),'Gelato',{timeOut:'1000'});
-				 	
-				 }  
-			}
-		}
-		else if(planName.trim() == ''){
-			 
-			//입력값 없을 때,제목 입력안했을 때 toast 띄우기.
-			toastr.clear()
-			toastr.success( ('생산 계획명을 입력해주세요.'),'Gelato',{timeOut:'1000'});
-			
-		 } else {
-			 
-				console.log(planName);
+				//입력값 없을 때,제목 입력안했을 때 toast 띄우기.
+				toastr.clear()
+				toastr.success( ('생산 계획명을 입력해주세요.'),'Gelato',{timeOut:'1000'});
+				
+			 } else {
+				 
+					console.log(planName);
 
-				for ( i =0 ; i <= PlanDetaInsGrid.getRowCount(); i++) {
-					PlanDetaInsGrid.setValue(i,'name',planName);
-				}
-				console.log(2222);
-				
-				if(confirm("저장하시겠습니까?")) {
-					PlanDetaInsGrid.blur()
-					PlanDetaInsGrid.request('modifyData',{showConfirm:false})
+					for ( i =0 ; i <= PlanDetaInsGrid.getRowCount(); i++) {
+						PlanDetaInsGrid.setValue(i,'name',planName);
+					}
+					console.log(2222);
 					
-					// 등록 후 토스트 띄우기
-						toastr.clear()
-						toastr.success( ('계획이 등록되었습니다.'),'Gelato',{timeOut:'1000'} );
-					
-					$("#planName").val('');
-					PlanDetaInsGrid.clear();
-				}			
-				
+					if(confirm("저장하시겠습니까?")) {
+						PlanDetaInsGrid.blur()
+						PlanDetaInsGrid.request('modifyData',{showConfirm:false})
+						
+						// 등록 후 토스트 띄우기
+							toastr.clear()
+							toastr.success( ('계획이 등록되었습니다.'),'Gelato',{timeOut:'1000'} );
+						
+						$("#planName").val('');
+						PlanDetaInsGrid.clear();
+					}			
+			}
 		} 
+		
+		 
 			
 	});
 	

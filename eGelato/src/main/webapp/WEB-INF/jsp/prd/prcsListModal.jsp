@@ -8,7 +8,7 @@
 </head>
 <body>
 	<br>
-	<h1>공정 목록</h1>
+	<h1 style="text-align:center;">공정 목록</h1>
 	<br>
 	<div>
 	<table>
@@ -36,6 +36,7 @@
 	</tbody>
 	</table>
 	</div>
+	<br>
 	<div id="prcsGrid"></div>
 	
 <script>
@@ -67,6 +68,7 @@
 		},
 	  	rowHeaders:['rowNum'],
 	  	selectionUnit: 'row',
+	  	bodyHeight:350,
 	  	columns:[
 	  		  {
 			    header: '공정코드',

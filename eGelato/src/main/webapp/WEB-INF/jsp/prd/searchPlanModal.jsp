@@ -32,7 +32,7 @@ var endD;
 $("#selectDate").on(
 		"click", function chooseDate() {
 			startD = document.getElementById("startD").value;
-			endD = document.getElementById("endD").value;
+			endD = document.getElementById("endD").value; 
 			console.log(startD);
 			console.log(endD);
 			
