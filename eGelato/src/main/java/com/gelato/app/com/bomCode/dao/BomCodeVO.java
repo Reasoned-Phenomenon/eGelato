@@ -30,5 +30,8 @@ public class BomCodeVO {
 		
 		//
 		String fgCode; // 구분 코드
+		String specCode;
+		String unitCode;
 		
+		String unit;
 }

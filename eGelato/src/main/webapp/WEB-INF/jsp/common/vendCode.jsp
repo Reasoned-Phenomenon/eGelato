@@ -14,13 +14,14 @@ th, td {
 <body>
 	<h2>거래처 코드 관리</h2>
 	<div>
+	<form action="">
 		<table>
 			<tbody>
 				<tr>
 					<th>거래처 코드</th>
 					<td><input type="text" id="vendId" name="vendId" readonly></td>
 					<th>거래처 명*</th>
-					<td><input type="text" id="vendName" name="vendName"></td>
+					<td><input type="text" id="vendName" name="vendName" required></td>
 				</tr>
 				<tr>
 					<th>사업자 등록번호*</th>
@@ -29,9 +30,9 @@ th, td {
 					<td><input type="text" id="telno" name="telno"></td>
 				</tr>
 				<tr>
-					<th>비 고*</th>
+					<th>비 고</th>
 					<td><input type="text" id="remk" name="remk"></td>
-					<th>구 분*</th>
+					<th>구 분</th>
 					<td><select id="fg" name="fg">
 						<option value="VEND01">구매처</option>
 						<option value="VEND02">판매처</option>
@@ -44,6 +45,7 @@ th, td {
 				</tr>
 			</tbody>
 		</table>
+		</form>
 	</div>
 	<hr>
 	<br>
@@ -57,7 +59,11 @@ let flag;
 
 var Grid = tui.Grid;
 
-
+toastr.options = {
+		positionClass : "toast-top-center",
+		progressBar : true,
+		timeOut: 1500 
+		}
 
 //그리드 생성.
 var vendCodeGrid = new Grid({
@@ -174,6 +180,11 @@ var vendCodeGrid = new Grid({
 			console.log(fg);
 
 			if (vendId =='') {
+				if(vendName =='' || bizno=='' || telno=='') {
+					//alert("거래처 명을 입력하세요.");
+					toastr.info('필수사항을 입력해주세요.','Gelato');
+					return;
+				}
 				$.ajax({
 					url:"${path}/com/insertvendCode.do",
 					method :"post",
@@ -189,11 +200,13 @@ var vendCodeGrid = new Grid({
 					success : function(res) {
 						vendCodeGrid.readData(1,{},true)
 						//console.log(res);
-						alert("등록 되었습니다.");
+						//alert("등록 되었습니다.");
+						toastr.success('등록 되었습니다.','Gelato');
 						vendCodeGrid.refreshLayout();
 					},
 					error : function() {
-						alert("등록 실패했습니다.");
+						//alert("등록 실패했습니다.");
+						toastr.error('등록 실패' ,'Gelato');
 					}	
 				})
 				
@@ -214,11 +227,13 @@ var vendCodeGrid = new Grid({
 					success : function(res) {
 						vendCodeGrid.readData(1,{},true)
 						//console.log(res);
-						alert("수정 되었습니다.");
+						//alert("수정 되었습니다.");
+						toastr.success('수정 되었습니다.','Gelato');
 						vendCodeGrid.refreshLayout();
 					},
 					error : function() {
-						alert("수정 실패했습니다.");
+						//alert("수정 실패했습니다.");
+						toastr.error('수정 실패' ,'Gelato');
 					}
 						
 				})

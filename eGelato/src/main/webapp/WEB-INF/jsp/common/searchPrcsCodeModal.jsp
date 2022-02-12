@@ -17,7 +17,6 @@
 	
 	<script>
 var Grid = tui.Grid;
-	
 
 	
 	// 그리드 생성
@@ -40,7 +39,7 @@ var Grid = tui.Grid;
 			  },
 			  {
 			    header: '공정 명',
-			    name: 'prcsNm',
+			    name: 'nm',
 			    align: 'center'
 			  },
 			  {
@@ -52,6 +51,12 @@ var Grid = tui.Grid;
 			]
 	});
 
+	function choosePi(pid) {
+		console.log(pid);
+		
+		prcsCodeGrid.clear();
+		prcsCodeGrid.readData(1,{'prdtId':pid},true);
+	}
 	// 모달에서 클릭 이벤트
 	prcsCodeGrid.on('dblclick', (ev) => {
 		
@@ -60,18 +65,15 @@ var Grid = tui.Grid;
 		      start: [ev.rowKey, 0],
 		      end: [ev.rowKey, prcsCodeGrid.getColumns().length-1]
 	});
-		// 
-		 function choosePi(pid) {
-			console.log(pid);
-			prcsCodeGrid.clear();
-			prcsCodeGrid.readData(1,{'prdtId':pid},true);
-			
-		}
+		
 	
 	// 해당 행의 모든값 객체형태로 매개값으로 담음.
 	 prcsCodeData(prcsCodeGrid.getRow(ev.rowKey))
 		
 	});	
+	
+	// 
+	 
 	
 	/* $(document).ready ( function getData() {
 		prcsCodeGrid.readData(1, {}, true);

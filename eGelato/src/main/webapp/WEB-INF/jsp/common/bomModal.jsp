@@ -45,23 +45,22 @@
 			    header: '규격',
 			    name: 'spec',
 			    align: 'center'
-			  },
+			  }, 
 			  {
-			    header: '소모량',
-			    name: 'qy',
-			    align: 'center'
-			  },
-			  {
-			    header: '업체 명',
-				name: 'vendName',
+				header: '단위',
+				name: 'unit',
 				align: 'center'
-			  },
-			  
+			  }, 
 			  {
-				header: '작업 단위',
-				name: 'wkUnit',
-				align: 'center'
-			   }
+				header: '규격 코드',
+				name: 'specCode',
+				hidden: true
+			   }, 
+			   {
+				 header: '단위 코드',
+				 name: 'unitCode',
+				 hidden: true
+				}
 			 
 			]
 	});

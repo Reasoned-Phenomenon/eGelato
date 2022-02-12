@@ -217,7 +217,7 @@ th, td {
 			},{
 				header : '상태',
 				name : 'psSt',
-				hidden : false
+				hidden : false [piutrew]
 			}]
 		});
 		
