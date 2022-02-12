@@ -211,17 +211,12 @@ var rwmatrGrid = new Grid({
 			var useYn =$("#useYn").val();
 
 			if (rwmatrId =='') {
-				if(nm =='') {
-					toastr.info('자재명 입력','Gelato');
+				if(nm =='' || safStc =='') {
+					toastr.info('필수사항을 입력해주세요.','Gelato');
 					//alert("자재 명을 입력하세요.");
-					//return;
-				}
-				
-				if(safStc ==''){
-					toastr.info('안전재고 입력','Gelato');
 					return;
 				}
-				
+
 				$.ajax({
 					url:"${path}/com/insertrwmatrCode.do",
 					method :"post",

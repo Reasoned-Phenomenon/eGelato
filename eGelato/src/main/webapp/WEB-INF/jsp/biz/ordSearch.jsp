@@ -46,8 +46,8 @@ th, td {
 					<tr>
 						<th>주문 일자</th>
 						<td><input type="date" id="startDt"
-							style="margin-right: 8px;" required> ~ <input type="date"
-							id="endDt" style="margin-left: 8px;" required></td>
+							style="margin-right: 8px;"> ~ <input type="date"
+							id="endDt" style="margin-left: 8px;"></td>
 					</tr>
 					<tr>
 						<th>납기 일자</th>

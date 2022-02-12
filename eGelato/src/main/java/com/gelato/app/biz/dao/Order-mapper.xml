@@ -33,7 +33,7 @@
      		 and a.st_fg = #{stFg}
      	</if>
      	<if test="startDt !=null and startDt != ''">
-     		 <![CDATA[and trunc(a.order_dt) >= to_date(#{startDt})]]> 
+     		 <![CDATA[and trunc(a.order_dt) >= to_date(#{startDt}]]> 
      	</if>
      	<if test="endDt !=null and endDt != ''">
      		 <![CDATA[and trunc(a.order_dt) <= to_date(#{endDt})]]> 
