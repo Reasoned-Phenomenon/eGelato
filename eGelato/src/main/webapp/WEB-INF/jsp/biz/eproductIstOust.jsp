@@ -243,6 +243,18 @@ var eprdtOustGrid = new Grid({
 			      validation: {
 			          required: true
 			      }
+				},
+				{
+				  header: '비고',
+				  name: 'remk',
+				  sortable: true ,
+				  formatter({value}) { // 추가
+					  let a = `\${value}`
+				  	  if(a == 'null'){
+				  		  a = '';
+				  	  }
+				      return a;
+				  }
 				}
 		]
 });
