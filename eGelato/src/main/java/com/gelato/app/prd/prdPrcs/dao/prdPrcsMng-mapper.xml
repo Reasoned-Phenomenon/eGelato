@@ -35,7 +35,7 @@
 			)
 		<where>
 			<if test="indicaD != null and indicaD != ''">
-	    		<![CDATA[ trunc(indica_dt) = to_date(#{indicaD})]]>
+	    		<![CDATA[ trunc(indica_dt) = to_date(#{indicaD},'YYYY-MM-DD')]]>
 	    	</if>
 		</where> 
 		order by indica_deta_Id

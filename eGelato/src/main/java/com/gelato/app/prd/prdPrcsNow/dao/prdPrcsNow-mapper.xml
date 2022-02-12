@@ -42,11 +42,11 @@
 		group by pid.indica_deta_id, l.prdt_id, r.nm, pid.qy, pid.indica_dt)
 	   <where>
 			<if test="startD != null and startD != ''">
-				<![CDATA[trunc(indica_dt) >= to_date(#{startD})]]>
+				<![CDATA[trunc(indica_dt) >= to_date(#{startD},'YYYY-MM-DD')]]>
 			</if>
 			
 			<if test="endD != null and endD != ''">
-				<![CDATA[and trunc(indica_dt) <= to_date(#{endD})]]>
+				<![CDATA[and trunc(indica_dt) <= to_date(#{endD},'YYYY-MM-DD')]]>
 			</if>
 	   </where>
 		order by indica_deta_id
@@ -80,10 +80,10 @@
 		    on pid.infer_id = ic.infer_id
 		<where>
 			<if test="startDt != null and startDt != ''">
-				<![CDATA[and trunc(pi.indica_dt) >= to_date(#{startDt})]]>
+				<![CDATA[and trunc(pi.indica_dt) >= to_date(#{startDt},'YYYY-MM-DD')]]>
 			</if>
 			<if test="endDt != null and endDt != ''">
-           		<![CDATA[and trunc(pi.indica_dt) <= to_date(#{endDt})]]>
+           		<![CDATA[and trunc(pi.indica_dt) <= to_date(#{endDt},'YYYY-MM-DD')]]>
            	</if>
 			<if test="nm != null and nm != ''">
 				p.nm = #{nm}
