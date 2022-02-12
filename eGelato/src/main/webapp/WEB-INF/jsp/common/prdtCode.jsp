@@ -14,6 +14,7 @@ th, td {
 <body>
 	<h2>완제품 코드 관리</h2>
 	<div>
+	<form action="">
 		<table style="margin-bottom: 10px;">
 			<tbody>
 				<tr>
@@ -23,12 +24,12 @@ th, td {
 					<td><input type="text" id="prdtNm" name="prdtNm"></td>
 				</tr>
 				<tr>
-					<th>규격*</th>
+					<th>규격</th>
 					<td><select id="spec" name="spec">
 							<option value="SPEC01">10KG</option>
 							<option value="SPEC02">30KG</option>
 					</select></td>
-					<th>단위*</th>
+					<th>단위</th>
 					<td><select id="unit" name="unit">
 
 						<option value="UNIT01">EA</option>
@@ -45,6 +46,7 @@ th, td {
 				</tr>
 			</tbody>
 		</table>
+		</form>
 	</div>
 	<hr>
 	<br>

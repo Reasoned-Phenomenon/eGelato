@@ -24,6 +24,7 @@ th, td {
 				<div id="rwmatrGrid" style="width: 100%"></div>
 			</div>
 			<div class="col-5">
+			<form action="">
 				<table class="table table-bbs" style="margin-top: 75%;">
 					<tbody>
 						<tr>
@@ -31,16 +32,16 @@ th, td {
 							<td><input type="text" id="rwmatrId" name="rwmatrId"
 								readonly></td>
 							<th>자재명*</th>
-							<td><input type="text" id="nm" name="nm"></td>
+							<td><input type="text" id="nm" name="nm" required></td>
 						</tr>
 						<tr>
-							<th>규격*</th>
+							<th>규격</th>
 							<td><select id="spec" name="spec">
 									<option value="SPEC01">10KG</option>
 									<option value="SPEC02">30KG</option>
 							</select></td>
 
-							<th>작업 단위*</th>
+							<th>작업 단위</th>
 							<td><select id="wkUnit" name="wkUnit">
 									<option value="UNIT01">EA</option>
 									<option value="UNIT02">BOX</option>
@@ -49,7 +50,7 @@ th, td {
 
 						</tr>
 						<tr>
-							<th>입고 업체*</th>
+							<th>입고 업체</th>
 							<td colspan="3"><input type="text" id="vendId" name="vendId"
 								readonly>
 								<button type="button" id="serachVendIdBtn" class="btn-modal"></button>
@@ -57,7 +58,7 @@ th, td {
 								placeholder="업체명" style="width: 70px;" readonly></td>
 						</tr>
 						<tr>
-							<th>제품 구분*</th>
+							<th>제품 구분</th>
 							<td><select id="fg" name="fg">
 									<option value="STEP01" selected>원자재</option>
 									<option value="STEP02">반제품</option>
@@ -66,11 +67,12 @@ th, td {
 							<td><input type="text" id="safStc" name="safStc"></td>
 						</tr>
 						<tr>
-							<th>사용유무*</th>
+							<th>사용유무</th>
 							<td><input type="checkbox" id="useYn" name="useYn" checked></td>
 						</tr>
 					</tbody>
 				</table>
+				</form>
 				<div>
 					<button id="reset" value="초기화" class="btn cur-p btn-outline-dark">초기화</button>
 					<button id="AddBtn" class="btn cur-p btn-outline-dark">저장</button>
@@ -89,7 +91,11 @@ let dialog;
 
 var Grid = tui.Grid;	
 
-
+toastr.options = {
+		positionClass : "toast-top-center",
+		progressBar : true,
+		timeOut: 1500 
+		}
 
 //그리드 생성.
 var rwmatrGrid = new Grid({
@@ -205,6 +211,17 @@ var rwmatrGrid = new Grid({
 			var useYn =$("#useYn").val();
 
 			if (rwmatrId =='') {
+				if(nm =='') {
+					toastr.info('자재명 입력','Gelato');
+					//alert("자재 명을 입력하세요.");
+					//return;
+				}
+				
+				if(safStc ==''){
+					toastr.info('안전재고 입력','Gelato');
+					return;
+				}
+				
 				$.ajax({
 					url:"${path}/com/insertrwmatrCode.do",
 					method :"post",
@@ -222,11 +239,13 @@ var rwmatrGrid = new Grid({
 					success : function(res) {
 						rwmatrGrid.readData(1,{},true)
 						//console.log(res);
-						alert("등록 되었습니다.");
+						//alert("등록 되었습니다.");
+						toastr.success('등록 되었습니다.','Gelato');
 						rwmatrGrid.refreshLayout();
 					},
 					error : function() {
-						alert("등록 실패했습니다.");
+						//alert("등록 실패했습니다.");
+						toastr.error('등록 실패' ,'Gelato');
 					}	
 				})
 				
@@ -249,11 +268,13 @@ var rwmatrGrid = new Grid({
 					success : function(res) {
 						rwmatrGrid.readData(1,{},true)
 						//console.log(res);
-						alert("수정 되었습니다.");
+						//alert("수정 되었습니다.");
+						toastr.success('수정 되었습니다.','Gelato');
 						rwmatrGrid.refreshLayout();
 					},
 					error : function() {
-						alert("수정 실패했습니다.");
+						//alert("수정 실패했습니다.");
+						toastr.error('수정 실패' ,'Gelato');
 					}
 						
 				})

@@ -70,18 +70,14 @@
 
 	<!-- bom에서 제품코드 검색 modal --> 
 	<select id="rwmatrList" resultType="BomCodeVO">
-		SELECT a.prdt_id as prdt_id , a.qy as qy,
-		       b.nm as nm, b.spec as spec, b.wk_unit as wk_unit, 
-		       c.vend_name as vend_name,
-		       d. prdt_nm as prdt_nm
-        FROM   bom a
-        JOIN   rwmatr b
-        ON     a.rwmatr_id = b.rwmatr_id
-        JOIN   vend c 
-        ON     b.vend_id = c.vend_id 
-        JOIN   prdt d
-        ON     a.prdt_id = d.prdt_id
-  ORDER BY     prdt_id ASC
+	    SELECT PRDT_ID AS PRDT_ID,
+               PRDT_NM AS PRDT_NM,
+               f_com_code_to_nm(SPEC) AS SPEC,
+               f_com_code_to_nm(SPEC) AS UNIT,
+               SPEC AS SEPC_CODE,
+               UNIT AS UNIT_CODE
+        FROM   PRDT 
+    ORDER BY   PRDT_ID ASC
 		
 	</select>
 	
