@@ -18,11 +18,11 @@
 			 ON (E.EQM_ID = C.EQM_ID)
 			 <where>
 				 <if test="fromCkDate != null and fromCkDate !=''">
-				 	<![CDATA[AND TRUNC(C.CHCK_DT) >= TO_DATE(#{fromCkDate})]]>
+				 	<![CDATA[AND TRUNC(C.CHCK_DT) >= TO_DATE(#{fromCkDate}, 'YYYY-MM-DD')]]>
 				 </if>
 				 
 				 <if test="toCkDate != null and toCkDate !=''">
-				 	<![CDATA[AND TRUNC(C.CHCK_DT) <= TO_DATE(#{toCkDate})]]>
+				 	<![CDATA[AND TRUNC(C.CHCK_DT) <= TO_DATE(#{toCkDate}, 'YYYY-MM-DD')]]>
 				 </if>
 				 
 				 <if test="(fromCkDate != null and fromCkDate !='') or (toCkDate != null and toCkDate !='')">

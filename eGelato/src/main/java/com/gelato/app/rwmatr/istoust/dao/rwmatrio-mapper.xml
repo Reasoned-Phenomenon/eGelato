@@ -17,10 +17,10 @@
         	ON V.VEND_ID = R.VEND_ID
         WHERE IST_QY != 0
         	<if test="startDate != ''">
-	    		AND <![CDATA[TRUNC(RIO.IST_OUST_DTTM) >= to_date(#{startDate})]]>
+	    		AND <![CDATA[TRUNC(RIO.IST_OUST_DTTM) >= to_date(#{startDate},'YYYY-MM-DD')]]>
 	    	</if>
 	    	<if test="endDate != ''">
-	    		AND <![CDATA[TRUNC(RIO.IST_OUST_DTTM) <= to_date(#{endDate})]]>
+	    		AND <![CDATA[TRUNC(RIO.IST_OUST_DTTM) <= to_date(#{endDate},'YYYY-MM-DD')]]>
 	    	</if>
 			<if test="rwmName != '' and rwmName != null">
 				AND R.NM LIKE '%'||#{rwmName}||'%'
@@ -64,10 +64,10 @@
         	ON V.VEND_ID = R.VEND_ID
         WHERE OUST_QY != 0
         <if test="startDate != ''">
-    		AND <![CDATA[TRUNC(RIO.IST_OUST_DTTM) >= to_date(#{startDate})]]>
+    		AND <![CDATA[TRUNC(RIO.IST_OUST_DTTM) >= to_date(#{startDate},'YYYY-MM-DD')]]>
     	</if>
     	<if test="endDate != ''">
-    		AND <![CDATA[TRUNC(RIO.IST_OUST_DTTM) <= to_date(#{endDate})]]>
+    		AND <![CDATA[TRUNC(RIO.IST_OUST_DTTM) <= to_date(#{endDate},'YYYY-MM-DD')]]>
     	</if>
 		<if test="rwmName != '' and rwmName != null">
 			AND R.NM LIKE '%'||#{rwmName}||'%'
@@ -146,10 +146,10 @@
             ON RS.LOT_NO = RIO.LOT_NO
 		WHERE RS.QY != 0
 		<if test="startDate != ''">
-    		AND <![CDATA[TRUNC(RS.EXPDATE) >= to_date(#{startDate})]]>
+    		AND <![CDATA[TRUNC(RS.EXPDATE) >= to_date(#{startDate},'YYYY-MM-DD')]]>
     	</if>
     	<if test="endDate != ''">
-    		AND <![CDATA[TRUNC(RS.EXPDATE) <= to_date(#{endDate})]]>
+    		AND <![CDATA[TRUNC(RS.EXPDATE) <= to_date(#{endDate},'YYYY-MM-DD')]]>
     	</if>
        	<if test="rwmName != ''">
 			AND R.NM LIKE '%'||#{rwmName}||'%'
