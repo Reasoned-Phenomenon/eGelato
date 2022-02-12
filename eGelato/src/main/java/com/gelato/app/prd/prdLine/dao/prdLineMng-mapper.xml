@@ -11,7 +11,7 @@
 		from prdt p left outer join line l
 		    on p.prdt_id = l.prdt_id
 		group by p.prdt_id, p.prdt_nm, l.line_id
-		
+		 
 		union
 		
 		select r.rwmatr_id as prdt_id, 

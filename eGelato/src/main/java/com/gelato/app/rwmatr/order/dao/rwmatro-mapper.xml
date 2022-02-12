@@ -46,10 +46,10 @@
 		FROM RWMATR_ORDER
 		<where>
 	    	<if test="startDate != '' and startDate != null">
-	    		<![CDATA[TRUNC(ORDER_DT) >= to_date(#{startDate})]]>
+	    		<![CDATA[TRUNC(ORDER_DT) >= to_date(#{startDate},'YYYY-MM-DD')]]>
 	    	</if>
 	    	<if test="endDate != '' and endDate != null">
-	    		AND <![CDATA[TRUNC(ORDER_DT) <= to_date(#{endDate})]]>
+	    		AND <![CDATA[TRUNC(ORDER_DT) <= to_date(#{endDate},'YYYY-MM-DD')]]>
 	    	</if>
 		</where>
 		ORDER BY 2 DESC
