@@ -43,6 +43,8 @@ th, td {
 			</tbody>
 		</table>
 	</div>
+	<hr>
+	<br>
 	<!-- 계획 조회 그리드 -->
 	<div id="PlanSearchGrid"></div>
 
@@ -102,7 +104,7 @@ th, td {
 			},
 			rowHeaders : [ 'rowNum' ],
 			selectionUnit : 'row',
-			bodyHeight : 600,
+			bodyHeight : 550,
 			columns : [ {
 				header : '생산계획코드',
 				name : 'planId'

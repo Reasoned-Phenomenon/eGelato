@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,39 +7,34 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div>
-		<br>
-		<h2>제품공정흐름도</h2>
-		<br>
-	</div>
-	<br>
 	<div class="row">
-		<div class="col-sm-5">
-			<h3>제품공정흐름도</h3>
-			<br>
-			<hr>
+		<div class="col-sm-5" style="margin: 0px; width: 100%;">
+			<h2>제품공정흐름도</h2>
 			<div id="lineGrid"></div>
 		</div>
 		<div class="col-sm-7">
-			<h3>제품공정흐름도 관리</h3>
+			<h2>제품공정흐름도 관리</h2>
+			<div style="float: right; margin-bottom: 10px; margin-top: 10px;">
+				<button type="button" id="btnAdd">추가</button>
+				<button type="button" id="btnDel">삭제</button>
+				<button type="button" id="btnIns">등록</button>
+			</div>
+			
 			<select name="prdtDeta" id="prdtDeta">
 				<option value="" selected>선택</option>
-				  <option value="BAR">바형</option>
-				  <option value="CON">콘형</option>
-				  <option value="CUP">컵형</option>
-				  <option value="SAN">샌드형</option>
-				  <option value="TUB">튜브형</option>
+				<option value="BAR">바형</option>
+				<option value="CON">콘형</option>
+				<option value="CUP">컵형</option>
+				<option value="SAN">샌드형</option>
+				<option value="TUB">튜브형</option>
 			</select>
-			<button type="button"  id="btnAdd" >추가</button>
-			<button type="button"  id="btnDel" >삭제</button>
-			<button type="button"  id="btnIns" >등록</button>
 			<hr>
 			<div id="linePrcsGrid"></div>
 		</div>
 	</div>
-	
+
 	<div id="prcsModal" title="공정목록"></div>
-<script>
+	<script>
 	$('#prdtDeta').hide();
 	
 	//토스트옵션
@@ -78,7 +73,7 @@
 		},
 		rowHeaders : ['rowNum' ],
 		selectionUnit : 'row',
-		bodyHeight: 610,
+		bodyHeight: 660,
 		columns : [ {
 			header : '제품코드',
 			name : 'prdtId',
