@@ -71,6 +71,7 @@ public class RwmatrOrderController {
 	@RequestMapping("/rwmatr/searchRwmatrList.do")
 	public String searchRwmatrList(RwmatrVO vo, Model model) {
 		System.out.println("원자재리스트");
+		System.out.println(vo);
 		model.addAttribute("datas", rwmatrService.rwmatrList(vo));
 		System.out.println(rwmatrService.rwmatrList(vo));
 		return "grid"; 
