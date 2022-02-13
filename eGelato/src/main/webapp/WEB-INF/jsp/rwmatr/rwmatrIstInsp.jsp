@@ -223,7 +223,7 @@ let orderDialogFrm = $( "#orderDialogFrm" ).dialog({
 	  modal:true,
 	  autoOpen:false,
       height: 470,
-      width: 600,
+      width: 630,
       modal: true
 }); 
 
