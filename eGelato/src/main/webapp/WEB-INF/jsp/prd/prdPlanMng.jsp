@@ -384,22 +384,22 @@ th, td {
 			if (PlanDetaInsGrid.getData()[j].prdtNm == '' || PlanDetaInsGrid.getData()[j].prdtNm == null) {
 				 console.log(1111)
 				toastr.clear()
-				toastr.success( ('제품을 선택해주세요.'),'Gelato',{timeOut:'1000'});
+				toastr.warning( ('제품을 선택해주세요.'),'Gelato',{timeOut:'1000'});
 				return false
 			 }  else if (PlanDetaInsGrid.getData()[j].qy == '' || PlanDetaInsGrid.getData()[j].qy == null) {
 				 console.log(2222)
 				 toastr.clear()
-				toastr.success( ('계획량을 입력해주세요.'),'Gelato',{timeOut:'1000'});
+				toastr.warning( ('계획량을 입력해주세요.'),'Gelato',{timeOut:'1000'});
 				 return false
 			 } else if (PlanDetaInsGrid.getData()[j].prodDcnt == '' || PlanDetaInsGrid.getData()[j].prodDcnt == null) {
 				console.log(3333)
 				 toastr.clear()
-				toastr.success( ('생산일수를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+				toastr.warning( ('생산일수를 입력해주세요.'),'Gelato',{timeOut:'1000'});
 				 return false
 			 } else if (PlanDetaInsGrid.getData()[j].priort == '' || PlanDetaInsGrid.getData()[j].priort == null) {
 				 console.log(4444)
 				toastr.clear()
-				toastr.success( ('작업우선순위를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+				toastr.warning( ('작업우선순위를 입력해주세요.'),'Gelato',{timeOut:'1000'});
 				return false
 			 }  
 		}
@@ -419,7 +419,7 @@ th, td {
 				 
 				//입력값 없을 때,제목 입력안했을 때 toast 띄우기.
 				toastr.clear()
-				toastr.success( ('생산 계획명을 입력해주세요.'),'Gelato',{timeOut:'1000'});
+				toastr.warning( ('생산 계획명을 입력해주세요.'),'Gelato',{timeOut:'1000'});
 				
 			 } else {
 				 

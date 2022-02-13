@@ -86,7 +86,7 @@
            		<![CDATA[and trunc(pi.indica_dt) <= to_date(#{endDt},'YYYY-MM-DD')]]>
            	</if>
 			<if test="nm != null and nm != ''">
-				p.nm = #{nm}
+				and p.nm = #{nm}
 			</if>
 			<if test="indicaDetaId != null and indicaDetaId != ''">
 				and pi.indica_deta_id = #{indicaDetaId}

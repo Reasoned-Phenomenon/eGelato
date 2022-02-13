@@ -131,7 +131,7 @@
 		},{
 			header : '순번',
 			name : 'ord',
-			hidden : false
+			hidden : true
 		},{
 			header : '제품구분',
 			name : 'prcsDeta',

@@ -159,25 +159,30 @@ th, td {
 			}, {
 				header : '설비코드',
 				name : 'eqmId',
+				width : 70
 			}, {
 				header : '설비명',
 				name : 'eqmName',
 			},{
 				header : '담당자',
 				name : 'mngr',
+				width : 70
 			},{
 				header : '투입량',
 				name : 'inptQyT',
+				width : 70
 			},{
 				header : '불량량',
 				name : 'inferQyT',
+				width : 70
 			},{
 				header : '생산량',
 				name : 'prodQyT',
+				width : 70
 			},{
 				header : '시작시간',
 				name : 'frTm',
-				hidden : true
+				hidden : true,
 			},{
 				header : '지시순번',
 				name : 'ord',
@@ -209,15 +214,18 @@ th, td {
 			},{
 				header : '시작시간',
 				name : 'startTm',
-				hidden : false
+				hidden : false,
+				width : 90
 			},{
 				header : '종료시간',
 				name : 'endTm',
-				hidden : false
+				hidden : false,
+				width : 90
 			},{
 				header : '상태',
 				name : 'psSt',
-				hidden : false [piutrew]
+				hidden : false,
+				width : 90
 			}]
 		});
 		
@@ -286,7 +294,7 @@ th, td {
 			toastr.error( ('공정이 완료되었습니다.'),'Gelato',{timeOut:'1000'} );
 			
 		} else {
-			if(confirm("시작하시겠습니까?")) {
+			if(confirm("공정을 시작하시겠습니까?")) {
 				
 			// 시간입력
 			let now = new Date();
