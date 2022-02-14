@@ -203,6 +203,8 @@ th, td {
 
 		//저장버튼
 		$("#saveBtn").on("click", function() {
+			if (eqmInsGrid.getRow(0) != null) {
+				eqmInsGrid.blur();
 			if(confirm("저장하시겠습니까?")){
 			eqmInsGrid.request('modifyData', {
 				showConfirm : false
@@ -210,6 +212,7 @@ th, td {
 			flag = 'O';
 			toastr.clear()
 			toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} );
+			}
 			}else {
 				toastr.clear()
 				toastr.warning( ('저장할 데이터가 없습니다.'),'Gelato',{timeOut:'1000'} );
@@ -218,11 +221,17 @@ th, td {
 
 		//삭제버튼
 		$("#removeBtn").on("click", function() {
-			eqmInsGrid.request('modifyData', {
-				'checkedOnly' : true,
-				'modifiedOnly' : false,
-				'showConfirm' : false
-			});
+			if(confirm("선택하신 항목을 삭제하시겠습니까?")){ 
+				eqmInsGrid.removeCheckedRows(false)
+				eqmInsGrid.request('modifyData', {
+					'checkedOnly' : true,
+					'modifiedOnly' : false,
+					'showConfirm' : false
+				});
+				toastr.clear()
+				toastr.success( ('삭제되었습니다.'),'Gelato',{timeOut:'1000'} );
+			}
+			
 			eqmInsGrid.removeCheckedRows(true)
 		})
 
