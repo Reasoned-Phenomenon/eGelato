@@ -45,7 +45,7 @@
      		 <![CDATA[and trunc(a.oust_dt) <= to_date(#{endedDt},'YYYY-MM-DD')]]> 
      	</if>
      </where>
-    	
+    ORDER BY order_id	
 </select>
 
 <!-- 주문서에서 거래처 검색 modal -->
