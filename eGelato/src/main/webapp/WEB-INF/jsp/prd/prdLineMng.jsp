@@ -123,7 +123,7 @@
 			header : '공정명',
 			name : 'nm',
 		}, {
-			header : '설비코드',
+			header : '설비코드', 
 			name : 'eqmId',
 		}, {
 			header : '설비명',
