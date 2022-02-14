@@ -133,20 +133,22 @@
 			bodyHeight: 150,
 			columns : [ {
 				header : '생산계획코드',
-				name : 'planDetaId'
+				name : 'planDetaId',
+				width : 150
 			}, {
 				header : '제품명',
 				name : 'prdtNm',
+				width : 110
 			},{
 				header : '생산일수',
 				name : 'prodDcnt',
 				align: 'right',
-				width : 90
+				width : 80
 			}, {
 				header : '수량',
 				name : 'qy',
 				align: 'right',
-				width : 90
+				width : 70
 			}, {
 				header : '생산지시량',
 				name : 'qyVal',
@@ -158,7 +160,6 @@
 				name : 'leftQy',
 				hidden : false,
 				align: 'right',
-				width : 90
 			}, {
 				header : '남은 지시',
 				name : 'countDi',
@@ -478,19 +479,21 @@
 		
 		if(pid == '') {
 			toastr.clear()
-			toastr.success( ('지시일자를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+			toastr.warning( ('지시일자를 입력해주세요.'),'Gelato',{timeOut:'1000'});
 		} else if (piq == '') {
 			toastr.clear()
-			toastr.success( ('작업수량을 입력해주세요.'),'Gelato',{timeOut:'1000'});
-		} else if (parseInt(piq) > parseInt()) {
+			toastr.warning( ('작업수량을 입력해주세요.'),'Gelato',{timeOut:'1000'});
+		} else if (parseInt(piq) > leftQy ) {
 			toastr.clear()
-			toastr.warning( ('작업수량이 너무 많습니다.'),'Gelato',{timeOut:'1000'});
-		} else if (parseInt(piq) > leftQy) {
+			// 생산량 > 잔량
+			toastr.error( ('작업수량이 너무 많습니다.'),'Gelato',{timeOut:'1000'});
+		} else if (parseInt(piq) > parseInt(pdq)) {
 			toastr.clear()
-			toastr.warning( ('작업수량이 너무 많습니다.'),'Gelato',{timeOut:'1000'});
+			// 생산량 > 수량
+			toastr.error( ('작업수량이 너무 많습니다.'),'Gelato',{timeOut:'1000'});
 		} else if (pio == '') {
 			toastr.clear()
-			toastr.success( ('일자별 우선순위를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+			toastr.warning( ('일자별 우선순위를 입력해주세요.'),'Gelato',{timeOut:'1000'});
 		} else {
 			RwmatrGrid.readData(1,{'lineId':pil, 'qy':piq , 'planDetaId':pdi }, true);
 			
