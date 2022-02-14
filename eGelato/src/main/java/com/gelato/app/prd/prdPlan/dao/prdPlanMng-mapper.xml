@@ -5,40 +5,42 @@
 <!-- 생산계획관리 - 주문서 modal  -->
 	<select id="OrderShtList" resultType="PrdPlanMngVO">
 		select order_id as order_id,
-			   order_dt as order_dt, 
-			   vend_name as vend_name,
-			   oust_dt as oust_dt,
-			   sum(qy) as qy
-	    from (SELECT  os.order_id as order_id, 
-	                    os.order_dt as order_dt, 
-	                    ve.vend_name as vend_name,
-	                    os.oust_dt as oust_dt,
-	                    osd.qy as qy
-	            FROM    order_sht os 
-	            JOIN    order_sht_deta osd
-	            ON      (os.order_id = osd.order_id)
-	            
-	            JOIN    vend ve
-	            ON      (os.vend_id = ve.vend_id)
-	            
-	            LEFT OUTER JOIN prod_plan pp
-	            ON      os.order_id = pp.order_id
-	            
-	            WHERE   pp.plan_id IS null
-	            OR      pp.fg ='CANCEL'
-	                 
-	            GROUP BY os.order_id, os.order_dt, ve.vend_name, os.oust_dt,osd.qy)
-            
+		       order_dt as order_dt, 
+		       vend_name as vend_name,
+		       oust_dt as oust_dt,
+		       sum(qy) as qy
+		from (SELECT  osd.order_sht_deta_id,
+		                os.order_id as order_id, 
+		                os.order_dt as order_dt, 
+		                ve.vend_name as vend_name,
+		                os.oust_dt as oust_dt,
+		                osd.qy as qy
+		        FROM    order_sht os 
+		        JOIN    order_sht_deta osd
+		        ON      (os.order_id = osd.order_id)
+		        
+		        JOIN    vend ve
+		        ON      (os.vend_id = ve.vend_id)
+		        
+		        LEFT OUTER JOIN prod_plan pp
+		        ON      os.order_id = pp.order_id
+		        
+		        WHERE   pp.plan_id IS null
+		        OR      pp.fg ='CANCEL'
+		             
+		        GROUP BY osd.order_sht_deta_id,os.order_id, os.order_dt, ve.vend_name, os.oust_dt,osd.qy)
+		    
 		group by order_id,order_dt,vend_name,oust_dt
-
+		        
 		MINUS
-		
+				
 	    select order_id as order_id,
 			   order_dt as order_dt, 
 			   vend_name as vend_name,
 			   oust_dt as oust_dt,
 			   sum(qy) as qy
-	    from (SELECT  os.order_id as order_id, 
+	    from (SELECT  osd.order_sht_deta_id,
+                        os.order_id as order_id, 
 	                    os.order_dt as order_dt, 
 	                    ve.vend_name as vend_name,
 	                    os.oust_dt as oust_dt,
@@ -56,9 +58,11 @@
 	            WHERE   pp.fg ='FINISH'
 	            OR      pp.fg ='PROCEE'
 	                 
-	            GROUP BY os.order_id, os.order_dt, ve.vend_name, os.oust_dt,osd.qy)
-	            
+	            GROUP BY osd.order_sht_deta_id,os.order_id, os.order_dt, ve.vend_name, os.oust_dt,osd.qy)
+			            
 		group by order_id,order_dt,vend_name,oust_dt
+
+
 	</select>
 	
 <!-- 생산계획관리 - 생산계획 modal -->
