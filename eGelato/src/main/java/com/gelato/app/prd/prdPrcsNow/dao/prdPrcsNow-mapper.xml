@@ -61,7 +61,7 @@
 			   e.eqm_name as eqm_name, 
 			   pn.fr_tm as fr_tm, 
 			   pn.to_tm as to_tm, 
-			   e.mngr as mngr, 
+			   f_emp_id_to_name(e.mngr) as mngr,
 			   pn.inpt_qy as inpt_qy, 
         	   (to_number(pn.inpt_qy)-to_number(nvl(pid.infer_qy,0))) as qy, 
         	   pid.infer_id as infer_id, 
