@@ -28,7 +28,7 @@
 					UPH
 					)
 		VALUES
-		(#{eqmId},#{eqmName},#{modelNo},#{vendId},#{tempMax},#{tempMin},#{chckPerd},#{regDt},#{mngr},#{eqmImg},#{purcDt},#{fg},#{spec},#{useYn},#{uph})
+		(#{eqmId},#{eqmName},#{modelNo},#{vendId},#{tempMax},#{tempMin},#{chckPerd},#{regDt},F_EMP_NAME_TO_ID(#{mngr}),#{eqmImg},#{purcDt},#{fg},#{spec},#{useYn},#{uph})
 	</insert>
 	
 	<!--설비 관리 페이지 - 설비조회  -->

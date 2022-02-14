@@ -237,7 +237,6 @@
 		
 		//수정버튼 클릭
 		$("#btnUpd").on("click", function(){
-			
 			gubun = $('#gubun option:selected').val();
 			
 			var yn = $("input[name=useYn]:checked").val();
@@ -280,6 +279,7 @@
 					eqmListGrid.readData(1,{'gubun':gubun},true);
 					
 					if(yn == 'N'){
+						console.log(yn);
 						if(confirm("비가동관리 페이지로 이동하시겠습니까?")){
 							$("#prcsId").attr("readOnly",true);
 							$("#nm").attr("readOnly",true);
