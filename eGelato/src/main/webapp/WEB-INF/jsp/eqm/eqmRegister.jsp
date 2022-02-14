@@ -51,7 +51,7 @@
 											name="useYn" value="N">N</td>
 										<th>설비구분</th>
 										<td><input id="fg" name="fg" required
-											style="width: 50px;" type="text">
+											style="width: 70px;" type="text">
 											<button id="btnFindFg" type="button" class="btn-modal"
 												data-bs-toggle="modal" aria-label="Close"></button> <input
 											type="text" id="fgName" name="fgName" style="width: 100px;"
@@ -82,7 +82,7 @@
 									<tr>
 										<th>등록자</th>
 										<td><input id="mngr" name="mngr" type="text"
-											value="${loginVO.name }" disabled></td>
+											value="${loginVO.name }" readonly></td>
 										<th>구매일자 *</th>
 										<td><input type="date" id="pureDt" name="pureDt" required></td>
 									</tr>
