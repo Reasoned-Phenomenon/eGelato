@@ -161,8 +161,8 @@ const prdtInstOustGrid =  new Grid({
 $(function () {
 	dialog = $( "#prdtStcmodal" ).dialog({
 		autoOpen: false,
-		height: 500,
-		width: 700,
+		height: 523,
+		width: 625,
 		modal: true
 	})
 });
