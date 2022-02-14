@@ -25,7 +25,7 @@ h1 {
 		        <tbody>
 		            <tr>
 		                <th>자재명</th>
-		                <td><input type="text" id="rwmNameM"></td>
+		                <td><input type="text" id="rwmNm"></td>
 		            </tr>
 		            <tr>
 		            	<th>자재코드</th>
@@ -44,14 +44,17 @@ h1 {
 var Grid = tui.Grid;
 
 //검색조건
-var rwmNameM;
+var rwmNm;
 var rwmatrId;
 
 document.getElementById("rwmatrSearch").addEventListener("click", function () {
-	rwmNameM = document.getElementById("rwmNameM").value;
+	rwmNm = document.getElementById("rwmNm").value;
 	rwmatrId = document.getElementById("rwmatrId").value;
 	
-	rwmatrListGrid.readData(1,{'rwmName':rwmNameM,
+	console.log(rwmNm);
+	console.log(rwmatrId);
+	
+	rwmatrListGrid.readData(1,{'rwmName':rwmNm,
 							   'rwmatrId':rwmatrId}, true);
 });
 

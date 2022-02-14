@@ -295,7 +295,7 @@ var rwmatrOustGrid = new Grid({
 				  sortable: true
 				},
 				{
-				  header: '담당자',
+				  header: '사유',
 				  name: 'remk',
 				  sortable: true ,
 				  formatter({value}) { // 추가
