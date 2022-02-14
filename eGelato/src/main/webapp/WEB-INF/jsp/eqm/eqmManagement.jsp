@@ -243,7 +243,8 @@
 			var yn = $("input[name=useYn]:checked").val();
 			var eqmId = $("#eqmId").val();
 			var eqmName = $("#eqmName").val();
-			
+			console.log(gubun)
+			console.log(yn)
 			/* var params = {
 			eqmId : eqmId,
 			eqmName : eqmName,
@@ -271,8 +272,11 @@
 		        cache: false,
 				data : data,
 				method :'POST',
+				error: function (res) {
+					console.log(res)
+				},
 				success : function(res){ 
-					
+					console.log('성공')
 					eqmListGrid.readData(1,{'gubun':gubun},true);
 					
 					if(yn == 'N'){
