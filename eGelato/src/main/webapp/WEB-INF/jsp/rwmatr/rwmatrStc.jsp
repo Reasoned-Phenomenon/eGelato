@@ -213,7 +213,6 @@ function callVendModal(){
 								  'vendName': vendName}, true);
 	});
 	
-
 </script>
 </body>
 </html>
