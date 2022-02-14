@@ -479,7 +479,7 @@
 		
 		if(pid == '') {
 			toastr.clear()
-			toastr.warning( ('지시일자를 입력해주세요.'),'Gelato',{timeOut:'1000'});
+			toastr.warning( ('작업일자를 입력해주세요.'),'Gelato',{timeOut:'1000'});
 		} else if (piq == '') {
 			toastr.clear()
 			toastr.warning( ('작업수량을 입력해주세요.'),'Gelato',{timeOut:'1000'});

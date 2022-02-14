@@ -11,7 +11,7 @@
 			   p.eqm_id as eqm_id, 
 			   e.eqm_name as eqm_name, 
 			   e.model_no as model_no, 
-			   e.mngr as mngr
+			   f_emp_id_to_name(e.mngr) as mngr
 		from prcs p join eqm e
 		    on p.eqm_id = e.eqm_id
 		<if test="prcsSelDeta != '' and prcsSelDeta != null">
@@ -24,7 +24,7 @@
 		select e.eqm_id as eqm_id, 
 			   e.eqm_name as eqm_name, 
 			   e.model_no as model_no, 
-			   e.mngr as mngr
+			   f_emp_id_to_name(e.mngr) as mngr
 		from eqm e left outer join prcs p
 		    on e.eqm_id = p.eqm_id
 		where p.prcs_id is null
