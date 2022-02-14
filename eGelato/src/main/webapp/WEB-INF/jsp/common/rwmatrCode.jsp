@@ -297,7 +297,7 @@ var rwmatrGrid = new Grid({
 		$(function () {
 			dialog = $( "#vendModal" ).dialog({
 				autoOpen: false,
-				height: 500,
+				height: 650,
 				width: 700,
 				modal: true
 				

@@ -32,7 +32,7 @@ var vendGrid = new Grid({
 	},
   	rowHeaders:[ 'rowNum'],
   	selectionUnit: 'row',
-  	bodyHeight: 400,
+  	bodyHeight: 450,
   	columns:[
   		  {
 		    header: '업체 코드',
