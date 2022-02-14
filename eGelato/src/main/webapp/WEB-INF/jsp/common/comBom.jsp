@@ -130,13 +130,7 @@ var bomGrid = new Grid({
            align: 'center'
 
          },
-         {
-             header: '비고',
-            name: 'remk',
-            editor:'text',
-            align: 'center'
-            
-         },
+        
          {
 
            header: '사용여부',
@@ -155,6 +149,13 @@ var bomGrid = new Grid({
                   type: GelatoSelect
             }
            
+         },
+         {
+             header: '비고',
+            name: 'remk',
+            editor:'text',
+            align: 'center'
+            
          }
       ]
 });
