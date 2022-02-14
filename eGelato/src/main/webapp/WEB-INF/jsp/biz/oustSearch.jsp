@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,44 +7,39 @@
 <title>출고 관리 페이지</title>
 </head>
 <body>
-
-	<div>
-	<br>
-		<h1>출고 관리</h1>
-	</div>
+	<h2>출고 관리</h2>
 
 	<form>
 		<div class="row">
-		<div class="col-sm-7">
-			
-	    	
-			<h3>주문서 현황</h3>
-			<hr>
-			<br>
-			
-			<div id="oustGrid"></div>
-			<br>
-			
-		</div>
-		<div class="col-sm-5">
-			<h3>입출고 현황</h3>
-			<div style="float: right;">
-			<button type="button" class="btn cur-p btn-outline-primary" id="delBtn">삭제</button>
-			<button type="button" class="btn cur-p btn-outline-primary" id="SaveBtn">저장</button>
-			</div>
-			<hr>
-			<div id="prdtInstOustGrid"></div>
-			<br>
-			<div class="col-sm-2">
-			
-			</div>
-		</div>
-	</div>
-</form>
+			<div class="col-sm-7">
 
-<div id="prdtStcmodal" title="완제품 재고"></div>
+				<h4>주문서 현황</h4>
+				<hr>
+				<br>
 
-<script>
+				<div id="oustGrid"></div>
+				<br>
+
+			</div>
+			<div class="col-sm-5">
+				<h4>입출고 현황</h4>
+				<div style="float: right; margin-bottom:10px; margin-top:15px;">
+					<button type="button" class="btn cur-p btn-outline-primary"
+						id="delBtn">삭제</button>
+					<button type="button" class="btn cur-p btn-outline-primary"
+						id="SaveBtn">저장</button>
+				</div>
+				<hr>
+				<div id="prdtInstOustGrid"></div>
+				<br>
+				<div class="col-sm-2"></div>
+			</div>
+		</div>
+	</form>
+
+	<div id="prdtStcmodal" title="완제품 재고"></div>
+
+	<script>
 
 let dialog;
 

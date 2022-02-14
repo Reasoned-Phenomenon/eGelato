@@ -64,6 +64,13 @@ th, td {
 	</div>
 
 	<script>
+		//토스트옵션
+		toastr.options = {
+				positionClass : "toast-top-center",
+				progressBar : true,
+				timeOut: 1500 // null 입력시 무제한.
+			}
+	
 		//인풋태그(우측) 일주일 단위로 설정하기
 		var d = new Date();
 		var nd = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7);
