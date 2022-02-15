@@ -23,8 +23,8 @@ th, td {
 					<tr>
 						<th>진행 구분</th>
 						<td><input type="radio" name="stFgRadio" id="stFg"
-							value="ACCEPT">진행 <input type="radio" name="stFgRadio"
-							id="stFgR" value="OUTSTC">완료 <input type="radio"
+							value="ACCEPT">접수 <input type="radio" name="stFgRadio"
+							id="stFgR" value="OUTSTC">출고 <input type="radio"
 							name="stFgRadio" id="stFgRi" value="전체" checked>전체</td>
 					</tr>
 					<tr>
