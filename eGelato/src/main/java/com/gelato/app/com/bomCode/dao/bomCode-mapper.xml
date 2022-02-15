@@ -28,9 +28,7 @@
 			<if test="nm !=null and nm !=''">
 			 	AND B.NM = #{nm}
 			</if>
-		    <if test="useYn !=null and useYn !=''">
-				AND A.USE_YN = #{useYn}
-			</if>
+		   
 		</where>   
 		ORDER BY  BOM_ID
 	</select>
