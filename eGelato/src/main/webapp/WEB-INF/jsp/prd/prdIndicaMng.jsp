@@ -641,6 +641,7 @@
 			
 			console.log(pdi);
 			list3 = RwmatrLotGrid.getData()
+			console.log('겟 데이터',list3);
 			//순서가 필요한 경우 -> ajax
 			
 			//생산지시 저장
