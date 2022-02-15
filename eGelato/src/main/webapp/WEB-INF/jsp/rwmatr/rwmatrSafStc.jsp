@@ -123,7 +123,8 @@ var rwmatrSafStcGrid = new Grid({
   		  {
 		    header: '자재코드',
 		    name: 'rwmatrId',
-		    sortable: true
+		    sortable: true,
+		    width: 100
 		  },
 		  {
 		    header: '자재명',
@@ -144,13 +145,7 @@ var rwmatrSafStcGrid = new Grid({
 		  },
 		  {
 		    header: '작업단위',
-		    align: 'right',
-		    name: 'wkUnit',
-	    	formatter({value}) { // 추가
-			  let a = `\${value}`
-		  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-		      return b;
-		    }
+		    name: 'wkUnit'
 		  },
 		  {
 		    header: '안전재고',
