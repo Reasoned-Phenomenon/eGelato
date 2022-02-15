@@ -112,6 +112,7 @@
     		on p.prdt_id = ppd.prdt_id
 		where l.line_id = #{lineId}
 			and ppd.plan_deta_id = #{planDetaId}
+			and b.use_yn = 'Y'
 		group by l.prdt_id, b.rwmatr_id, r.nm, b.qy, ppd.plan_deta_id
         
         UNION
@@ -131,6 +132,7 @@
     		on rw.rwmatr_id = ppd.prdt_id
 		where l.line_id = #{lineId}
 			and ppd.plan_deta_id = #{planDetaId}
+			and b.use_yn = 'Y'
 		group by l.prdt_id, b.rwmatr_id, r.nm, b.qy, ppd.plan_deta_id
 		
 		order by rwmatr_id

@@ -189,10 +189,10 @@ th, td {
 				calleqmId();
 			} else if (ev.columnName === 'eqmName' || ev.columnName === 'modelNo' || ev.columnName === 'mngr') {
 				toastr.clear()
-				toastr.error( ('공정코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				toastr.warning( ('설비코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
 			} else if (ev.columnName === 'prcsId') {
 				toastr.clear()
-				toastr.error( ('공정코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				toastr.warning( ('설비코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
 			} 
 			
 		});
@@ -253,16 +253,38 @@ th, td {
 		}
 	});
 	
+	function prcsInsert() {
+		for ( let j = 0 ; j < prcsMngList.getRowCount() ; j++) {
+			if(prcsMngList.getData()[j].prcsId == '' && prcsMngList.getData()[j].prcsSelDeta == '') {
+				toastr.clear()
+				toastr.warning( ('공정구분을 선택해주세요.'),'Gelato',{timeOut:'1000'});
+				return false
+			} else if (prcsMngList.getData()[j].prcsId == '' && prcsMngList.getData()[j].nm == '') {
+				toastr.clear()
+				toastr.warning( ('공정명을 입력해주세요.'),'Gelato',{timeOut:'1000'});
+				return false
+			} else if (prcsMngList.getData()[j].prcsId == '' && prcsMngList.getData()[j].eqmId == '') {
+				toastr.clear()
+				toastr.warning( ('설비를 선택해주세요.'),'Gelato',{timeOut:'1000'});
+				return false
+			}
+		}
+		return true
+	}
 	// 등록, 수정
 	btnIns.addEventListener("click", function() {
 		prcsMngList.blur();
-		if(confirm("저장하시겠습니까?")){ 
-			prcsMngList.request('modifyData', { showConfirm : false });
+		if (prcsInsert()) {
+			console.log(1212121212);
 			
-			toastr.clear()
-			toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} )
-			
-		}
+			if(confirm("저장하시겠습니까?")){ 
+				prcsMngList.request('modifyData', { showConfirm : false });
+				
+				toastr.clear()
+				toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} )
+				
+			}
+		} 
 	})
 	
 </script>

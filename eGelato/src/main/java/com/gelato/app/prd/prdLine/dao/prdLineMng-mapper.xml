@@ -130,7 +130,7 @@
 		       pr.nm as nm,
 		       e.eqm_id as eqm_id,
 		       e.eqm_name as eqm_name,
-		       e.mngr as mngr,
+		       f_emp_id_to_name(e.mngr) as mngr,
 		       pn.inpt_qy as inptQyT,
 		       sum(esn.infer_qy) as inferQyT,
 		       sum(esn.prod_qy) as prodQyT
