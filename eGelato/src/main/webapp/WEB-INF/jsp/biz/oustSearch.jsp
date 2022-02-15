@@ -210,8 +210,8 @@ function moveCR(gcr) {
 	for( let i=0 ; i<gcr.length ; i++){
 		
 		gcr[i].orderShtDetaId = orderShtDetaIdFlag;
-		gcr[i].rowKey = 1+rrc+i;
-		prdtInstOustGrid.appendRow(gcr[i],{at:1+rrc+i});
+		gcr[i].rowKey = rrc+i;
+		prdtInstOustGrid.appendRow(gcr[i],{at:rrc+i});
 		
 	} 
 	

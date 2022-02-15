@@ -90,11 +90,11 @@
 	
 	<!-- 해당일자 점검내역(건수) 조회 -->
 	<select id="eqmDayChck" resultType="EqmInsVO">
-		SELECT TO_DATE(TO_CHAR(CHCK_DT,'YYYY-MM-DD')) AS CHCK_DT,
+		SELECT CHCK_DT AS CHCK_DT,
 			   COUNT(EQM_ID) AS TOTAL
 		FROM CHCK 
 		WHERE CHCK_DT = CHCK_DT
-		<![CDATA[AND #{fromDayCkDate} <= TO_CHAR(CHCK_DT,'YYYY-MM-DD') AND #{toDayCkDate} >= TO_CHAR(CHCK_DT,'YYYY-MM-DD') GROUP BY TO_DATE(TO_CHAR(CHCK_DT,'YYYY-MM-DD'))]]>
+		<![CDATA[AND #{fromDayCkDate} <= TO_CHAR(CHCK_DT,'YYYY-MM-DD') AND #{toDayCkDate} >= TO_CHAR(CHCK_DT,'YYYY-MM-DD') GROUP BY CHCK_DT]]>
 	</select>
 	
 	

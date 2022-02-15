@@ -631,6 +631,7 @@
 	
 	// 등록
 	btnIns.addEventListener("click", function() {
+		
 		if(confirm("저장하시겠습니까?")) {
 			planDetaGrid.blur();
 			planIndicaGrid.blur();
