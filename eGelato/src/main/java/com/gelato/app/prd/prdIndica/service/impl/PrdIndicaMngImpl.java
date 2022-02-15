@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.gelato.app.prd.prdIndica.dao.PrdIndicaMngMapper;
 import com.gelato.app.prd.prdIndica.dao.PrdIndicaMngVO;
 import com.gelato.app.prd.prdIndica.service.PrdIndicaMngService;
-import com.gelato.app.vr.ModifyVO;
 
 @Service
 public class PrdIndicaMngImpl implements PrdIndicaMngService{
@@ -138,6 +137,7 @@ public class PrdIndicaMngImpl implements PrdIndicaMngService{
 		for(i=0 ; i<vo.size() ; i++) {
 			System.out.println(i);
 			System.out.println(vo.get(i));
+			System.out.println("유통기한 : "+vo.get(i).getExpdate());
 			pimMapper.insertRwmatrIstOust(vo.get(i));
 			System.out.println("------------------------------------------------------------");
 		}
