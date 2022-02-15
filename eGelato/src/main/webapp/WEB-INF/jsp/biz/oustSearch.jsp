@@ -87,7 +87,8 @@ var Grid = tui.Grid;
 			},
 			{
 			  header: '주문 수량',
-			  name: 'qy'
+			  name: 'qy',
+			  align: 'right'
 			}
 			
 		]
@@ -110,28 +111,41 @@ const prdtInstOustGrid =  new Grid({
 	columns:[
 	{
 		header: '제품 코드',
-		name: 'prdtId'	  
+		name: 'prdtId',
+		width:80
+		
 	},	
 	{
 		header : '완제품 LOT 번호',
-		name : 'lotNo'
+		name : 'lotNo',
+		width:120
+		
 	}, 
 	{
 		header : '일출고 날짜',
-		name : 'istOustDttm'
+		name : 'istOustDttm',
+		align: 'right',
+		width:80
 	},
 	{
 		header : '입고량',
-		name : 'istQy'
+		name : 'istQy',
+		align: 'right',
+		width:50
+		 
 	}, 
 	{
 		header : '출고량',
-		name : 'oustQy'
+		name : 'oustQy',
+		align: 'right',
+		width:50
 		
 	},
 	{
 		header : '유통기한',
-		name : 'expdate'
+		name : 'expdate',
+		align: 'right',
+		width:70
 	},
 	{
 	  header: '주문 상세 코드',

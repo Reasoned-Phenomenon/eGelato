@@ -73,7 +73,7 @@ var prdtStcGrid = new Grid({
 			header: '유통 기한',
 			name:'expdate',
 			align: 'right',
-			 width:110
+			width:110
 		  },
 		  {
 			header: '구 분',
