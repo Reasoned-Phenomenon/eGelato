@@ -132,16 +132,16 @@ th, td {
 					options : {
 						listItems : [ {
 							text : '합격',
-							value : 'Test01'
+							value : 'TEST01'
 						}, {
 							text : '수리',
-							value : 'Test02'
+							value : 'TEST02'
 						}, {
 							text : '교체',
-							value : 'Test03'
+							value : 'TEST03'
 						}, {
 							text : '정밀점검',
-							value : 'Test04'
+							value : 'TEST04'
 						} ]
 					}
 				},
