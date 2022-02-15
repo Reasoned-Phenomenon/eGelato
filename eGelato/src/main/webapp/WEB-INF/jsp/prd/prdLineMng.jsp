@@ -35,6 +35,9 @@
 
 	<div id="prcsModal" title="공정목록"></div>
 	<script>
+	
+	let pdi;
+	
 	$('#prdtDeta').hide();
 	
 	//토스트옵션
@@ -201,7 +204,7 @@
 		    		callprcsCode();
 			} else if( ev2.columnName === 'nm' || ev2.columnName === 'eqmId' || ev2.columnName === 'eqmName') {
 				toastr.clear()
-				toastr.error( ('공정코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
+				toastr.warning( ('공정코드를 선택해주세요.'),'Gelato',{timeOut:'1000'} );
 			}
 		});
 	
@@ -235,34 +238,51 @@
 		prcsModal.dialog( "close" );
 	}
 	
-	// 수정 등록
-	btnIns.addEventListener("click", function() {
-		
-		if(confirm("저장하시겠습니까?")) {
-			linePrcsGrid.blur();
-			
-			lrc = linePrcsGrid.getRowCount();
-			pdv = $('#prdtDeta').val();
-			lli = linePrcsGrid.getRow(0).lineId;
-			var i
-			
-			for ( i = 0 ; i< lrc ; i++) {
-				console.log(pdv);
-				linePrcsGrid.setValue(i,'prcsDeta',pdv);
-				linePrcsGrid.setValue(i,'prdtId',pdi);
-				linePrcsGrid.setValue(i,'ord',i+1);
-				linePrcsGrid.setValue(i,'lineId',lli);
-			}
-			
-			linePrcsGrid.request('modifyData',{showConfirm:false})
-			
-			toastr.clear()
-			toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} );
-			
-			for ( i = 0 ; i< lrc ; i++) {
-				linePrcsGrid.setValue(i,'ord','');
+	function vali() {
+		for ( let j = 0 ; j < linePrcsGrid.getRowCount() ; j++) {
+			if(linePrcsGrid.getData()[j].prcsId == '') {
+				toastr.clear()
+				toastr.warning( ('공정을 선택해주세요.'),'Gelato',{timeOut:'1000'});
+				return false
 			}
 		}
+		
+		return true
+	}
+	
+	// 수정 등록
+	btnIns.addEventListener("click", function() {
+		if (vali()) {
+			console.log(1212121212);
+			
+			if(confirm("저장하시겠습니까?")) {
+				linePrcsGrid.blur();
+				
+				lrc = linePrcsGrid.getRowCount();
+				pdv = $('#prdtDeta').val();
+				lli = linePrcsGrid.getRow(0).lineId;
+				
+				var i
+				
+				for ( i = 0 ; i< lrc ; i++) {
+					console.log(pdv);
+					linePrcsGrid.setValue(i,'prcsDeta',pdv);
+					linePrcsGrid.setValue(i,'prdtId',pdi);
+					linePrcsGrid.setValue(i,'ord',i+1);
+					linePrcsGrid.setValue(i,'lineId',lli);
+				}
+				
+				linePrcsGrid.request('modifyData',{showConfirm:false})
+				
+				toastr.clear()
+				toastr.success( ('저장되었습니다.'),'Gelato',{timeOut:'1000'} );
+				
+				for ( i = 0 ; i< lrc ; i++) {
+					linePrcsGrid.setValue(i,'ord','');
+				}
+			}
+		}
+		
 		
 	})
 </script>

@@ -5,7 +5,7 @@
 	<!-- BOM 전체 조회.-->
 	
 	<select id="findBomList" resultType="BomCodeVO">
-		SELECT  f_com_code_to_nm(A.FG) AS FG,
+		SELECT  A.FG AS FG,
 		        A.BOM_ID AS BOM_ID, 
 		        A.PRDT_ID AS PRDT_ID, 
 		        A.RWMATR_ID AS RWMATR_ID, 
@@ -28,9 +28,7 @@
 			<if test="nm !=null and nm !=''">
 			 	AND B.NM = #{nm}
 			</if>
-		    <if test="useYn !=null and useYn !=''">
-				AND A.USE_YN = #{useYn}
-			</if>
+		   
 		</where>   
 		ORDER BY  BOM_ID
 	</select>
@@ -114,9 +112,4 @@
 	          
 	   WHERE   BOM_ID = #{bomId}
 	</update>
-
-
-
-
-
 </mapper>

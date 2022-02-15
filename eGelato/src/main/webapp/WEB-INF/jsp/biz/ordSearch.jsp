@@ -197,7 +197,7 @@ th, td {
 		$(function() {
 			vendDialog = $("#vendListmodal").dialog({
 				autoOpen : false,
-				height : 500,
+				height : 600,
 				width : 700,
 				modal : true
 
@@ -208,7 +208,7 @@ th, td {
 		$(function() {
 			prdtDialog = $("#prdtListmodal").dialog({
 				autoOpen : false,
-				height : 500,
+				height : 600,
 				width : 600,
 				modal : true
 			})

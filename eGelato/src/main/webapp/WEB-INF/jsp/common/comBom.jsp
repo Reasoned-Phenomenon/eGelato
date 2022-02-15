@@ -24,8 +24,8 @@ th, td {
                   name="prdtId" readonly>
                   <button type="button" id="serachBtn" class="btn-modal"></button> <input
                   type="text" id="prdtNm" name="prdtNm" placeholder=" 제품명" readonly></td>
-               <th>사용여부</th>
-               <td><input type="checkBox" id="useYn" name="useYn" checked></td>
+              <!--   <th>사용여부</th>
+               <td><input type="checkBox" id="useYn" name="useYn" checked></td>-->
             </tr>
          </tbody>
       </table>
@@ -130,13 +130,7 @@ var bomGrid = new Grid({
            align: 'center'
 
          },
-         {
-             header: '비고',
-            name: 'remk',
-            editor:'text',
-            align: 'center'
-            
-         },
+        
          {
 
            header: '사용여부',
@@ -155,6 +149,13 @@ var bomGrid = new Grid({
                   type: GelatoSelect
             }
            
+         },
+         {
+             header: '비고',
+            name: 'remk',
+            editor:'text',
+            align: 'center'
+            
          }
       ]
 });
@@ -178,13 +179,16 @@ var bomGrid = new Grid({
       
       if (bomGrid.getRow(0) != null) {
          bomGrid.blur();
-       if (confirm("저장하시겠습니까?")) {
-        /*   bomGrid.request('modifyData',{
-            showConfirm : false
-         }); */
-         toastr.success('등록 되었습니다.','Gelato');
-         console.log(bomGrid.store.data.rawData[6].useYn);
+        if (confirm("저장하시겠습니까?")){
+        	  
+            bomGrid.request('modifyData',{
+              showConfirm : false
+           }); 
+           toastr.success('등록 되었습니다.','Gelato');
+         //  console.log(bomGrid.store.data.rawData[6].useYn);
         }
+   
+      
       } else {
          //alert("선택된 데이터가 없습니다.");
     	  toastr.error('등록 실패' ,'Gelato');
@@ -207,7 +211,7 @@ var bomGrid = new Grid({
    $(function () {
       dialog = $( "#bomModal" ).dialog({
          autoOpen: false,
-         height: 500,
+         height:550,
          width: 700,
          modal: true
          
@@ -232,7 +236,7 @@ var bomGrid = new Grid({
       console.log(Param);
       $("#prdtId").val(Param.prdtId);
       $("#prdtNm").val(Param.prdtNm);
-      $("#useYn").val(Param.useYn);
+     // $("#useYn").val(Param.useYn);
       
       dialog.dialog("close");
    }
@@ -244,20 +248,19 @@ var bomGrid = new Grid({
          var prdtNm = document.getElementById("prdtNm").value;
          
          
-         var useYn = $('input:checkbox[id="useYn"]').is(":checked") == true
+     /*     var useYn = $('input:checkbox[id="useYn"]').is(":checked") == true
 
          if (useYn == true) {
             useYn = "Y";
          } else {
             useYn = "N";
-         } 
+         }  */
          
          console.log(prdtId);
          console.log(prdtNm);
       
-         
-         
-         bomGrid.readData(1, {'prdtId':prdtId, 'prdtNm':prdtNm, 'useYn':useYn }, true);
+        // bomGrid.readData(1, {'prdtId':prdtId, 'prdtNm':prdtNm, 'useYn':useYn }, true);
+         bomGrid.readData(1, {'prdtId':prdtId, 'prdtNm':prdtNm }, true);
    });
    
     // 그리드 자재코드 셀 클릭하면 자재코드 모달창 띄우기.
@@ -265,7 +268,7 @@ var bomGrid = new Grid({
       dialog = $("#rwmatrCodeModal").dialog({
          modal:true,
          autoOpen:false,
-         height:400,
+         height:600,
          width:600,
          modal:true
       });
@@ -302,7 +305,7 @@ var bomGrid = new Grid({
       dialog = $("#prcsCodeModal").dialog({
          modal:true,
          autoOpen:false,
-         height:400,
+         height:600,
          width:600,
          modal:true
       });
