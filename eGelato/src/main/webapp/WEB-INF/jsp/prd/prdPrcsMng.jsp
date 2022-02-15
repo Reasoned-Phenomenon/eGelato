@@ -449,7 +449,7 @@ th, td {
 		console.log(mid);
 		window.open('${path}/prd/prcsMoveDialog.do?mid='+ mid, 
 					'공정이동표',
-					'width=1000,height=650,location=no,status=no,scrollbars=no,titlebar=no,,top=300');
+					'width=1000,height=650,location=no,status=no,scrollbars=no,titlebar=no,top=200,left=400');
 	}
 	
 	// 시작 이후 setInterval로 쿼리 새로 조회해오기
