@@ -93,6 +93,11 @@ var eproductStcList = new Grid({
   	selectionUnit: 'row',
 	bodyHeight: 580,
 	columns:[
+		  {
+		    header: '제품LOT번호',
+		    name: 'lotNo',
+		    sortable: true
+		  },
   		  {
 		    header: '제품코드',
 		    name: 'prdtId',
@@ -118,11 +123,6 @@ var eproductStcList = new Grid({
 			 header: '제조일자',
 			 name: 'prodDt',
 			 sortable: true
-		  },
-		  {
-		    header: '제품LOT번호',
-		    name: 'lotNo',
-		    sortable: true
 		  },
 		  {
 			 header: '유통기한',

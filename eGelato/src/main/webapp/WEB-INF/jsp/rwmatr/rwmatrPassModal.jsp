@@ -43,7 +43,8 @@ var rwmatrPassListGrid = new Grid({
  		  {
 		    header: '발주코드',
 		    name: 'orderId',
-		    sortable: true
+		    sortable: true,
+		    width: 135
 		  },
 		  {
 		    header: '발주디테일코드',

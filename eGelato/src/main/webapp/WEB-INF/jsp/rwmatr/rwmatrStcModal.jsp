@@ -80,7 +80,8 @@ var rwmatrStcListGrid = new Grid({
   		  {
 		    header: '자재LOT번호',
 		    name: 'lotNo',
-		    sortable: true
+		    sortable: true,
+		    width: 160
 		  },
   		  {
 		    header: '자재코드',
@@ -118,6 +119,7 @@ var rwmatrStcListGrid = new Grid({
 		  }
 		]
 });
+
 
 //커스텀 이벤트
 $("#btnchoose").on("click", function(){

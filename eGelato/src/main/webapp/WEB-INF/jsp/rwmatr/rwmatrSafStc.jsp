@@ -123,12 +123,14 @@ var rwmatrSafStcGrid = new Grid({
   		  {
 		    header: '자재코드',
 		    name: 'rwmatrId',
-		    sortable: true
+		    sortable: true,
+		    width: 100
 		  },
 		  {
 		    header: '자재명',
 		    name: 'nm',
-		    sortable: true
+		    sortable: true,
+		    width: 100
 		  },
 		  {
 		    header: '업체명',
@@ -143,14 +145,7 @@ var rwmatrSafStcGrid = new Grid({
 		  },
 		  {
 		    header: '작업단위',
-		    align: 'right',
-		    name: 'wkUnit',
-	    	formatter({value}) { // 추가
-			  let a = `\${value}`
-		  	  let b = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-		      return b;
-		    },
-		    sortable: true
+		    name: 'wkUnit'
 		  },
 		  {
 		    header: '안전재고',
@@ -197,12 +192,14 @@ var rwmatrUphGrid = new Grid({
 		  {
 		    header: '공정코드',
 		    name: 'prcsId',
-		    sortable: true
+		    sortable: true,
+		    width: 100
 		  },
 		  {
 		    header: '공정명',
 		    name: 'prcsNm',
-		    sortable: true
+		    sortable: true,
+		    width: 110
 		  },
 		  {
 		    header: '설비코드',

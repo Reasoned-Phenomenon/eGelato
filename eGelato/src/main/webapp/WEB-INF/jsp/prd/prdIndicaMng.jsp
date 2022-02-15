@@ -318,7 +318,7 @@
 			},{
 				header : '지시디테일코드',
 				name : 'indicaDetaId',
-				hidden : false
+				hidden : true
 			}],
 			summary: {
 		        height: 0,
