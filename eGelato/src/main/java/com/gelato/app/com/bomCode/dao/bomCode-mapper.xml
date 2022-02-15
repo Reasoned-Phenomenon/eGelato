@@ -21,6 +21,7 @@
 		JOIN PRCS C
 		ON  A.PRCS_ID = C.PRCS_ID
 		
+		
 		<where>
 			<if test="prdtId !=null and prdtId !=''">
 				AND A.PRDT_ID = #{prdtId}
