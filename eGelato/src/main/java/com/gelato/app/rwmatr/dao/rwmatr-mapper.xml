@@ -25,12 +25,12 @@
 	
 	
 	<select id="rwmatrSafStcList" resultType="RwmatrVO">
-		SELECT R.RWMATR_ID as RWMATR_ID, 
-			   V.VEND_NAME as VEND_NAME, 
-			   R.NM as NM, 
-			   R.SPEC as SPEC, 
-			   R.WK_UNIT as WK_UNIT, 
-			   R.SAF_STC as SAF_STC
+		SELECT R.RWMATR_ID AS RWMATR_ID, 
+			   V.VEND_NAME AS VEND_NAME, 
+			   R.NM AS NM, 
+			   F_COM_CODE_TO_NM(R.SPEC) AS SPEC, 
+			   F_COM_CODE_TO_NM(R.WK_UNIT) AS WK_UNIT, 
+			   R.SAF_STC AS SAF_STC
 		FROM RWMATR R JOIN VEND V
         ON R.VEND_ID = V.VEND_ID
         <where>
