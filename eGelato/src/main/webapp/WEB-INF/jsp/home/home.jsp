@@ -10,7 +10,7 @@
 <body>
     <div style="text-align: center; width:auto;">
       <img src="${path}/resources/images/main.jpg"
-         style="width:1700px; height: 877px;">
+         style="width:1700px; height: 1050px;">
    </div>
 </body>
 </html>
