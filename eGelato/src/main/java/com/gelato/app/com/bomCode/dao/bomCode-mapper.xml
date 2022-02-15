@@ -71,8 +71,8 @@
 	<select id="rwmatrList" resultType="BomCodeVO">
 	    SELECT PRDT_ID AS PRDT_ID,
                PRDT_NM AS PRDT_NM,
-               SPEC AS SPEC,
-               UNIT AS UNIT,
+               f_com_code_to_nm(SPEC) AS SPEC,
+               f_com_code_to_nm(UNIT) AS UNIT,
                SPEC AS SEPC_CODE,
                UNIT AS UNIT_CODE
         FROM   PRDT 
