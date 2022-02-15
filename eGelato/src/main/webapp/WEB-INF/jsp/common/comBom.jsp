@@ -244,7 +244,7 @@ var bomGrid = new Grid({
    // 조회 버튼 이벤트.
    FindBtn.addEventListener("click", function(){
           console.log("조회버튼 클릭");
-          var prdtId = document.getElementById("prdtId").value;
+         var prdtId = document.getElementById("prdtId").value;
          var prdtNm = document.getElementById("prdtNm").value;
          
          

@@ -83,7 +83,7 @@
 			for(let vo of checked){
 				
 				eqmInsGrid.appendRow({});
-				
+				console.log(vo.judt)
 				eqmInsGrid.setValue(eqmInsGrid.getRowCount()-1, 'eqmId', vo.eqmId);
 				eqmInsGrid.setValue(eqmInsGrid.getRowCount()-1, 'eqmName', vo.eqmName);
 				eqmInsGrid.setValue(eqmInsGrid.getRowCount()-1, 'chckPerd', vo.chckPerd);
