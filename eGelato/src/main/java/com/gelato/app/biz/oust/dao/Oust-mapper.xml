@@ -29,6 +29,7 @@
           FROM   PRDT_STC A JOIN PRDT_INST_OUST B
             ON   A.LOT_NO = B.LOT_NO
          WHERE   A.PRDT_ID = #{prdtId}
+          AND    A.QY != 0
      ORDER BY    EXPDATE ASC 
 	</select>
 	
