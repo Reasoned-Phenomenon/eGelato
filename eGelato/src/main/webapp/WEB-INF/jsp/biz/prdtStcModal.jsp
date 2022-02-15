@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,16 +13,22 @@ h1 {
 </style>
 <body>
 	<br>
-	<h1>완제품 재고 현황</h1><br>
-	  <form>
-		<button type="button" id="checkBtn" class="btn cur-p btn-outline-primary">확인</button>
-	  	주문 수량 : <input readonly="true" id="targetQyInput">
-	  	선택된 수량: <input readonly="true" id="selectedQyInput">
+	<h1>완제품 재고 현황</h1>
+	<br>
+	<form>
+		<div style="margin-bottom:10px;">
+			주문 수량 <input type="text" id="targetQyInput" readonly> 
+			선택된 수량 <input type="text" id="selectedQyInput" readonly>
+		</div>
+		<div id="prdtStcGrid"></div>
+
+		<div style="text-align: center; margin-top: 10px;">
+			<button type="button" id="checkBtn"
+				class="btn cur-p btn-outline-primary">확인</button>
+		</div>
 	</form>
-	
-	<div id="prdtStcGrid" style="width: 140%"></div>
-	
-<script>
+
+	<script>
 var Grid = tui.Grid;	
 
 // 변수 선언.
@@ -41,39 +47,34 @@ var prdtStcGrid = new Grid({
   	rowHeaders:[ 'checkbox','rowNum'],
   	selectionUnit: 'row',
   	bodyHeight: 300,
-  	width:600,
   	columns:[
   		  {
 		    header: '완제품 LOT 번호',
 		    name: 'lotNo',
 		    align: 'center',
-		    width:120
+		    width: 160
 		  },
 		  {
 		    header: '완제품 수량',
 		    name: 'qy',
-		    align: 'right',
-		    width:80
+		    align: 'right'
 		  },
 	
 		  {
 		    header: '출고량',
 		    name: 'oustQy',
 		    align: 'right',
-		    editor: 'text',
-		    width:80
+		    editor: 'text'
 		  },
 		  {
 		    header: '제조 일자',
 		    name: 'prodDt',
-		    align: 'right',
-		    width:110
+		    align: 'right'
 		  },
 		  {
 			header: '유통 기한',
 			name:'expdate',
-			align: 'right',
-			width:110
+			align: 'right'
 		  },
 		  {
 			header: '구 분',
@@ -224,6 +225,6 @@ prdtStcGrid.on('uncheck',function () {
 	calcOustQy ();
 })	
 	
-</script> 
+</script>
 </body>
 </html>
