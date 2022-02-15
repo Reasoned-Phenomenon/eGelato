@@ -105,10 +105,12 @@ th, td {
 			bodyHeight : 550,
 			columns : [ {
 				header : '생산계획코드',
-				name : 'planId'
+				name : 'planId',
+				width : 200
 			}, {
 				header : '계획명',
 				name : 'name',
+				width : 200
 			}, {
 				header : '상세계획번호',
 				name : 'planDetaId',
@@ -122,17 +124,21 @@ th, td {
 				header : '계획량',
 				name : 'qy',
 				align : 'right',
+				width : 70
 			}, {
 				header : '작업우선순위',
 				name : 'priort',
 				align : 'right',
+				width : 100
 			}, {
 				header : '생산일수',
 				name : 'prodDcnt',
 				align : 'right',
+				width : 70
 			}, {
 				header : '진행구분',
 				name : 'fg',
+				width : 100
 			}, {
 				header : '비고',
 				name : 'remk',
