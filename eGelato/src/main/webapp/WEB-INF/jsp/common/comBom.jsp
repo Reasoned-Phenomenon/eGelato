@@ -259,7 +259,6 @@ var bomGrid = new Grid({
          console.log(prdtId);
          console.log(prdtNm);
       
-         
         // bomGrid.readData(1, {'prdtId':prdtId, 'prdtNm':prdtNm, 'useYn':useYn }, true);
          bomGrid.readData(1, {'prdtId':prdtId, 'prdtNm':prdtNm }, true);
    });
