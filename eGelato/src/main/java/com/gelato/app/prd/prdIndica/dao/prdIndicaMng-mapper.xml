@@ -274,7 +274,7 @@
 				        sysdate,
 				        '0',
 				        #{oustQy},
-				        to_char(#{expdate}, 'yyyyMMdd')
+				        #{expdate}
 				        )
 			</otherwise>
 			
