@@ -20,7 +20,7 @@ public interface PrdIndicaMngMapper {
 	List<PrdIndicaMngVO> chooseRwmatrId(PrdIndicaMngVO vo);
 	
 	//생산지시 insert
-	int insertPrdIndica(String string);
+	int insertPrdIndica(String planDetaId);
 	
 	//생산지시디테일 insert
 	int insertPrdIdicaDeta(PrdIndicaMngVO vo);
