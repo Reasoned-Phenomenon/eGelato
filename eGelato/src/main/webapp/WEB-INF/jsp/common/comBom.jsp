@@ -24,8 +24,8 @@ th, td {
                   name="prdtId" readonly>
                   <button type="button" id="serachBtn" class="btn-modal"></button> <input
                   type="text" id="prdtNm" name="prdtNm" placeholder=" 제품명" readonly></td>
-               <th>사용여부</th>
-               <td><input type="checkBox" id="useYn" name="useYn" checked></td>
+              <!--   <th>사용여부</th>
+               <td><input type="checkBox" id="useYn" name="useYn" checked></td>-->
             </tr>
          </tbody>
       </table>
@@ -236,7 +236,7 @@ var bomGrid = new Grid({
       console.log(Param);
       $("#prdtId").val(Param.prdtId);
       $("#prdtNm").val(Param.prdtNm);
-      $("#useYn").val(Param.useYn);
+     // $("#useYn").val(Param.useYn);
       
       dialog.dialog("close");
    }
@@ -248,20 +248,19 @@ var bomGrid = new Grid({
          var prdtNm = document.getElementById("prdtNm").value;
          
          
-         var useYn = $('input:checkbox[id="useYn"]').is(":checked") == true
+     /*     var useYn = $('input:checkbox[id="useYn"]').is(":checked") == true
 
          if (useYn == true) {
             useYn = "Y";
          } else {
             useYn = "N";
-         } 
+         }  */
          
          console.log(prdtId);
          console.log(prdtNm);
       
-         
-         
-         bomGrid.readData(1, {'prdtId':prdtId, 'prdtNm':prdtNm, 'useYn':useYn }, true);
+        // bomGrid.readData(1, {'prdtId':prdtId, 'prdtNm':prdtNm, 'useYn':useYn }, true);
+         bomGrid.readData(1, {'prdtId':prdtId, 'prdtNm':prdtNm }, true);
    });
    
     // 그리드 자재코드 셀 클릭하면 자재코드 모달창 띄우기.
