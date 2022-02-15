@@ -678,6 +678,7 @@
 					console.log(result);
 					
 					list3 = RwmatrLotGrid.getData()
+					console.log('겟 데이터',list3);
 					
 					$.ajax({
 						url : "${path}/prd/modifyInptRwmatr.do?planDetaId=" + pdi,
