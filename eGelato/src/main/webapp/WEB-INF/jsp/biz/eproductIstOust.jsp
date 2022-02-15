@@ -157,6 +157,11 @@ var eprdtIstGrid = new Grid({
 	width:1500,
 	columns:[
 				{
+				  header: '제품LOT번호',
+				  name: 'lotNo',
+				  sortable: true
+				},
+				{
 				  header: '제품코드',
 				  name: 'prdtId',
 				},
@@ -179,11 +184,6 @@ var eprdtIstGrid = new Grid({
 				{
 				  header: '입고일자',
 				  name: 'istOustDttm',
-				  sortable: true
-				},
-				{
-				  header: '제품LOT번호',
-				  name: 'lotNo',
 				  sortable: true
 				},
 				{
