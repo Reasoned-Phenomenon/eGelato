@@ -139,6 +139,7 @@ public class PrdIndicaMngImpl implements PrdIndicaMngService{
 			System.out.println(i);
 			System.out.println(vo.get(i));
 			pimMapper.insertRwmatrIstOust(vo.get(i));
+			System.out.println("------------------------------------------------------------");
 		}
 		return 0;
 	}
