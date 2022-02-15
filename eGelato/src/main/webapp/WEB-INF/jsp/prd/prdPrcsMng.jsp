@@ -149,10 +149,12 @@ th, td {
 			selectionUnit : 'row',
 			columns : [ {
 				header : '진행공정코드',
-				name : 'prcsNowId'
+				name : 'prcsNowId',
+				width : 95
 			}, {
 				header : '공정코드',
-				name : 'prcsId'
+				name : 'prcsId',
+				width : 95
 			}, {
 				header : '공정명',
 				name : 'nm',
@@ -170,15 +172,15 @@ th, td {
 			},{
 				header : '투입량',
 				name : 'inptQyT',
-				width : 70
+				width : 55
 			},{
 				header : '불량량',
 				name : 'inferQyT',
-				width : 70
+				width : 55
 			},{
 				header : '생산량',
 				name : 'prodQyT',
-				width : 70
+				width : 55
 			},{
 				header : '시작시간',
 				name : 'frTm',
@@ -215,17 +217,17 @@ th, td {
 				header : '시작시간',
 				name : 'startTm',
 				hidden : false,
-				width : 90
+				width : 80
 			},{
 				header : '종료시간',
 				name : 'endTm',
 				hidden : false,
-				width : 90
+				width : 80
 			},{
 				header : '상태',
 				name : 'psSt',
 				hidden : false,
-				width : 90
+				width : 70
 			}]
 		});
 		
@@ -449,7 +451,7 @@ th, td {
 		console.log(mid);
 		window.open('${path}/prd/prcsMoveDialog.do?mid='+ mid, 
 					'공정이동표',
-					'width=1000,height=650,location=no,status=no,scrollbars=no,titlebar=no,,top=300');
+					'width=1000,height=650,location=no,status=no,scrollbars=no,titlebar=no,top=200,left=400');
 	}
 	
 	// 시작 이후 setInterval로 쿼리 새로 조회해오기
