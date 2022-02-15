@@ -41,7 +41,7 @@ var prdtStcGrid = new Grid({
   	rowHeaders:[ 'checkbox','rowNum'],
   	selectionUnit: 'row',
   	bodyHeight: 300,
-  	width:610,
+  	width:600,
   	columns:[
   		  {
 		    header: '완제품 LOT 번호',
@@ -52,28 +52,28 @@ var prdtStcGrid = new Grid({
 		  {
 		    header: '완제품 수량',
 		    name: 'qy',
-		    align: 'center',
+		    align: 'right',
 		    width:80
 		  },
 	
 		  {
 		    header: '출고량',
 		    name: 'oustQy',
-		    align: 'center',
+		    align: 'right',
 		    editor: 'text',
 		    width:80
 		  },
 		  {
 		    header: '제조 일자',
 		    name: 'prodDt',
-		    align: 'center',
+		    align: 'right',
 		    width:110
 		  },
 		  {
 			header: '유통 기한',
 			name:'expdate',
-			align: 'center',
-			 width:110
+			align: 'right',
+			width:110
 		  },
 		  {
 			header: '구 분',

@@ -57,6 +57,7 @@
 			AND VEND_NAME LIKE '%'||#{vendName}||'%'
 		</if>
 	</where>
+	ORDER BY VEND_ID
 </select>
 
 <!-- 주문서에서 제품코드 검색 modal -->
@@ -68,6 +69,7 @@
 	 		AND PRDT_NM LIKE '%'||#{prdtNm}||'%'
 	 	</if>
 	 </where>
+	 ORDER BY PRDT_ID
 </select>
 
 </mapper>
