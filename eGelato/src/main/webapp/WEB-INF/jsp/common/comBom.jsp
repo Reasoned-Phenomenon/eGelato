@@ -225,7 +225,7 @@ var bomGrid = new Grid({
       dialog.dialog( "open" );
       
        // 컨트롤러에 보내주고 따로 모달은 jsp 만들 필요가 없으니깐  
-       $('#bomModal').load("${path}/biz/prdtModal.do",function () {
+       $('#bomModal').load("${path}/com/bomModal.do",function () {
           console.log('제품검색')
       })
       

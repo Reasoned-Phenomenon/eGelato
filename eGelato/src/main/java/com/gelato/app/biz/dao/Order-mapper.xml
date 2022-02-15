@@ -62,7 +62,7 @@
 
 <!-- 주문서에서 제품코드 검색 modal -->
 <select id="prdtList" resultType="OrderVO">
-	 SELECT PRDT_ID, PRDT_NM, SPEC
+	 SELECT PRDT_ID, PRDT_NM, F_COM_CODE_TO_NM(SPEC) AS SPEC
 	 FROM   PRDT
 	 <where>
 	 	<if test="prdtNm !=null and prdtNm !=''">
