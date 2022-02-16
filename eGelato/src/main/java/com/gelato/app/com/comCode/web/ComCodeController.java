@@ -36,10 +36,10 @@ public class ComCodeController {
 		return true;
 	}
 	
-	@RequestMapping("/com/comModal.do")
-	public String getModal() {
-		System.out.println("modal");
-		return "/common/comModal";
-	}
+//	@RequestMapping("/com/comModal.do")
+//	public String getModal() {
+//		System.out.println("modal");
+//		return "/common/comModal";
+//	}
 	
 }
