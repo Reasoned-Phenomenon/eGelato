@@ -48,6 +48,13 @@ let flag;
 
 let orderShtDetaIdFlag;
 
+//토스트
+toastr.options = {
+		positionClass : "toast-top-center",
+		progressBar : true,
+		timeOut: 1500 
+		}
+		
 // 그리드 생성
 var Grid = tui.Grid;
 
@@ -220,7 +227,7 @@ function moveCR(gcr) {
  	//저장 버튼
 	SaveBtn.addEventListener("click", function(){	
 		console.log(prdtInstOustGrid.getRow(0))
-		if (prdtInstOustGrid.getRow(0) != null) {
+		 if (prdtInstOustGrid.getRow(0) != null) {
 			
 			if (confirm("저장하시겠습니까?")) {
 				 flag = 'O'
@@ -237,7 +244,7 @@ function moveCR(gcr) {
 			//토스트
 			toastr.clear();
 			toastr.error('입력된 값이 없습니다.','Gelato');
-		}
+		} 
 		
 	});
  	
