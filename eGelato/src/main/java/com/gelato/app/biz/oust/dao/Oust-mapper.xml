@@ -23,13 +23,14 @@
                  A.PROD_DT AS PROD_DT,
                  A.EXPDATE AS EXPDATE,
                  B.IST_OUST_DTTM AS IST_OUST_DTTM,
-                 B.IST_QY AS IST_QY,
-                 B.OUST_QY AS OUST_QY
+                 B.IST_QY AS IST_QY
+               
                  
           FROM   PRDT_STC A JOIN PRDT_INST_OUST B
             ON   A.LOT_NO = B.LOT_NO
          WHERE   A.PRDT_ID = #{prdtId}
-     ORDER BY    EXPDATE ASC 
+          AND    A.QY != 0
+     ORDER BY   EXPDATE ASC 
 	</select>
 	
 	<!-- 완제품 입출고 테이블. -->
